@@ -1,26 +1,28 @@
 # Next safe action
 
-## Checkpoint 326 complete
+## Checkpoint 327 complete
 
 Current authority:
 
-`Checkpoint 326 — MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1`
+`Checkpoint 327 — SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
 
 Verification:
 
-- multiplayer matrix: `334/334 PASS`
-- player counts certified: `1, 2, 3, 4`
-- exactly one owned investigator per player: `PASS`
-- unique control map: `PASS`
-- independent player knowledge partitions: `PASS`
-- Keeper knowledge exposed: `0`
-- Player Interface V1 isolated per player: `PASS`
-- Normal/Libre open prompt: `PASS`
-- assisted 3 choices + 1 free action: `PASS`
-- foreign-player knowledge cannot authorize a suggestion: `PASS`
-- launch chain through `SESSION_READY`: `PASS`
-- failed character transaction leaves other character states unchanged: `PASS`
-- wrong-owner attachment fails without commit advance: `PASS`
+- save/resume matrix: `71/71 PASS`
+- player counts restored: `1, 2, 3, 4`
+- all five `PASS_REAL` scenarios roundtrip: `PASS`
+- exact selected scenario revalidation: `PASS`
+- exact commit sequence restore: `PASS`
+- next commit = saved commit + 1: `PASS`
+- control map / ownership roundtrip: `PASS`
+- Player Interface V1 roundtrip: `PASS`
+- PV/SAN/PM/Chance/conditions/inventory roundtrip: `PASS`
+- independent knowledge partitions roundtrip: `PASS`
+- Keeper→Player leaks: `0`
+- HMAC-SHA256 save authentication: `PASS`
+- tampered / wrong-key / semantic-invalid saves: fail closed
+- dirty restore target: blocked
+- Checkpoint 326 regression: `334/334 PASS`
 - Checkpoint 325 regression: `31/31 PASS`
 - Checkpoint 315/native core regressions: `5/5 PASS`
 
@@ -36,19 +38,17 @@ Scenario status now:
 
 Proceed with:
 
-`SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
+`STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
 
 Work order:
 
-1. Save and restore the selected scenario identity and certification authority without reselecting or silently downgrading the scenario.
-2. Persist and restore the full `SESSION_READY` interface record, player list and exact control map for 1–4 players.
-3. Persist and restore each player's PV, SAN, PM, Chance, injuries/conditions and actual inventory.
-4. Persist and restore independent player knowledge partitions; Keeper knowledge must never enter a resumed player projection.
-5. Verify resume does not duplicate, skip or reorder committed scenario/session state and does not invent a new commit history.
-6. Detect missing, corrupted or tampered save state fail-closed before player narration resumes.
-7. Re-run the complete 1–4 player matrix after resume and keep all five scenarios `PASS_REAL`.
-8. Produce a new checkpoint before beginning deterministic Strict Replay integration.
-
-After this milestone, continue with `STRICT_REPLAY_INTERFACE_SCENARIO_INTEGRATION_V1`.
+1. Record a deterministic committed action/journal sequence before a save boundary.
+2. Save through Checkpoint 327 and restore into a fresh engine.
+3. Continue the sequence after resume and prove commit/event ordering is identical to an uninterrupted control run.
+4. Verify roll-ledger identities, event hashes and canonical state digest before and after the save boundary.
+5. Detect duplicated, skipped, reordered or modified replay events fail closed.
+6. Verify replay continuity independently for 1–4 players without merging knowledge partitions.
+7. Keep all five scenario certification statuses unchanged and keep Keeper data off player replay surfaces.
+8. Produce a separate checkpoint before packaging the certified offline runtime / APK path.
 
 Automatic downgrade is forbidden.
