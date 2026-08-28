@@ -1,27 +1,29 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V5",
-  "status": "CHECKPOINT_317_SAFE_TRANSITION_MILESTONE_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V6",
+  "status": "CHECKPOINT_318_BRUME_PATH_PROOF_VERIFIED",
   "current_authority": {
-    "checkpoint": 317,
-    "checkpoint_id": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
-    "status": "VERIFIED_MILESTONE_NOT_RELEASE",
-    "checkpoint_record": "patches/checkpoint317/CHECKPOINT_317.json",
-    "parent_checkpoint": 316,
-    "parent_checkpoint315_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+    "checkpoint": 318,
+    "checkpoint_id": "SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1",
+    "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
+    "checkpoint_record": "patches/checkpoint318/CHECKPOINT_318.json",
+    "checkpoint_record_sha256": "2e7ca4f410475695828847eb019a21a271bdb357616343c7c1af7d9ca8e8af71",
+    "parent_checkpoint": 317,
     "tests": {
-      "chunk317": "12/12 PASS",
+      "chunk318": "15/15 PASS",
+      "checkpoint317_regression": "PASS",
       "checkpoint316_regression": "PASS",
       "checkpoint315_regression": "PASS",
       "native_core": "PASS"
     },
-    "safe_transition_recovery": {
-      "scenario4": 8,
-      "scenario5": 1,
-      "scenario6": 1,
-      "scenario7": 0,
-      "pass_real_promotions": 0
+    "scenario4": {
+      "path_status": "PASS_REAL_CANDIDATE",
+      "pass_real": false,
+      "promotion_applied": false,
+      "proved_path_length": 2,
+      "start": "BRUME_NODE_MAIRIE",
+      "terminal": "BRUME_TERMINAL_MAREE_REFERMEE"
     },
-    "next_phase": "SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1"
+    "next_phase": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1"
   },
   "historical_status_invariants": {
     "scenario3": "PASS_REAL",
@@ -31,6 +33,7 @@
     "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
   },
   "authority_order": [
+    "CHECKPOINT_318_VERIFIED_BRUME_PATH_PROOF_MILESTONE",
     "CHECKPOINT_317_VERIFIED_SAFE_TRANSITION_MILESTONE",
     "CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE",
     "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
@@ -40,8 +43,8 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
+    "path_proof_does_not_self_promote": true,
     "source_text_must_not_be_republished_to_public_repository": true,
-    "ambiguous_or_inferred_transition_fails_closed": true,
-    "scenario_pass_real_status_requires_complete_source_backed_executable_path": true
+    "scenario_pass_real_status_requires_separate_release_audit": true
   }
 }
