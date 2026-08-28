@@ -1,0 +1,46 @@
+{
+  "schema":"SOLIDSTATE_SCENARIO5_PASS_REAL_RELEASE_321_V1",
+  "scenario_key":"scenario5",
+  "scenario_id":"ANTRE-ABOMINATION-SOURCE",
+  "title":"L'Antre de l'abomination",
+  "parent_checkpoint":320,
+  "parent_checkpoint_record_sha256":"d4f1ee742c546f7a8b28c3853393e7e292c0184600c99d3d1cdfe0dcba035697",
+  "checkpoint320_path_artifact_sha256":"fc35640258ed28a56de6aa055e228223b91fbf0e39595475e8d502f03f517b28",
+  "source_pdf_sha256":"4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb",
+  "source_layout_sha256":"adb1e8c0c9e525e32f6f5f4dde4e9c9d87a651e7f830b1c14ef8b23f5c6c5467",
+  "promotion_source":"SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
+  "path_status":"PASS_REAL_CANDIDATE",
+  "path_length":10,
+  "terminal":"ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION",
+  "release_class":"PASS_REAL",
+  "pass_real":true,
+  "player_keeper_leaks":0,
+  "historical_pass_real_certificate_reactivated":false,
+  "checks":{
+    "source_identity":"PASS",
+    "source_validation":"PASS",
+    "coverage_zero_open":"PASS",
+    "source_backed_path_proof":"PASS",
+    "generic_route_execution":"PASS",
+    "source_authorized_open_epilogue":"PASS",
+    "knowledge_isolation":"PASS",
+    "player_safe_projection":"PASS",
+    "resolver_promotion":"PASS",
+    "scenario_selection_selectable":"PASS",
+    "tamper_fail_closed":"PASS",
+    "status_regression":"PASS",
+    "historical_certificate_not_authority":"PASS"
+  },
+  "provenance":{
+    "coverage_ledger_sha256":"2d7cb929f3325f84e734194ae78150ac8cbf15049edb61a7c8945de209b00ba3",
+    "historical_certificate_sha256":"a7828c9d498a879d669d0a35ca98b5300d4c1a123e30c3e5846f78d41a991d16",
+    "historical_build_sha256":"3fbe28764c12d443744188b88f2e53354827d1a83de12e985b290d4306e2825e",
+    "source_first_pass_zip_sha256":"ef759f5108f3d0292a69dae82c65302334baa47f6f899bc7546044f3f9e6551a"
+  },
+  "anti_false_promotion":{
+    "checkpoint320_path_proof_separate_from_release":true,
+    "historical_certificate_provenance_only":true,
+    "release_requires_all_checks":true,
+    "source_text_republished":false
+  }
+}
