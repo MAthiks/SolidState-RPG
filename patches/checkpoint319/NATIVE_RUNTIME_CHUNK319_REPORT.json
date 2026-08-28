@@ -1,0 +1,33 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK319_REPORT_V1",
+  "checkpoint_parent": 318,
+  "milestone": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "tests_total": 18,
+  "tests_passed": 18,
+  "tests_failed": 0,
+  "status": "PASS",
+  "scenario4_release_status": "PASS_REAL",
+  "pass_real_promotions": 1,
+  "promotion_target": "scenario4",
+  "key_checks": [
+    "dual_source_preflight_and_pair_identity",
+    "knowledge_firewall_zero_leaks",
+    "protected_release_readiness_all_pass",
+    "source_backed_path_reproves",
+    "generic_execution_ledger_exact",
+    "release_certificate_gate",
+    "leak_tamper_fails_closed",
+    "missing_release_check_fails_closed",
+    "scenario4_resolver_promoted_by_release_certificate",
+    "certification_eligibility_now_true",
+    "anti_false_promotion_gate_accepts_only_after_resolver_pass_real",
+    "scenario_selection_interface_marks_brume_selectable",
+    "scenario_selection_selects_brume",
+    "player_selection_surface_has_no_keeper_evidence",
+    "historical_classification_preserved_not_rewritten",
+    "scenario_status_regression",
+    "checkpoint315_regression",
+    "native_core_regression"
+  ],
+  "note": "Source texts are not republished; release evidence stores only source refs/hashes."
+}
