@@ -1,34 +1,41 @@
 # Official development checkpoint
 
-## Checkpoint 325 — VERIFIED SCENARIO 7 RELEASE
+## Checkpoint 326 — VERIFIED MULTIPLAYER 1–4 CERTIFICATION
 
-- Checkpoint: `325`
-- ID: `SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
-- Parent: `324 — SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Record: `patches/checkpoint325/CHECKPOINT_325.json`
-- Record Git blob SHA-1: `9cd353b6ba666d5bd44c7b8e81adf47c7fc7c6e4`
+- Checkpoint: `326`
+- ID: `MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1`
+- Parent: `325 — SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
+- Record: `patches/checkpoint326/CHECKPOINT_326.json`
+- Record Git blob SHA-1: `64302d18fb12cfb2a6fba4968b10c8423211bc73`
 
 ## Certified scope
 
-Checkpoint 325 performs the release audit required by Checkpoint 324 and promotes only scenario7 — L’Explorateur assassiné — to `PASS_REAL`.
+Checkpoint 326 certifies the native runtime for 1–4 independent players. The certified contract requires exactly one owned investigator per player, unique control, separate player-visible knowledge, no Keeper-knowledge projection, fail-closed cross-player control, and per-character transaction isolation.
 
-The audit independently re-proves the ten-transition source-backed investigation path, verifies the original source PDF and source-layout identities, preserves the historical investigation topology, requires `0 / 107` clue-to-scene anchors as causal edges, verifies zero Keeper→Player leakage, tests resolver/interface promotion, and rejects tampered release evidence fail-closed.
+Player Interface V1 is verified independently for every supported player count. Each player receives only their own PV/SAN/PM/Chance/conditions/inventory projection; Normal/Libre remains an open prompt; assisted mode remains exactly `3 choices + 1 free action`; and a suggestion that requires another player's knowledge is blocked.
+
+The launch chain is also certified for 1, 2, 3 and 4 players through `SESSION_READY` with the exact player→character control map.
+
+## Runtime correction discovered by the audit
+
+The pre-326 native `SolidStateEngine.attach_character()` accepted a character even when `characters.owner_id` belonged to another player. Checkpoint 326 adds an engine-level ownership gate and foreign-control guard. Invalid attachment now returns a rollback result without changing canonical state, SQL party mapping or commit sequence.
 
 ## Verification
 
-- `run_tests_chunk325.py`: `31/31 PASS`
-- Checkpoint 324 isolated regression: `25/25 PASS`
-- Checkpoint 323 isolated regression: `31/31 PASS`
+- `run_tests_chunk326.py`: `334/334 PASS`
+- Checkpoint 325 regression: `31/31 PASS`
 - Checkpoint 315 regression: `5/5 PASS`
 - native runtime regression: `5/5 PASS`
-- original source PDF SHA-256: `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143` — `PASS`
-- source-layout SHA-256: `7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3` — `PASS`
-- aggregate source-evidence digest: `PASS`
-- Keeper→Player leaks: `0`
-- clue-anchor causal edges used: `0`
-- Scenario Selection Interface: scenario7 selectable only with valid 325 certificate
+- historical multiplayer Chunk 147: `3/3 PASS`
+- historical multiplayer Chunk 148: `2/2 PASS`
+- historical multiplayer Chunk 168: `3/3 PASS`
+- supported player counts: `1, 2, 3, 4`
+- Keeper knowledge exposed: `0`
+- cross-player character control: blocked
+- wrong-owner attachment: blocked before commit
+- all five certified scenarios remain `PASS_REAL`
 
-## Scenario status after Checkpoint 325
+## Scenario status after Checkpoint 326
 
 - scenario3: `PASS_REAL`
 - scenario4: `PASS_REAL`
@@ -38,13 +45,13 @@ The audit independently re-proves the ten-transition source-backed investigation
 
 ## Next phase
 
-`MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1`
+`SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
 
 ## Anti-rollback invariant
 
-1. Checkpoint 325 is the current verified development authority.
-2. Reconstruction requires verified 315 + patches 316 through 325 in order.
-3. Scenario7 `PASS_REAL` requires the Checkpoint 325 release certificate.
-4. The 107 clue-to-scene anchors remain non-causal; release does not convert them into an ordered clue path.
-5. Commercial source text remains external/non-public; public evidence stores source refs and hashes only.
+1. Checkpoint 326 is the current verified development authority.
+2. Reconstruction requires verified 315 + patches 316 through 326 in order.
+3. One player may control only their own investigator in the certified multiplayer path.
+4. Player knowledge partitions remain independent unless a separately authorized transfer occurs.
+5. A failed player/character transaction must not corrupt another investigator state.
 6. Conversation memory never outranks verified artifacts and hashes.
