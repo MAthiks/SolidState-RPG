@@ -1,0 +1,33 @@
+{
+  "schema": "SOLIDSTATE_RC1_SPEC_CERT_V1",
+  "target": "Solid State v7.8-RC1",
+  "level": "SPECIFICATION_CONFORMANCE_MODEL",
+  "important_limit": "This is not an executable-engine certification. It tests a model derived from the versioned migration/directive contracts.",
+  "seeded_deterministic": true,
+  "checks": [
+    {"name":"startup/no_auto_start","status":"PASS","error":null},
+    {"name":"startup/all_required_gates","status":"PASS","error":null},
+    {"name":"startup/player_count_1_4","status":"PASS","error":null},
+    {"name":"startup/per_player_assistance","status":"PASS","error":null},
+    {"name":"startup/continue_no_save_clean","status":"PASS","error":null},
+    {"name":"startup/diagnostic_never_starts","status":"PASS","error":null},
+    {"name":"character/negative_validator_battery","status":"PASS","error":null},
+    {"name":"multiplayer/2_player_tx_isolation","status":"PASS","error":null},
+    {"name":"multiplayer/4_player_tx_isolation","status":"PASS","error":null},
+    {"name":"multiplayer/pending_slot_locks_gate","status":"PASS","error":null},
+    {"name":"knowledge/2_player_partition","status":"PASS","error":null},
+    {"name":"knowledge/4_player_partition","status":"PASS","error":null},
+    {"name":"ironman/committed_roll_immutable","status":"PASS","error":null},
+    {"name":"fuzz/startup_gate_20000","status":"PASS","error":null},
+    {"name":"fuzz/interface_20000","status":"PASS","error":null}
+  ],
+  "summary": {"passed":15,"failed":0,"total":15},
+  "blocked_engine_checks": [
+    "canonical archaeologist registry resolution against actual CoC7 Rules Core payload",
+    "real Startup Gate execution in engine",
+    "real save/load persistence",
+    "real documentary retrieval/preflight",
+    "real scenario narration non-start",
+    "real DiceProvider persistence across process reload"
+  ]
+}
