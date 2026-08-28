@@ -1,48 +1,55 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V12",
-  "status": "CHECKPOINT_324_SCENARIO7_PATH_PROOF_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V13",
+  "status": "CHECKPOINT_325_SCENARIO7_PASS_REAL_RELEASE_VERIFIED",
   "current_authority": {
-    "checkpoint": 324,
-    "checkpoint_id": "SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1",
-    "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
-    "checkpoint_record": "patches/checkpoint324/CHECKPOINT_324.json",
-    "checkpoint_record_git_blob_sha1": "7aa9fdef7297bfc14e33897a4659c4671a8732ab",
-    "parent_checkpoint": 323,
+    "checkpoint": 325,
+    "checkpoint_id": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1",
+    "status": "VERIFIED_SCENARIO7_PASS_REAL_RELEASE",
+    "checkpoint_record": "patches/checkpoint325/CHECKPOINT_325.json",
+    "checkpoint_record_git_blob_sha1": "9cd353b6ba666d5bd44c7b8e81adf47c7fc7c6e4",
+    "parent_checkpoint": 324,
     "tests": {
-      "chunk324": "25/25 PASS",
-      "checkpoint323_regression": "PASS",
+      "chunk325": "31/31 PASS",
+      "checkpoint324_isolated_regression": "25/25 PASS",
+      "checkpoint323_isolated_regression": "31/31 PASS",
       "checkpoint315_regression": "5/5 PASS",
       "native_core_regression": "5/5 PASS",
       "source_pdf_sha256": "PASS",
-      "source_layout_sha256": "PASS",
+      "source_evidence_digest": "PASS",
       "anti_false_causality": "PASS",
-      "player_interface_remains_blocked": "PASS"
+      "release_tamper_fail_closed": "PASS",
+      "resolver_promotion": "PASS",
+      "scenario_selection_selectable": "PASS",
+      "player_surface_no_keeper_evidence": "PASS"
     },
     "scenario7": {
-      "path_status": "PASS_REAL_CANDIDATE",
-      "pass_real": false,
-      "promotion_applied": false,
+      "status": "PASS_REAL",
+      "pass_real": true,
+      "player_keeper_leaks": 0,
       "path_length": 10,
       "clue_scene_anchor_count": 107,
       "clue_anchor_edges_used": 0,
-      "terminal": "EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION",
-      "alternative_investigation_routes_preserved": true
+      "historical_causal_transition_count": 0,
+      "alternative_investigation_routes_preserved": true,
+      "release_authority": "EXPLORATEUR_PASS_REAL_RELEASE_325.json"
     },
     "source": {
       "pdf_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
       "source_layout_sha256": "7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3",
+      "source_evidence_digest_sha256": "2f15ee7f3b5caf8a85863afe4742aa6b803d75eb9fd848cfdbb8a57d36c5ad94",
       "source_text_republished": false
     },
-    "next_phase": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1"
+    "next_phase": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
     "scenario4": "PASS_REAL",
     "scenario5": "PASS_REAL",
     "scenario6": "PASS_REAL",
-    "scenario7": "PASS_REAL_CANDIDATE_NOT_RELEASED"
+    "scenario7": "PASS_REAL"
   },
   "authority_order": [
+    "CHECKPOINT_325_VERIFIED_SCENARIO7_PASS_REAL_RELEASE",
     "CHECKPOINT_324_VERIFIED_SCENARIO7_PATH_PROOF",
     "CHECKPOINT_323_VERIFIED_SCENARIO6_PASS_REAL_RELEASE",
     "CHECKPOINT_322_VERIFIED_SCENARIO6_PATH_PROOF",
@@ -59,9 +66,8 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "path_proof_does_not_self_promote": true,
+    "release_certificate_required_for_pass_real": true,
     "clue_scene_anchors_must_remain_non_causal": true,
-    "separate_release_audit_required_for_scenario7_pass_real": true,
     "source_text_must_not_be_republished_to_public_repository": true,
     "keeper_player_firewall_required": true
   }
