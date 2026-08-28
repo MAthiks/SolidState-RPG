@@ -1,66 +1,78 @@
-# Recovery checkpoint and authority audit
+# Official development checkpoint
 
-## Highest attested work checkpoint
-
-An official project TODO dated 2026-08-28 identifies:
+## Checkpoint 315 — VERIFIED
 
 - Checkpoint: `315`
-- ID: `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
-- Role: working baseline for the next interface/compiler phase
+- ID/version: `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
+- Classification: `SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION`
+- Source archive: `SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip`
+- Source archive SHA-256: `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`
+- Archive size: `3015801` bytes
+- `CHECKPOINT_315.json` SHA-256: `593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa`
+- Embedded `MANIFEST_SHA256.json` SHA-256: `3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef`
+- Embedded manifest verification: `1205 / 1205 PASS`
+- ZIP CRC: `PASS`
 
-Status: **ATTESTED WORK CHECKPOINT / PAYLOAD, MANIFEST AND HASH NOT LOCATED — VERSION NON CONFIRMEE**
+## Executed verification
 
-The TODO states that implementation status must only be granted to functions materialized in the runtime and validated by tests. It also records that scenario 3 remains `PASS_REAL`, while scenarios 4–7 must retain non-`PASS_REAL` status until a source-backed executable path is proven.
+- `run_tests_chunk313.py`: `3/3 PASS`
+- `run_tests_chunk314.py`: `1/1 PASS`
+- `run_tests_chunk315.py`: `5/5 PASS`
+- base native runtime `run_tests.py`: `5/5 PASS`
 
-Checkpoint 315 therefore outranks older development context as a work-state marker, but it must not be represented as a verified executable checkpoint until its exact artifact, manifest and hash are recovered.
+Checkpoint 315 is therefore the current verified development authority. It is no longer an evidence-only checkpoint.
 
-## Last fully described authority lock
+## Checkpoint 315 invariants
 
-Authority lock: `SOLIDSTATE-AUTHORITY-LOCK-D5-304`
+- scenario3: `PASS_REAL`
+- scenario4: `COMPILED_PROTECTED_NOT_PASS_REAL`
+- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+- runtime scenario-name leaks: none
+- promotions to `PASS_REAL`: `0`
 
-Status: **AUTHORITY LOCK VERIFIED / CORRECTION 018 PAYLOAD NOT PRESENT**
+Role/endpoint recovery must not by itself manufacture causal transitions or promote scenario status.
 
-- Solid State: `v7.8.1 candidate`
-- Correction: `018`
-- Scenario pair: `LSNT-V1.7-STANDALONE-1942`
-- Ironman Commit: `6`
-- Expected payload SHA-256: `18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e`
-- Authority-lock SHA-256: `5d82126e8e28d64c57f0ecb427766ac70a4b1746a228b60cff9e8ddec3ea893e`
+## Next phase
 
-The Correction 018 runtime is not present in this repository, so its executable implementation remains **VERSION NON CONFIRMEE**.
+`SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
 
-## Last verified restorable baseline
+Development must resume from Checkpoint 315 and preserve the historical scenario-status invariants until source-backed executable transitions are proven.
 
-Checkpoint ID: `SS-7.7_COC7-4.7_BASELINE`
+## GitHub preservation boundary
 
-Status: **WORKING BACKUP VERIFIED / RECOVERY BASELINE**
+Project-owned checkpoint evidence is mirrored under branch:
 
-- Solid State: `7.7`
-- CoC7 Rules Core: `4.7`
-- Working Backup: `Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip`
-- Verified SHA-256: `2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe`
+`checkpoint/315-verified-original`
 
-GitHub contains a verified extracted mirror under:
+The complete binary ZIP is not republished in the public repository because the archive contains source-text material that must remain non-public. GitHub records the original archive hash and verified checkpoint evidence instead.
 
-`artifacts/checkpoints/Solid_State_v7.7_CoC7_v4.7_Working_Backup/`
+## Earlier authority history
 
-This is a safe restoration payload, not the current development state.
+### D5-304
 
-## Later runtime evidence
+- Solid State `v7.8.1 candidate`
+- Correction `018`
+- Ironman Commit `6`
+- expected payload SHA-256 `18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e`
 
-A separately recovered `Solid State Native Runtime — Big Chunk 1` README demonstrates that an executable OOP runtime slice existed after the older specification-only phase, with SQLite persistence, atomic transactions, canonical state, Ironman commits, hash-chained roll ledger, characters and party attachment. The README also explicitly lists incomplete CoC7 rules, native equipment resolver, temporal registry, external verified RNG and full canonical scenario execution as not yet implemented. No proven artifact chain currently links this runtime slice to Checkpoint 315, so it is preserved as provenance evidence only.
+This is historical provenance below Checkpoint 315.
 
-## CoC7 documentary sources
+### Legacy recovery fallback
 
-Official Keeper Rulebook / Investigator Handbook may be used to resolve exact missing mechanical records. Such records must be source-attributed and fail closed where the source does not support a value. Documentary recovery cannot be used to fabricate a missing engine/checkpoint payload.
+- Solid State `7.7`
+- CoC7 Rules Core `4.7`
+- Working Backup SHA-256 `2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe`
+
+This remains a legacy recovery fallback, not the current engine state.
 
 ## Anti-rollback invariant
 
-1. Exact verified Checkpoint 315 artifact, if recovered, has priority over the older states below.
-2. Until then, retain 315 as the highest attested work-state marker and D5-304 as the last fully described authority lock.
-3. Missing higher payload => report **VERSION NON CONFIRMEE**; never silently substitute v7.7, RC1 or Correction 018 as the current runtime.
-4. v7.7/v4.7 remains the last physically verified recovery baseline.
-5. Never reconstruct Checkpoint 315 or Correction 018 from conversation memory.
-6. A deliberate downgrade requires explicit user authorization naming the lower target.
+1. Checkpoint 315 is the current verified development authority.
+2. Never silently replace it with RC1, Correction 018, or v7.7/v4.7.
+3. Scenario 4–7 status may only be promoted after source-backed executable path proof.
+4. Conversation memory never outranks verified artifacts and hashes.
+5. Any later checkpoint must be independently verified before replacing 315.
 
 See `manifest/authority_floor.json` and `manifest/recovery_gap_checkpoint315.json`.
