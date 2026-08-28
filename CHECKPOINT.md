@@ -1,56 +1,63 @@
 # Official development checkpoint
 
-## Checkpoint 319 — VERIFIED SCENARIO 4 RELEASE
+## Checkpoint 320 — VERIFIED SCENARIO 5 PATH PROOF
 
-- Checkpoint: `319`
-- ID: `SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
-- Parent: `318 — SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Record: `patches/checkpoint319/CHECKPOINT_319.json`
-- Record SHA-256: `12d341468385d63e092f31c12de2b0715e27b3f305823cf6fcee5e750b9afc0d`
+- Checkpoint: `320`
+- ID: `SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Parent: `319 — SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
+- Record: `patches/checkpoint320/CHECKPOINT_320.json`
+- Record SHA-256: `d4f1ee742c546f7a8b28c3853393e7e292c0184600c99d3d1cdfe0dcba035697`
 
 ## Certified scope
 
-Checkpoint 319 performs the release audit that Checkpoint 318 deliberately kept separate from path proof. It promotes only scenario 4 — Les Registres de Brume — to `PASS_REAL` after all release gates pass.
+Checkpoint 320 resolves the Checkpoint 315 task for L'Antre de l'abomination at the path-proof level only. It establishes a defensible player-safe start from the scenario invitation and proves one complete executable route through ten explicitly source-backed transitions to an open Keeper epilogue resolution.
 
-Verified gates:
+The route proof uses fail-closed gates. Inferred transitions, ambiguous targets and editorial references alone are rejected. Conditional source branches remain conditional rather than being rewritten as mandatory canon.
 
-- dual-source preflight and pair identity: `PASS`
-- knowledge firewall: `PASS`, Keeper→Player leaks = `0`
-- protected release readiness: `PASS`
-- source-backed path reproof: `PASS`
-- generic transition execution ledger: `PASS`
-- release certificate gate: `PASS`
-- tamper/failure cases fail closed: `PASS`
-- resolver returns scenario4 `PASS_REAL`: `PASS`
-- certification eligibility: `CERTIFY`
-- Scenario Selection Interface marks scenario4 selectable: `PASS`
-- player selection surface exposes no Keeper evidence: `PASS`
-- scenario status regression: `PASS`
+Path proof status: `PASS_REAL_CANDIDATE`.
+
+Release status: `pass_real = false`.
+
+The historical `ANTRE_PASS_REAL_CERTIFICATE.json` is provenance only and is not reactivated as current release authority.
 
 ## Verification
 
-- `run_tests_chunk319.py`: `18/18 PASS`
-- Checkpoint 315 regression: `PASS`
+- `run_tests_chunk320.py`: `22/22 PASS`
+- Checkpoint 319 current-overlay regression: `PASS`
+- Checkpoint 315 core regression: `PASS`
 - native runtime regression: `PASS`
+- isolated Checkpoint 318 reconstruction: `15/15 PASS`
+- original `antre.pdf` SHA-256: `4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb` — `PASS`
 
-## Scenario status after Checkpoint 319
+## Packaging repair
+
+Checkpoint 320 restores the complete verified Checkpoint 316 Interface V1 exports:
+
+- `ScenarioSelectionInterfaceV1`
+- `PlayerInterfaceV1`
+- `LaunchChainV1`
+
+The underlying Interface V1 module is the previously verified Checkpoint 316 module. This is a package/export reconstruction repair only; no interface behavior is changed.
+
+## Scenario status after Checkpoint 320
 
 - scenario3: `PASS_REAL`
 - scenario4: `PASS_REAL`
-- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario5: `PASS_REAL_CANDIDATE_NOT_RELEASED`
 - scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
 - scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
 
-The historical scenario4 classification file remains unchanged. The newer release certificate is the explicit promotion authority.
+## Next gate
 
-## Next phase
+`SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1`
 
-`SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1`
+Scenario5 must remain blocked in the certified player scenario-selection interface until the separate release audit verifies the path proof, source integrity, status resolver boundary, Keeper/Player firewall and fail-closed tamper handling.
 
 ## Anti-rollback invariant
 
-1. Checkpoint 319 is the current verified development authority.
-2. Reconstruction requires verified 315 + patches 316 + 317 + 318 + 319 in order.
-3. Do not silently downgrade scenario4 from `PASS_REAL` to its historical pre-release classification.
-4. Source text remains non-public; evidence uses source refs and hashes.
-5. Conversation memory never outranks verified artifacts.
+1. Checkpoint 320 is the current verified development authority.
+2. Reconstruction requires verified 315 + patches 316 + 317 + 318 + 319 + 320 in order.
+3. Path proof does not self-promote scenario5.
+4. The older Antre PASS_REAL certificate remains historical provenance only.
+5. Source text remains non-public; evidence uses source refs and hashes.
+6. Conversation memory never outranks verified artifacts.
