@@ -1,22 +1,30 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V3",
-  "status": "CHECKPOINT_315_ORIGINAL_ARTIFACT_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V4",
+  "status": "CHECKPOINT_316_INTERFACE_MILESTONE_VERIFIED",
   "current_authority": {
-    "checkpoint": 315,
-    "checkpoint_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
-    "checkpoint_file": "CHECKPOINT_315.json",
+    "checkpoint": 316,
+    "checkpoint_id": "PLAYER_AND_SCENARIO_INTERFACE_V1",
+    "status": "CERTIFIED_INTERFACE_MILESTONE_NOT_RELEASE",
+    "checkpoint_record": "patches/checkpoint316/CHECKPOINT_316.json",
+    "checkpoint_record_sha256": "21b4c03215f00ce6d3ab20a2ede36012359bd82f4defce49c062cccc5ff8d345",
+    "parent_checkpoint": 315,
+    "parent_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+    "parent_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+    "implementation_status": "VERIFIED_PATCH_ON_VERIFIED_CHECKPOINT_RUNTIME",
+    "tests": {
+      "chunk316": "10/10 PASS",
+      "checkpoint315_regression": "5/5 PASS",
+      "native_core": "5/5 PASS"
+    },
+    "todo_tasks_1_to_5": "PASS",
+    "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1"
+  },
+  "checkpoint315_parent": {
     "checkpoint_file_sha256": "593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa",
-    "source_archive": "SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip",
     "source_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
-    "source_archive_size_bytes": 3015801,
     "embedded_manifest_sha256": "3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef",
     "manifest_entries_verified": 1205,
-    "manifest_entries_total": 1205,
-    "zip_crc": "PASS",
-    "runtime_report": "PASS",
-    "classification": "SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION",
-    "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
-    "implementation_status": "VERIFIED_CHECKPOINT_RUNTIME_ARTIFACT"
+    "manifest_entries_total": 1205
   },
   "historical_status_invariants": {
     "scenario3": "PASS_REAL",
@@ -40,6 +48,7 @@
     }
   },
   "authority_order": [
+    "CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE",
     "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
     "D5_304_AUTHORITY_LOCK",
     "V7_7_COC7_4_7_VERIFIED_RECOVERY_BASELINE",
@@ -47,7 +56,8 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "checkpoint_315_is_current_development_authority": true,
+    "checkpoint_316_is_current_development_authority": true,
+    "checkpoint315_parent_hash_required_for_reconstruction": true,
     "source_text_must_not_be_republished_to_public_repository": true,
     "scenario_pass_real_status_requires_source_backed_executable_proof": true
   }
