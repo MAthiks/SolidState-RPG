@@ -1,92 +1,55 @@
 # Checkpoint 315 recovery status
 
-## Target
+## Result
+
+**RESOLVED — ORIGINAL ARTIFACT VERIFIED**
+
+The exact Checkpoint 315 archive has been recovered and verified:
 
 - Checkpoint: `315`
 - ID: `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
-- Evidence: `SolidState_TODO_Checkpoint315.pdf` identifies this checkpoint as the official working baseline.
+- Source archive: `SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip`
+- Archive SHA-256: `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`
+- Archive size: `3015801` bytes
+- ZIP CRC: `PASS`
+- Embedded manifest: `1205 / 1205` entries verified
+- Manifest SHA-256: `3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef`
+- `CHECKPOINT_315.json` SHA-256: `593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa`
 
-## Current result
+## Runtime verification
 
-**BLOCKED — VERSION NON CONFIRMEE**
+Executed successfully:
 
-The exact Checkpoint 315 runtime/package, checkpoint manifest and authoritative SHA-256 have not been located in:
+- `run_tests_chunk313.py` — `3/3 PASS`
+- `run_tests_chunk314.py` — `1/1 PASS`
+- `run_tests_chunk315.py` — `5/5 PASS`
+- base native runtime `run_tests.py` — `5/5 PASS`
 
-- the active uploaded recovery ZIP set,
-- the File Library searches by checkpoint ID/module names,
-- the GitHub repository.
+Checkpoint 315 is now the current verified development authority.
 
-## Proven lower chain
+## Historical scenario-status invariants
 
-### Last fully described authority lock
+- scenario3: `PASS_REAL`
+- scenario4: `COMPILED_PROTECTED_NOT_PASS_REAL`
+- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+- promotions to `PASS_REAL`: `0`
 
-- `SOLIDSTATE-AUTHORITY-LOCK-D5-304`
-- Solid State `v7.8.1 candidate`
-- Correction `018`
-- Scenario pair `LSNT-V1.7-STANDALONE-1942`
-- Ironman Commit `6`
-- expected payload SHA-256 `18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e`
-- authority-lock SHA-256 `5d82126e8e28d64c57f0ecb427766ac70a4b1746a228b60cff9e8ddec3ea893e`
+Source-role/endpoint recovery is not sufficient by itself to manufacture causal transitions or promote a scenario.
 
-The Correction 018 payload itself is also not currently present.
+## GitHub preservation
 
-### Last physically verified recovery backup
+Project-owned checkpoint evidence is mirrored on:
 
-- Solid State `7.7`
-- CoC7 Rules Core `4.7`
-- Working Backup SHA-256 `2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe`
+`checkpoint/315-verified-original`
 
-## Later native-runtime evidence
+The complete ZIP is not republished in the public repository because it contains source-text material. Its exact cryptographic identity is preserved by the recorded archive hash and checkpoint evidence.
 
-A recovered README titled `Solid State Native Runtime — Big Chunk 1` proves that a later executable OOP runtime slice existed with:
+## Development resume point
 
-- SQLite persistence,
-- atomic transactions,
-- canonical state,
-- Ironman commits,
-- hash-chained roll ledger,
-- characters,
-- party attachment.
+Resume from:
 
-The same README explicitly states that complete CoC7 rules, native equipment resolver, temporal registry, external verified RNG and full canonical scenario execution were not yet implemented in that slice.
+`SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
 
-No verified artifact chain currently proves that Big Chunk 1 equals, contains, or is a parent of Checkpoint 315.
-
-## Checkpoint 315 documented work state
-
-The official TODO records these priorities/statuses:
-
-1. Scenario Selection Interface V1 — TODO.
-2. Player Interface V1 — TODO.
-3. 3 contextual choices + 1 free action — finalize/test.
-4. Launch chain scenario → validation → players → PJ → session — TODO.
-5. Certify no Keeper-data leakage in player interface — TODO.
-6. Safe Transition Recovery V1 — next compiler phase.
-7. Les Registres de Brume — blocked source/compilation.
-8. L’Antre de l’abomination — partial.
-9. Muse équivoque aux yeux de sel gemme — endpoints recovered.
-10. L’Explorateur assassiné — endpoints recovered.
-11. 1–4 player independent state/knowledge test — TODO.
-12. Save/resume with selected scenario and full interface — TODO.
-13. Strict Replay integration — TODO.
-14. UI + scenario + Rules Core + anti-rollback regression battery — TODO.
-15. Produce a new certified checkpoint after interface integration — TODO.
-
-Scenario-status invariant: scenario 3 remains `PASS_REAL`; scenarios 4–7 must not be promoted to `PASS_REAL` until a source-backed executable path is proven.
-
-## Recovery gate
-
-Development from Checkpoint 315 resumes only after all required identity evidence is available:
-
-- exact Checkpoint 315 package/runtime artifact,
-- manifest/checkpoint state,
-- authoritative SHA-256 or an original artifact from which it can be calculated,
-- parent/provenance chain,
-- integrity verification.
-
-Until then:
-
-- do not reconstruct 315 from memory,
-- do not promote RC1, Correction 018 or v7.7 as the current runtime,
-- do not claim TODO functions are implemented,
-- do not alter scenario `PASS_REAL` statuses.
+Do not resume from RC1, Correction 018 or v7.7/v4.7. Those are older historical/recovery states.
