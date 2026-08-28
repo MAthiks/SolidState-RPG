@@ -1,58 +1,49 @@
 # Official development checkpoint
 
-## Checkpoint 322 — VERIFIED SCENARIO 6 PATH PROOF
+## Checkpoint 323 — VERIFIED SCENARIO 6 RELEASE
 
-- Checkpoint: `322`
-- ID: `SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Parent: `321 — SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1`
-- Record: `patches/checkpoint322/CHECKPOINT_322.json`
-- Record Git blob SHA-1: `9107299fad5183862a22513c208014b8dc4b1f5d`
+- Checkpoint: `323`
+- ID: `SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
+- Parent: `322 — SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Record: `patches/checkpoint323/CHECKPOINT_323.json`
+- Record Git blob SHA-1: `c7c16db278e1d80d910376d2c9fa2360cb945a83`
 
 ## Certified scope
 
-Checkpoint 322 resolves the Checkpoint 315 Muse task at path-proof level. It proves one complete conditional path from an explicit Act I player-safe start through six manually audited source-backed transitions to an explicit conditional conclusion consequence.
+Checkpoint 323 performs the separate release audit required by Checkpoint 322 and promotes only scenario6 — Muse équivoque aux yeux de sel gemme — to `PASS_REAL`.
 
-The route is executed through the generic transition layer. Act handoffs, investigative discovery, intervention and outcome transitions require exact source references/hashes and a manual explicit-language audit. Inferred transitions, ambiguous targets and editorial headings alone fail closed.
-
-Path proof status: `PASS_REAL_CANDIDATE`.
-
-Release status: `pass_real = false`.
-
-Alternative branches and the scenario's open conclusion remain open; the checkpoint does not invent a canonical ideal ending.
+The promotion re-proves the six-transition conditional path against exact source hashes, verifies the original PDF identity, preserves alternative endings and the open conclusion, validates independent knowledge partitioning, confirms zero Keeper→Player evidence leakage, tests resolver/interface behavior and rejects tampered release evidence.
 
 ## Verification
 
-- `run_tests_chunk322.py`: `29/29 PASS`
-- source collection PDF SHA-256: `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143` — `PASS`
-- source-layout SHA-256: `82c27f32a4244d0964fbb94ef4bb34c81b3f81775ca3561ecf3c4f8bda2f498a` — `PASS`
-- Checkpoint 321 regression: `PASS`
+- `run_tests_chunk323.py`: `31/31 PASS`
+- Checkpoint 322 isolated regression: `29/29 PASS`
+- Checkpoint 321 isolated regression: `27/27 PASS`
 - Checkpoint 315 regression: `PASS`
 - native runtime regression: `PASS`
-- Keeper/Player knowledge isolation: `PASS`
-- Keeper route evidence absent from player projection: `PASS`
-- Scenario Selection Interface still blocks scenario6 before release: `PASS`
+- source PDF SHA-256: `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143` — `PASS`
+- exact source-evidence hashes: `PASS`
+- Keeper→Player leaks: `0`
+- release tamper cases: fail closed
+- Scenario Selection Interface: scenario6 selectable only with valid 323 certificate
 
-## Historical provenance
-
-The recovered historical Muse state remains preserved: source-role recovery had identified start and conclusion roles but no safe graph, and `MUSE_FREEZE_125` remained blocked for lack of a strict start-to-terminal path. Checkpoint 322 supersedes that path blocker with a tested six-transition proof; it does not rewrite the historical files.
-
-## Scenario status after Checkpoint 322
+## Scenario status after Checkpoint 323
 
 - scenario3: `PASS_REAL`
 - scenario4: `PASS_REAL`
 - scenario5: `PASS_REAL`
-- scenario6: `PASS_REAL_CANDIDATE_NOT_RELEASED`
+- scenario6: `PASS_REAL`
 - scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
 
-## Next gate
+## Next phase
 
-`SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
+`SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
 
 ## Anti-rollback invariant
 
-1. Checkpoint 322 is the current verified development authority.
-2. Reconstruction requires verified 315 + patches 316 through 322 in order.
-3. Path proof never self-promotes scenario6.
-4. A separate release certificate/audit is required before scenario6 can become selectable or `PASS_REAL`.
+1. Checkpoint 323 is the current verified development authority.
+2. Reconstruction requires verified 315 + patches 316 through 323 in order.
+3. Scenario6 `PASS_REAL` requires the Checkpoint 323 release certificate.
+4. `PASS_REAL` does not collapse Muse's alternative/open endings into a single canonical ending.
 5. Commercial source text remains external/non-public; public evidence stores source refs and hashes only.
 6. Conversation memory never outranks verified artifacts and hashes.
