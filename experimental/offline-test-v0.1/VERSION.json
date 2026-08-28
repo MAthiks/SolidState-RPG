@@ -1,0 +1,9 @@
+{
+  "name": "Solid State Offline Test",
+  "version": "0.1",
+  "status": "EXPERIMENTAL_NOT_CERTIFIED",
+  "parent_authority": "CHECKPOINT_326",
+  "network_required": false,
+  "bundled_scenario": "Les Archives de Minuit (original demo)",
+  "official_scenario_text_bundled": false
+}
