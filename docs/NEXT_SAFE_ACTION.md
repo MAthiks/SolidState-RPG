@@ -1,22 +1,22 @@
 # Next safe action
 
-## Checkpoint 324 complete
+## Checkpoint 325 complete
 
 Current authority:
 
-`Checkpoint 324 — SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
+`Checkpoint 325 — SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
 
 Verification:
 
-- Chunk 324: `25/25 PASS`
-- ten-transition source-backed investigation progression: `PASS`
-- clue-to-scene anchors used as causal edges: `0 / 107`
-- original source PDF SHA-256: `PASS`
-- exact source-layout / source-slice hashes: `PASS`
-- anti-false-causality gates: `PASS`
-- Checkpoint 323 regression: `PASS`
+- release audit: `31/31 PASS`
+- Checkpoint 324 isolated regression: `25/25 PASS`
+- Checkpoint 323 isolated regression: `31/31 PASS`
 - Checkpoint 315 regression: `5/5 PASS`
 - native core regression: `5/5 PASS`
+- original source PDF / layout / source-evidence digest: `PASS`
+- clue-to-scene anchors used as causal edges: `0 / 107`
+- Keeper→Player leaks: `0`
+- resolver / scenario selection / tamper gates: `PASS`
 
 Scenario status now:
 
@@ -24,25 +24,24 @@ Scenario status now:
 - scenario4: `PASS_REAL`
 - scenario5: `PASS_REAL`
 - scenario6: `PASS_REAL`
-- scenario7: `PASS_REAL_CANDIDATE_NOT_RELEASED`
+- scenario7: `PASS_REAL`
 
 ## Next phase
 
 Proceed with:
 
-`SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
+`MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1`
 
-Target scenario: L'Explorateur assassiné.
+Work order:
 
-Required audit points:
+1. Test launch/session preparation with 1, 2, 3 and 4 distinct players.
+2. Verify one independent character/control binding per player and reject duplicate or cross-owned bindings.
+3. Verify independent knowledge partitions: information learned by one character must not appear to another without an explicit authorized transfer.
+4. Recheck Player Interface V1 status panels and 3+1 assisted choices independently for every player.
+5. Verify scenario certification status remains identical across multiplayer counts and Keeper data never enters a player surface.
+6. Stress atomic player/character transactions so one player failure cannot corrupt other character states.
+7. Produce a new checkpoint only after the full 1–4 player matrix passes.
 
-1. Reverify the exact Checkpoint 324 path, original PDF identity and source-slice hashes.
-2. Preserve all 107 clue-to-scene anchors as non-causal; none may become a release prerequisite merely because it is adjacent in the compiled topology.
-3. Add a separate scenario7 release certificate gate; path proof alone is insufficient.
-4. Require zero Keeper→Player leaks and player-safe scenario-selection output.
-5. Update the status resolver only if the new certificate passes.
-6. Verify scenario7 remains blocked without the release certificate and becomes selectable only with a valid certificate.
-7. Tampered hashes, missing manual-language audits, clue-anchor promotion, ambiguous targets and incomplete release evidence must all fail closed.
-8. Re-run current/core regressions before producing a new checkpoint.
+After that, continue with save/resume and deterministic Strict Replay integration.
 
 Automatic downgrade is forbidden.
