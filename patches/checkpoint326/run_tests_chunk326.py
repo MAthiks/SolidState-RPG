@@ -6,6 +6,7 @@ from solidstate_runtime import (
     SolidStateDB, SolidStateEngine, MultiplayerPartition,
     CharacterTransactionIsolation, MultiplayerSessionLoop,
     MultiplayerRuntimeContractV1, ScenarioSelectionInterfaceV1,
+    PlayerInterfaceV1, LaunchChainV1,
 )
 
 checks=[]
@@ -34,6 +35,9 @@ for n in (1,2,3,4):
         ck(f'{n}p_attach_owned_{i}', r['status']=='COMMIT', r)
         ck(f'{n}p_hp_init_{i}', e.mechanics.set_value(c,'HP',10+i)['status']=='COMMIT')
         ck(f'{n}p_san_init_{i}', e.mechanics.set_value(c,'SAN',60+i)['status']=='COMMIT')
+        ck(f'{n}p_pm_init_{i}', e.mechanics.set_value(c,'MP',8+i)['status']=='COMMIT')
+        ck(f'{n}p_luck_init_{i}', e.mechanics.set_value(c,'Luck',40+i)['status']=='COMMIT')
+        ck(f'{n}p_inventory_init_{i}', e.registry.register(f'ITEM_{i}','item',c,{'label':f'Owned {i}'},f'SOURCE_{i}')['status']=='COMMIT')
         ck(f'{n}p_knowledge_player_{i}', e.knowledge.grant(c,f'K_PLAYER_{i}','PLAYER',f'SOURCE_{i}')['status']=='COMMIT')
         ck(f'{n}p_knowledge_keeper_{i}', e.knowledge.grant(c,f'K_KEEPER_{i}','KEEPER',f'SOURCE_{i}')['status']=='COMMIT')
 
@@ -64,6 +68,34 @@ for n in (1,2,3,4):
         ck(f'{n}p_pure_partition_character_{i}', [x['character_id'] for x in view['character_states']]==[c], view)
         ck(f'{n}p_pure_partition_knowledge_{i}', view['knowledge']['refs']==[f'K_PLAYER_{i}'], view)
         ck(f'{n}p_pure_partition_no_foreign_{i}', all((j==i or f'K_PLAYER_{j}' not in view_ser) for j in range(1,n+1)), view_ser)
+
+    ui=PlayerInterfaceV1(e)
+    for i,(p,c) in enumerate(zip(players,chars), start=1):
+        panel=ui.status_panel(p,c)
+        ck(f'{n}p_ui_panel_ready_{i}', panel['status']=='READY', panel)
+        ck(f'{n}p_ui_panel_values_{i}', panel['PV']==10+i and panel['SAN']==60+i and panel['PM']==8+i and panel['Chance']==40+i, panel)
+        ck(f'{n}p_ui_inventory_owned_only_{i}', panel['inventory']==[{'object_id':f'ITEM_{i}','object_type':'item','quantity':1}], panel['inventory'])
+        if n>=2:
+            foreign=chars[1] if i==1 else chars[0]
+            ck(f'{n}p_ui_cross_character_blocked_{i}', ui.status_panel(p,foreign)['code']=='CHARACTER_NOT_CONTROLLED_BY_PLAYER')
+        normal=ui.decision_prompt(p,c,'NORMAL_LIBRE')
+        ck(f'{n}p_ui_normal_open_prompt_{i}', normal['status']=='DECISION_READY' and normal['code']=='OPEN_PROMPT_ONLY' and normal['menu'] is None and normal['prompt']=='Que fais-tu ?', normal)
+        options=[
+            {'id':'A','label':'Option A','visibility':'PLAYER_SAFE','requires_knowledge':[f'K_PLAYER_{i}']},
+            {'id':'B','label':'Option B','visibility':'PLAYER_SAFE','requires_knowledge':[]},
+            {'id':'C','label':'Option C','visibility':'PLAYER_SAFE','requires_knowledge':[]},
+        ]
+        assisted=ui.decision_prompt(p,c,'FACILE_ASSISTE',options)
+        ck(f'{n}p_ui_assisted_3_plus_free_{i}', assisted['status']=='DECISION_READY' and assisted['code']=='ASSISTED_THREE_PLUS_FREE' and len(assisted['menu']['choices'])==3 and assisted['menu']['free_action']['id']=='FREE_ACTION', assisted)
+        if n>=2:
+            bad=[dict(x) for x in options]
+            bad[0]={'id':'A','label':'Foreign knowledge','visibility':'PLAYER_SAFE','requires_knowledge':['K_PLAYER_2' if i!=2 else 'K_PLAYER_1']}
+            ck(f'{n}p_ui_foreign_knowledge_choice_blocked_{i}', ui.decision_prompt(p,c,'FACILE_ASSISTE',bad)['code']=='CHOICE_KNOWLEDGE_NOT_VISIBLE')
+
+    launch=LaunchChainV1(e,ScenarioSelectionInterfaceV1('scenario_candidates'))
+    launched=launch.prepare_session('scenario3',players)
+    ck(f'{n}p_launch_chain_ready', launched['status']=='SESSION_READY' and launched['session']['phase']=='SESSION_READY', launched)
+    ck(f'{n}p_launch_control_map_exact', launched['session']['control_map']=={p:c for p,c in zip(players,chars)}, launched['session'])
 
     before={c:e.mechanics.get_value(c,'HP') for c in chars}
     target=chars[0]
