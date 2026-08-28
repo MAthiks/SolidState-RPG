@@ -1,0 +1,67 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_323_V1",
+  "checkpoint": 323,
+  "checkpoint_id": "SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1",
+  "parent_checkpoint": 322,
+  "status": "VERIFIED_SCENARIO6_PASS_REAL_RELEASE",
+  "scenario6": {
+    "scenario_key": "scenario6",
+    "title": "Muse équivoque aux yeux de sel gemme",
+    "release_class": "PASS_REAL",
+    "pass_real": true,
+    "release_authority": "MUSE_PASS_REAL_RELEASE_323.json",
+    "player_keeper_leaks": 0,
+    "path_length": 6,
+    "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE",
+    "conditional_path_preserved": true,
+    "alternative_endings_preserved": true,
+    "open_conclusion_not_collapsed": true
+  },
+  "tests": {
+    "chunk323": "31/31 PASS",
+    "checkpoint322_isolated_regression": "29/29 PASS",
+    "checkpoint321_isolated_regression": "27/27 PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core_regression": "PASS",
+    "source_pdf_sha256": "PASS",
+    "source_evidence_hashes": "PASS",
+    "release_tamper_fail_closed": "PASS",
+    "resolver_promotion": "PASS",
+    "scenario_selection_selectable": "PASS",
+    "player_surface_no_keeper_evidence": "PASS"
+  },
+  "parent_proof": {
+    "checkpoint322_record_git_blob_sha1": "9107299fad5183862a22513c208014b8dc4b1f5d",
+    "checkpoint322_path_artifact_git_blob_sha1": "04adb29032bd77d7bdbb5b9e0036d98539505aab"
+  },
+  "source": {
+    "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf",
+    "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "source_layout_sha256": "82c27f32a4244d0964fbb94ef4bb34c81b3f81775ca3561ecf3c4f8bda2f498a",
+    "source_text_republished": false
+  },
+  "repository_git_blob_sha1": {
+    "solidstate_runtime/scenario6_release_gate.py": "97367727c24fba6047a90a424127d2f39dcb41ad",
+    "solidstate_runtime/multi_scenario_status_resolver.py": "cac64ea50f4f7a5737468928039356023d8c783e",
+    "scenario_candidates/scenario6/MUSE_PASS_REAL_RELEASE_323.json": "67e67a7905bfff1a70b0b019d310533b3524008f",
+    "run_tests_chunk323.py": "57e31cd22fdffec2d0b12bf0fe1a5b3a3b79f8b1",
+    "NATIVE_RUNTIME_CHUNK323_REPORT.json": "ddf4a64e296c5d5dd640e9ee75778ed1c1efec18",
+    "INIT_APPEND_323.txt": "cb9d4dacde96fd19eadff697b61dbdaef2a07fa1",
+    "APPLY_323.md": "d1c328d18597110b5278474000f9f025c51e920b"
+  },
+  "status_boundary_after_release": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "next_phase": "SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 322,
+    "automatic_downgrade_forbidden": true,
+    "release_certificate_required_for_pass_real": true,
+    "open_conclusion_not_collapsed": true,
+    "alternative_endings_preserved": true
+  }
+}

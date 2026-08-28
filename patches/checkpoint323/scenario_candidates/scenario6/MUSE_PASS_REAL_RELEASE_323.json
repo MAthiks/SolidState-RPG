@@ -1,0 +1,63 @@
+{
+  "schema": "SOLIDSTATE_SCENARIO6_PASS_REAL_RELEASE_323_V1",
+  "scenario_key": "scenario6",
+  "scenario_id": "SCENARIO6_MUSE_EQUIVOQUE_V1",
+  "title": "Muse équivoque aux yeux de sel gemme",
+  "parent_checkpoint": 322,
+  "parent_checkpoint_git_blob_sha1": "9107299fad5183862a22513c208014b8dc4b1f5d",
+  "checkpoint322_path_artifact_git_blob_sha1": "04adb29032bd77d7bdbb5b9e0036d98539505aab",
+  "promotion_source": "SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1",
+  "path_status": "PASS_REAL_CANDIDATE",
+  "path_length": 6,
+  "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE",
+  "conditional_path_preserved": true,
+  "alternative_endings_preserved": true,
+  "open_conclusion_not_collapsed": true,
+  "historical_freeze_reactivated": false,
+  "source_text_republished": false,
+  "release_class": "PASS_REAL",
+  "pass_real": true,
+  "player_keeper_leaks": 0,
+  "source_pdf_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+  "source_layout_sha256": "82c27f32a4244d0964fbb94ef4bb34c81b3f81775ca3561ecf3c4f8bda2f498a",
+  "checks": {
+    "source_identity": "PASS",
+    "source_preflight": "PASS",
+    "historical_release_readiness_support": "PASS",
+    "source_backed_path_proof": "PASS",
+    "generic_path_execution": "PASS",
+    "conditional_path_preserved": "PASS",
+    "alternative_endings_preserved": "PASS",
+    "knowledge_isolation": "PASS",
+    "player_safe_projection": "PASS",
+    "resolver_promotion": "PASS",
+    "scenario_selection_selectable": "PASS",
+    "tamper_fail_closed": "PASS",
+    "status_regression": "PASS"
+  },
+  "source_evidence": {
+    "start_slice_sha256": "62786aceb2ebd05ba3d9eb7106dc5f59a873701b6eb6fd8adf4755782e704cbf",
+    "act_i_to_ii_slice_sha256": "0f07117218dbebe0004783de1c43b1b242a95064dc94d6e401ed5c6d02a52143",
+    "act_ii_to_iii_slice_sha256": "0bf262513a2814d75bef38be98519b38fb7d08c88bf08a7b403107db7f0a606b",
+    "terminal_slice_sha256": "46b893cb20158cd3d60b4ebd17a5f49e1c9240eb9cc90cc076d140fd19877aa0"
+  },
+  "path": {
+    "start": "MUSE_ACT_I_WITNESS_SUICIDE",
+    "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE",
+    "transition_ids": [
+      "MUSE_322_01_ACTI_TO_JUSTINE",
+      "MUSE_322_02_JUSTINE_TO_ACTII",
+      "MUSE_322_03_ACTII_TO_ACTIII",
+      "MUSE_322_04_ACTIII_TO_HOTEL",
+      "MUSE_322_05_HOTEL_TO_ENMOUTEF_BODY",
+      "MUSE_322_06_BODY_TO_TERMINAL"
+    ],
+    "path_length": 6
+  },
+  "anti_false_promotion": {
+    "path_proof_separate_from_release": true,
+    "release_requires_all_checks": true,
+    "alternative_endings_preserved": true,
+    "source_text_republished": false
+  }
+}
