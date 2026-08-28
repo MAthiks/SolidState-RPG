@@ -2,28 +2,22 @@
 
 Official version-controlled source of truth for the Solid State RPG project.
 
-## Current development authority — Checkpoint 327 VERIFIED
+## Current development authority — Checkpoint 328 VERIFIED
 
-- Checkpoint: `327`
-- ID: `SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
-- Status: `VERIFIED_SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE`
-- Parent: `326 — MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1`
-- Checkpoint record: `patches/checkpoint327/CHECKPOINT_327.json`
-- Checkpoint record Git blob SHA-1: `aa49bea4e0a3a4b6a77a7de7afd1db623f46c1bb`
-- Chunk 327 tests: `71/71 PASS`
-- Checkpoint 326 regression: `334/334 PASS`
-- Checkpoint 325 regression: `31/31 PASS`
-- Checkpoint 315/native core regressions: `5/5 PASS`
+- Checkpoint: `328`
+- ID: `STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
+- Parent: `327 — SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
+- Record: `patches/checkpoint328/CHECKPOINT_328.json`
+- Record Git blob SHA-1: `7d88dd5c481948d593644c98db93ca6cc9a2c9d5`
+- Chunk 328 tests: `207/207 PASS`
+- Strict Replay historical regressions: `2/2 + 4/4 + 2/2 PASS`
+- Checkpoint 315/native core: `5/5 PASS`
 
-## Save / resume certification
+## Strict Replay save/resume continuity
 
-Checkpoint 327 certifies save and resume for `1`, `2`, `3` and `4` players. A saved session preserves the exact selected `PASS_REAL` scenario, `SESSION_READY` interface record, player list and control map, canonical commit sequence, character records, PV/SAN/PM/Chance, wounds/conditions, mechanical registry and inventory, independent knowledge partitions, scenario/session state, roll ledger, playloop/action history and world facts.
+Checkpoint 328 proves that an uninterrupted session and the same session interrupted after four strict events, saved through Checkpoint 327, restored into a fresh engine and continued produce the same canonical digest, strict-state digest, strict journal hash chain, deterministic roll tape, action order and semantic commit trace.
 
-Restore occurs into a pristine runtime database and does not invent a new commit. The next valid transaction resumes at exactly `saved_commit + 1`. All five certified scenarios survive a save → fresh engine → resume roundtrip.
-
-Save bundles are authenticated with `HMAC-SHA256`. The authentication secret is external to the bundle and public repository. Modified payloads, wrong keys, inconsistent control maps, invalid commit ledgers, uncertified scenario identities and dirty restore targets all fail closed before player narration resumes.
-
-Keeper knowledge is restored internally but remains absent from player projections; certified Keeper→Player leakage remains `0`.
+The matrix covers all five currently certified scenario keys and player counts `1`, `2`, `3`, `4`. Strict Replay does not reroll on resume: supplied roll values are part of the strict event payload. Reordered or duplicated replay events, or a final strict state inconsistent with the journal, fail closed even when the save bundle is re-authenticated.
 
 ## Scenario status
 
@@ -33,19 +27,10 @@ Keeper knowledge is restored internally but remains absent from player projectio
 - scenario6 — Muse équivoque aux yeux de sel gemme: `PASS_REAL`
 - scenario7 — L'Explorateur assassiné: `PASS_REAL`
 
-## Reconstruction chain
-
-1. Verify the Checkpoint 315 original archive.
-2. Apply Checkpoints 316 through 326 in order.
-3. Apply `patches/checkpoint327/` according to `APPLY_327.md`.
-4. Keep the save authentication secret external and at least 32 bytes.
-5. Require `run_tests_chunk327.py` to pass `71/71`.
-6. Re-run Checkpoint 326, Checkpoint 325 with its original source PDF, Checkpoint 315 and native-core regressions.
-
 ## Next phase
 
-`STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
+`OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
 
-The next milestone must prove deterministic replay continuity across a save/resume boundary without duplicating, skipping or reordering committed events.
+The next milestone packages the certified runtime for practical offline play without changing the Checkpoint 328 authority or publishing commercial scenario source text.
 
 Automatic downgrade is forbidden.
