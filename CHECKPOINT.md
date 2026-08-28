@@ -1,42 +1,56 @@
 # Official development checkpoint
 
-## Checkpoint 318 — VERIFIED PATH PROOF MILESTONE
+## Checkpoint 319 — VERIFIED SCENARIO 4 RELEASE
 
-- Checkpoint: `318`
-- ID: `SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Parent: `317 — SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
-- Record: `patches/checkpoint318/CHECKPOINT_318.json`
-- Record SHA-256: `2e7ca4f410475695828847eb019a21a271bdb357616343c7c1af7d9ca8e8af71`
+- Checkpoint: `319`
+- ID: `SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
+- Parent: `318 — SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Record: `patches/checkpoint319/CHECKPOINT_319.json`
+- Record SHA-256: `12d341468385d63e092f31c12de2b0715e27b3f305823cf6fcee5e750b9afc0d`
 
 ## Certified scope
 
-Checkpoint 318 proves one complete source-backed executable path for scenario 4 using a player-safe arrival start candidate, a Checkpoint 317 safe transition, and an explicit Keeper action-to-terminal outcome mapping. The path is executed through the generic transition layer rather than accepted as prose-only evidence.
+Checkpoint 319 performs the release audit that Checkpoint 318 deliberately kept separate from path proof. It promotes only scenario 4 — Les Registres de Brume — to `PASS_REAL` after all release gates pass.
 
-Path proof status: `PASS_REAL_CANDIDATE`.
+Verified gates:
 
-Release status remains unchanged: `pass_real = false`.
+- dual-source preflight and pair identity: `PASS`
+- knowledge firewall: `PASS`, Keeper→Player leaks = `0`
+- protected release readiness: `PASS`
+- source-backed path reproof: `PASS`
+- generic transition execution ledger: `PASS`
+- release certificate gate: `PASS`
+- tamper/failure cases fail closed: `PASS`
+- resolver returns scenario4 `PASS_REAL`: `PASS`
+- certification eligibility: `CERTIFY`
+- Scenario Selection Interface marks scenario4 selectable: `PASS`
+- player selection surface exposes no Keeper evidence: `PASS`
+- scenario status regression: `PASS`
 
 ## Verification
 
-- `run_tests_chunk318.py`: `15/15 PASS`
-- Checkpoint 317 regression: `PASS`
-- Checkpoint 316 regression: `PASS`
+- `run_tests_chunk319.py`: `18/18 PASS`
 - Checkpoint 315 regression: `PASS`
 - native runtime regression: `PASS`
 
-## Anti-spoiler / source boundary
+## Scenario status after Checkpoint 319
 
-Public checkpoint artifacts contain only source references and SHA-256 values. Keeper source text and hidden graph semantics are not exposed through the player-safe certification summary.
+- scenario3: `PASS_REAL`
+- scenario4: `PASS_REAL`
+- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
 
-## Next gate
+The historical scenario4 classification file remains unchanged. The newer release certificate is the explicit promotion authority.
 
-`SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
+## Next phase
 
-The audit must independently verify all release prerequisites before any status resolver or player scenario-selection interface is allowed to expose scenario 4 as certified/selectable.
+`SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1`
 
 ## Anti-rollback invariant
 
-1. Checkpoint 318 is the current verified development authority.
-2. Reconstruction requires verified 315 + 316 + 317 + 318 in order.
-3. Path proof is not release promotion.
-4. Conversation memory never outranks verified artifacts and hashes.
+1. Checkpoint 319 is the current verified development authority.
+2. Reconstruction requires verified 315 + patches 316 + 317 + 318 + 319 in order.
+3. Do not silently downgrade scenario4 from `PASS_REAL` to its historical pre-release classification.
+4. Source text remains non-public; evidence uses source refs and hashes.
+5. Conversation memory never outranks verified artifacts.
