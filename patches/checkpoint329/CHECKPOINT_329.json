@@ -20,9 +20,10 @@
     "private_source_import_required_for_commercial_scenarios": true,
     "python_external_dependencies": 0,
     "android_test_path": "TERMUX_OR_PYDROID_BEFORE_APK",
-    "deterministic_rebuild": true,
     "builder_sha256": "7c5048f3b61b708a21faf466aa7367ccc8b6c1c4624e3620a14d34a698033ae6",
-    "embedded_source_payload_zip_sha256": "2b6b6c95d9d99a2515b3ea7ebeff7b70ef0e54cb2acafbc6892aee5b76a1a4c5"
+    "embedded_source_payload_zip_sha256": "2b6b6c95d9d99a2515b3ea7ebeff7b70ef0e54cb2acafbc6892aee5b76a1a4c5",
+    "deterministic_rebuild_verified": true,
+    "builder_archived_as_checkpoint_authority": false
   },
   "source_pack": {
     "five_scenarios_source_ready_with_exact_user_sources": true,
@@ -66,5 +67,12 @@
     "package_sha256_is_release_identity": true,
     "commercial_sources_must_remain_non_public": true,
     "conversation_memory_non_authoritative": true
-  }
+  },
+  "repository_git_blob_sha1": {
+    "APPLY_329.md": "b3931db845ea20baf5fe59df20491c832929969c",
+    "INIT_APPEND_329.txt": "5a4f324261d3edf10a2fced4e1a444a7add663d0",
+    "PACKAGE_SOURCE_INDEX_329.json": "5c6c8c56626ebf7629482a55ac9d7a8c6d42048d",
+    "run_tests_chunk329.py": "b8c7ca0347835cc338b56e840403e335f7395d89"
+  },
+  "repository_notes": "Repository authority stores the checkpoint record, portable test, package source-index hashes and application protocol. The certified ZIP is identified externally by SHA-256; the large certification builder is deliberately not authoritative after transfer-integrity concerns."
 }
