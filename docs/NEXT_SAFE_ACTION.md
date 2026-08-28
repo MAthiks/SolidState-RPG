@@ -1,28 +1,45 @@
 # Next safe action
 
-## Recovery first
+## Recovery complete
 
-The next safe project action is to recover the exact artifact behind:
+Checkpoint 315 is now verified from the original archive.
 
-`Checkpoint 315 — SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
+- Checkpoint: `315`
+- ID: `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
+- Archive SHA-256: `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`
+- Manifest verification: `1205 / 1205 PASS`
+- Checkpoint test: `5/5 PASS`
 
-Do not resume runtime implementation from RC1, Correction 018, or the v7.7 recovery baseline while this higher checkpoint is attested but unavailable.
+## Current development branch
 
-## What to look for
+Use:
 
-Prefer files created/exported immediately before the official `SolidState_TODO_Checkpoint315.pdf` (2026-08-28), especially ZIP/JSON artifacts containing any of:
+`dev315-safe-transition-recovery`
 
-- `315`
-- `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
-- `SOURCE_ROLE`
-- `ENDPOINT_RECOVERY`
-- `CHECKPOINT_STATE`
-- `INSTALL_MANIFEST`
-- `ScenarioRegistry`
-- source-role mappings or endpoint recovery reports
+Do not use the old RC1 `develop` branch as the source of current runtime authority.
 
-If the exact original is recovered, verify its archive integrity and SHA-256 first, then import it on a new branch descended from `recovery/checkpoint-315-evidence`.
+## Next compiler/runtime phase
 
-## Work allowed before recovery
+Resume exactly from the Checkpoint 315 declared next phase:
 
-Only non-destructive recovery/audit work is allowed: locating artifacts, hashing originals, documenting provenance and inspecting source documents. New runtime functionality must not be labeled as implementation of Checkpoint 315 until the runtime base is recovered.
+`SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
+
+The objective is to recover only transitions that are explicitly supported by source language and can be bound to runtime entities without inference that would create false causal paths.
+
+## Invariants to preserve
+
+- scenario3 remains `PASS_REAL`.
+- scenario4 remains `COMPILED_PROTECTED_NOT_PASS_REAL` until a source-backed executable start/causal path is proven.
+- scenario5 remains `COMPILED_CANDIDATE_NOT_PATH_PROVEN` until the explicit start entity and path are proven.
+- scenario6 remains `COMPILED_CANDIDATE_NOT_PATH_PROVEN` until safe typed transitions are proven.
+- scenario7 remains `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN` until causal investigation transitions are proven.
+- Endpoint/source-role recovery alone never promotes a scenario to `PASS_REAL`.
+
+## Work order
+
+1. Build a Safe Transition Recovery detector/gate using explicit source language only.
+2. Apply it independently to scenarios 4–7.
+3. Materialize typed transitions only when both endpoints and source authority are explicit.
+4. Run regression preserving historical statuses by default.
+5. Promote a scenario only after a complete source-backed executable path is demonstrated.
+6. Produce the next checkpoint only after the new transition layer passes regression.
