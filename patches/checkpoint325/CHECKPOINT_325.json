@@ -1,0 +1,71 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_325_V1",
+  "checkpoint": 325,
+  "checkpoint_id": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1",
+  "parent_checkpoint": 324,
+  "status": "VERIFIED_SCENARIO7_PASS_REAL_RELEASE",
+  "scenario7": {
+    "scenario_key": "scenario7",
+    "title": "L’Explorateur assassiné",
+    "release_class": "PASS_REAL",
+    "pass_real": true,
+    "release_authority": "EXPLORATEUR_PASS_REAL_RELEASE_325.json",
+    "player_keeper_leaks": 0,
+    "path_length": 10,
+    "terminal": "EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION",
+    "clue_scene_anchor_count": 107,
+    "clue_anchor_edges_used": 0,
+    "historical_causal_transition_count": 0,
+    "alternative_investigation_routes_preserved": true
+  },
+  "tests": {
+    "chunk325": "31/31 PASS",
+    "checkpoint324_isolated_regression": "25/25 PASS",
+    "checkpoint323_isolated_regression": "31/31 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS",
+    "source_pdf_sha256": "PASS",
+    "source_layout_sha256": "PASS",
+    "source_evidence_digest": "PASS",
+    "anti_false_causality": "PASS",
+    "release_tamper_fail_closed": "PASS",
+    "resolver_promotion": "PASS",
+    "scenario_selection_selectable": "PASS",
+    "player_surface_no_keeper_evidence": "PASS"
+  },
+  "parent_proof": {
+    "checkpoint324_record_git_blob_sha1": "7aa9fdef7297bfc14e33897a4659c4671a8732ab",
+    "checkpoint324_path_artifact_git_blob_sha1": "285d05fc1ef90f1925334b179e659c90362e8e51"
+  },
+  "source": {
+    "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf",
+    "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "source_layout_sha256": "7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3",
+    "source_evidence_digest_sha256": "2f15ee7f3b5caf8a85863afe4742aa6b803d75eb9fd848cfdbb8a57d36c5ad94",
+    "source_text_republished": false
+  },
+  "repository_git_blob_sha1": {
+    "solidstate_runtime/scenario7_release_gate.py": "6039e19ca4f1fbd4ff40bfe78a528ccfe8dcbced",
+    "solidstate_runtime/multi_scenario_status_resolver.py": "cf778439aca3d34f74c202a2e66c294173d16f9a",
+    "scenario_candidates/scenario7/EXPLORATEUR_PASS_REAL_RELEASE_325.json": "e1a569b2a5b6ecf348642b19bceffe54b86b2ff9",
+    "run_tests_chunk325.py": "cf479792c04e5863b0530ec86b3d680809474833",
+    "NATIVE_RUNTIME_CHUNK325_REPORT.json": "bb7e8e57a109b9a0fa6cfaff92afe84c724fc4fc",
+    "INIT_APPEND_325.txt": "70317b319c0b72df14d6583f89bc775e6f5ece3a",
+    "APPLY_325.md": "1753cbed79f85a3dfb9debfcdc8fa1a486faf565"
+  },
+  "scenario_status_after_release": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "next_phase": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 324,
+    "automatic_downgrade_forbidden": true,
+    "release_certificate_required_for_pass_real": true,
+    "clue_scene_anchors_must_remain_non_causal": true,
+    "conversation_memory_non_authoritative": true
+  }
+}
