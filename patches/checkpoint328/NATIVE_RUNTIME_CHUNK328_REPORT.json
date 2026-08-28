@@ -1,0 +1,38 @@
+{
+  "schema": "SOLIDSTATE_CHUNK328_REPORT_V1",
+  "checkpoint": 328,
+  "checkpoint_id": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1",
+  "status": "PASS",
+  "tests": "207/207 PASS",
+  "matrix": {
+    "scenarios": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_counts": [1, 2, 3, 4],
+    "actions_per_session": 8,
+    "save_split_after_event": 4,
+    "continuous_vs_resumed": "REPLAY_MATCH"
+  },
+  "continuity": {
+    "canonical_digest_equal": true,
+    "strict_state_digest_equal": true,
+    "journal_hash_chain_equal": true,
+    "roll_tape_equal": true,
+    "action_sequence_equal": true,
+    "semantic_commit_trace_equal": true,
+    "save_restore_adds_no_commit": true,
+    "next_commit_continues_monotonically": true
+  },
+  "tamper": {
+    "reordered_journal_with_valid_hmac": "FAIL_CLOSED",
+    "duplicated_event_with_valid_hmac": "FAIL_CLOSED",
+    "final_strict_state_mismatch_with_valid_hmac": "FAIL_CLOSED"
+  },
+  "regressions": {
+    "strict_replay_chunk259": "2/2 PASS",
+    "strict_replay_chunk263": "4/4 PASS",
+    "strict_release_gate_chunk270": "2/2 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "parent_save_resume_git_blob_sha1": "85f3232ca2b3b855dd5ae05a4630324551dc9a82",
+  "source_text_republished": false
+}
