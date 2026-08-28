@@ -1,0 +1,66 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_322_V1",
+  "checkpoint": 322,
+  "checkpoint_id": "SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "parent_checkpoint": 321,
+  "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
+  "scenario6": {
+    "scenario_key": "scenario6",
+    "title": "Muse équivoque aux yeux de sel gemme",
+    "path_status": "PASS_REAL_CANDIDATE",
+    "pass_real": false,
+    "promotion_applied": false,
+    "path_length": 6,
+    "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE"
+  },
+  "tests": {
+    "chunk322": "29/29 PASS",
+    "checkpoint321_regression": "PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core": "PASS",
+    "source_pdf_sha256": "PASS",
+    "knowledge_firewall": "PASS",
+    "player_interface_remains_blocked": "PASS"
+  },
+  "source": {
+    "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf",
+    "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "source_layout_sha256": "82c27f32a4244d0964fbb94ef4bb34c81b3f81775ca3561ecf3c4f8bda2f498a",
+    "physical_pages": [42, 56],
+    "source_text_republished": false
+  },
+  "historical_provenance": {
+    "MUSE_FREEZE_125": "BLOCKED_NO_EXPLICIT_START_TO_TERMINAL_PATH",
+    "MUSE_SOURCE_ROLE_RECOVERY_V1": "START_AND_TERMINAL_ROLES_RECOVERED_GRAPH_STILL_UNPROVEN",
+    "historical_typed_transitions": 0
+  },
+  "path": {
+    "start": "MUSE_ACT_I_WITNESS_SUICIDE",
+    "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE",
+    "transition_count": 6,
+    "conditional_path": true,
+    "alternative_endings_preserved": true
+  },
+  "files_sha256": {
+    "solidstate_runtime/source_backed_route_v3.py": "2f6b58f4d670cd9779a076bb2e56dc2375cb4df4cb21f9bc078d4ff7a596f7d6",
+    "scenario_candidates/scenario6/MUSE_PATH_CLOSURE_322.json": "7a3f255162ceef5c767901464626417fad3d7b7876a5860f5279dcfcc9e858f3",
+    "run_tests_chunk322.py": "b555946f965ac9238755a9e4828ebcd9f68b293db820f5e8c6787714341289be",
+    "NATIVE_RUNTIME_CHUNK322_REPORT.json": "1d81874aaef5336f80309bf62fc29513d837a925d45fba45adf4dd1b4012919f",
+    "INIT_APPEND_322.txt": "f3f0b7e64094c11b5bd800bd592a483920315478c482285f2b5ebccd0fb6e111",
+    "APPLY_322.md": "4e1dbb41b55834670f82b241f74ca6a10556b25ec0f8580e1c215c9fd493ced0"
+  },
+  "status_boundary_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL_CANDIDATE_NOT_RELEASED",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "next_gate": "SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 321,
+    "automatic_downgrade_forbidden": true,
+    "path_proof_does_not_self_promote": true,
+    "open_conclusion_not_collapsed_to_ideal_ending": true
+  }
+}
