@@ -1,0 +1,39 @@
+{
+  "schema": "ANTRE_PATH_CLOSURE_320_V1",
+  "scenario_key": "scenario5",
+  "title": "L'Antre de l'abomination",
+  "parent_checkpoint": 319,
+  "source": {
+    "filename": "antre.pdf",
+    "pdf_sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb",
+    "source_layout_sha256": "adb1e8c0c9e525e32f6f5f4dde4e9c9d87a651e7f830b1c14ef8b23f5c6c5467"
+  },
+  "historical_blocker": "BLOCKED_NO_EXPLICIT_START_TO_TERMINAL_PATH",
+  "historical_pass_real_certificate_reactivated": false,
+  "start": {
+    "scene_id": "ANTRE_START_INVITATION_RECEIVED",
+    "source_refs": ["P2_L9_L22"],
+    "source_hashes": ["79e22cf80c7a8bab7e81bb47ef2b6fa46f5974f16eaf2390b33813df24a37292"],
+    "partition": "PLAYER_SAFE",
+    "availability": "AT_SCENARIO_START",
+    "explicit_source_language": true
+  },
+  "transitions": [
+    {"transition_id":"ANTRE_320_01_INVITATION_TO_YACHT","from_scene":"ANTRE_START_INVITATION_RECEIVED","to_scene":"ANTRE_YACHT_DEPARTURE","predicate":{"type":"SOURCE_REQUIRED_TRAVEL"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_YACHT_DEPARTURE"}],"relation":"REQUIRED_TRAVEL","authority":"EXPLICIT_REQUIRED_TRAVEL","source_refs":["P2_L26_L31"],"source_hashes":["8048d4fedf5102cfa58db42ccfa0cde4d2fe79d1f0c8b4f479c9883f8a5552bb"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_02_YACHT_TO_ISLAND","from_scene":"ANTRE_YACHT_DEPARTURE","to_scene":"ANTRE_ISLAND_ARRIVAL","predicate":{"type":"TRAVEL_COMPLETES"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_ISLAND_ARRIVAL"}],"relation":"REQUIRED_TRAVEL","authority":"EXPLICIT_REQUIRED_TRAVEL","source_refs":["P2_L26_L30","P2_L62_L64"],"source_hashes":["46e1482d6594946ef6b7ea01394133f77e91e54f4a19a314ef6a7dfa73c579fb","79133c9746701400115dfa23e8ec2b96c03f6f715049fb8df8bd54d9fbafc947"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_03_ISLAND_TO_HOTEL","from_scene":"ANTRE_ISLAND_ARRIVAL","to_scene":"ANTRE_GOLDEN_HOTEL","predicate":{"type":"ARRIVAL_TRANSFER"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_GOLDEN_HOTEL"}],"relation":"SCHEDULED_TRANSFER","authority":"EXPLICIT_SCHEDULED_EVENT","source_refs":["P3_L9_L15","P3_L47_L60"],"source_hashes":["c670083d942b9ad97e5ba984c2d677c292f3b7cb7d4702abd2055b3e96933f43","8339464fa8cb1a64eca9e18c5e828de054a44b31cdea393161b0ce881b64eb95"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_04_HOTEL_TO_CASINO","from_scene":"ANTRE_GOLDEN_HOTEL","to_scene":"ANTRE_CASINO_EVENING","predicate":{"type":"WORLD_TIME","at":"SATURDAY_18_30"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_CASINO_EVENING"}],"relation":"SCHEDULED_TRANSFER","authority":"EXPLICIT_SCHEDULED_EVENT","source_refs":["P13_L55_L60"],"source_hashes":["2a9382b36c0c50e83f77609c39a8ba4e85da7c326af0e98587ac8d721b8ac59b"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_05_CASINO_TO_MASKS","from_scene":"ANTRE_CASINO_EVENING","to_scene":"ANTRE_MASKS_AVAILABLE","predicate":{"type":"ALL","conditions":["HELLER_AVAILABLE","WORLD_TIME_AROUND_23_00"]},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_MASKS_AVAILABLE"}],"relation":"TIMED_EVENT","authority":"EXPLICIT_TIMED_EVENT","source_refs":["P15_L33_L47"],"source_hashes":["247199b2a1f3af4ba70935a0385449d1676d09a6a9505bc0f6327236da1ae9dc"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_06_MASKS_TO_GAS_SURVIVAL","from_scene":"ANTRE_MASKS_AVAILABLE","to_scene":"ANTRE_GAS_EVENT_SURVIVED","predicate":{"type":"ALL","conditions":["WORLD_TIME_23_30","MASKS_EQUIPPED"]},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_GAS_EVENT_SURVIVED"}],"relation":"TIMED_EVENT","authority":"EXPLICIT_TIMED_EVENT","source_refs":["P15_L48_L63"],"source_hashes":["0c9b08065762447d0cd963da12a08af53e86c750c66896f84fd3c1408e65b489"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_07_GAS_TO_INTERVENTION","from_scene":"ANTRE_GAS_EVENT_SURVIVED","to_scene":"ANTRE_INTERVENE_PONCTION","predicate":{"type":"PLAYER_CHOICE","choice":"INTERVENE_PONCTION"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_INTERVENE_PONCTION"}],"relation":"PLAYER_OPTION","authority":"EXPLICIT_PLAYER_OPTION","source_refs":["P15_L20_L30","P16_L1_L11"],"source_hashes":["f78ab45294940e526441b48fcc8a7b5703fadae37fbbc83608a4443f2f43c733","9a98c0343662d0c045d317f5e4848d6a6ad399578082f771e0c4e15f1ae7261d"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_08_INTERVENTION_TO_CAPTURE","from_scene":"ANTRE_INTERVENE_PONCTION","to_scene":"ANTRE_CAPTURED","predicate":{"type":"CONDITION","condition":"GUARDS_CAPTURE_INVESTIGATORS"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_CAPTURED"}],"relation":"CONDITIONAL_CAPTURE","authority":"EXPLICIT_CONDITIONAL_CONSEQUENCE","source_refs":["P16_L1_L18"],"source_hashes":["ce5340c61ed6c949fa5cda24cc913f94d05862aba33f0d8e299a1a68b2d4e403"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_09_CAPTURE_TO_REVIVAL","from_scene":"ANTRE_CAPTURED","to_scene":"ANTRE_REANIMATED_SURVIVORS","predicate":{"type":"ALL","conditions":["INVESTIGATORS_CAPTIVE","GROANING_NOT_STOPPED","HORMONE_QUANTITY_READY"]},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_REANIMATED_SURVIVORS"}],"relation":"CONDITIONAL_REVIVAL","authority":"EXPLICIT_CONDITIONAL_SEQUENCE","source_refs":["P16_L8_L23"],"source_hashes":["a176a69df2cc9d3362be093cad075a28fb8dfd9e697ce8b2a20c671743fd866e"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true},
+    {"transition_id":"ANTRE_320_10_REVIVAL_TO_EPILOGUE","from_scene":"ANTRE_REANIMATED_SURVIVORS","to_scene":"ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION","predicate":{"type":"SOURCE_EPILOGUE_HANDOFF"},"effects":[{"type":"UNLOCK_SCENE","scene":"ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION"}],"relation":"TERMINAL_HANDOFF","authority":"EXPLICIT_EPILOGUE_DEPENDENCY","source_refs":["P16_L13_L28","P17_L17_L31"],"source_hashes":["c352a7889ee28e4557cddc38dd63d22d63babe90dd6ee86f6ae8554b417c656c","e1366a4e82070b9f7751db7753ef91689b30eabef6acc971eb4e04299adfcfaf"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true}
+  ],
+  "terminal_scene":"ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION",
+  "path_status":"PASS_REAL_CANDIDATE",
+  "pass_real":false,
+  "promotion_applied":false,
+  "next_gate":"SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
+  "policy":"One source-backed executable route is proved. Conditional branches remain conditional. The historical PASS_REAL certificate is provenance only and is not release authority."
+}
