@@ -1,0 +1,29 @@
+{
+  "schema": "SOLIDSTATE_DEVELOP_CERTIFICATION_V1",
+  "target": "Solid State v7.8-RC1",
+  "branch": "develop",
+  "baseline": "Solid State v7.7 + CoC7 Rules Core v4.7",
+  "candidate_archive_sha256": "1341233c5976852ba90948463f536eec7ead74cd29d74b28360928aeb798244e",
+  "certification_level": "SPECIFICATION_CONFORMANCE_ONLY",
+  "specification_result": "PASS",
+  "specification_checks": 15,
+  "specification_failures": 0,
+  "randomized_startup_cases": 20000,
+  "randomized_interface_cases": 20000,
+  "interface_resolution": "docs/v7.8-RC1_INTERFACE_RESOLUTION.md",
+  "test_harness": "tests/v7.8-rc1/run_certification.py",
+  "test_report": "tests/v7.8-rc1/SPEC_CERTIFICATION_REPORT.json",
+  "resolved_anomaly": "SSR-RC1-UI-001",
+  "engine_certification": "BLOCKED",
+  "engine_block_reason": "The candidate is a structured specification/integration overlay, not the executable canonical engine payload. Real runtime behavior cannot be certified from this artifact alone.",
+  "blocked_runtime_checks": [
+    "canonical archaeologist registry resolution against actual CoC7 Rules Core payload",
+    "real Startup Gate execution",
+    "real save/load persistence",
+    "real documentary Preflight retrieval",
+    "real narration start lock",
+    "real DiceProvider persistence across reload"
+  ],
+  "promotion_allowed": false,
+  "stable_baseline_unchanged": true
+}
