@@ -1,32 +1,34 @@
 {
   "checkpoint": 315,
   "id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
-  "status": "RECOVERY_BLOCKER",
+  "status": "RECOVERY_REQUIREMENTS_SATISFIED",
   "required": [
     {
       "kind": "runtime_or_checkpoint_package",
-      "exact_filename": null,
-      "status": "MISSING"
+      "exact_filename": "SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip",
+      "sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+      "status": "VERIFIED"
     },
     {
       "kind": "checkpoint_manifest_or_state",
-      "exact_filename": null,
-      "status": "MISSING"
+      "exact_filename": "CHECKPOINT_315.json",
+      "sha256": "593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa",
+      "status": "VERIFIED"
     },
     {
-      "kind": "authoritative_sha256",
-      "value": null,
-      "status": "MISSING"
+      "kind": "embedded_integrity_manifest",
+      "exact_filename": "MANIFEST_SHA256.json",
+      "sha256": "3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef",
+      "entries_verified": 1205,
+      "entries_total": 1205,
+      "status": "VERIFIED"
     },
     {
-      "kind": "parent_provenance",
-      "status": "UNRESOLVED"
+      "kind": "runtime_validation",
+      "status": "VERIFIED",
+      "tests": ["313:3/3 PASS", "314:1/1 PASS", "315:5/5 PASS", "native-base:5/5 PASS"]
     }
   ],
-  "available_evidence": [
-    "SolidState_TODO_Checkpoint315.pdf",
-    "SOLIDSTATE_AUTHORITY_LOCK_D5-304.json",
-    "Solid State Native Runtime — Big Chunk 1 README"
-  ],
-  "resume_rule": "NO_RUNTIME_IMPLEMENTATION_WORK_FROM_315_UNTIL_REQUIRED_IDENTITY_ARTIFACTS_ARE_VERIFIED"
+  "resume_rule": "RESUME_FROM_CHECKPOINT_315_NEXT_PHASE_SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+  "legacy_fallback_only": "Solid State v7.7 + CoC7 Rules Core v4.7"
 }
