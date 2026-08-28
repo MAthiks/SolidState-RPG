@@ -1,34 +1,40 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V16",
-  "status": "CHECKPOINT_328_STRICT_REPLAY_SAVE_RESUME_CONTINUITY_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V17",
+  "status": "CHECKPOINT_329_OFFLINE_PLAYABLE_RUNTIME_PACKAGE_VERIFIED",
   "current_authority": {
-    "checkpoint": 328,
-    "checkpoint_id": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1",
-    "status": "VERIFIED_STRICT_REPLAY_SAVE_RESUME_CONTINUITY",
-    "checkpoint_record": "patches/checkpoint328/CHECKPOINT_328.json",
-    "checkpoint_record_git_blob_sha1": "7d88dd5c481948d593644c98db93ca6cc9a2c9d5",
-    "parent_checkpoint": 327,
+    "checkpoint": 329,
+    "checkpoint_id": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1",
+    "status": "VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
+    "checkpoint_record": "patches/checkpoint329/CHECKPOINT_329.json",
+    "checkpoint_record_git_blob_sha1": "deb884f6a0506a887f12e421eef1fcd628c7524b",
+    "parent_checkpoint": 328,
     "tests": {
-      "chunk328": "207/207 PASS",
-      "strict_replay_chunk259": "2/2 PASS",
-      "strict_replay_chunk263": "4/4 PASS",
-      "strict_release_gate_chunk270": "2/2 PASS",
+      "chunk329_full_package_matrix": "284/284 PASS",
+      "portable_package_matrix": "199/199 PASS",
+      "checkpoint328_regression": "207/207 PASS",
       "checkpoint315_regression": "5/5 PASS",
-      "native_core_regression": "5/5 PASS"
+      "native_core_regression": "5/5 PASS",
+      "zip_crc": "PASS",
+      "extracted_manifest": "173/173 PASS",
+      "extracted_self_test": "PASS"
     },
-    "strict_replay_continuity": {
-      "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
-      "player_counts_certified": [1, 2, 3, 4],
-      "continuous_vs_resumed": "REPLAY_MATCH",
-      "canonical_digest_equal": true,
-      "strict_journal_hash_chain_equal": true,
-      "deterministic_roll_tape_equal": true,
-      "semantic_commit_trace_equal": true,
-      "save_restore_adds_no_commit": true,
-      "reordered_or_duplicated_replay_events_fail_closed": true,
-      "replay_must_not_reroll": true
+    "offline_package": {
+      "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+      "sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+      "package_manifest_sha256": "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9",
+      "immutable_files": 173,
+      "internet_required": false,
+      "loopback_only": true,
+      "python_external_dependencies": 0,
+      "player_counts": [1, 2, 3, 4],
+      "save_resume_327": true,
+      "strict_replay_328": true,
+      "commercial_source_text_embedded": false,
+      "private_source_import_required": true,
+      "autonomous_ai_narration": false,
+      "keeper_assisted": true
     },
-    "next_phase": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1"
+    "next_phase": "ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
@@ -38,6 +44,7 @@
     "scenario7": "PASS_REAL"
   },
   "authority_order": [
+    "CHECKPOINT_329_VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
     "CHECKPOINT_328_VERIFIED_STRICT_REPLAY_CONTINUITY",
     "CHECKPOINT_327_VERIFIED_SAVE_RESUME",
     "CHECKPOINT_326_VERIFIED_MULTIPLAYER_1_TO_4_CERTIFICATION",
@@ -49,12 +56,14 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
+    "offline_release_identity_requires_zip_sha256": true,
+    "commercial_sources_must_remain_non_public": true,
+    "missing_or_mismatched_private_sources_fail_closed": true,
     "strict_replay_journal_required_on_resume": true,
     "replay_must_not_reroll": true,
     "save_restore_requires_authenticated_bundle": true,
     "knowledge_partition_required": true,
     "keeper_player_firewall_required": true,
-    "release_certificate_required_for_pass_real_scenarios": true,
-    "source_text_must_not_be_republished_to_public_repository": true
+    "autonomous_ai_narration_not_claimed": true
   }
 }
