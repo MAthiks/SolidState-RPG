@@ -1,49 +1,53 @@
 # Official development checkpoint
 
-## Checkpoint 323 — VERIFIED SCENARIO 6 RELEASE
+## Checkpoint 324 — VERIFIED SCENARIO 7 PATH PROOF
 
-- Checkpoint: `323`
-- ID: `SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
-- Parent: `322 — SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Record: `patches/checkpoint323/CHECKPOINT_323.json`
-- Record Git blob SHA-1: `c7c16db278e1d80d910376d2c9fa2360cb945a83`
+- Checkpoint: `324`
+- ID: `SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Parent: `323 — SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
+- Record: `patches/checkpoint324/CHECKPOINT_324.json`
+- Record Git blob SHA-1: `7aa9fdef7297bfc14e33897a4659c4671a8732ab`
 
 ## Certified scope
 
-Checkpoint 323 performs the separate release audit required by Checkpoint 322 and promotes only scenario6 — Muse équivoque aux yeux de sel gemme — to `PASS_REAL`.
+Checkpoint 324 resolves the Checkpoint 315 task for L’Explorateur assassiné at path-proof level. It proves one complete executable investigation progression using ten transitions backed by manually audited explicit source language.
 
-The promotion re-proves the six-transition conditional path against exact source hashes, verifies the original PDF identity, preserves alternative endings and the open conclusion, validates independent knowledge partitioning, confirms zero Keeper→Player evidence leakage, tests resolver/interface behavior and rejects tampered release evidence.
+The historical investigation topology is preserved exactly as non-causal provenance: all `107` clue-to-scene anchors remain `causal_edge = false`, and Checkpoint 324 uses `0` clue anchors as causal transitions. Investigation progress is modeled as explicit world/state/condition progression rather than as a fixed sequence of clues.
+
+Path proof status: `PASS_REAL_CANDIDATE`.
+
+Release status: `pass_real = false`.
 
 ## Verification
 
-- `run_tests_chunk323.py`: `31/31 PASS`
-- Checkpoint 322 isolated regression: `29/29 PASS`
-- Checkpoint 321 isolated regression: `27/27 PASS`
-- Checkpoint 315 regression: `PASS`
-- native runtime regression: `PASS`
-- source PDF SHA-256: `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143` — `PASS`
-- exact source-evidence hashes: `PASS`
-- Keeper→Player leaks: `0`
-- release tamper cases: fail closed
-- Scenario Selection Interface: scenario6 selectable only with valid 323 certificate
+- `run_tests_chunk324.py`: `25/25 PASS`
+- Checkpoint 323 regression: `PASS`
+- Checkpoint 315 regression: `5/5 PASS`
+- native runtime regression: `5/5 PASS`
+- original source PDF SHA-256: `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143` — `PASS`
+- source-layout SHA-256: `7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3` — `PASS`
+- inferred/ambiguous/editorial-only transitions: fail closed
+- specific clue anchors cannot gate the certified path
+- player-safe summary contains no Keeper evidence
+- Scenario Selection Interface still blocks scenario7 before release
 
-## Scenario status after Checkpoint 323
+## Scenario status after Checkpoint 324
 
 - scenario3: `PASS_REAL`
 - scenario4: `PASS_REAL`
 - scenario5: `PASS_REAL`
 - scenario6: `PASS_REAL`
-- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+- scenario7: `PASS_REAL_CANDIDATE_NOT_RELEASED`
 
-## Next phase
+## Next gate
 
-`SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
+`SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
 
 ## Anti-rollback invariant
 
-1. Checkpoint 323 is the current verified development authority.
-2. Reconstruction requires verified 315 + patches 316 through 323 in order.
-3. Scenario6 `PASS_REAL` requires the Checkpoint 323 release certificate.
-4. `PASS_REAL` does not collapse Muse's alternative/open endings into a single canonical ending.
+1. Checkpoint 324 is the current verified development authority.
+2. Reconstruction requires verified 315 + patches 316 through 324 in order.
+3. Path proof never self-promotes scenario7.
+4. The 107 clue-to-scene anchors remain non-causal unless separately proven; Checkpoint 324 does not promote any of them.
 5. Commercial source text remains external/non-public; public evidence stores source refs and hashes only.
 6. Conversation memory never outranks verified artifacts and hashes.
