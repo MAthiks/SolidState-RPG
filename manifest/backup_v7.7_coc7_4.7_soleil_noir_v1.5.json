@@ -1,0 +1,12 @@
+{
+  "artifact": "SolidState_v7.7_CoC7_4.7_SoleilNoir_v1.5_Backup.zip",
+  "sha256": "70e34301ac5e322978d2c70e99f301e28ddd5b0dc2a0d96f0c5cee66b71f3cfc",
+  "verified_at": "2026-08-27",
+  "embedded_files": {
+    "BOOTSTRAP_SOLEIL_NOIR.md": "dc315877152514bf808a8da9fcd0b4626703f376bf76d53fb8c515d2e73382b7",
+    "SOLEIL_NOIR_SCENARIO_MANIFEST.json": "fe28a7cd616cc93fb4b069a99439dbe36be5645f934dcef08992b31d974efe86",
+    "SolidState_CHECKPOINT_v7.7_CoC7_4.7.zip": "7d5949930affda5a2dc64c0bf555827f131b9826c33f474411d133c81157f304"
+  },
+  "checkpoint_internal_hashes_verified": true,
+  "payload_note": "Recovery metadata is verified. Full Solid State v7.7 and CoC7 Rules Core v4.7 payloads are not embedded in this archive."
+}

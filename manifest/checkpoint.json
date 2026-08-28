@@ -4,6 +4,12 @@
   "declared_at": "2026-08-27",
   "authority": "GITHUB_SOURCE_OF_TRUTH",
   "anti_rollback": true,
+  "checkpoint_artifact": {
+    "status": "VERIFIED_METADATA_ARTIFACT",
+    "artifact": "artifacts/checkpoints/SolidState_v7.7_CoC7_4.7_SoleilNoir_v1.5_Backup.zip",
+    "sha256": "70e34301ac5e322978d2c70e99f301e28ddd5b0dc2a0d96f0c5cee66b71f3cfc",
+    "embedded_checkpoint_sha256": "7d5949930affda5a2dc64c0bf555827f131b9826c33f474411d133c81157f304"
+  },
   "solid_state": {
     "version": "7.7",
     "payload_status": "VERSION_NON_CONFIRMEE",
@@ -12,9 +18,15 @@
   },
   "coc7_rules_core": {
     "version": "4.7",
+    "package_id": "COC7_COMPILED_RULE_PACKAGE_4_7",
     "payload_status": "VERSION_NON_CONFIRMEE",
-    "sha256": null,
+    "sha256_expected": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
     "artifact": null
+  },
+  "recovery_reference": {
+    "working_backup_filename": "Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip",
+    "sha256_expected": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+    "present_in_repository": false
   },
   "policy": {
     "versioned_artifacts_override_conversation_memory": true,
