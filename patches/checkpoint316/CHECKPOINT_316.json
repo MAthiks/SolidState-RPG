@@ -1,0 +1,33 @@
+{
+  "checkpoint": 316,
+  "id": "PLAYER_AND_SCENARIO_INTERFACE_V1",
+  "parent_checkpoint": 315,
+  "parent_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+  "parent_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+  "status": "CERTIFIED_INTERFACE_MILESTONE_NOT_RELEASE",
+  "patch_files_sha256": {
+    "solidstate_runtime/interface_v1.py": "a06629a976a71f339b64b90411eb33478a2b7379e38474efc2b1725d9f8dc21f",
+    "run_tests_chunk316.py": "606a1e8a9a57a273c7556bf28fbedf7f5c4df8249d31463df8728dca291cf4f9",
+    "NATIVE_RUNTIME_CHUNK316_REPORT.json": "2c626fc3710bea40d9d36d24206c29497f664ceda8a41f63e7ba52a02b39ab67"
+  },
+  "required_export_append": "from .interface_v1 import ScenarioSelectionInterfaceV1, PlayerInterfaceV1, LaunchChainV1",
+  "tests": {
+    "run_tests_chunk316.py": "10/10 PASS",
+    "run_tests_chunk315.py": "5/5 PASS",
+    "run_tests.py": "5/5 PASS"
+  },
+  "todo_tasks": {
+    "1": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "PASS"
+  },
+  "historical_scenario_promotions": 0,
+  "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+  "anti_rollback": {
+    "checkpoint315_parent_required": true,
+    "older_rc1_branch_forbidden_as_runtime_base": true,
+    "scenario_pass_real_requires_source_backed_executable_proof": true
+  }
+}
