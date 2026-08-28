@@ -37,27 +37,93 @@
   "source_pdf_sha256_expected": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb",
   "next_gate": "SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
   "results": [
-    {"name":"source_layout_identity_exact","status":"PASS"},
-    {"name":"scenario5_source_validation_preserved","status":"PASS"},
-    {"name":"historical_blocker_preserved_as_provenance","status":"PASS"},
-    {"name":"start_source_hashes_exact","status":"PASS"},
-    {"name":"explicit_invitation_start_resolved","status":"PASS"},
-    {"name":"keeper_only_start_fails_closed","status":"PASS"},
-    {"name":"all_route_source_hashes_exact","status":"PASS"},
-    {"name":"all_ten_route_edges_source_admitted","status":"PASS"},
-    {"name":"complete_invitation_to_epilogue_path_proved","status":"PASS"},
-    {"name":"generic_execution_ledger_exact","status":"PASS"},
-    {"name":"proof_does_not_self_promote","status":"PASS"},
-    {"name":"terminal_is_source_authorized_open_keeper_resolution","status":"PASS"},
-    {"name":"inferred_event_fails_closed","status":"PASS"},
-    {"name":"ambiguous_capture_target_fails_closed","status":"PASS"},
-    {"name":"editorial_epilogue_reference_not_enough","status":"PASS"},
-    {"name":"player_safe_summary_contains_no_keeper_provenance","status":"PASS"},
-    {"name":"historical_pass_real_certificate_not_current_release_authority","status":"PASS"},
-    {"name":"current_status_boundary_preserved","status":"PASS"},
-    {"name":"checkpoint316_interface_exports_restored","status":"PASS"},
-    {"name":"checkpoint319_current_overlay_regression","status":"PASS"},
-    {"name":"checkpoint315_core_regression","status":"PASS"},
-    {"name":"native_core_regression","status":"PASS"}
+    {
+      "name": "source_layout_identity_exact",
+      "status": "PASS"
+    },
+    {
+      "name": "scenario5_source_validation_preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "historical_blocker_preserved_as_provenance",
+      "status": "PASS"
+    },
+    {
+      "name": "start_source_hashes_exact",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit_invitation_start_resolved",
+      "status": "PASS"
+    },
+    {
+      "name": "keeper_only_start_fails_closed",
+      "status": "PASS"
+    },
+    {
+      "name": "all_route_source_hashes_exact",
+      "status": "PASS"
+    },
+    {
+      "name": "all_ten_route_edges_source_admitted",
+      "status": "PASS"
+    },
+    {
+      "name": "complete_invitation_to_epilogue_path_proved",
+      "status": "PASS"
+    },
+    {
+      "name": "generic_execution_ledger_exact",
+      "status": "PASS"
+    },
+    {
+      "name": "proof_does_not_self_promote",
+      "status": "PASS"
+    },
+    {
+      "name": "terminal_is_source_authorized_open_keeper_resolution",
+      "status": "PASS"
+    },
+    {
+      "name": "inferred_event_fails_closed",
+      "status": "PASS"
+    },
+    {
+      "name": "ambiguous_capture_target_fails_closed",
+      "status": "PASS"
+    },
+    {
+      "name": "editorial_epilogue_reference_not_enough",
+      "status": "PASS"
+    },
+    {
+      "name": "player_safe_summary_contains_no_keeper_provenance",
+      "status": "PASS"
+    },
+    {
+      "name": "historical_pass_real_certificate_not_current_release_authority",
+      "status": "PASS"
+    },
+    {
+      "name": "current_status_boundary_preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "checkpoint316_interface_exports_restored",
+      "status": "PASS"
+    },
+    {
+      "name": "checkpoint319_current_overlay_regression",
+      "status": "PASS"
+    },
+    {
+      "name": "checkpoint315_core_regression",
+      "status": "PASS"
+    },
+    {
+      "name": "native_core_regression",
+      "status": "PASS"
+    }
   ]
 }
