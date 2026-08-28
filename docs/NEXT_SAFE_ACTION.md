@@ -1,49 +1,34 @@
 # Next safe action
 
-## Checkpoint 316 complete
+## Checkpoint 317 complete
 
-The Checkpoint 315 interface priorities 1–5 have been materialized and verified as:
+Current authority:
 
-`Checkpoint 316 — PLAYER_AND_SCENARIO_INTERFACE_V1`
+`Checkpoint 317 — SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
 
 Verification:
 
-- Interface tests: `10/10 PASS`
-- Checkpoint 315 regression: `5/5 PASS`
-- Native runtime core: `5/5 PASS`
-- Scenario status promotions: `0`
+- Chunk 317: `12/12 PASS`
+- Checkpoint 316 regression: `PASS`
+- Checkpoint 315 regression: `PASS`
+- Native core regression: `PASS`
+- `PASS_REAL` promotions: `0`
 
-## Current development authority
+Recovered safe transitions: scenario4=`8`, scenario5=`1`, scenario6=`1`, scenario7=`0`.
 
-Use Checkpoint 316 as the current development state.
-
-Parent reconstruction chain:
-
-1. Verify the Checkpoint 315 source archive SHA-256: `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`.
-2. Apply the exact patch under `patches/checkpoint316/` according to `APPLY_316.md`.
-3. Require all Checkpoint 316 and parent regression tests to pass.
-
-## Next compiler/runtime phase
+## Next phase
 
 Proceed with:
 
-`SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
+`SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1`
 
-The transition layer must only materialize a transition when source language explicitly supports the relationship and both endpoints can be bound to runtime entities. Endpoint proximity, document order, headings or semantic similarity are insufficient by themselves.
+Work scenario by scenario. Use only Checkpoint 317-admitted transitions plus additional transitions that independently pass the same explicit-source gate.
 
-## Scenario order
+Priority order:
 
-Apply transition recovery independently to scenarios 4–7 while preserving their current classifications by default:
+1. scenario4 — attempt to connect an explicit start to a source-backed terminal/issue path while preserving Keeper partitioning.
+2. scenario5 — resolve the explicit start entity and determine whether the existing safe transition can participate in a complete path.
+3. scenario6 — continue Act II → Act III → Conclusion only where explicit handoffs can be bound safely.
+4. scenario7 — recover investigation causality without turning clue proximity or headings into causal edges.
 
-- scenario4 — `COMPILED_PROTECTED_NOT_PASS_REAL`
-- scenario5 — `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
-- scenario6 — `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
-- scenario7 — `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
-
-scenario3 remains `PASS_REAL` and is the regression anchor.
-
-## Promotion gate
-
-A scenario may be promoted only when a complete source-backed executable path is demonstrated and the player/keeper knowledge firewall remains intact.
-
-The next checkpoint must be produced only after the Safe Transition Recovery layer passes regression without false causal-path promotion.
+A scenario remains non-`PASS_REAL` unless a complete executable start-to-terminal path is proven and all regression/firewall checks pass.
