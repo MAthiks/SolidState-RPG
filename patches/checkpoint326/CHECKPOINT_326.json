@@ -37,13 +37,15 @@
     "scenario6": "PASS_REAL",
     "scenario7": "PASS_REAL"
   },
-  "files_sha256": {
-    "solidstate_runtime/multiplayer_certification_v1.py": "2db4843d9244b04e52a9d33e2d506bf0e416aa5854f531d7a83033c60ddbea78",
-    "run_tests_chunk326.py": "484c0f30194c825f09940ffa84709ebd62475aa0c07367febcdf83ff8b1ba122",
-    "NATIVE_RUNTIME_CHUNK326_REPORT.json": "72a2ba9afc5c179f7c6dbfe3c0294b82de52e8c74bb2a306d248cc2110e628b4",
-    "INIT_APPEND_326.txt": "f16c5b0601332bcfb950552ab8151241b82f57c6c4e01e79a105efe1979e0120",
-    "ENGINE_ATTACH_326.patch": "b92dc2d513164a0d231431e6211423848a099e9a4c9e79d8e1134bd283e5cdfc"
+  "repository_git_blob_sha1": {
+    "ENGINE_ATTACH_326.patch": "1d037934f7c4e9672ec166b5025f0723fe1a2357",
+    "solidstate_runtime/multiplayer_certification_v1.py": "f937135a2f6b75669e4f5ec2199e2515b4735754",
+    "run_tests_chunk326.py": "a1f93767c3d93da86e7f8eea8a4e7126c79f7852",
+    "NATIVE_RUNTIME_CHUNK326_REPORT.json": "e76f3e72cc1459f6c3a1b7cb3efdb47c8055a655",
+    "INIT_APPEND_326.txt": "0125cc375e8683348c6f131ca6d93a9264068e13",
+    "APPLY_326.md": "3085456952546c1bcfbab6e47d14e7507f63c111"
   },
+  "hash_notes": "Repository file identities use Git blob SHA-1. Runtime/source integrity outside the repository continues to use the hashes recorded by the parent checkpoints.",
   "next_phase": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
   "anti_rollback": {
     "parent_checkpoint_required": 325,
