@@ -1,0 +1,53 @@
+{
+  "schema": "BRUME_SOURCE_BACKED_PATH_CLOSURE_318_V1",
+  "scenario_id": "SCENARIO4_REGISTRES_DE_BRUME_V1_1",
+  "parent_checkpoint": 317,
+  "status": "PASS_REAL_CANDIDATE",
+  "pass_real": false,
+  "promotion_applied": false,
+  "start_candidate": {
+    "scene_id": "BRUME_NODE_MAIRIE",
+    "basis": "PLAYER_PUBLIC_AT_ARRIVAL",
+    "source_ref": "PLAYER_P2_L8_L17",
+    "source_sha256": "2beeb4fa844cfb34f4065660c6ef1547e6943e99e2cc0427b1ea96125733ae6e"
+  },
+  "proved_path": {
+    "nodes": [
+      "BRUME_NODE_MAIRIE",
+      "BRUME_NODE_GALERIE_WARD",
+      "BRUME_TERMINAL_MAREE_REFERMEE"
+    ],
+    "transitions": [
+      {
+        "transition_id": "BRUME_317_05",
+        "authority": "EXPLICIT_SOURCE_TABLE_RELATION",
+        "source_ref": "KEEPER_P3_L43",
+        "source_sha256": "1453127d23b281a3948c209303d498361062d2a8804f64d3ae13a4b2f9952a95"
+      },
+      {
+        "transition_id": "BRUME_318_GALLERY_TO_MAREE_REFERMEE",
+        "authority": "EXPLICIT_ACTION_PLUS_TERMINAL_CONDITION",
+        "action_source_ref": "KEEPER_P5_L27",
+        "action_source_sha256": "b1c7cc344852f4010180abb553e7de563fa06f2a6dba57e279a439d6a6d950c0",
+        "outcome_source_ref": "KEEPER_P5_L42_L43",
+        "outcome_source_sha256": "64128363d499419f33a4726fdfe660273a76f565ac214340a5f518e0ccd6ab86"
+      }
+    ],
+    "execution": "PASS",
+    "path_length": 2
+  },
+  "protected_release_prerequisites": {
+    "dual_source_preflight": "PASS",
+    "knowledge_firewall": "PASS",
+    "revelation_transaction": "PASS",
+    "keeper_semantic_index": "PASS",
+    "player_semantic_index": "PASS"
+  },
+  "player_projection": {
+    "keeper_graph_exposed": false,
+    "keeper_text_exposed": false,
+    "summary_fields_only": true
+  },
+  "promotion_gate": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "policy": "A source-backed path proof establishes PASS_REAL candidacy only. Release promotion requires a separate audit and must not rewrite historical checkpoint results."
+}

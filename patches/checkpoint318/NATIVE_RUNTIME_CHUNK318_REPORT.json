@@ -1,0 +1,39 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK318_REPORT_V1",
+  "checkpoint_parent": 317,
+  "milestone": "SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "tests_total": 15,
+  "tests_passed": 15,
+  "tests_failed": 0,
+  "status": "PASS",
+  "scenario4_path_status": "PASS_REAL_CANDIDATE",
+  "path_nodes": [
+    "BRUME_NODE_MAIRIE",
+    "BRUME_NODE_GALERIE_WARD",
+    "BRUME_TERMINAL_MAREE_REFERMEE"
+  ],
+  "transition_ids": [
+    "BRUME_317_05",
+    "BRUME_318_GALLERY_TO_MAREE_REFERMEE"
+  ],
+  "pass_real_promotion": false,
+  "next_gate": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "results": [
+    {"name":"defensible_player_start_candidate","status":"PASS"},
+    {"name":"keeper_only_start_rejected","status":"PASS"},
+    {"name":"mayor_to_gallery_safe_edge","status":"PASS"},
+    {"name":"explicit_gallery_action_terminal","status":"PASS"},
+    {"name":"ambiguous_terminal_rejected","status":"PASS"},
+    {"name":"complete_start_to_terminal_path_proved","status":"PASS"},
+    {"name":"path_executes_through_generic_transition_layer","status":"PASS"},
+    {"name":"missing_middle_edge_fails_closed","status":"PASS"},
+    {"name":"player_safe_path_summary_has_no_keeper_graph","status":"PASS"},
+    {"name":"preexisting_protected_release_checks_still_pass","status":"PASS"},
+    {"name":"path_proof_does_not_self_promote","status":"PASS"},
+    {"name":"checkpoint317_regression","status":"PASS"},
+    {"name":"checkpoint316_regression","status":"PASS"},
+    {"name":"checkpoint315_regression","status":"PASS"},
+    {"name":"native_core_regression","status":"PASS"}
+  ],
+  "note": "Compact public summary. Full local execution details were retained during certification; source texts are not republished."
+}

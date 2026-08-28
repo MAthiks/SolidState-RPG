@@ -1,0 +1,44 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_318_V1",
+  "checkpoint": 318,
+  "checkpoint_id": "SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "parent_checkpoint": 317,
+  "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
+  "scenario4_path_status": "PASS_REAL_CANDIDATE",
+  "pass_real_promotion": false,
+  "tests": {
+    "chunk318": "15/15 PASS",
+    "checkpoint317_regression": "PASS",
+    "checkpoint316_regression": "PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core": "PASS"
+  },
+  "path_proof": {
+    "start": "BRUME_NODE_MAIRIE",
+    "terminal": "BRUME_TERMINAL_MAREE_REFERMEE",
+    "path_length": 2,
+    "execution": "PASS"
+  },
+  "files_sha256": {
+    "solidstate_runtime/source_backed_path_closure.py": "57b4f869ee67f8f139bfc78e7ed98a926d5c5066995b66c3fcdd021e9c0b18a4",
+    "run_tests_chunk318.py": "fc23c550639267ffe884fc8364b91c4d6e3a8ac3eb7cdb8138e8a539a3d45b16",
+    "NATIVE_RUNTIME_CHUNK318_REPORT.json": "fc92d71070b5e449e3c62f87b0dbe47bb81d5a4d7dfa0a3d2035b7bff2600096",
+    "BRUME_PATH_CLOSURE_318.json": "6a908a469632126fa6329b26bb899b4c0dd7895a27cd52948c2d1ab62e3472bd"
+  },
+  "source_evidence": {
+    "player_start_ref": "PLAYER_P2_L8_L17",
+    "player_start_sha256": "2beeb4fa844cfb34f4065660c6ef1547e6943e99e2cc0427b1ea96125733ae6e",
+    "keeper_leads_to_ref": "KEEPER_P3_L43",
+    "keeper_leads_to_sha256": "1453127d23b281a3948c209303d498361062d2a8804f64d3ae13a4b2f9952a95",
+    "keeper_action_ref": "KEEPER_P5_L27",
+    "keeper_action_sha256": "b1c7cc344852f4010180abb553e7de563fa06f2a6dba57e279a439d6a6d950c0",
+    "keeper_outcome_ref": "KEEPER_P5_L42_L43",
+    "keeper_outcome_sha256": "64128363d499419f33a4726fdfe660273a76f565ac214340a5f518e0ccd6ab86"
+  },
+  "next_gate": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 317,
+    "automatic_downgrade_forbidden": true,
+    "path_proof_does_not_self_promote": true
+  }
+}
