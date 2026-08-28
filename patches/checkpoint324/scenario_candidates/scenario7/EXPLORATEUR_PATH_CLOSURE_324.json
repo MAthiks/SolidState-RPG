@@ -1,0 +1,53 @@
+{
+  "schema": "EXPLORATEUR_PATH_CLOSURE_324_V1",
+  "scenario_key": "scenario7",
+  "title": "L’Explorateur assassiné",
+  "parent_checkpoint": 323,
+  "source": {
+    "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf",
+    "pdf_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "source_layout_sha256": "7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3",
+    "printed_pages": [55,82],
+    "physical_pages": [57,84],
+    "source_text_republished": false
+  },
+  "historical_state": {
+    "classification": "INVESTIGATION_GRAPH_CANDIDATE",
+    "clue_scene_anchor_count": 107,
+    "historical_causal_transition_count": 0,
+    "policy": "Clue-to-scene anchors remain non-causal."
+  },
+  "start": {
+    "scene_id": "EXPLORATEUR_START_INVITATION_RECEIVED",
+    "source_refs": ["G_L83_L90"],
+    "source_hashes": ["05c8763b8ff8d30565a3764cd019705159f0362f5ea0847c8091f42c2c55cd8d"],
+    "partition": "PLAYER_SAFE",
+    "availability": "AT_SCENARIO_START",
+    "explicit_source_language": true,
+    "source_language_audit": "MANUALLY_VERIFIED_EXPLICIT",
+    "derived_from_clue_anchor": false
+  },
+  "transitions": [
+    {"transition_id":"EXPLORATEUR_324_01_INVITATION_TO_HILLINGTON","from_scene":"EXPLORATEUR_START_INVITATION_RECEIVED","to_scene":"EXPLORATEUR_WEEKEND_HILLINGTON","predicate":{"type":"PLAYER_ACCEPTS_SCENARIO_INVITATION"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_WEEKEND_HILLINGTON"}],"relation":"SCENARIO_SETUP","authority":"EXPLICIT_INVITATION_AND_TRAVEL","source_refs":["G_L83_L103"],"source_hashes":["7ac80a796513ef7acbb5ff1e93ba09b11b944e3ccbe4f4a75bc54968605ce525"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_02_WEEKEND_TO_MURDER_INVESTIGATION","from_scene":"EXPLORATEUR_WEEKEND_HILLINGTON","to_scene":"EXPLORATEUR_MURDERED_INVESTIGATION_BEGINS","predicate":{"type":"SCENARIO_WORLD_EVENT","event":"SIR_WILFRID_MURDERED"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_MURDERED_INVESTIGATION_BEGINS"}],"relation":"WORLD_EVENT_HANDOFF","authority":"EXPLICIT_WORLD_EVENT_HANDOFF","source_refs":["G_L15_L17","G_L128_L128"],"source_hashes":["3133851c1922a3c9fde1616121e72aa70848f83d14662cbfc646bcb058b29b58","e3350144dd27a21d9434c4eeaa33d34d0bc049041322ac066f76bfbe7e3b85dc"],"partition":"SYSTEM","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_03_BODY_DISCOVERED_TO_ACTIII","from_scene":"EXPLORATEUR_MURDERED_INVESTIGATION_BEGINS","to_scene":"EXPLORATEUR_ACTIII_INVESTIGATION_ACTIVE","predicate":{"type":"BODY_DISCOVERED_AND_INVESTIGATION_AVAILABLE"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_ACTIII_INVESTIGATION_ACTIVE"}],"relation":"INVESTIGATION_START","authority":"EXPLICIT_INVESTIGATION_START","source_refs":["G_L1351_L1360","G_L1432_L1435"],"source_hashes":["ecb3542d1600e7f7ad74dbd1cb999503029b343ef94dc0f54a15811d2ac51c94","51beb47860d86a8e1498c178fb120d1e587e971becda8a7086e523ae2e54ba1d"],"partition":"PLAYER_SAFE","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_04_INVESTIGATION_TO_SUSPECT_REVIEW","from_scene":"EXPLORATEUR_ACTIII_INVESTIGATION_ACTIVE","to_scene":"EXPLORATEUR_REVIEW_SUSPECTS_READY","predicate":{"type":"INVESTIGATION_PROGRESS_SUFFICIENT"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_REVIEW_SUSPECTS_READY"}],"relation":"INVESTIGATION_PROGRESS","authority":"EXPLICIT_INVESTIGATION_PROGRESS_MARKER","source_refs":["G_L1857_L1865"],"source_hashes":["152c105f398c64123ac9c989bcd8a493c04d575f45668af28e9f447013c78392"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_05_REVIEW_TO_SOLUTION_OPPORTUNITY","from_scene":"EXPLORATEUR_REVIEW_SUSPECTS_READY","to_scene":"EXPLORATEUR_SOLUTION_OPPORTUNITY","predicate":{"type":"INVESTIGATORS_READY_TO_PRESENT_SOLUTION"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_SOLUTION_OPPORTUNITY"}],"relation":"SOLUTION_OPPORTUNITY","authority":"EXPLICIT_SOLUTION_OPPORTUNITY","source_refs":["G_L2051_L2072"],"source_hashes":["11ce49a3ecc8fc63ee77de63ca3075acc8cbf83332984ea7297e3ef5e66526a6"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_06_SOLUTION_TO_JANET_CONFESSION","from_scene":"EXPLORATEUR_SOLUTION_OPPORTUNITY","to_scene":"EXPLORATEUR_JANET_CONFESSES","predicate":{"type":"AT_LEAST_ONE_ARGUMENT_TEST_SUCCEEDS"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_JANET_CONFESSES"}],"relation":"CONDITIONAL_CONFESSION","authority":"EXPLICIT_CONDITIONAL_CONFESSION","source_refs":["G_L2055_L2061"],"source_hashes":["c8faf9a7619246ec1d812352884ed88804598b2f9ea93b12322a6c39c0e7a6fb"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_07_JANET_TO_DIANA","from_scene":"EXPLORATEUR_JANET_CONFESSES","to_scene":"EXPLORATEUR_DIANA_SECOND_TARGET","predicate":{"type":"JANET_CONFESSED_BUT_CLAIMS_SOLE_ACTION"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_DIANA_SECOND_TARGET"}],"relation":"TARGET_HANDOFF","authority":"EXPLICIT_SECOND_TARGET_HANDOFF","source_refs":["G_L2063_L2071"],"source_hashes":["f4d33231b296aafa59088e146495aa735bbb9c3633a47d70da0cc8d136a9b9c2"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_08_DIANA_TO_POLICE_CONVINCED","from_scene":"EXPLORATEUR_DIANA_SECOND_TARGET","to_scene":"EXPLORATEUR_POLICE_CONVINCED","predicate":{"type":"SUFFICIENT_ARGUMENTS_CONVINCE_POLICE"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_POLICE_CONVINCED"}],"relation":"CONDITIONAL_POLICE_CONVICTION","authority":"EXPLICIT_POLICE_CONVICTION","source_refs":["G_L2146_L2156"],"source_hashes":["f380b86a603289e5315f0ca9167c75d251805762f3f25aa5acffece0c17363bb"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_09_CONVICTION_TO_ARREST","from_scene":"EXPLORATEUR_POLICE_CONVINCED","to_scene":"EXPLORATEUR_CULPRITS_ARRESTED","predicate":{"type":"POLICE_ACTS_ON_CONVICTION"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_CULPRITS_ARRESTED"}],"relation":"ARREST_OUTCOME","authority":"EXPLICIT_ARREST_OUTCOME","source_refs":["G_L2089_L2098"],"source_hashes":["577507a08558bf09bdaffd1f06e98855c8341e0781cf83832053598a7a3a2419"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false},
+    {"transition_id":"EXPLORATEUR_324_10_ARREST_TO_JUDICIAL_CONCLUSION","from_scene":"EXPLORATEUR_CULPRITS_ARRESTED","to_scene":"EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION","predicate":{"type":"CULPRITS_ARRESTED_BY_POLICE"},"effects":[{"type":"UNLOCK_SCENE","scene":"EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION"}],"relation":"TERMINAL_CONSEQUENCE","authority":"EXPLICIT_CONCLUSION_CONDITION","source_refs":["G_L2098_L2107"],"source_hashes":["dcc1d6d7021cbe2710d4d45be9a1f7576d132c53fa07e3d5a4f725671275a004"],"partition":"KEEPER","target_binding_count":1,"explicit_source_language":true,"source_language_audit":"MANUALLY_VERIFIED_EXPLICIT","derived_from_clue_anchor":false,"requires_specific_clue_anchor":false}
+  ],
+  "terminal_scene": "EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION",
+  "path_status": "PASS_REAL_CANDIDATE",
+  "pass_real": false,
+  "promotion_applied": false,
+  "anti_false_causality": {
+    "clue_scene_anchors_promoted_to_edges": 0,
+    "requires_specific_clue_anchor": false,
+    "investigation_progress_is_state_condition_not_clue_order": true,
+    "alternative_investigation_routes_preserved": true
+  },
+  "next_gate": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1"
+}
