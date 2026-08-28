@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "checkpoint": "CHUNK_315",
+  "version": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+  "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1"
+}
