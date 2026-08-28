@@ -1,35 +1,43 @@
 # Next safe action
 
-## Checkpoint 318 complete
+## Checkpoint 319 complete
 
 Current authority:
 
-`Checkpoint 318 — SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
+`Checkpoint 319 — SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
 
 Verification:
 
-- Chunk 318: `15/15 PASS`
-- Checkpoint 317 regression: `PASS`
-- Checkpoint 316 regression: `PASS`
-- Checkpoint 315 regression: `PASS`
-- Native core regression: `PASS`
+- Release audit: `18/18 PASS`
+- scenario4 resolver status: `PASS_REAL`
+- Scenario Selection Interface: selectable and selectable only after release certificate
+- Keeper→Player leaks: `0`
+- checkpoint315 regression: `PASS`
+- native core regression: `PASS`
 
-Scenario 4 path status: `PASS_REAL_CANDIDATE`.
+Scenario status now:
 
-No release promotion has been applied.
+- scenario3: `PASS_REAL`
+- scenario4: `PASS_REAL`
+- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
 
 ## Next phase
 
 Proceed with:
 
-`SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
+`SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1`
 
-Required audit points:
+Target scenario: L'Antre de l'abomination.
 
-1. Confirm the path proof artifact and all source hashes.
-2. Re-check protected scenario preflight, knowledge firewall and revelation transaction.
-3. Verify the status resolver changes only scenario 4 and preserves scenario 3/5/6/7 classifications.
-4. Verify Scenario Selection Interface V1 changes scenario 4 from blocked to selectable only after the release certificate exists.
-5. Verify no Keeper graph/text is exposed in the player interface.
-6. Re-run current and parent regressions under the intended status promotion boundary.
-7. Produce a new checkpoint only if the release audit passes.
+Work order:
+
+1. Recover a defensible player-safe start entity from source evidence.
+2. Reuse the already admitted exact safe transition only if its endpoints remain valid.
+3. Recover a source-backed terminal/issue mapping without inference.
+4. Execute the complete path through the generic transition layer.
+5. Preserve Keeper/Player partitioning.
+6. Produce only a `PASS_REAL_CANDIDATE` path milestone first; any release promotion must remain a separate audit.
+
+Automatic downgrade is forbidden.
