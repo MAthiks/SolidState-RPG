@@ -1,0 +1,41 @@
+{
+  "schema": "SAFE_TRANSITION_RECOVERY_317_V1",
+  "parent_checkpoint": 316,
+  "policy": "Only explicit source-language relations with unique bound endpoints become executable transitions. Source text is not republished; refs and hashes only.",
+  "scenarios": {
+    "scenario4": {
+      "status": "PARTIAL_SAFE_GRAPH_RECOVERED",
+      "pass_real": false,
+      "transitions": [
+        {"transition_id":"BRUME_317_01","from_scene":"BRUME_NODE_MAISON_BELL","to_scene":"BRUME_NODE_EGLISE","source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136"},
+        {"transition_id":"BRUME_317_02","from_scene":"BRUME_NODE_MAISON_BELL","to_scene":"BRUME_NODE_CIMETIERE","source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136"},
+        {"transition_id":"BRUME_317_03","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_BANQUE","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712"},
+        {"transition_id":"BRUME_317_04","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_DEPOT","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712"},
+        {"transition_id":"BRUME_317_05","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_GALERIE_WARD","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712"},
+        {"transition_id":"BRUME_317_06","from_scene":"BRUME_NODE_EGLISE","to_scene":"BRUME_NODE_CIMETIERE","source_ref":"KEEPER_P3_L31","source_sha256":"a790a40a51fc642fd541df9a5a6ae39e60af81903a7b862a2a48da61d3450d17"},
+        {"transition_id":"BRUME_317_07","from_scene":"BRUME_NODE_DEPOT","to_scene":"BRUME_NODE_TRAIN","source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792"},
+        {"transition_id":"BRUME_317_08","from_scene":"BRUME_NODE_DEPOT","to_scene":"BRUME_NODE_GALERIE_WARD","source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792"}
+      ],
+      "authority": "EXPLICIT_SOURCE_TABLE_RELATION"
+    },
+    "scenario5": {
+      "status": "ONE_PREVIOUSLY_PROVEN_TRANSITION_ADMITTED",
+      "pass_real": false,
+      "transitions": [{"transition_id":"ANTRE_TX_1","from_scene":"P11_L4","to_scene":"P19_L18","source_ref":"P11_L14","source_sha256":"3f3c4b1fab575f4f6f1ed57256498a785459313a45cde8fd85485ff0916fae1e"}],
+      "authority": "EXPLICIT_CONDITION_PLUS_UNIQUE_TARGET"
+    },
+    "scenario6": {
+      "status": "ONE_EXPLICIT_SECTION_HANDOFF_RECOVERED",
+      "pass_real": false,
+      "transitions": [{"transition_id":"MUSE_317_ACT1_TO_ACT2","from_scene":"MUSE_ROLE_ACT_I","to_scene":"MUSE_ROLE_ACT_II","source_ref":"SOURCE_LAYOUT_L582_L590","source_sha256":"00005f72d0ac9a4be3411dc3749991f1d444edb9b4227f6f5d72e1eec16fd6a2","predicate":"JUSTINE_DELORME_LOCATED"}],
+      "authority": "EXPLICIT_SECTION_HANDOFF"
+    },
+    "scenario7": {
+      "status": "NO_SAFE_TRANSITIONS_RECOVERED",
+      "pass_real": false,
+      "transitions": [],
+      "reason": "Investigation anchors and act headings remain structural evidence only; no explicit endpoint-bound causal relation was promoted."
+    }
+  },
+  "pass_real_promotions": 0
+}
