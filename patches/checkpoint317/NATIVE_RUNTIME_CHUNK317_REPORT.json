@@ -1,0 +1,31 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK317_REPORT_V1",
+  "checkpoint_parent": 316,
+  "milestone": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+  "tests_total": 12,
+  "tests_passed": 12,
+  "tests_failed": 0,
+  "status": "PASS",
+  "scenario_recovery": {
+    "scenario4_safe_transitions": 8,
+    "scenario5_safe_transitions": 1,
+    "scenario6_safe_transitions": 1,
+    "scenario7_safe_transitions": 0
+  },
+  "pass_real_promotions": 0,
+  "results": [
+    {"name":"scenario4_explicit_leads_to_edges","status":"PASS"},
+    {"name":"scenario5_existing_exact_transition_admitted","status":"PASS"},
+    {"name":"scenario6_explicit_act_handoff","status":"PASS"},
+    {"name":"scenario7_anchors_do_not_become_causal_edges","status":"PASS"},
+    {"name":"editorial_reference_blocked","status":"PASS"},
+    {"name":"ambiguous_target_blocked","status":"PASS"},
+    {"name":"inferred_transition_blocked","status":"PASS"},
+    {"name":"keeper_text_not_exposed","status":"PASS"},
+    {"name":"scenario_status_invariants","status":"PASS"},
+    {"name":"checkpoint316_regression","status":"PASS"},
+    {"name":"checkpoint315_regression","status":"PASS"},
+    {"name":"native_core_regression","status":"PASS"}
+  ],
+  "note": "Compact GitHub report. Full local execution report retained during certification; source texts are not republished."
+}
