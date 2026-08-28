@@ -1,0 +1,23 @@
+{
+  "scenario4": {
+    "role_recovery": "PARTIAL",
+    "new_safe_transitions": 0,
+    "promoted": false
+  },
+  "scenario5": {
+    "role_recovery": "PARTIAL",
+    "new_safe_transitions": 0,
+    "promoted": false
+  },
+  "scenario6": {
+    "role_recovery": "START_AND_TERMINAL",
+    "new_safe_transitions": 0,
+    "promoted": false
+  },
+  "scenario7": {
+    "role_recovery": "START_AND_TERMINAL",
+    "new_safe_transitions": 0,
+    "promoted": false
+  },
+  "policy": "Endpoint role recovery cannot by itself create causal graph edges or PASS_REAL."
+}
