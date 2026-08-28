@@ -1,0 +1,141 @@
+{
+  "snapshot_id": "SOLID_STATE_PROJECT_CHAT_CONTINUITY_SNAPSHOT_V1",
+  "purpose": "Continuity handoff between independent chats to reduce rollback and stale-state reconstruction.",
+  "scope": {
+    "type": "STRUCTURED_PROJECT_STATE_NOT_FULL_VERBATIM_TRANSCRIPT",
+    "notes": [
+      "Preserves the current validated project state, milestones, runtime baseline, character checkpoint references, and next planned work.",
+      "Not a verbatim export of every message.",
+      "Loaded artifacts and this snapshot should take priority over conversational memory in a new chat."
+    ]
+  },
+  "current_baseline": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7",
+    "status": "VALIDATED_BASELINE_AFTER_LMDP_FULL_SIMULATION",
+    "package_id": "COC7_COMPILED_RULE_PACKAGE_4_7",
+    "package_sha256_canonical": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "sentinels_materialized": [
+      "SSR-MP-018",
+      "SSR-MP-019",
+      "SSR-MP-020",
+      "SSR-MP-021",
+      "SSR-MP-022",
+      "SSR-MP-023",
+      "SSR-MP-024",
+      "SSR-MP-025",
+      "SSR-MP-026",
+      "SSR-MP-027",
+      "SSR-MP-028",
+      "SSR-MP-029"
+    ],
+    "next_candidate_sentinel": "SSR-MP-030 — System Adjudication Traceability"
+  },
+  "validated_capabilities": {
+    "post_character_commit_to_scenario_runtime": "PASS",
+    "reference_integrity": "PASS",
+    "canonical_scene_preflight": "PASS",
+    "scene_resolution_state": "PASS",
+    "canon_logical_system_ambience_separation": "PASS",
+    "pre_scene_random_initialization": "PASS",
+    "exhaustive_search_source_gap_handling": "PASS",
+    "resource_rate_source_gap_handling": "PASS",
+    "failure_consequence_integrity": "PASS",
+    "natural_language_condition_binding": "PASS",
+    "system_adjudication": "PASS"
+  },
+  "cross_scenario_validation": {
+    "Le_Soleil_Noir_de_Tobrouk": {
+      "scenario_pair_id": "LSNT-V1.5-MULTI-1942",
+      "simulations_completed": 2,
+      "outcomes": [
+        "LE MIDI REFERMÉ",
+        "CONVOI DE L'OMBRE"
+      ],
+      "status": "PASS"
+    },
+    "La_Maison_du_Pendu": {
+      "era": "Paris, juin 1928",
+      "full_simulation_completed": true,
+      "status": "PASS"
+    }
+  },
+  "active_player_character": {
+    "character_id": "PC_001",
+    "name": "Mathieu Larcelet",
+    "status": "COMMITTED",
+    "checkpoint_file": "PC001_post_character_commit_checkpoint_v2.json",
+    "checkpoint_sha256_canonical": "729c738264a1dc7b41aaafbe71c6ad27ebb5afe121d0c0c22eb48ebb96c0421d",
+    "checkpoint_sha256_raw": "b3e2a20a02db58955f3d1a80b692cfbb835576d7f19f2993b6d7cb4f1762f1e8",
+    "derived": {
+      "PV": 12,
+      "SAN": 70,
+      "PM": 14,
+      "MOV": 8,
+      "Build": 0
+    },
+    "control_map": {
+      "Joueur 1": "PC_001"
+    },
+    "PC_002_status": "NOT_CREATED"
+  },
+  "player_interface_rules": {
+    "end_of_sequence_choices": {
+      "numbered_actions": 4,
+      "free_action_option": 1,
+      "format": "1-4 proposed actions; 5 = Action libre"
+    },
+    "display": [
+      "PV",
+      "SAN",
+      "PM if used",
+      "Chance",
+      "conditions",
+      "inventory actually possessed"
+    ],
+    "dice": "REAL_RANDOM_ONLY_NO_SILENT_REROLL",
+    "guardian_player_partition": "STRICT",
+    "source_fidelity": "MAXIMUM",
+    "era_policy": "Respect original scenario era unless explicitly adapted"
+  },
+  "source_fidelity_contract": {
+    "before_major_revelation_or_event": "VERIFY_SCENARIO_SOURCE",
+    "classifications": [
+      "CANON",
+      "LOGICAL_CONSEQUENCE",
+      "SYSTEM_ADJUDICATION",
+      "IMPROVISED_AMBIENCE",
+      "PENDING_ADJUDICATION"
+    ],
+    "improvised_ambience_never_retroactively_canon": true,
+    "no_player_visible_source_meta": true
+  },
+  "latest_artifacts": {
+    "solid_state_bundle": "Solid_State_v7.7_La_Maison_du_Pendu_Integration_TestBundle.zip",
+    "compiled_package": "COC7_COMPILED_RULE_PACKAGE_4_7.json",
+    "test_procedure": "TEST_PROCEDURE_LMDP_v7.7.md",
+    "selftest": "SOLID_STATE_v7.7_CoC7_v4.7_LMDP_SELFTEST.json"
+  },
+  "next_project_phase": {
+    "goal": "Integrate and test a full campaign as the next scenario corpus.",
+    "initial_steps": [
+      "Receive all campaign files.",
+      "Inventory documents and identify campaign/chapter order.",
+      "Validate documentary accessibility and versions.",
+      "Build campaign continuity map before launching play.",
+      "Do not modify baseline until defects are observed in the campaign test."
+    ],
+    "campaign_specific_stress_points": [
+      "Inter-chapter continuity",
+      "Persistent NPC state",
+      "Long-range clue dependencies",
+      "World chronology",
+      "Deferred consequences",
+      "Cross-scenario transitions",
+      "KnowledgePartition across chapters"
+    ]
+  },
+  "new_chat_bootstrap_instruction": "Load this continuity snapshot and the current baseline artifacts. Treat loaded artifacts as authoritative. Do not reconstruct older versions from memory. Verify referenced files/hashes when available. Resume from current_baseline and next_project_phase.",
+  "snapshot_hash_protocol": "SET snapshot_sha256=null; canonical UTF-8 JSON sort_keys=true separators=(',',':') ensure_ascii=true; SHA-256",
+  "snapshot_sha256": "bba61c98d182b92338d3c2ca1c8328a800f48630bfa9bde09d5eef3d31c83b58"
+}
