@@ -1,39 +1,46 @@
 # Official development checkpoint
 
-## Checkpoint 328 — VERIFIED STRICT REPLAY CONTINUITY
+## Checkpoint 329 — VERIFIED OFFLINE PLAYABLE RUNTIME PACKAGE
 
-- Checkpoint: `328`
-- ID: `STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
-- Parent: `327 — SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1`
-- Record: `patches/checkpoint328/CHECKPOINT_328.json`
-- Record Git blob SHA-1: `7d88dd5c481948d593644c98db93ca6cc9a2c9d5`
+- Checkpoint: `329`
+- ID: `OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
+- Parent: `328 — STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
+- Record: `patches/checkpoint329/CHECKPOINT_329.json`
+- Record Git blob SHA-1: `deb884f6a0506a887f12e421eef1fcd628c7524b`
+- Certified ZIP SHA-256: `75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add`
 
 ## Certified scope
 
-Checkpoint 328 certifies deterministic Strict Replay continuity across a real save/resume boundary. Continuous execution and interrupted execution resume to the same canonical state, strict journal hash chain, deterministic roll sequence, action order and semantic commit trace.
+Checkpoint 329 certifies the offline package built from the Checkpoint 328 runtime. It preserves 1–4 player support, Player Interface V1, local roll ledger, Checkpoint 327 save/resume and Checkpoint 328 Strict Replay continuity while removing any Internet dependency from the native execution path.
 
-The certification matrix covers scenario3 through scenario7 and 1–4 players, with eight strict events per session and a save after event four. Resume uses the Checkpoint 327 authenticated save implementation identified by Git blob SHA-1 `85f3232ca2b3b855dd5ae05a4630324551dc9a82`.
+The distributed ZIP contains no commercial scenario PDF or text. User-owned source files are imported locally and validated before commercial scenarios become `SOURCE_READY`. Missing or mismatched private sources fail closed and are never exposed on player surfaces.
 
-Strict Replay never silently rerolls. Reordered, duplicated or state-inconsistent strict journals fail closed before resumed play is accepted.
+The package is intentionally Keeper-assisted. It does not claim autonomous offline AI narration and does not certify free-form user-entered stats as faithful CoC7 character creation.
 
 ## Verification
 
-- `run_tests_chunk328.py`: `207/207 PASS`
-- Strict Replay Chunk 259: `2/2 PASS`
-- Strict Replay Chunk 263: `4/4 PASS`
-- Strict release gate Chunk 270: `2/2 PASS`
-- Checkpoint 315: `5/5 PASS`
+- full package matrix: `284/284 PASS`
+- portable package matrix: `199/199 PASS`
+- Checkpoint 328 regression: `207/207 PASS`
+- Checkpoint 315 regression: `5/5 PASS`
 - native core: `5/5 PASS`
+- ZIP CRC: `PASS`
+- extracted package manifest: `173/173 PASS`
+- extracted self-test: `PASS`
+- package manifest SHA-256: `aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9`
+- external network dependency: `false`
+- commercial source text embedded: `false`
 - all five scenario statuses remain `PASS_REAL`
 
 ## Next phase
 
-`OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
+`ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1`
 
 ## Anti-rollback invariant
 
-1. Checkpoint 328 is the current verified authority.
-2. Reconstruction requires verified 327 plus Checkpoint 328.
-3. Resume requires an authenticated Checkpoint 327 save and a valid strict replay journal.
-4. Replay uses recorded deterministic roll values; it never rerolls them silently.
-5. Conversation memory never outranks verified artifacts and hashes.
+1. Checkpoint 329 is the current verified authority.
+2. The offline release identity requires ZIP SHA-256 `75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add`.
+3. Checkpoint 328 remains the certified runtime parent.
+4. Commercial source material remains private/non-public and is validated locally.
+5. Save/resume and Strict Replay guarantees may not be weakened by Android packaging.
+6. Conversation memory never outranks verified artifacts and hashes.
