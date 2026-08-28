@@ -1,0 +1,22 @@
+{
+  "scenario4": {
+    "status": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "primary_blocker": "START_ENTITY_AND_CAUSAL_PATH_UNRESOLVED",
+    "role_progress": "MULTIPLE_TERMINAL_ISSUES_RECOVERED"
+  },
+  "scenario5": {
+    "status": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "primary_blocker": "EXPLICIT_START_ENTITY_UNRESOLVED",
+    "role_progress": "START_LANGUAGE_AND_TERMINAL_MARKER_RECOVERED"
+  },
+  "scenario6": {
+    "status": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "primary_blocker": "NO_SAFE_TYPED_TRANSITIONS",
+    "role_progress": "EXPLICIT_START_AND_CONCLUSION_ROLES_RECOVERED"
+  },
+  "scenario7": {
+    "status": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN",
+    "primary_blocker": "INVESTIGATION_GRAPH_NON_CAUSAL",
+    "role_progress": "INTRODUCTION_AND_CONCLUSION_ROLES_RECOVERED"
+  }
+}
