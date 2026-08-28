@@ -1,0 +1,44 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT315_ARCHIVE_VERIFICATION_V1",
+  "source_archive": "SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip",
+  "source_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+  "source_archive_size_bytes": 3015801,
+  "zip_crc_test": "PASS",
+  "file_count": 1206,
+  "embedded_manifest": "MANIFEST_SHA256.json",
+  "embedded_manifest_sha256": "3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef",
+  "manifest_entries": 1205,
+  "manifest_entries_verified": 1205,
+  "manifest_missing": 0,
+  "manifest_hash_or_size_mismatches": 0,
+  "unmanifested_files_except_manifest_itself": 0,
+  "checkpoint": {
+    "file": "CHECKPOINT_315.json",
+    "sha256": "593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa",
+    "id": "CHUNK_315",
+    "version": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+    "classification": "SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION"
+  },
+  "test_execution": {
+    "run_tests_chunk313.py": "3/3 PASS",
+    "run_tests_chunk314.py": "1/1 PASS",
+    "run_tests_chunk315.py": "5/5 PASS",
+    "run_tests.py": "5/5 PASS"
+  },
+  "historical_status_invariants": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN",
+    "promotions_to_pass_real": 0
+  },
+  "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+  "repository_storage_policy": {
+    "binary_archive_committed": false,
+    "reason": "GitHub connector does not support this binary archive path and the archive contains source-text material that must not be republished in the public repository.",
+    "project_owned_checkpoint_evidence_mirrored": true,
+    "proprietary_or_source_text_republished": false
+  },
+  "verification_result": "VERIFIED_ORIGINAL_CHECKPOINT_315_ARTIFACT"
+}
