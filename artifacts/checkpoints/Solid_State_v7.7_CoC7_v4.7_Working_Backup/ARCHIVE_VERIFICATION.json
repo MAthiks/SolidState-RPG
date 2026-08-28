@@ -1,0 +1,26 @@
+{
+  "schema": "SOLIDSTATE_WORKING_BACKUP_VERIFICATION_V1",
+  "archive_filename": "Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip",
+  "archive_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+  "archive_size_bytes": 5112,
+  "verification_status": "VERIFIED",
+  "repository_storage_mode": "PARTIAL_EXTRACTED_VERIFIED_MIRROR",
+  "binary_zip_committed": false,
+  "mirrored_files": {
+    "BACKUP_MANIFEST.json": "31ba24879a5d54f091e53f1a43484ec93924c089a9f6d1199fa07045c51ded11",
+    "README.md": "86c60881100a0b1a215695f32750d14a6690903c1ad780cf2bfbc229cf8780d6",
+    "SOLID_STATE_CHAT_CONTINUITY_SNAPSHOT_v1.json": "f38507146aab84cfcee5b77f7974531db6eec0e74659a996271fc0902cfb2ac5"
+  },
+  "verified_but_not_mirrored_files": {
+    "TEST_PROCEDURE_LMDP_v7.7.md": {
+      "sha256": "4e6fe09e180f093aa41e1d41dc2a959dd594e22f2daab643a06bfc268bfe818d",
+      "reason": "Connector write blocked; source bytes remain verified inside the uploaded archive."
+    }
+  },
+  "canonical_rules_package": {
+    "filename": "COC7_COMPILED_RULE_PACKAGE_4_7.json",
+    "sha256_expected": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "embedded": false,
+    "status": "VERSION_NON_CONFIRMEE_UNTIL_EXACT_ARTIFACT_PRESENT"
+  }
+}
