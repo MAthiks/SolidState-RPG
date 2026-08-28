@@ -1,0 +1,27 @@
+{
+  "schema": "SOLIDSTATE_AUTHORITY_FLOOR_V1",
+  "status": "ACTIVE_AUTHORITY_ARTIFACT_VERIFIED_PAYLOAD_NOT_PRESENT",
+  "source_lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+  "source_lock_sha256": "5d82126e8e28d64c57f0ecb427766ac70a4b1746a228b60cff9e8ddec3ea893e",
+  "authority_level": "ABOVE_INSTALL_PACK",
+  "install_generation_floor": 4,
+  "minimum_pack_version": "1.1.4",
+  "engine": "Solid State v7.8.1 candidate",
+  "correction": "018",
+  "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+  "ironman_commit": 6,
+  "payload_sha256_expected": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e",
+  "payload_present_in_repository": false,
+  "payload_status": "VERSION_NON_CONFIRMEE",
+  "last_verified_restorable_baseline": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7",
+    "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
+  },
+  "policy": {
+    "lower_generation_action": "ROLLBACK_REFUSED",
+    "retain_authority_floor_if_payload_missing": true,
+    "do_not_reconstruct_missing_correction_from_memory": true,
+    "v7_7_is_recovery_baseline_not_current_authority_floor": true
+  }
+}
