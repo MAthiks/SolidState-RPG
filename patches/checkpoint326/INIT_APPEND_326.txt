@@ -1,0 +1,1 @@
+from .multiplayer_certification_v1 import MultiplayerRuntimeContractV1
