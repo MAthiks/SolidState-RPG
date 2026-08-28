@@ -1,53 +1,37 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V4",
-  "status": "CHECKPOINT_316_INTERFACE_MILESTONE_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V5",
+  "status": "CHECKPOINT_317_SAFE_TRANSITION_MILESTONE_VERIFIED",
   "current_authority": {
-    "checkpoint": 316,
-    "checkpoint_id": "PLAYER_AND_SCENARIO_INTERFACE_V1",
-    "status": "CERTIFIED_INTERFACE_MILESTONE_NOT_RELEASE",
-    "checkpoint_record": "patches/checkpoint316/CHECKPOINT_316.json",
-    "checkpoint_record_sha256": "21b4c03215f00ce6d3ab20a2ede36012359bd82f4defce49c062cccc5ff8d345",
-    "parent_checkpoint": 315,
-    "parent_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
-    "parent_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
-    "implementation_status": "VERIFIED_PATCH_ON_VERIFIED_CHECKPOINT_RUNTIME",
+    "checkpoint": 317,
+    "checkpoint_id": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+    "status": "VERIFIED_MILESTONE_NOT_RELEASE",
+    "checkpoint_record": "patches/checkpoint317/CHECKPOINT_317.json",
+    "parent_checkpoint": 316,
+    "parent_checkpoint315_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
     "tests": {
-      "chunk316": "10/10 PASS",
-      "checkpoint315_regression": "5/5 PASS",
-      "native_core": "5/5 PASS"
+      "chunk317": "12/12 PASS",
+      "checkpoint316_regression": "PASS",
+      "checkpoint315_regression": "PASS",
+      "native_core": "PASS"
     },
-    "todo_tasks_1_to_5": "PASS",
-    "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1"
-  },
-  "checkpoint315_parent": {
-    "checkpoint_file_sha256": "593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa",
-    "source_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
-    "embedded_manifest_sha256": "3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef",
-    "manifest_entries_verified": 1205,
-    "manifest_entries_total": 1205
+    "safe_transition_recovery": {
+      "scenario4": 8,
+      "scenario5": 1,
+      "scenario6": 1,
+      "scenario7": 0,
+      "pass_real_promotions": 0
+    },
+    "next_phase": "SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1"
   },
   "historical_status_invariants": {
     "scenario3": "PASS_REAL",
     "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
     "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
     "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
-    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN",
-    "promotions_to_pass_real": 0
-  },
-  "lower_authority_history": {
-    "d5_304": {
-      "source_lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
-      "engine": "Solid State v7.8.1 candidate",
-      "correction": "018",
-      "payload_sha256_expected": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e"
-    },
-    "restorable_v7_7": {
-      "solid_state": "7.7",
-      "coc7_rules_core": "4.7",
-      "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
-    }
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
   },
   "authority_order": [
+    "CHECKPOINT_317_VERIFIED_SAFE_TRANSITION_MILESTONE",
     "CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE",
     "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
     "D5_304_AUTHORITY_LOCK",
@@ -56,9 +40,8 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "checkpoint_316_is_current_development_authority": true,
-    "checkpoint315_parent_hash_required_for_reconstruction": true,
     "source_text_must_not_be_republished_to_public_repository": true,
-    "scenario_pass_real_status_requires_source_backed_executable_proof": true
+    "ambiguous_or_inferred_transition_fails_closed": true,
+    "scenario_pass_real_status_requires_complete_source_backed_executable_path": true
   }
 }
