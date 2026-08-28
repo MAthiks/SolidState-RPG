@@ -6,14 +6,17 @@
   "status": "VERIFIED_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION",
   "certification": {
     "player_counts": [1, 2, 3, 4],
-    "tests": "228/228 PASS",
+    "tests": "334/334 PASS",
     "exactly_one_owned_character_per_player": true,
     "unique_character_control": true,
     "knowledge_partitions_independent": true,
     "keeper_knowledge_exposed": 0,
     "failed_character_transaction_corrupts_other_characters": false,
     "cross_player_character_control_blocked": true,
-    "wrong_owner_attach_blocked_before_commit": true
+    "wrong_owner_attach_blocked_before_commit": true,
+    "player_interface_v1_independent": true,
+    "assisted_three_plus_free_per_player": true,
+    "launch_chain_1_to_4": true
   },
   "runtime_fix": {
     "file": "solidstate_runtime/engine.py",
@@ -21,6 +24,13 @@
     "issue": "Previously allowed a player to attach a character owned by another player.",
     "resolution": "Fail closed on owner mismatch or existing foreign control without advancing commit.",
     "patch_file": "ENGINE_ATTACH_326.patch"
+  },
+  "interface_recovery": {
+    "source_semantics": "Checkpoint 316/320 Player Interface V1",
+    "module": "solidstate_runtime/player_interface_v1.py",
+    "exports": ["PlayerInterfaceV1", "LaunchChainV1"],
+    "behavior_change": false,
+    "purpose": "Restore previously certified player/launch surface lost from the reconstructed package exports."
   },
   "regressions": {
     "checkpoint325": "31/31 PASS",
@@ -40,10 +50,11 @@
   "repository_git_blob_sha1": {
     "ENGINE_ATTACH_326.patch": "1d037934f7c4e9672ec166b5025f0723fe1a2357",
     "solidstate_runtime/multiplayer_certification_v1.py": "f937135a2f6b75669e4f5ec2199e2515b4735754",
-    "run_tests_chunk326.py": "a1f93767c3d93da86e7f8eea8a4e7126c79f7852",
-    "NATIVE_RUNTIME_CHUNK326_REPORT.json": "e76f3e72cc1459f6c3a1b7cb3efdb47c8055a655",
-    "INIT_APPEND_326.txt": "0125cc375e8683348c6f131ca6d93a9264068e13",
-    "APPLY_326.md": "3085456952546c1bcfbab6e47d14e7507f63c111"
+    "solidstate_runtime/player_interface_v1.py": "cc886cbeba51eaac5e370227c3298d891647101c",
+    "run_tests_chunk326.py": "7e753eada02e95aa74e15ef4fdfde50e7418628a",
+    "NATIVE_RUNTIME_CHUNK326_REPORT.json": "7d94ced3727179e0d103099adcacb752c03a2224",
+    "INIT_APPEND_326.txt": "986d8de31ab47012ee3e539b839b32f279b5419a",
+    "APPLY_326.md": "28c90c43ae39c3dc288f9db1900eea8f4a601f5c"
   },
   "hash_notes": "Repository file identities use Git blob SHA-1. Runtime/source integrity outside the repository continues to use the hashes recorded by the parent checkpoints.",
   "next_phase": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
