@@ -1,0 +1,32 @@
+{
+  "checkpoint": "CHUNK_315",
+  "version": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+  "classification": "SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION",
+  "components": {
+    "role_detector": "PASS",
+    "scenario4_roles": "PASS",
+    "scenario5_roles": "PASS",
+    "scenario6_roles": "PASS",
+    "scenario7_roles": "PASS",
+    "endpoint_binding_gate": "PASS",
+    "promotion_audit": "PASS",
+    "blocker_reclassification": "PASS",
+    "regression": "PASS"
+  },
+  "runtime_scenario_name_leaks": [],
+  "promotions_to_pass_real": 0,
+  "historical_statuses": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "progress": {
+    "scenario4": "terminal family recovered",
+    "scenario5": "start-language + terminal marker recovered",
+    "scenario6": "explicit Act I + Conclusion roles recovered",
+    "scenario7": "Introduction/Act I + Conclusion roles recovered"
+  },
+  "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1"
+}
