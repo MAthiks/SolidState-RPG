@@ -1,55 +1,42 @@
 # Official development checkpoint
 
-## Checkpoint 317 — VERIFIED SAFE TRANSITION MILESTONE
+## Checkpoint 318 — VERIFIED PATH PROOF MILESTONE
 
-- Checkpoint: `317`
-- ID: `SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
-- Parent: `316 — PLAYER_AND_SCENARIO_INTERFACE_V1`
-- Root runtime parent: verified Checkpoint 315 archive SHA-256 `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`
-- Checkpoint record: `patches/checkpoint317/CHECKPOINT_317.json`
+- Checkpoint: `318`
+- ID: `SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Parent: `317 — SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
+- Record: `patches/checkpoint318/CHECKPOINT_318.json`
+- Record SHA-256: `2e7ca4f410475695828847eb019a21a271bdb357616343c7c1af7d9ca8e8af71`
 
 ## Certified scope
 
-Checkpoint 317 adds a fail-closed `SafeTransitionEvidenceGate` and `SafeTransitionRecoveryV1` layer. A transition is executable only when source language is explicit, both endpoints are bound, the target is unique, the source reference/hash is present and the authority class is accepted.
+Checkpoint 318 proves one complete source-backed executable path for scenario 4 using a player-safe arrival start candidate, a Checkpoint 317 safe transition, and an explicit Keeper action-to-terminal outcome mapping. The path is executed through the generic transition layer rather than accepted as prose-only evidence.
 
-Recovered safe transitions:
+Path proof status: `PASS_REAL_CANDIDATE`.
 
-- scenario4: `8`
-- scenario5: `1`
-- scenario6: `1`
-- scenario7: `0`
-
-No scenario status was promoted.
+Release status remains unchanged: `pass_real = false`.
 
 ## Verification
 
-- `run_tests_chunk317.py`: `12/12 PASS`
+- `run_tests_chunk318.py`: `15/15 PASS`
+- Checkpoint 317 regression: `PASS`
 - Checkpoint 316 regression: `PASS`
 - Checkpoint 315 regression: `PASS`
 - native runtime regression: `PASS`
-- historical scenario promotions: `0`
 
-## Scenario invariants
+## Anti-spoiler / source boundary
 
-- scenario3: `PASS_REAL`
-- scenario4: `COMPILED_PROTECTED_NOT_PASS_REAL`
-- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
-- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
-- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+Public checkpoint artifacts contain only source references and SHA-256 values. Keeper source text and hidden graph semantics are not exposed through the player-safe certification summary.
 
-## Source-protection invariant
+## Next gate
 
-Keeper/source text is not republished in the public repository. Checkpoint evidence contains source references and hashes only. Editorial references, ambiguous targets and inferred causal links fail closed.
+`SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
 
-## Next phase
-
-`SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1`
-
-Attempt path closure independently for scenarios 4–7. Promotion is allowed only after a complete source-backed executable path is proven with the Keeper/Player firewall intact.
+The audit must independently verify all release prerequisites before any status resolver or player scenario-selection interface is allowed to expose scenario 4 as certified/selectable.
 
 ## Anti-rollback invariant
 
-1. Checkpoint 317 is the current verified development authority.
-2. Reconstruction requires verified Checkpoint 315 + Checkpoint 316 + Checkpoint 317 patches in order.
-3. Never silently substitute 316, 315, RC1, Correction 018, or v7.7/v4.7 as current.
-4. Conversation memory never outranks verified artifacts.
+1. Checkpoint 318 is the current verified development authority.
+2. Reconstruction requires verified 315 + 316 + 317 + 318 in order.
+3. Path proof is not release promotion.
+4. Conversation memory never outranks verified artifacts and hashes.
