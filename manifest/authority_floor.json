@@ -1,43 +1,45 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V8",
-  "status": "CHECKPOINT_320_SCENARIO5_PATH_PROOF_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V9",
+  "status": "CHECKPOINT_321_SCENARIO5_PASS_REAL_RELEASE_VERIFIED",
   "current_authority": {
-    "checkpoint": 320,
-    "checkpoint_id": "SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1",
-    "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
-    "checkpoint_record": "patches/checkpoint320/CHECKPOINT_320.json",
-    "checkpoint_record_sha256": "d4f1ee742c546f7a8b28c3853393e7e292c0184600c99d3d1cdfe0dcba035697",
-    "parent_checkpoint": 319,
+    "checkpoint": 321,
+    "checkpoint_id": "SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
+    "status": "VERIFIED_SCENARIO5_PASS_REAL_RELEASE",
+    "checkpoint_record": "patches/checkpoint321/CHECKPOINT_321.json",
+    "checkpoint_record_sha256": "d3edb5ebc7ae751b51ad1a2fd9ad417e549862f961c30580e8b9fa1168dea65a",
+    "parent_checkpoint": 320,
     "tests": {
-      "chunk320": "22/22 PASS",
-      "checkpoint319_current_overlay": "PASS",
-      "checkpoint315_core": "PASS",
-      "native_core": "PASS",
-      "checkpoint318_isolated_reconstruction": "15/15 PASS",
-      "source_pdf_sha256": "PASS"
+      "chunk321": "27/27 PASS",
+      "independent_antre_audit": "15/15 PASS",
+      "checkpoint315_regression": "PASS",
+      "native_core_regression": "PASS",
+      "source_pdf_sha256": "PASS",
+      "coverage_zero_open": "PASS",
+      "release_tamper_fail_closed": "PASS",
+      "resolver_promotion": "PASS",
+      "scenario_selection_selectable": "PASS",
+      "player_surface_no_keeper_evidence": "PASS"
     },
     "scenario5": {
-      "path_status": "PASS_REAL_CANDIDATE",
-      "pass_real": false,
-      "promotion_applied": false,
+      "status": "PASS_REAL",
+      "pass_real": true,
+      "player_keeper_leaks": 0,
       "path_length": 10,
       "terminal": "ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION",
+      "release_authority": "ANTRE_PASS_REAL_RELEASE_321.json",
       "historical_pass_real_certificate_reactivated": false
     },
-    "packaging_repair": {
-      "checkpoint316_interface_exports_restored": true,
-      "behavior_change": false
-    },
-    "next_phase": "SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1"
+    "next_phase": "SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
     "scenario4": "PASS_REAL",
-    "scenario5": "PASS_REAL_CANDIDATE_NOT_RELEASED",
+    "scenario5": "PASS_REAL",
     "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
     "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
   },
   "authority_order": [
+    "CHECKPOINT_321_VERIFIED_SCENARIO5_PASS_REAL_RELEASE",
     "CHECKPOINT_320_VERIFIED_SCENARIO5_PATH_PROOF",
     "CHECKPOINT_319_VERIFIED_SCENARIO4_PASS_REAL_RELEASE",
     "CHECKPOINT_318_VERIFIED_BRUME_PATH_PROOF_MILESTONE",
@@ -50,8 +52,7 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "path_proof_does_not_self_promote": true,
-    "separate_release_audit_required_for_scenario5_pass_real": true,
+    "release_certificate_required_for_pass_real": true,
     "historical_pass_real_certificate_is_provenance_only": true,
     "source_text_must_not_be_republished_to_public_repository": true,
     "keeper_player_firewall_required": true
