@@ -1,0 +1,15 @@
+{
+  "anomaly_id": "SSR-RC1-UI-001",
+  "target": "Solid State v7.8-RC1",
+  "description": "Inherited v7.7 snapshot still records 4 proposed actions + 1 free action while RC1 introduces the new assistance contract.",
+  "severity": "MEDIUM_COMPATIBILITY_CONFLICT",
+  "cause": "Historical v7.7 continuity field retained inside a forward-migration candidate.",
+  "resolution": "For v7.8-RC1, NORMAL_LIBRE uses an open prompt with no automatic contextual choices; FACILE_ASSISTE uses an open prompt and, on help request, exactly 3 contextual suggestions + 1 free action from PLAYER_KNOWLEDGE_ONLY.",
+  "baseline_effect": "NONE — v7.7 historical snapshot is not rewritten.",
+  "regression_test": [
+    "tests/v7.8-rc1/run_certification.py::t_assistance",
+    "tests/v7.8-rc1/run_certification.py::t_fuzz_interface"
+  ],
+  "external_evidence": "LSNT_ASSISTANCE_INTERFACE_AUTONOMOUS_TEST_REPORT.json records 10000/10000 PASS on the same contract.",
+  "status": "VERIFIED_SPECIFICATION_FIX"
+}
