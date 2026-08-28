@@ -1,0 +1,20 @@
+{
+  "startup_gate": [
+    "no auto-start",
+    "player count required",
+    "N valid PJ required",
+    "per-player assistance",
+    "preflight blocks correctly",
+    "ironman initial save",
+    "player-safe scenario presentation"
+  ],
+  "character_creation": [
+    "archaeologist resolution",
+    "pilot READY",
+    "negative validator battery",
+    "2-player isolation",
+    "4-player isolation",
+    "DiceProvider immutability"
+  ],
+  "release_condition": "ALL_MANDATORY_TESTS_PASS"
+}
