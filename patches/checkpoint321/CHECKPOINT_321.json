@@ -1,0 +1,69 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_321_V1",
+  "checkpoint": 321,
+  "checkpoint_id": "SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
+  "parent_checkpoint": 320,
+  "status": "VERIFIED_SCENARIO5_PASS_REAL_RELEASE",
+  "scenario5": {
+    "scenario_key": "scenario5",
+    "title": "L'Antre de l'abomination",
+    "release_class": "PASS_REAL",
+    "pass_real": true,
+    "release_authority": "ANTRE_PASS_REAL_RELEASE_321.json",
+    "player_keeper_leaks": 0,
+    "path_length": 10,
+    "terminal": "ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION",
+    "historical_pass_real_certificate_reactivated": false
+  },
+  "tests": {
+    "chunk321": "27/27 PASS",
+    "independent_antre_audit": "15/15 PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core_regression": "PASS",
+    "source_pdf_sha256": "PASS",
+    "coverage_zero_open": "PASS",
+    "release_tamper_fail_closed": "PASS",
+    "resolver_promotion": "PASS",
+    "scenario_selection_selectable": "PASS",
+    "player_surface_no_keeper_evidence": "PASS"
+  },
+  "parent_proof": {
+    "checkpoint320_record_sha256": "d4f1ee742c546f7a8b28c3853393e7e292c0184600c99d3d1cdfe0dcba035697",
+    "checkpoint320_path_artifact_sha256": "fc35640258ed28a56de6aa055e228223b91fbf0e39595475e8d502f03f517b28"
+  },
+  "source": {
+    "filename": "antre.pdf",
+    "sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb",
+    "source_layout_sha256": "adb1e8c0c9e525e32f6f5f4dde4e9c9d87a651e7f830b1c14ef8b23f5c6c5467",
+    "source_text_republished": false
+  },
+  "provenance": {
+    "coverage_ledger_sha256": "2d7cb929f3325f84e734194ae78150ac8cbf15049edb61a7c8945de209b00ba3",
+    "historical_certificate_sha256": "a7828c9d498a879d669d0a35ca98b5300d4c1a123e30c3e5846f78d41a991d16",
+    "historical_build_sha256": "3fbe28764c12d443744188b88f2e53354827d1a83de12e985b290d4306e2825e",
+    "source_first_pass_zip_sha256": "ef759f5108f3d0292a69dae82c65302334baa47f6f899bc7546044f3f9e6551a"
+  },
+  "files_sha256": {
+    "solidstate_runtime/scenario5_release_gate.py": "a25c0fc3c4e73ff2d00d207f962f66579dc5f261c196fc799c43aba09ba01016",
+    "solidstate_runtime/multi_scenario_status_resolver.py": "b4c1cb282edec7384e2dd886f18161c49b1276c5ef26090f527fe1e83731838c",
+    "scenario_candidates/scenario5/ANTRE_PASS_REAL_RELEASE_321.json": "2f73142f081322c7891ad5bc44e718b20e292a7e2eae3d8af667c0dfd025761e",
+    "run_tests_chunk321.py": "ec7804e590c21b76b2669bb323ce12b8d9869be046f37792e0043e2eb603546b",
+    "NATIVE_RUNTIME_CHUNK321_REPORT.json": "ccb92fef4f417b3a3d1976a45f8ac3592adc7a483434c9f6fa6e8c7717fa373f",
+    "INIT_APPEND_321.txt": "9d20361438dc1ac363330c63f9d16cda3c330711b36e4b918e672e39dcee4038",
+    "APPLY_321.md": "a7b2abc7a4b86fb2424d0e171d3bce2d421f83d00380216e53e6e4d2c90571e2"
+  },
+  "scenario_status_after_release": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "next_phase": "SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 320,
+    "automatic_downgrade_forbidden": true,
+    "release_certificate_required_for_pass_real": true,
+    "historical_certificate_is_provenance_only": true
+  }
+}
