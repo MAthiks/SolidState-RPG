@@ -1,0 +1,18 @@
+{
+  "candidate": "Solid_State_v7.8-RC1_Integration_Candidate",
+  "created_utc": "2026-08-25T02:02:51.707827+00:00",
+  "baseline_working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+  "integration_package_003_sha256": "dc255d02e2e601d569a4be500d9a6e81b032e6539776fee23c414b85c25bdadf",
+  "status": "INTEGRATION_CANDIDATE_NOT_FULL_ENGINE_IMPLEMENTATION",
+  "files": {
+    "BACKUP_MANIFEST.json": {"sha256": "31ba24879a5d54f091e53f1a43484ec93924c089a9f6d1199fa07045c51ded11", "size_bytes": 565},
+    "MIGRATION_003/DEPENDENCIES.json": {"sha256": "871b638eef5083fe4f24ba6227689b505f6abdf41ae9f53dda2555af82001eb2", "size_bytes": 691},
+    "MIGRATION_003/INTEGRATION_PLAN_003.md": {"sha256": "7b8108f656babb0e4ac94fa4ae8d234c00c2e50e0ff25c112b8c37b624c3d524", "size_bytes": 3710},
+    "MIGRATION_003/README_RECOVERY.md": {"sha256": "d7d4533fe6fc6c0dbe82bed75f04d9c80030df998e6b7f7fb0b237003c061326", "size_bytes": 371},
+    "MIGRATION_003/REGRESSION_MATRIX.json": {"sha256": "20f677631e61118f3307cda283d6e5f2d6afcd66806b49a31667b6c0f98776b2", "size_bytes": 486},
+    "README.md": {"sha256": "86c60881100a0b1a215695f32750d14a6690903c1ad780cf2bfbc229cf8780d6", "size_bytes": 1029},
+    "README_v7.8-RC1_CANDIDATE.md": {"sha256": "7231224ce796a7c5ce11ab84fe2ee8d6071f4034806ddcf80468215687d5860e", "size_bytes": 915},
+    "SOLID_STATE_CHAT_CONTINUITY_SNAPSHOT_v1.json": {"sha256": "ec95735d123f8daeb7b1b52f764899d3913420c30cb46d8f8a055eed04258708", "size_bytes": 7075},
+    "TEST_PROCEDURE_LMDP_v7.7.md": {"sha256": "4e6fe09e180f093aa41e1d41dc2a959dd594e22f2daab643a06bfc268bfe818d", "size_bytes": 1316}
+  }
+}
