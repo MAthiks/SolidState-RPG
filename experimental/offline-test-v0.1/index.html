@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#111111" />
+<title>Solid State Offline Test v0.1</title>
+<style>
+:root{--bg:#0d0d0f;--panel:#17171b;--panel2:#222228;--text:#eee;--muted:#a9a9b2;--line:#33333c;--ok:#8fd18f;--warn:#e7c36e;--bad:#ef8585;--accent:#d8d8df}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;background:#0b0b0de8;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 14px;z-index:5}
+header h1{font-size:18px;margin:0} header small{color:var(--muted)}
+main{max-width:900px;margin:auto;padding:14px 14px 90px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1 1 160px}
+button,select,input,textarea{font:inherit;border-radius:10px;border:1px solid #44444f;background:#202026;color:var(--text);padding:10px}button{cursor:pointer}button.primary{background:#ececf1;color:#111;border-color:#ececf1;font-weight:700}button.good{border-color:#668866}.danger{border-color:#8c5555}.muted{color:var(--muted)}.badge{display:inline-block;padding:3px 8px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin-right:6px}.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:12px 0 8px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{background:var(--panel2);border-radius:10px;padding:9px;text-align:center}.stat b{display:block;font-size:18px}.players{display:grid;gap:10px}.player{background:#131317;border:1px solid var(--line);border-radius:12px;padding:12px}.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.tabs button.active{background:#e8e8ed;color:#111}.menu{display:grid;gap:8px}.menu button{text-align:left}.log{max-height:240px;overflow:auto;background:#101013;border-radius:10px;padding:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.entry{border-bottom:1px dashed #333;padding:6px 0}.entry:last-child{border:0}.footerbar{position:fixed;left:0;right:0;bottom:0;background:#0b0b0df0;border-top:1px solid var(--line);padding:10px;display:flex;gap:8px;justify-content:center;z-index:5}.footerbar button{max-width:240px}.hidden{display:none!important}.sceneText{white-space:pre-wrap}.notice{border-left:3px solid var(--warn);padding-left:10px}.compact{font-size:13px}.pill{font-size:12px;background:#25252c;border:1px solid #3a3a44;border-radius:999px;padding:4px 8px;display:inline-block;margin:2px}.owned{color:#ddd}.knowledge{background:#111116;padding:8px;border-radius:8px;margin-top:6px}a{color:#ddd}
+@media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}.row>*{flex-basis:100%}}
+</style>
+</head>
+<body>
+<header><h1>Solid State — Offline Test v0.1</h1><small>EXPÉRIMENTAL • NON CERTIFIÉ • 100 % local</small></header>
+<main>
+<section id="setup" class="card">
+<h2>Démarrer une partie de test</h2>
+<p class="notice compact">Ce prototype valide l'expérience hors connexion. Il n'embarque pas les textes complets des scénarios certifiés du moteur.</p>
+<div class="row"><label>Nombre de joueurs<select id="playerCount"><option>1</option><option>2</option><option>3</option><option>4</option></select></label><label>Mode d'interface<select id="assistMode"><option value="NORMAL_LIBRE">Normal / Libre</option><option value="FACILE_ASSISTE">Facile / Assisté</option></select></label></div>
+<div id="playerInputs" class="players"></div>
+<h3>Scénario</h3>
+<select id="scenarioSelect" style="width:100%"><option value="demo">Mode Démo — Les Archives de Minuit</option></select>
+<div id="registry" class="compact muted" style="margin-top:8px"></div>
+<div class="row" style="margin-top:12px"><button class="primary" id="startBtn">Lancer hors connexion</button><button id="resumeBtn">Reprendre la sauvegarde locale</button></div>
+</section>
+<section id="game" class="hidden">
+<div class="card"><div class="row"><div><span class="badge ok">OFFLINE</span><span class="badge warn">V0.1 EXP</span><h2 id="scenarioTitle" style="margin-top:8px"></h2><div id="sceneTitle" class="muted"></div></div><div><button id="resetBtn" class="danger">Nouvelle partie</button></div></div></div>
+<div class="card"><div id="tabs" class="tabs"></div></div>
+<div id="playerView"></div>
+<div class="card"><h2>Scène</h2><div id="sceneText" class="sceneText"></div><div id="decisionArea" style="margin-top:14px"></div></div>
+<div class="card"><h2>Jets de dés locaux</h2><div class="row"><button data-die="100">d100</button><button data-die="20">d20</button><button data-die="10">d10</button><button data-die="6">d6</button></div><div id="rollLog" class="log" style="margin-top:10px"></div></div>
+<div class="card"><h2>Journal de session</h2><div id="eventLog" class="log"></div></div>
+</section>
+</main>
+<div id="footer" class="footerbar hidden"><button id="saveBtn" class="good">Sauvegarder localement</button><button id="exportBtn">Exporter JSON</button><button id="importBtn">Importer JSON</button><input id="importFile" type="file" accept="application/json" class="hidden"></div>
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const VERSION='OFFLINE_TEST_V0.1_EXPERIMENTAL';
+const official=[['scenario3','Les Maudits'],['scenario4','Les Registres de Brume'],['scenario5',"L'Antre de l'abomination"],['scenario6','Muse équivoque aux yeux de sel gemme'],['scenario7',"L'Explorateur assassiné"]];
+const scenes=[
+{id:'arrival',title:'1. L’arrivée',text:"Minuit approche. Une pluie fine frappe les vitres des archives municipales. Vous êtes ici pour vérifier une anomalie dans un registre retrouvé derrière une cloison condamnée.",choices:['Examiner le registre','Inspecter la pièce','Questionner le gardien de nuit']},
+{id:'stacks',title:'2. Les rayonnages',text:"Une odeur de papier humide et de métal froid flotte entre les rayonnages. Une porte de service, normalement verrouillée, est entrouverte.",choices:['Observer la porte','Chercher des traces','Comparer les cotes des dossiers']},
+{id:'basement',title:'3. Le sous-sol',text:"L’escalier descend sous le bâtiment. Le bourdonnement électrique s’interrompt par instants. Quelque chose a déplacé plusieurs boîtes d’archives.",choices:['Descendre prudemment','Écouter avant d’avancer','Revenir chercher du matériel']},
+{id:'vault',title:'4. La chambre scellée',text:"Derrière une grille ancienne se trouve une petite chambre sèche. Un coffre métallique porte le même numéro que le registre.",choices:['Examiner le coffre','Photographier les marquages','Chercher un mécanisme de sécurité']},
+{id:'end',title:'5. Fin du test',text:"Le prototype s’arrête ici. Le journal, les états des joueurs, les connaissances et la sauvegarde peuvent maintenant être testés hors connexion.",choices:['Relire le journal','Faire un jet de dés','Exporter la sauvegarde']}
+];
+function defaultPlayer(i,name,char){return {playerId:`P${i+1}`,name:name||`Joueur ${i+1}`,characterId:`C${i+1}`,characterName:char||`Investigateur ${i+1}`,PV:10,SAN:55,PM:10,Chance:50,conditions:[],inventory:['Carnet','Crayon','Lampe'],knowledge:[`K_${i+1}_ARRIVEE`],notes:''}}
+function newState(){return {version:VERSION,createdAt:new Date().toISOString(),scenario:'demo',sceneIndex:0,mode:$('#assistMode').value,activePlayer:0,players:[],rolls:[],events:[],sharedKnowledge:[],turn:1}}
+let state=null;
+function cryptoDie(sides){const a=new Uint32Array(1);crypto.getRandomValues(a);return (a[0]%sides)+1}
+function log(msg,kind='INFO'){state.events.push({t:new Date().toISOString(),turn:state.turn,kind,msg});renderLogs()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function buildInputs(){const n=+$('#playerCount').value, box=$('#playerInputs');box.innerHTML='';for(let i=0;i<n;i++){box.insertAdjacentHTML('beforeend',`<div class="player"><div class="row"><label>Joueur ${i+1}<input id="pn${i}" value="Joueur ${i+1}"></label><label>Personnage<input id="cn${i}" value="Investigateur ${i+1}"></label></div></div>`)}}
+function renderRegistry(){$('#registry').innerHTML='Registre moteur : '+official.map(x=>`<span class="pill">${esc(x[1])} — PASS_REAL</span>`).join(' ')+'<br><span class="muted">Le contenu complet n’est pas inclus dans ce prototype expérimental.</span>'}
+function start(){state=newState();const n=+$('#playerCount').value;for(let i=0;i<n;i++)state.players.push(defaultPlayer(i,$(`#pn${i}`).value,$(`#cn${i}`).value));log(`Session créée pour ${n} joueur(s).`);showGame();saveLocal(false)}
+function showGame(){$('#setup').classList.add('hidden');$('#game').classList.remove('hidden');$('#footer').classList.remove('hidden');render()}
+function render(){if(!state)return;$('#scenarioTitle').textContent='Mode Démo — Les Archives de Minuit';const scene=scenes[state.sceneIndex];$('#sceneTitle').textContent=scene.title;$('#sceneText').textContent=scene.text;renderTabs();renderPlayer();renderDecision();renderLogs()}
+function renderTabs(){const t=$('#tabs');t.innerHTML='';state.players.forEach((p,i)=>{const b=document.createElement('button');b.textContent=`${p.name} · ${p.characterName}`;if(i===state.activePlayer)b.className='active';b.onclick=()=>{state.activePlayer=i;render()};t.appendChild(b)})}
+function renderPlayer(){const p=state.players[state.activePlayer];$('#playerView').innerHTML=`<div class="card"><h2>${esc(p.characterName)} <span class="muted">— ${esc(p.name)}</span></h2><div class="stats"><div class="stat">❤️ PV<b>${p.PV}</b></div><div class="stat">🧠 SAN<b>${p.SAN}</b></div><div class="stat">✨ PM<b>${p.PM}</b></div><div class="stat">🍀 Chance<b>${p.Chance}</b></div></div><h3>Inventaire réel</h3><div>${p.inventory.map(x=>`<span class="pill owned">${esc(x)}</span>`).join('')}</div><h3>Connaissances de ce joueur</h3><div class="knowledge">${p.knowledge.map(k=>`<span class="pill">${esc(k)}</span>`).join(' ')||'<span class="muted">Aucune</span>'}</div><div class="row" style="margin-top:10px"><input id="noteInput" placeholder="Note privée du joueur" value="${esc(p.notes)}"><button id="noteBtn">Enregistrer note</button><button id="shareBtn">Partager une connaissance</button></div></div>`;$('#noteBtn').onclick=()=>{p.notes=$('#noteInput').value;log(`${p.name} met à jour une note privée.`);saveLocal(false)};$('#shareBtn').onclick=()=>{if(!p.knowledge.length)return;const k=p.knowledge[p.knowledge.length-1];if(!state.sharedKnowledge.includes(k))state.sharedKnowledge.push(k);state.players.forEach(q=>{if(!q.knowledge.includes(k))q.knowledge.push(k)});log(`${p.name} partage explicitement une connaissance.`,'KNOWLEDGE_TRANSFER');render();saveLocal(false)}}
+function renderDecision(){const area=$('#decisionArea'),scene=scenes[state.sceneIndex],p=state.players[state.activePlayer];if(state.mode==='NORMAL_LIBRE'){area.innerHTML=`<h3>Que fais-tu ?</h3><div class="row"><input id="freeAction" placeholder="Action libre de ${esc(p.characterName)}"><button class="primary" id="actBtn">Valider l’action</button></div>`;$('#actBtn').onclick=()=>advance($('#freeAction').value||'Action libre');return}area.innerHTML='<h3>3 choix contextuels + 1 action libre</h3><div class="menu">'+scene.choices.map((c,i)=>`<button class="assistChoice" data-i="${i}">${i+1}. ${esc(c)}</button>`).join('')+`<div class="row"><input id="freeAction" placeholder="Action libre"><button id="actBtn">Action libre</button></div></div>`;$$('.assistChoice').forEach(b=>b.onclick=()=>advance(scene.choices[+b.dataset.i]));$('#actBtn').onclick=()=>advance($('#freeAction').value||'Action libre')}
+function advance(action){const p=state.players[state.activePlayer];log(`${p.characterName}: ${action}`,'ACTION');if(state.sceneIndex<scenes.length-1){state.sceneIndex++;state.turn++;const kid=`K_${state.activePlayer+1}_SCENE_${state.sceneIndex+1}`;if(!p.knowledge.includes(kid))p.knowledge.push(kid)}else log('Fin du parcours de démonstration.','SYSTEM');render();saveLocal(false)}
+function roll(sides){const p=state.players[state.activePlayer],r=cryptoDie(sides);state.rolls.unshift({t:new Date().toISOString(),player:p.name,character:p.characterName,die:`d${sides}`,result:r});log(`${p.characterName} lance d${sides} → ${r}`,'ROLL');renderLogs();saveLocal(false)}
+function renderLogs(){if(!state)return;$('#rollLog').innerHTML=(state.rolls.length?state.rolls.map(r=>`<div class="entry">${esc(r.character)} — ${r.die} = <b>${r.result}</b></div>`).join(''):'<span class="muted">Aucun jet.</span>');$('#eventLog').innerHTML=(state.events.length?state.events.slice().reverse().map(e=>`<div class="entry"><span class="muted">T${e.turn} ${esc(e.kind)}</span> — ${esc(e.msg)}</div>`).join(''):'<span class="muted">Journal vide.</span>')}
+function saveLocal(show=true){if(!state)return;localStorage.setItem('solidstate_offline_v01',JSON.stringify(state));if(show)log('Sauvegarde locale écrite sur cet appareil.','SAVE')}
+function resume(){try{const raw=localStorage.getItem('solidstate_offline_v01');if(!raw)throw new Error('Aucune sauvegarde locale');const s=JSON.parse(raw);if(s.version!==VERSION)throw new Error('Version de sauvegarde incompatible');if(!Array.isArray(s.players)||s.players.length<1||s.players.length>4)throw new Error('Sauvegarde invalide');state=s;log('Sauvegarde locale restaurée.','RESUME');showGame()}catch(e){alert(e.message)}}
+function exportSave(){if(!state)return;const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`solidstate-offline-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function importSave(file){const rd=new FileReader();rd.onload=()=>{try{const s=JSON.parse(rd.result);if(s.version!==VERSION)throw new Error('Version incompatible');if(!Array.isArray(s.players)||s.players.length<1||s.players.length>4)throw new Error('Sauvegarde invalide');state=s;log('Sauvegarde JSON importée.','IMPORT');showGame();saveLocal(false)}catch(e){alert('Import refusé : '+e.message)}};rd.readAsText(file)}
+$('#playerCount').onchange=buildInputs;$('#startBtn').onclick=start;$('#resumeBtn').onclick=resume;$('#saveBtn').onclick=()=>saveLocal(true);$('#exportBtn').onclick=exportSave;$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=e=>e.target.files[0]&&importSave(e.target.files[0]);$('#resetBtn').onclick=()=>{if(confirm('Effacer la partie locale et recommencer ?')){localStorage.removeItem('solidstate_offline_v01');location.reload()}};$$('[data-die]').forEach(b=>b.onclick=()=>roll(+b.dataset.die));buildInputs();renderRegistry();
+})();
+</script>
+</body></html>
