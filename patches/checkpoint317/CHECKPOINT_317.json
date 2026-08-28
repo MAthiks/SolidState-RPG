@@ -1,0 +1,49 @@
+{
+  "checkpoint": 317,
+  "id": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+  "parent_checkpoint": 316,
+  "parent_main_commit": "9e2ee9cb8e3a2bb8eeeae3e62dde9fd04902b9fd",
+  "status": "VERIFIED_MILESTONE",
+  "classification": "PARTIAL_SAFE_TRANSITION_GRAPH_NO_PASS_REAL_PROMOTION",
+  "tests": {
+    "chunk317": "12/12 PASS",
+    "checkpoint316_regression": "PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core_regression": "PASS"
+  },
+  "scenario_recovery": {
+    "scenario4": 8,
+    "scenario5": 1,
+    "scenario6": 1,
+    "scenario7": 0
+  },
+  "pass_real_promotions": 0,
+  "integrity": {
+    "checkpoint315_source_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+    "executed_local_sha256": {
+      "solidstate_runtime/safe_transition_recovery.py": "3aeae2ce76c2892aaad1ab9cd8639435a4f4267145755ebb819f41a3e7973b22",
+      "run_tests_chunk317.py": "ea626494196668b3d006b5774ff6bf57d1d8b295859272a1002137e32b48d66c"
+    },
+    "github_git_blob_sha": {
+      "solidstate_runtime/safe_transition_recovery.py": "ffedaf4b9610c40259f7ff4c1b29733dd7dcca6c",
+      "run_tests_chunk317.py": "621c7b539d8f2f870b7c84926008804c9e3232fb",
+      "SAFE_TRANSITION_RECOVERY_317.json": "5c6ddef66d72334a753820dd0b1d6683b9d90755",
+      "NATIVE_RUNTIME_CHUNK317_REPORT.json": "0cebf2770bc9ea74d9301e7dd610de5624baf477",
+      "INIT_APPEND_317.txt": "52667551a2b9bb8a688b75361c02bf8dee186f3f"
+    }
+  },
+  "historical_status_invariants": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "source_policy": {
+    "source_text_republished": false,
+    "keeper_evidence_exposed_to_player": false,
+    "editorial_references_are_not_causality": true,
+    "ambiguous_targets_fail_closed": true
+  },
+  "next_phase": "SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1"
+}
