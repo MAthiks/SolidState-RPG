@@ -10,8 +10,19 @@
     "sha256": "70e34301ac5e322978d2c70e99f301e28ddd5b0dc2a0d96f0c5cee66b71f3cfc",
     "embedded_checkpoint_sha256": "7d5949930affda5a2dc64c0bf555827f131b9826c33f474411d133c81157f304"
   },
+  "working_backup": {
+    "status": "VERIFIED",
+    "source_archive": "Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip",
+    "source_archive_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+    "source_archive_size_bytes": 5112,
+    "repository_storage_mode": "PARTIAL_EXTRACTED_VERIFIED_MIRROR",
+    "repository_path": "artifacts/checkpoints/Solid_State_v7.7_CoC7_v4.7_Working_Backup/",
+    "verification_manifest": "artifacts/checkpoints/Solid_State_v7.7_CoC7_v4.7_Working_Backup/ARCHIVE_VERIFICATION.json",
+    "binary_zip_present_in_repository": false
+  },
   "solid_state": {
     "version": "7.7",
+    "baseline_identity_status": "VERIFIED_BY_WORKING_BACKUP",
     "payload_status": "VERSION_NON_CONFIRMEE",
     "sha256": null,
     "artifact": null
@@ -19,6 +30,7 @@
   "coc7_rules_core": {
     "version": "4.7",
     "package_id": "COC7_COMPILED_RULE_PACKAGE_4_7",
+    "baseline_identity_status": "VERIFIED_BY_WORKING_BACKUP",
     "payload_status": "VERSION_NON_CONFIRMEE",
     "sha256_expected": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
     "artifact": null
@@ -26,7 +38,9 @@
   "recovery_reference": {
     "working_backup_filename": "Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip",
     "sha256_expected": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
-    "present_in_repository": false
+    "source_archive_verified": true,
+    "verified_extracted_content_present_in_repository": true,
+    "binary_zip_present_in_repository": false
   },
   "policy": {
     "versioned_artifacts_override_conversation_memory": true,
