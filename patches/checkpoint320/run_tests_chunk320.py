@@ -82,7 +82,7 @@ report={
  'pass_real_promotion':False,'historical_pass_real_certificate_reactivated':False,
  'source_pdf_sha256_expected':evidence['source']['pdf_sha256'],
  'next_gate':'SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1',
- 'results':results,
+ 'results':[{'name':x['name'],'status':x['status']} for x in results],
 }
 (ROOT/'NATIVE_RUNTIME_CHUNK320_REPORT.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(report,ensure_ascii=False,indent=2))
