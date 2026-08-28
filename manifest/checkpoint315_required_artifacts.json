@@ -1,0 +1,32 @@
+{
+  "checkpoint": 315,
+  "id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+  "status": "RECOVERY_BLOCKER",
+  "required": [
+    {
+      "kind": "runtime_or_checkpoint_package",
+      "exact_filename": null,
+      "status": "MISSING"
+    },
+    {
+      "kind": "checkpoint_manifest_or_state",
+      "exact_filename": null,
+      "status": "MISSING"
+    },
+    {
+      "kind": "authoritative_sha256",
+      "value": null,
+      "status": "MISSING"
+    },
+    {
+      "kind": "parent_provenance",
+      "status": "UNRESOLVED"
+    }
+  ],
+  "available_evidence": [
+    "SolidState_TODO_Checkpoint315.pdf",
+    "SOLIDSTATE_AUTHORITY_LOCK_D5-304.json",
+    "Solid State Native Runtime — Big Chunk 1 README"
+  ],
+  "resume_rule": "NO_RUNTIME_IMPLEMENTATION_WORK_FROM_315_UNTIL_REQUIRED_IDENTITY_ARTIFACTS_ARE_VERIFIED"
+}
