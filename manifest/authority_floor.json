@@ -8,21 +8,8 @@
     "checkpoint_record": "patches/checkpoint318/CHECKPOINT_318.json",
     "checkpoint_record_sha256": "2e7ca4f410475695828847eb019a21a271bdb357616343c7c1af7d9ca8e8af71",
     "parent_checkpoint": 317,
-    "tests": {
-      "chunk318": "15/15 PASS",
-      "checkpoint317_regression": "PASS",
-      "checkpoint316_regression": "PASS",
-      "checkpoint315_regression": "PASS",
-      "native_core": "PASS"
-    },
-    "scenario4": {
-      "path_status": "PASS_REAL_CANDIDATE",
-      "pass_real": false,
-      "promotion_applied": false,
-      "proved_path_length": 2,
-      "start": "BRUME_NODE_MAIRIE",
-      "terminal": "BRUME_TERMINAL_MAREE_REFERMEE"
-    },
+    "tests": {"chunk318":"15/15 PASS","checkpoint317_regression":"PASS","checkpoint316_regression":"PASS","checkpoint315_regression":"PASS","native_core":"PASS"},
+    "scenario4": {"path_status":"PASS_REAL_CANDIDATE","pass_real":false,"promotion_applied":false,"proved_path_length":2,"start":"BRUME_NODE_MAIRIE","terminal":"BRUME_TERMINAL_MAREE_REFERMEE"},
     "next_phase": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1"
   },
   "historical_status_invariants": {
@@ -32,19 +19,6 @@
     "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
     "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
   },
-  "authority_order": [
-    "CHECKPOINT_318_VERIFIED_BRUME_PATH_PROOF_MILESTONE",
-    "CHECKPOINT_317_VERIFIED_SAFE_TRANSITION_MILESTONE",
-    "CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE",
-    "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
-    "D5_304_AUTHORITY_LOCK",
-    "V7_7_COC7_4_7_VERIFIED_RECOVERY_BASELINE",
-    "CONVERSATION_MEMORY_NON_AUTHORITATIVE"
-  ],
-  "policy": {
-    "automatic_downgrade_forbidden": true,
-    "path_proof_does_not_self_promote": true,
-    "source_text_must_not_be_republished_to_public_repository": true,
-    "scenario_pass_real_status_requires_separate_release_audit": true
-  }
+  "authority_order": ["CHECKPOINT_318_VERIFIED_BRUME_PATH_PROOF_MILESTONE","CHECKPOINT_317_VERIFIED_SAFE_TRANSITION_MILESTONE","CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE","CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT","D5_304_AUTHORITY_LOCK","V7_7_COC7_4_7_VERIFIED_RECOVERY_BASELINE","CONVERSATION_MEMORY_NON_AUTHORITATIVE"],
+  "policy": {"automatic_downgrade_forbidden":true,"path_proof_does_not_self_promote":true,"source_text_must_not_be_republished_to_public_repository":true,"scenario_pass_real_status_requires_separate_release_audit":true}
 }
