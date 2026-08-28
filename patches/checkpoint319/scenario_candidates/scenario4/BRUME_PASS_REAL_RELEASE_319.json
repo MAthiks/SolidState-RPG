@@ -1,0 +1,48 @@
+{
+  "schema": "SOLIDSTATE_SCENARIO4_PASS_REAL_RELEASE_319_V1",
+  "scenario_key": "scenario4",
+  "scenario_id": "SCENARIO4_REGISTRES_DE_BRUME_V1_1",
+  "title": "Les Registres de Brume",
+  "parent_checkpoint": 318,
+  "promotion_source": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "path_status": "PASS_REAL_CANDIDATE",
+  "release_class": "PASS_REAL",
+  "pass_real": true,
+  "player_keeper_leaks": 0,
+  "checks": {
+    "dual_source_preflight": "PASS",
+    "knowledge_firewall": "PASS",
+    "protected_release_readiness": "PASS",
+    "source_backed_path_proof": "PASS",
+    "generic_path_execution": "PASS",
+    "player_safe_projection": "PASS",
+    "status_regression": "PASS"
+  },
+  "source_evidence": {
+    "player_start_ref": "PLAYER_P2_L8_L17",
+    "player_start_sha256": "2beeb4fa844cfb34f4065660c6ef1547e6943e99e2cc0427b1ea96125733ae6e",
+    "keeper_leads_to_ref": "KEEPER_P3_L43",
+    "keeper_leads_to_sha256": "1453127d23b281a3948c209303d498361062d2a8804f64d3ae13a4b2f9952a95",
+    "keeper_action_ref": "KEEPER_P5_L27",
+    "keeper_action_sha256": "b1c7cc344852f4010180abb553e7de563fa06f2a6dba57e279a439d6a6d950c0",
+    "keeper_outcome_ref": "KEEPER_P5_L42_L43",
+    "keeper_outcome_sha256": "64128363d499419f33a4726fdfe660273a76f565ac214340a5f518e0ccd6ab86"
+  },
+  "path": {
+    "start": "BRUME_NODE_MAIRIE",
+    "via": [
+      "BRUME_NODE_GALERIE_WARD"
+    ],
+    "terminal": "BRUME_TERMINAL_MAREE_REFERMEE",
+    "transition_ids": [
+      "BRUME_317_05",
+      "BRUME_318_GALLERY_TO_MAREE_REFERMEE"
+    ],
+    "path_length": 2
+  },
+  "anti_false_promotion": {
+    "path_proof_separate_from_release": true,
+    "release_requires_all_checks": true,
+    "source_text_republished": false
+  }
+}
