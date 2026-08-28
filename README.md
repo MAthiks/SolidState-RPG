@@ -2,19 +2,18 @@
 
 Official version-controlled source of truth for the Solid State RPG project.
 
-## Current development authority — Checkpoint 323 VERIFIED
+## Current development authority — Checkpoint 324 VERIFIED
 
-- Checkpoint: `323`
-- ID: `SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
-- Status: `VERIFIED_SCENARIO6_PASS_REAL_RELEASE`
-- Parent: `322 — SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1`
-- Checkpoint record: `patches/checkpoint323/CHECKPOINT_323.json`
-- Checkpoint record Git blob SHA-1: `c7c16db278e1d80d910376d2c9fa2360cb945a83`
-- Release audit: `31/31 PASS`
-- Checkpoint 322 isolated regression: `29/29 PASS`
-- Checkpoint 321 isolated regression: `27/27 PASS`
-- Checkpoint 315/native core regressions: `PASS`
-- Keeper→Player leaks: `0`
+- Checkpoint: `324`
+- ID: `SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
+- Status: `VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE`
+- Parent: `323 — SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1`
+- Checkpoint record: `patches/checkpoint324/CHECKPOINT_324.json`
+- Checkpoint record Git blob SHA-1: `7aa9fdef7297bfc14e33897a4659c4671a8732ab`
+- Chunk 324 tests: `25/25 PASS`
+- Checkpoint 323 regression: `PASS`
+- Checkpoint 315 regression: `5/5 PASS`
+- Native core regression: `5/5 PASS`
 
 ## Scenario status
 
@@ -22,25 +21,23 @@ Official version-controlled source of truth for the Solid State RPG project.
 - scenario4 — Les Registres de Brume: `PASS_REAL`
 - scenario5 — L'Antre de l'abomination: `PASS_REAL`
 - scenario6 — Muse équivoque aux yeux de sel gemme: `PASS_REAL`
-- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+- scenario7 — L'Explorateur assassiné: `PASS_REAL_CANDIDATE_NOT_RELEASED`
 
-Scenario6 is promoted only through `MUSE_PASS_REAL_RELEASE_323.json`. The release gate requires the verified Checkpoint 322 path, exact repository identities, original PDF/source-layout hashes, exact source-evidence hashes, zero knowledge leaks, fail-closed tamper handling and preserved alternative/open conclusions.
-
-`PASS_REAL` does not make one Muse ending canonical. The conditional path and alternative conclusions remain preserved.
+Checkpoint 324 proves one complete source-backed investigation progression path for scenario7 using ten explicit narrative/conditional transitions. It deliberately uses `0` of the `107` clue-to-scene anchors as causal edges. Clues remain evidence available to investigation, not an automatically ordered route.
 
 The source collection PDF remains external to the public repository and is identified by SHA-256 `31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143`.
 
 ## Reconstruction chain
 
 1. Verify the Checkpoint 315 original archive.
-2. Apply Checkpoints 316 through 322 in order.
-3. Apply `patches/checkpoint323/` according to `APPLY_323.md`.
-4. Provide the original Aventures Effroyables PDF outside the repository via `MUSE_SOURCE_PDF`.
-5. Execute Checkpoint 321/322 regressions in their frozen pre-promotion environment.
-6. Require `run_tests_chunk323.py` to pass `31/31`.
+2. Apply Checkpoints 316 through 323 in order.
+3. Apply `patches/checkpoint324/` according to `APPLY_324.md`.
+4. Provide the original Aventures Effroyables PDF outside the repository via `EXPLORATEUR_SOURCE_PDF`.
+5. Require `run_tests_chunk324.py` to pass `25/25`.
+6. Re-run Checkpoint 323, Checkpoint 315 and native-core regressions.
 
 ## Next phase
 
-`SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1`
+`SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1`
 
-Automatic downgrade is forbidden.
+Automatic downgrade is forbidden. Scenario7 remains blocked in the certified player scenario-selection interface until the separate release audit succeeds.
