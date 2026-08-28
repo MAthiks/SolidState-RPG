@@ -1,0 +1,55 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_324_V1",
+  "checkpoint": 324,
+  "checkpoint_id": "SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "parent_checkpoint": 323,
+  "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
+  "scenario7": {
+    "scenario_key": "scenario7",
+    "title": "L’Explorateur assassiné",
+    "path_status": "PASS_REAL_CANDIDATE",
+    "pass_real": false,
+    "promotion_applied": false,
+    "path_length": 10,
+    "clue_scene_anchor_count": 107,
+    "clue_anchor_edges_used": 0,
+    "terminal": "EXPLORATEUR_TERMINAL_JUDICIAL_CONCLUSION",
+    "alternative_investigation_routes_preserved": true
+  },
+  "tests": {
+    "chunk324": "25/25 PASS",
+    "checkpoint323_regression": "PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core": "5/5 PASS",
+    "source_pdf_sha256": "PASS",
+    "source_layout_sha256": "PASS",
+    "anti_false_causality": "PASS",
+    "player_interface_remains_blocked": "PASS"
+  },
+  "source": {
+    "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf",
+    "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "source_layout_sha256": "7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3",
+    "source_text_republished": false
+  },
+  "anti_false_causality": {
+    "historical_causal_transition_count_preserved": 0,
+    "clue_scene_anchors_promoted_to_edges": 0,
+    "specific_clue_anchor_required": false,
+    "manual_explicit_language_audit_required": true,
+    "inferred_or_ambiguous_transitions_fail_closed": true
+  },
+  "status_boundary_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL_CANDIDATE_NOT_RELEASED"
+  },
+  "next_gate": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 323,
+    "automatic_downgrade_forbidden": true,
+    "path_proof_does_not_self_promote": true
+  }
+}
