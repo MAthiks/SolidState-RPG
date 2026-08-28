@@ -1,0 +1,32 @@
+{
+  "schema": "SOLIDSTATE_CANDIDATE_ARCHIVE_VERIFICATION_V1",
+  "candidate": "Solid_State_v7.8-RC1_Integration_Candidate",
+  "source_archive": "Solid_State_v7.8-RC1_Integration_Candidate (1).zip",
+  "source_archive_size_bytes": 11481,
+  "source_archive_sha256": "1341233c5976852ba90948463f536eec7ead74cd29d74b28360928aeb798244e",
+  "source_archive_binary_present_in_repository": false,
+  "repository_storage_mode": "EXACT_EXTRACTED_TEXT_MIRROR",
+  "repository_path": "artifacts/candidates/v7.8-RC1/",
+  "source_files_verified": 10,
+  "source_files_git_blob_match": true,
+  "baseline": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7",
+    "required_working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+    "required_working_backup_verified": true
+  },
+  "candidate_status": "INTEGRATION_CANDIDATE_NOT_FULL_ENGINE_IMPLEMENTATION",
+  "integration_package": "SSR-INTEGRATION-003",
+  "promotion_allowed": false,
+  "promotion_requirements": [
+    "Recover or mount the full canonical engine/rules artifact",
+    "Apply migration at implementation level",
+    "Run every mandatory regression test",
+    "Resolve the inherited 4-actions interface state versus RC1 normal/assisted interface update",
+    "Create and hash a new v7.8-RC1 Working Backup"
+  ],
+  "anti_rollback": {
+    "main_unchanged_by_candidate_import": true,
+    "protected_v7_7_baseline_must_not_be_overwritten": true
+  }
+}
