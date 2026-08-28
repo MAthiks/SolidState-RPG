@@ -1,0 +1,28 @@
+{
+  "schema": "SOLIDSTATE_OFFLINE_PACKAGE_SOURCE_INDEX_329_V1",
+  "checkpoint": 329,
+  "package_zip_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+  "package_manifest_sha256": "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9",
+  "parent_runtime_checkpoint": 328,
+  "package_specific_files_sha256": {
+    "README_FR.txt": "31aa914baf12001247ee5d99f9cda2babddb111d3d46c72e48a0880ed3eff2df",
+    "certification/authority.json": "e74725af4d69b325b605855e314d6b300f21584cf20162c86cbb76bc3c03d865",
+    "certification/scenario_registry.json": "a3f0615e9357fb1dc3e0d9d3ca38fe96589db22386d1ff4d00fff1ad2f670528",
+    "certification/source_requirements.json": "0d2b9f64b807f0cb2e48eae7403925ca816ab138a782bd2518f0306f0dafa2c8",
+    "data/README.txt": "5fe7a6c56ba71fefd732bc198efeae66d69f12ca71cb198b0c8fdee2b7b85305",
+    "offline/__init__.py": "a4c86b9b1b18edfbaac81b2a2cd92f47cf3df2ea6557a856db64bceb7b6964bd",
+    "offline/registry.py": "48281f55f9bd50f1192de96264cb2c6f3bad59abfa03fcdb37384406aec7334f",
+    "offline/runtime.py": "911ad98603668b27b6724c88c95bcafaa513c670e2f802563f61a0d3932dfa2f",
+    "offline/server.py": "e20cfcd3f5684bc74bdef1e651761e94e8a3af6529149d71e3b893dc1cbc1658",
+    "offline/source_pack.py": "f764925f302d0ca53f58285cc1781daeb0986d128fafdf6854d64244c159bd1d",
+    "run_offline.py": "0dfd50a249b1d7c04bd1f8491a1f21a800ab9b0e39cdf7da4a28954df68d23c5",
+    "saves/README.txt": "1ceb5fde646f98bf049c577ff459d69d1c610be15fd81b0f3ba8da80eecc597b",
+    "sources/README.txt": "f023388119ce96b118c76584434a9212afde4ca6f6d63f76e5490a963a01b88a",
+    "start_android_termux.sh": "b4dfe8e053cdf63c52afc12a6bb4929e1328fb566d5f3b2d5a03664aec144013",
+    "start_linux_mac.sh": "3938a51b3d584f6ae75b2d137a759c88f4976cc55aeb10bbe164a7d2401ae765",
+    "start_windows.bat": "274065489ba2648310d263e474d2d408744058210ca665cf3304107c6c53cd09",
+    "static/index.html": "a90eb04371a7722f57237d3bd8bdc4878806eb2a1ff34acbee778d1c28fc0183",
+    "verify_package.py": "5e79f799ce806c1aff3340ccc1e058a7f4db5e7395249f8b4a7628c899978869"
+  },
+  "commercial_source_text_embedded": false
+}
