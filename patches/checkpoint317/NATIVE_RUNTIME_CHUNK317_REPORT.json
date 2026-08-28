@@ -14,18 +14,37 @@
   },
   "pass_real_promotions": 0,
   "results": [
-    {"name":"scenario4_explicit_leads_to_edges","status":"PASS"},
-    {"name":"scenario5_existing_exact_transition_admitted","status":"PASS"},
-    {"name":"scenario6_explicit_act_handoff","status":"PASS"},
-    {"name":"scenario7_anchors_do_not_become_causal_edges","status":"PASS"},
-    {"name":"editorial_reference_blocked","status":"PASS"},
-    {"name":"ambiguous_target_blocked","status":"PASS"},
-    {"name":"inferred_transition_blocked","status":"PASS"},
-    {"name":"keeper_text_not_exposed","status":"PASS"},
-    {"name":"scenario_status_invariants","status":"PASS"},
-    {"name":"checkpoint316_regression","status":"PASS"},
-    {"name":"checkpoint315_regression","status":"PASS"},
-    {"name":"native_core_regression","status":"PASS"}
-  ],
-  "note": "Compact GitHub report. Full local execution report retained during certification; source texts are not republished."
+    {
+      "name": "scenario4_explicit_leads_to_edges",
+      "status": "PASS",
+      "detail": {
+        "status": "RECOVERED",
+        "safe_transition_count": 8,
+        "blocked_count": 0,
+        "transitions": [
+          {"transition_id":"BRUME_317_01","from_scene":"BRUME_NODE_MAISON_BELL","to_scene":"BRUME_NODE_EGLISE","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_EGLISE"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_02","from_scene":"BRUME_NODE_MAISON_BELL","to_scene":"BRUME_NODE_CIMETIERE","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_CIMETIERE"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_03","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_BANQUE","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_BANQUE"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_04","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_DEPOT","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_DEPOT"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_05","from_scene":"BRUME_NODE_MAIRIE","to_scene":"BRUME_NODE_GALERIE_WARD","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_GALERIE_WARD"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_06","from_scene":"BRUME_NODE_EGLISE","to_scene":"BRUME_NODE_CIMETIERE","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_CIMETIERE"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L31","source_sha256":"a790a40a51fc642fd541df9a5a6ae39e60af81903a7b862a2a48da61d3450d17","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_07","from_scene":"BRUME_NODE_DEPOT","to_scene":"BRUME_NODE_TRAIN","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_TRAIN"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792","partition":"KEEPER","relation":"LEADS_TO"}},
+          {"transition_id":"BRUME_317_08","from_scene":"BRUME_NODE_DEPOT","to_scene":"BRUME_NODE_GALERIE_WARD","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"BRUME_NODE_GALERIE_WARD"}],"authority":"EXPLICIT_SOURCE_TABLE_RELATION","executable":true,"provenance":{"source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792","partition":"KEEPER","relation":"LEADS_TO"}}
+        ],
+        "blocked": [],
+        "pass_real_promotion": false
+      }
+    },
+    {"name":"scenario5_existing_exact_transition_admitted","status":"PASS","detail":{"status":"RECOVERED","safe_transition_count":1,"blocked_count":0,"transitions":[{"transition_id":"ANTRE_TX_1","from_scene":"P11_L4","to_scene":"P19_L18","predicate":"SOURCE_CONDITION","effects":[{"type":"UNLOCK_SCENE","scene":"P19_L18"}],"authority":"EXPLICIT_CONDITION_PLUS_UNIQUE_TARGET","executable":true,"provenance":{"source_ref":"P11_L14","source_sha256":"3f3c4b1fab575f4f6f1ed57256498a785459313a45cde8fd85485ff0916fae1e","partition":"KEEPER","relation":"CONDITIONAL_REDIRECT"}}],"blocked":[],"pass_real_promotion":false}},
+    {"name":"scenario6_explicit_act_handoff","status":"PASS","detail":{"status":"RECOVERED","safe_transition_count":1,"blocked_count":0,"transitions":[{"transition_id":"MUSE_317_ACT1_TO_ACT2","from_scene":"MUSE_ROLE_ACT_I","to_scene":"MUSE_ROLE_ACT_II","predicate":"JUSTINE_DELORME_LOCATED","effects":[{"type":"UNLOCK_SCENE","scene":"MUSE_ROLE_ACT_II"}],"authority":"EXPLICIT_SECTION_HANDOFF","executable":true,"provenance":{"source_ref":"SOURCE_LAYOUT_L582_L590","source_sha256":"00005f72d0ac9a4be3411dc3749991f1d444edb9b4227f6f5d72e1eec16fd6a2","partition":"KEEPER","relation":"SECTION_HANDOFF"}}],"blocked":[],"pass_real_promotion":false}},
+    {"name":"scenario7_anchors_do_not_become_causal_edges","status":"PASS","detail":{"status":"NO_SAFE_TRANSITIONS","safe_transition_count":0,"blocked_count":0,"transitions":[],"blocked":[],"pass_real_promotion":false}},
+    {"name":"editorial_reference_blocked","status":"PASS","detail":null},
+    {"name":"ambiguous_target_blocked","status":"PASS","detail":null},
+    {"name":"inferred_transition_blocked","status":"PASS","detail":null},
+    {"name":"keeper_text_not_exposed","status":"PASS","detail":{"safe_transition_count":8,"provenance":[{"transition_id":"BRUME_317_01","source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136","relation":"LEADS_TO"},{"transition_id":"BRUME_317_02","source_ref":"KEEPER_P3_L27","source_sha256":"c00f21fcc3e1ec36cea7213a5aa0204418e005f06b7a1b3471bba0bc7d938136","relation":"LEADS_TO"},{"transition_id":"BRUME_317_03","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","relation":"LEADS_TO"},{"transition_id":"BRUME_317_04","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","relation":"LEADS_TO"},{"transition_id":"BRUME_317_05","source_ref":"KEEPER_P3_L29","source_sha256":"6349fc2db6af38dc04f1f9aeeff0fd6977d30b4a47e79c636714c6379394b712","relation":"LEADS_TO"},{"transition_id":"BRUME_317_06","source_ref":"KEEPER_P3_L31","source_sha256":"a790a40a51fc642fd541df9a5a6ae39e60af81903a7b862a2a48da61d3450d17","relation":"LEADS_TO"},{"transition_id":"BRUME_317_07","source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792","relation":"LEADS_TO"},{"transition_id":"BRUME_317_08","source_ref":"KEEPER_P3_L37","source_sha256":"8835ab6969af36d086fc22d2d0afca7c162bff9b84b50c8fa586d8d7fbb4e792","relation":"LEADS_TO"}]}},
+    {"name":"scenario_status_invariants","status":"PASS","detail":{"scenario3":{"status":"PASS_REAL","pass_real":true,"authority":"LES_MAUDITS_RELEASE_READINESS.json"},"scenario4":{"status":"COMPILED_PROTECTED_NOT_PASS_REAL","pass_real":false,"authority":"BRUME_FINAL_CLASSIFICATION.json"},"scenario5":{"status":"COMPILED_CANDIDATE_NOT_PATH_PROVEN","pass_real":false,"authority":"ANTRE_PATH_PROOF_V2.json","blocker":"BLOCKED_NO_EXPLICIT_START_TO_TERMINAL_PATH"},"scenario6":{"status":"COMPILED_CANDIDATE_NOT_PATH_PROVEN","pass_real":false,"authority":"MUSE_FREEZE_125.json"},"scenario7":{"status":"COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN","pass_real":false,"authority":"EXPLORATEUR_INVESTIGATION_TOPOLOGY.json","anchors":107}}},
+    {"name":"checkpoint316_regression","status":"PASS","detail":{"returncode":0,"stdout_tail":"PASS","stderr_tail":""}},
+    {"name":"checkpoint315_regression","status":"PASS","detail":{"returncode":0,"stdout_tail":"5/5 passed\n","stderr_tail":""}},
+    {"name":"native_core_regression","status":"PASS","detail":{"returncode":0,"stdout_tail":"PASS test_commit_rollback\nPASS test_character_party\nPASS test_ledger\nPASS test_tamper\nPASS test_monotonic\n5/5 passed\n","stderr_tail":""}}
+  ]
 }
