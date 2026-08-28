@@ -1,0 +1,60 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_GAP_V1",
+  "checkpoint": 315,
+  "checkpoint_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+  "status": "ATTESTED_NOT_RESTORABLE",
+  "evidence": {
+    "document": "SolidState_TODO_Checkpoint315.pdf",
+    "document_created_at": "2026-08-28T01:54:47Z",
+    "states_working_baseline": true,
+    "exact_checkpoint_artifact_located": false,
+    "manifest_located": false,
+    "sha256_located": false,
+    "github_search_match": false
+  },
+  "recorded_work_state": {
+    "scenario_selection_interface_v1": "TODO",
+    "player_interface_v1": "TODO",
+    "three_choices_plus_free_action": "FINALIZE_AND_TEST",
+    "launch_chain_scenario_validation_players_pc_session": "TODO",
+    "guardian_player_leakage_certification": "TODO",
+    "safe_transition_recovery_v1": "NEXT_COMPILER_PHASE",
+    "registres_de_brume": "BLOCKED_SOURCE_COMPILATION",
+    "antre_abomination": "PARTIAL",
+    "muse_equivoque": "ENDPOINTS_RECOVERED",
+    "explorateur_assassine": "ENDPOINTS_RECOVERED",
+    "multiplayer_1_to_4": "TODO",
+    "save_resume_full_interface": "TODO",
+    "strict_replay_ui_integration": "TODO",
+    "full_regression_battery": "TODO",
+    "next_certified_checkpoint": "TODO"
+  },
+  "scenario_status_constraint": {
+    "scenario_3": "PASS_REAL",
+    "scenarios_4_to_7": "MUST_REMAIN_NON_PASS_REAL_UNTIL_SOURCE_BACKED_EXECUTABLE_PATH_PROVEN"
+  },
+  "lower_authority_reference": {
+    "lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+    "engine": "Solid State v7.8.1 candidate",
+    "correction": "018",
+    "payload_sha256_expected": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e"
+  },
+  "restorable_fallback": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7",
+    "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
+  },
+  "recovery_requirements": [
+    "Locate exact Checkpoint 315 artifact or runtime package",
+    "Locate its manifest/checkpoint-state metadata",
+    "Locate or compute authoritative SHA-256 from the original artifact",
+    "Verify parent/provenance chain",
+    "Only then resume implementation from Checkpoint 315"
+  ],
+  "forbidden_actions": [
+    "Do not reconstruct Checkpoint 315 from memory",
+    "Do not promote RC1 or Correction 018 over Checkpoint 315 evidence",
+    "Do not claim an implementation is present when only documentation exists",
+    "Do not change scenario PASS_REAL statuses without source-backed executable proof"
+  ]
+}
