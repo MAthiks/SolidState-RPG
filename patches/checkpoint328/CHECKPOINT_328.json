@@ -1,0 +1,53 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_328_V1",
+  "checkpoint": 328,
+  "checkpoint_id": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1",
+  "parent_checkpoint": 327,
+  "status": "VERIFIED_STRICT_REPLAY_SAVE_RESUME_CONTINUITY",
+  "certification": {
+    "tests": "207/207 PASS",
+    "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_counts": [1, 2, 3, 4],
+    "actions_per_session": 8,
+    "save_split_after_event": 4,
+    "continuous_vs_resumed": "REPLAY_MATCH",
+    "canonical_digest_equal": true,
+    "strict_journal_hash_chain_equal": true,
+    "deterministic_roll_tape_equal": true,
+    "semantic_commit_trace_equal": true,
+    "tamper_reorder_duplicate_state_mismatch_fail_closed": true
+  },
+  "parent": {
+    "checkpoint327_main_commit": "9e05a7f5ea75447119428269c08a8aa9f51ee662",
+    "save_resume_v1_git_blob_sha1": "85f3232ca2b3b855dd5ae05a4630324551dc9a82"
+  },
+  "regressions": {
+    "strict_replay_chunk259": "2/2 PASS",
+    "strict_replay_chunk263": "4/4 PASS",
+    "strict_release_gate_chunk270": "2/2 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "files_sha256": {
+    "APPLY_328.md": "c92176adb0c38c9861909b834ad74a23b9cf1c494be506312c6ab0cc51b4a147",
+    "INIT_APPEND_328.txt": "dec190b67ae809ca8ae264702ca8838793983f30d4a402dc6deb2b0ec4752f39",
+    "NATIVE_RUNTIME_CHUNK328_REPORT.json": "3f5e6bc4a463e59a7a9e30ac04681dc2bd719496e48e1cab5928355e8a34724b",
+    "run_tests_chunk328.py": "f7700d2e4f5a399952e43a7571818f3a69006f9520c0eedd6fe8a9ca62b1e063",
+    "solidstate_runtime/strict_replay_save_resume_v1.py": "71fd04189c5a9551758d03493cfeb0253b9ddeb9277f42f4fd03338da9c6b4db"
+  },
+  "next_phase": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 327,
+    "automatic_downgrade_forbidden": true,
+    "strict_replay_journal_required_on_resume": true,
+    "replay_must_not_reroll": true,
+    "conversation_memory_non_authoritative": true
+  }
+}
