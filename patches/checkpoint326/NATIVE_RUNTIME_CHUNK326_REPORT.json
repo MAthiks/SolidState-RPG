@@ -1,0 +1,28 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK326_REPORT_V1",
+  "checkpoint_parent": 325,
+  "milestone": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1",
+  "status": "PASS",
+  "tests_total": 228,
+  "tests_passed": 228,
+  "tests_failed": 0,
+  "player_counts_certified": [1, 2, 3, 4],
+  "ownership_guard_fix": "PASS",
+  "wrong_owner_attach_fails_without_commit": "PASS",
+  "unique_control_map": "PASS",
+  "per_player_character_projection": "PASS",
+  "per_player_knowledge_partition": "PASS",
+  "keeper_knowledge_not_exposed": "PASS",
+  "per_character_transaction_isolation": "PASS",
+  "cross_player_control_violation_fails_closed": "PASS",
+  "regressions": {
+    "checkpoint325": "31/31 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS",
+    "historical_multiplayer_147": "3/3 PASS",
+    "historical_multiplayer_148": "2/2 PASS",
+    "historical_multiplayer_168": "3/3 PASS"
+  },
+  "scenario_release_boundary": "scenario3..scenario7 remain PASS_REAL",
+  "next_phase": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1"
+}
