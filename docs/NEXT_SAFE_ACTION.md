@@ -1,34 +1,35 @@
 # Next safe action
 
-## Checkpoint 317 complete
+## Checkpoint 318 complete
 
 Current authority:
 
-`Checkpoint 317 — SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
+`Checkpoint 318 — SCENARIO4_SOURCE_BACKED_PATH_CLOSURE_V1`
 
 Verification:
 
-- Chunk 317: `12/12 PASS`
+- Chunk 318: `15/15 PASS`
+- Checkpoint 317 regression: `PASS`
 - Checkpoint 316 regression: `PASS`
 - Checkpoint 315 regression: `PASS`
 - Native core regression: `PASS`
-- `PASS_REAL` promotions: `0`
 
-Recovered safe transitions: scenario4=`8`, scenario5=`1`, scenario6=`1`, scenario7=`0`.
+Scenario 4 path status: `PASS_REAL_CANDIDATE`.
+
+No release promotion has been applied.
 
 ## Next phase
 
 Proceed with:
 
-`SAFE_TRANSITION_PATH_CLOSURE_AND_SCENARIO_SPECIFIC_PROOFS_V1`
+`SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1`
 
-Work scenario by scenario. Use only Checkpoint 317-admitted transitions plus additional transitions that independently pass the same explicit-source gate.
+Required audit points:
 
-Priority order:
-
-1. scenario4 — attempt to connect an explicit start to a source-backed terminal/issue path while preserving Keeper partitioning.
-2. scenario5 — resolve the explicit start entity and determine whether the existing safe transition can participate in a complete path.
-3. scenario6 — continue Act II → Act III → Conclusion only where explicit handoffs can be bound safely.
-4. scenario7 — recover investigation causality without turning clue proximity or headings into causal edges.
-
-A scenario remains non-`PASS_REAL` unless a complete executable start-to-terminal path is proven and all regression/firewall checks pass.
+1. Confirm the path proof artifact and all source hashes.
+2. Re-check protected scenario preflight, knowledge firewall and revelation transaction.
+3. Verify the status resolver changes only scenario 4 and preserves scenario 3/5/6/7 classifications.
+4. Verify Scenario Selection Interface V1 changes scenario 4 from blocked to selectable only after the release certificate exists.
+5. Verify no Keeper graph/text is exposed in the player interface.
+6. Re-run current and parent regressions under the intended status promotion boundary.
+7. Produce a new checkpoint only if the release audit passes.
