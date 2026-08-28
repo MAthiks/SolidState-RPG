@@ -1,0 +1,28 @@
+{
+  "schema": "SOLIDSTATE_DEVELOPMENT_CANDIDATE_V1",
+  "branch": "develop",
+  "candidate_id": "SS-7.8-RC1_INTEGRATION_CANDIDATE",
+  "target": "Solid State v7.8-RC1",
+  "status": "INTEGRATION_CANDIDATE_NOT_FULL_ENGINE_IMPLEMENTATION",
+  "source_archive_sha256": "1341233c5976852ba90948463f536eec7ead74cd29d74b28360928aeb798244e",
+  "candidate_manifest": "artifacts/candidates/v7.8-RC1/CANDIDATE_MANIFEST_SHA256.json",
+  "archive_verification": "artifacts/candidates/v7.8-RC1/ARCHIVE_VERIFICATION.json",
+  "migration_package": "artifacts/candidates/v7.8-RC1/MIGRATION_003/INTEGRATION_PLAN_003.md",
+  "regression_matrix": "artifacts/candidates/v7.8-RC1/MIGRATION_003/REGRESSION_MATRIX.json",
+  "parent_baseline": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7",
+    "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe",
+    "verified": true
+  },
+  "authority_boundary": {
+    "main_remains_official_baseline": true,
+    "candidate_does_not_promote_version": true,
+    "automatic_merge_to_main_forbidden": true,
+    "promotion_requires_all_mandatory_tests_pass": true
+  },
+  "review_blockers": [
+    "Full canonical engine/rules payload is not embedded",
+    "Inherited interface state says 4 proposed actions + 1 free action, while RC1 update defines normal open prompt and assisted 3 contextual suggestions + 1 free action"
+  ]
+}
