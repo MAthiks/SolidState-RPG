@@ -1,0 +1,28 @@
+{
+  "chunk": 316,
+  "parent_checkpoint": 315,
+  "id": "PLAYER_AND_SCENARIO_INTERFACE_V1",
+  "classification": "INTERFACE_V1_RUNTIME_MATERIALIZED_AND_TESTED",
+  "todo_tasks_1_to_5": "PASS",
+  "tests": {
+    "chunk316": "10/10 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "scenario_status_invariants": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN",
+    "promotions_to_pass_real": 0
+  },
+  "implemented": [
+    "Scenario Selection Interface V1 with certified-status display and fail-closed selection",
+    "Player Interface V1 with PV/SAN/PM/Chance/wound conditions/actual inventory",
+    "Normal/Libre open prompt and Facile/Assisté 3 choices + 1 free action",
+    "Launch chain scenario -> validation -> players -> characters -> SESSION_READY",
+    "Keeper leakage prevention via explicit player-safe projection and knowledge gates"
+  ],
+  "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1"
+}
