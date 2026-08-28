@@ -1,0 +1,30 @@
+--- a/solidstate_runtime/engine.py
++++ b/solidstate_runtime/engine.py
+@@ -98,12 +98,24 @@
+ 
+     def attach_character(self, player_id, character_id):
+         found = self.db.conn.execute(
+-            "SELECT 1 FROM characters WHERE character_id=?", (character_id,)
++            "SELECT owner_id FROM characters WHERE character_id=?", (character_id,)
+         ).fetchone()
+         if not found:
+             _, commit = self.db.state()
+-            return {"status":"ROLLBACK_TRANSACTION","previous_commit":commit,
+-                    "new_commit":commit,"changed_paths":[]}
++            return {"status":"ROLLBACK_TRANSACTION","code":"CHARACTER_NOT_FOUND",
++                    "previous_commit":commit,"new_commit":commit,"changed_paths":[]}
++        if found["owner_id"] != player_id:
++            _, commit = self.db.state()
++            return {"status":"ROLLBACK_TRANSACTION","code":"CHARACTER_OWNER_MISMATCH",
++                    "previous_commit":commit,"new_commit":commit,"changed_paths":[]}
++        conflict = self.db.conn.execute(
++            "SELECT player_id FROM party WHERE character_id=? AND player_id<>?",
++            (character_id, player_id)
++        ).fetchone()
++        if conflict:
++            _, commit = self.db.state()
++            return {"status":"ROLLBACK_TRANSACTION","code":"CHARACTER_ALREADY_CONTROLLED",
++                    "previous_commit":commit,"new_commit":commit,"changed_paths":[]}
+         def mutate(s):
+             s.setdefault("party", {})[player_id] = character_id
+         result = self.transact(mutate, [f"party.{player_id}"])
