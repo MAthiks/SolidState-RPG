@@ -1,48 +1,54 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V2",
-  "status": "HIGHER_WORK_CHECKPOINT_EVIDENCE_PRESENT_PAYLOAD_NOT_LOCATED",
-  "latest_work_checkpoint_evidence": {
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V3",
+  "status": "CHECKPOINT_315_ORIGINAL_ARTIFACT_VERIFIED",
+  "current_authority": {
     "checkpoint": 315,
-    "id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
-    "evidence_document": "SolidState_TODO_Checkpoint315.pdf",
-    "evidence_status": "OFFICIAL_TODO_IDENTIFIES_WORK_BASELINE",
-    "checkpoint_payload_present_in_repository": false,
-    "checkpoint_manifest_located": false,
-    "checkpoint_hash_located": false,
-    "implementation_status": "VERSION_NON_CONFIRMEE",
-    "allowed_use": "AUTHORITY_CEILING_AND_WORK_CONTEXT_ONLY",
-    "prohibited_use": "DO_NOT_RECONSTRUCT_CHECKPOINT_315_RUNTIME_FROM_MEMORY_OR_OLDER_PAYLOADS"
+    "checkpoint_id": "SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1",
+    "checkpoint_file": "CHECKPOINT_315.json",
+    "checkpoint_file_sha256": "593fb299c62fdb1a4b4daab6abe4b397c59d9dd931537c8c929c6e8efe05bfaa",
+    "source_archive": "SolidState_NATIVE_RUNTIME_BIG_CHUNK_315_SOURCE_ROLE_ENDPOINT_RECOVERY_CHECKPOINT.zip",
+    "source_archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b",
+    "source_archive_size_bytes": 3015801,
+    "embedded_manifest_sha256": "3e2c82e0628424844217ee0773ac2c65caf6e72d84f9d33f70281432ff30ebef",
+    "manifest_entries_verified": 1205,
+    "manifest_entries_total": 1205,
+    "zip_crc": "PASS",
+    "runtime_report": "PASS",
+    "classification": "SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION",
+    "next_phase": "SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1",
+    "implementation_status": "VERIFIED_CHECKPOINT_RUNTIME_ARTIFACT"
   },
-  "last_fully_described_authority_lock": {
-    "source_lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
-    "source_lock_sha256": "5d82126e8e28d64c57f0ecb427766ac70a4b1746a228b60cff9e8ddec3ea893e",
-    "authority_level": "ABOVE_INSTALL_PACK",
-    "install_generation_floor": 4,
-    "minimum_pack_version": "1.1.4",
-    "engine": "Solid State v7.8.1 candidate",
-    "correction": "018",
-    "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
-    "ironman_commit": 6,
-    "payload_sha256_expected": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e",
-    "payload_present_in_repository": false,
-    "payload_status": "VERSION_NON_CONFIRMEE"
+  "historical_status_invariants": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "COMPILED_PROTECTED_NOT_PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN",
+    "promotions_to_pass_real": 0
   },
-  "last_verified_restorable_baseline": {
-    "solid_state": "7.7",
-    "coc7_rules_core": "4.7",
-    "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
+  "lower_authority_history": {
+    "d5_304": {
+      "source_lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+      "engine": "Solid State v7.8.1 candidate",
+      "correction": "018",
+      "payload_sha256_expected": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e"
+    },
+    "restorable_v7_7": {
+      "solid_state": "7.7",
+      "coc7_rules_core": "4.7",
+      "working_backup_sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
+    }
   },
   "authority_order": [
-    "CHECKPOINT_315_IF_EXACT_PAYLOAD_MANIFEST_AND_HASH_ARE_RECOVERED",
+    "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
     "D5_304_AUTHORITY_LOCK",
     "V7_7_COC7_4_7_VERIFIED_RECOVERY_BASELINE",
     "CONVERSATION_MEMORY_NON_AUTHORITATIVE"
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "retain_highest_attested_floor_while_missing_payload": true,
-    "do_not_promote_evidence_only_checkpoint_to_verified_runtime": true,
-    "do_not_reconstruct_missing_checkpoint_from_memory": true,
-    "missing_payload_message": "VERSION NON CONFIRMEE"
+    "checkpoint_315_is_current_development_authority": true,
+    "source_text_must_not_be_republished_to_public_repository": true,
+    "scenario_pass_real_status_requires_source_backed_executable_proof": true
   }
 }
