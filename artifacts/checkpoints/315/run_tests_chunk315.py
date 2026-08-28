@@ -1,0 +1,2 @@
+import json
+a=json.load(open("CHECKPOINT_315.json"));assert all(v=="PASS" for v in a["components"].values());assert a["runtime_scenario_name_leaks"]==[];assert a["promotions_to_pass_real"]==0;assert a["classification"]=="SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION";assert a["historical_statuses"]["scenario3"]=="PASS_REAL";print("5/5 passed")
