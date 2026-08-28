@@ -2,46 +2,52 @@
 
 Official version-controlled source of truth for the Solid State RPG project.
 
-## Highest current work-checkpoint evidence
-
-An official project TODO identifies the working baseline as:
+## Current development authority — VERIFIED
 
 - Checkpoint: `315`
 - ID: `SOURCE_ROLE_AND_ENDPOINT_RECOVERY_V1`
+- Classification: `SOURCE_ROLE_RECOVERY_VALIDATED_NO_FALSE_PATH_PROMOTION`
+- Original archive SHA-256: `5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b`
+- Original archive size: `3015801` bytes
+- Embedded manifest: `1205 / 1205` entries verified
+- ZIP CRC: `PASS`
+- Runtime checkpoint test: `5/5 PASS`
+- Native runtime core test: `5/5 PASS`
+- Next phase: `SAFE_TRANSITION_RECOVERY_FROM_EXPLICIT_SOURCE_LANGUAGE_V1`
 
-The exact Checkpoint 315 payload, manifest and SHA-256 have **not** yet been located in the repository or available recovery files. Therefore Checkpoint 315 is an **attested work checkpoint / authority ceiling**, not a verified executable runtime. Status: **VERSION NON CONFIRMEE**.
+The original Checkpoint 315 archive has been recovered and independently verified. Project-owned checkpoint evidence is mirrored on branch `checkpoint/315-verified-original`. Proprietary/source-text material from the archive is intentionally not republished in this public repository.
 
-No older payload may be promoted over this evidence, and Checkpoint 315 must not be reconstructed from conversation memory.
+## Historical scenario status invariant at Checkpoint 315
 
-## Last fully described authority lock
+- scenario3: `PASS_REAL`
+- scenario4: `COMPILED_PROTECTED_NOT_PASS_REAL`
+- scenario5: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario6: `COMPILED_CANDIDATE_NOT_PATH_PROVEN`
+- scenario7: `COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN`
+- promotions_to_pass_real: `0`
 
-`SOLIDSTATE-AUTHORITY-LOCK-D5-304` records:
+Endpoint/source-role recovery alone must not create causal graph edges or promote scenarios to `PASS_REAL`.
 
-- Engine: `Solid State v7.8.1 candidate`
-- Correction: `018`
-- Scenario pair: `LSNT-V1.7-STANDALONE-1942`
-- Ironman Commit: `6`
-- Expected payload SHA-256: `18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e`
-- Authority-lock SHA-256: `5d82126e8e28d64c57f0ecb427766ac70a4b1746a228b60cff9e8ddec3ea893e`
+## Earlier authority history
 
-The Correction 018 payload is not present in this repository, so its implementation also remains **VERSION NON CONFIRMEE**.
+D5-304 / Solid State v7.8.1 candidate / Correction 018 remains historical provenance below Checkpoint 315.
 
-## Last verified restorable baseline
+## Last verified legacy recovery baseline
 
 - Solid State engine: `v7.7`
 - CoC7 Rules Core: `v4.7`
 - Working Backup SHA-256: `2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe`
 
-This is the last physically verified restoration baseline. It must not be mislabeled as the current development state.
+This remains a legacy recovery fallback only. It must never silently replace Checkpoint 315.
 
 ## Authority order
 
-1. Exact Checkpoint 315 artifact, if recovered and hash-verified
-2. D5-304 authority lock / Correction 018 floor
-3. Verified v7.7 + CoC7 v4.7 recovery baseline
+1. Verified Checkpoint 315 original artifact
+2. D5-304 authority lock / Correction 018 history
+3. Verified v7.7 + CoC7 v4.7 legacy recovery baseline
 4. Validated documentary sources for missing records
 5. Conversation memory only as non-authoritative context
 
-Missing higher payloads retain their authority position but are reported **VERSION NON CONFIRMEE**. Automatic downgrade is forbidden.
+Automatic downgrade is forbidden.
 
-See `manifest/authority_floor.json`, `CHECKPOINT.md`, and `docs/ANTI_ROLLBACK.md`.
+See `manifest/authority_floor.json`, `manifest/recovery_gap_checkpoint315.json`, `CHECKPOINT.md`, and `docs/ANTI_ROLLBACK.md`.
