@@ -1,0 +1,30 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK327_REPORT_V1",
+  "checkpoint_parent": 326,
+  "milestone": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
+  "tests_total": 71,
+  "tests_passed": 71,
+  "tests_failed": 0,
+  "status": "PASS",
+  "player_counts_restored": [1, 2, 3, 4],
+  "all_five_pass_real_scenarios_roundtrip": true,
+  "exact_commit_resume": true,
+  "next_commit_monotonic": true,
+  "full_player_interface_roundtrip": true,
+  "character_control_map_roundtrip": true,
+  "mechanics_inventory_roundtrip": true,
+  "knowledge_partitions_roundtrip": true,
+  "keeper_knowledge_player_surface_leaks": 0,
+  "authentication": "HMAC-SHA256",
+  "save_secret_embedded_in_bundle": false,
+  "tamper_fail_closed": true,
+  "semantic_invalid_bundle_fail_closed": true,
+  "dirty_target_restore_blocked": true,
+  "regressions": {
+    "checkpoint326": "334/334 PASS",
+    "checkpoint325": "31/31 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "next_phase": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1"
+}
