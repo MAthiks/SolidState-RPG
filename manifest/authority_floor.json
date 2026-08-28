@@ -1,38 +1,34 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V15",
-  "status": "CHECKPOINT_327_SAVE_RESUME_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V16",
+  "status": "CHECKPOINT_328_STRICT_REPLAY_SAVE_RESUME_CONTINUITY_VERIFIED",
   "current_authority": {
-    "checkpoint": 327,
-    "checkpoint_id": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
-    "status": "VERIFIED_SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE",
-    "checkpoint_record": "patches/checkpoint327/CHECKPOINT_327.json",
-    "checkpoint_record_git_blob_sha1": "aa49bea4e0a3a4b6a77a7de7afd1db623f46c1bb",
-    "parent_checkpoint": 326,
+    "checkpoint": 328,
+    "checkpoint_id": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1",
+    "status": "VERIFIED_STRICT_REPLAY_SAVE_RESUME_CONTINUITY",
+    "checkpoint_record": "patches/checkpoint328/CHECKPOINT_328.json",
+    "checkpoint_record_git_blob_sha1": "7d88dd5c481948d593644c98db93ca6cc9a2c9d5",
+    "parent_checkpoint": 327,
     "tests": {
-      "chunk327": "71/71 PASS",
-      "checkpoint326_regression": "334/334 PASS",
-      "checkpoint325_regression": "31/31 PASS",
+      "chunk328": "207/207 PASS",
+      "strict_replay_chunk259": "2/2 PASS",
+      "strict_replay_chunk263": "4/4 PASS",
+      "strict_release_gate_chunk270": "2/2 PASS",
       "checkpoint315_regression": "5/5 PASS",
       "native_core_regression": "5/5 PASS"
     },
-    "save_resume": {
+    "strict_replay_continuity": {
+      "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
       "player_counts_certified": [1, 2, 3, 4],
-      "all_five_pass_real_scenarios_roundtrip": true,
-      "selected_scenario_revalidated_on_restore": true,
-      "exact_commit_sequence_restored": true,
-      "next_commit_monotonic": true,
-      "control_map_roundtrip": true,
-      "player_interface_v1_roundtrip": true,
-      "mechanics_inventory_roundtrip": true,
-      "knowledge_partitions_roundtrip": true,
-      "keeper_player_leaks": 0,
-      "authentication": "HMAC-SHA256",
-      "save_secret_embedded_in_bundle": false,
-      "tamper_fail_closed": true,
-      "authenticated_semantic_inconsistency_fail_closed": true,
-      "restore_requires_pristine_target": true
+      "continuous_vs_resumed": "REPLAY_MATCH",
+      "canonical_digest_equal": true,
+      "strict_journal_hash_chain_equal": true,
+      "deterministic_roll_tape_equal": true,
+      "semantic_commit_trace_equal": true,
+      "save_restore_adds_no_commit": true,
+      "reordered_or_duplicated_replay_events_fail_closed": true,
+      "replay_must_not_reroll": true
     },
-    "next_phase": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1"
+    "next_phase": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
@@ -42,18 +38,10 @@
     "scenario7": "PASS_REAL"
   },
   "authority_order": [
+    "CHECKPOINT_328_VERIFIED_STRICT_REPLAY_CONTINUITY",
     "CHECKPOINT_327_VERIFIED_SAVE_RESUME",
     "CHECKPOINT_326_VERIFIED_MULTIPLAYER_1_TO_4_CERTIFICATION",
     "CHECKPOINT_325_VERIFIED_SCENARIO7_PASS_REAL_RELEASE",
-    "CHECKPOINT_324_VERIFIED_SCENARIO7_PATH_PROOF",
-    "CHECKPOINT_323_VERIFIED_SCENARIO6_PASS_REAL_RELEASE",
-    "CHECKPOINT_322_VERIFIED_SCENARIO6_PATH_PROOF",
-    "CHECKPOINT_321_VERIFIED_SCENARIO5_PASS_REAL_RELEASE",
-    "CHECKPOINT_320_VERIFIED_SCENARIO5_PATH_PROOF",
-    "CHECKPOINT_319_VERIFIED_SCENARIO4_PASS_REAL_RELEASE",
-    "CHECKPOINT_318_VERIFIED_BRUME_PATH_PROOF_MILESTONE",
-    "CHECKPOINT_317_VERIFIED_SAFE_TRANSITION_MILESTONE",
-    "CHECKPOINT_316_VERIFIED_INTERFACE_MILESTONE",
     "CHECKPOINT_315_VERIFIED_ORIGINAL_ARTIFACT",
     "D5_304_AUTHORITY_LOCK",
     "V7_7_COC7_4_7_VERIFIED_RECOVERY_BASELINE",
@@ -61,12 +49,11 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "one_player_one_owned_character_required": true,
+    "strict_replay_journal_required_on_resume": true,
+    "replay_must_not_reroll": true,
+    "save_restore_requires_authenticated_bundle": true,
     "knowledge_partition_required": true,
     "keeper_player_firewall_required": true,
-    "save_restore_requires_authenticated_bundle": true,
-    "save_secret_must_remain_external": true,
-    "restore_requires_pass_real_scenario": true,
     "release_certificate_required_for_pass_real_scenarios": true,
     "source_text_must_not_be_republished_to_public_repository": true
   }
