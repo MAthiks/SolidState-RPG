@@ -41,14 +41,15 @@
     "conditional_path": true,
     "alternative_endings_preserved": true
   },
-  "files_sha256": {
-    "solidstate_runtime/source_backed_route_v3.py": "2f6b58f4d670cd9779a076bb2e56dc2375cb4df4cb21f9bc078d4ff7a596f7d6",
-    "scenario_candidates/scenario6/MUSE_PATH_CLOSURE_322.json": "7a3f255162ceef5c767901464626417fad3d7b7876a5860f5279dcfcc9e858f3",
-    "run_tests_chunk322.py": "b555946f965ac9238755a9e4828ebcd9f68b293db820f5e8c6787714341289be",
-    "NATIVE_RUNTIME_CHUNK322_REPORT.json": "1d81874aaef5336f80309bf62fc29513d837a925d45fba45adf4dd1b4012919f",
-    "INIT_APPEND_322.txt": "f3f0b7e64094c11b5bd800bd592a483920315478c482285f2b5ebccd0fb6e111",
-    "APPLY_322.md": "4e1dbb41b55834670f82b241f74ca6a10556b25ec0f8580e1c215c9fd493ced0"
+  "repository_git_blob_sha1": {
+    "solidstate_runtime/source_backed_route_v3.py": "4ba57e313ffd23ac5218f31cde304bdbe7324504",
+    "scenario_candidates/scenario6/MUSE_PATH_CLOSURE_322.json": "04adb29032bd77d7bdbb5b9e0036d98539505aab",
+    "run_tests_chunk322.py": "e8b2a9cd0891585734e164c559353c691d86024e",
+    "NATIVE_RUNTIME_CHUNK322_REPORT.json": "d4581975e04c66e78e567db98a3d098d02dce73b",
+    "INIT_APPEND_322.txt": "c7fc9c9bd57ef6df52b2b1b3084f4077ac9c3d56",
+    "APPLY_322.md": "2d21c1ca1e3fd3e8586498a4ccdc2f34f4fe98e9"
   },
+  "hash_notes": "Repository file identities use Git blob SHA-1. Source PDF, source-layout and source-slice evidence use SHA-256.",
   "status_boundary_after_checkpoint": {
     "scenario3": "PASS_REAL",
     "scenario4": "PASS_REAL",
