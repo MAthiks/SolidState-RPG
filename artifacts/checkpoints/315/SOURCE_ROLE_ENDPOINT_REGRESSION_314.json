@@ -1,0 +1,12 @@
+{
+  "generic_role_detector": "PASS",
+  "scenario4_protected_roles": "PASS",
+  "scenario5_roles": "PASS",
+  "scenario6_roles": "PASS",
+  "scenario7_roles": "PASS",
+  "endpoint_binding_gate": "PASS",
+  "no_false_transition_promotion": "PASS",
+  "blocker_reclassification": "PASS",
+  "historical_status_preservation": "PASS",
+  "status": "PASS"
+}
