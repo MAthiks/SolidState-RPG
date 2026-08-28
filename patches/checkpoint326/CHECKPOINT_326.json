@@ -1,0 +1,55 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_326_V1",
+  "checkpoint": 326,
+  "checkpoint_id": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION_V1",
+  "parent_checkpoint": 325,
+  "status": "VERIFIED_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_CERTIFICATION",
+  "certification": {
+    "player_counts": [1, 2, 3, 4],
+    "tests": "228/228 PASS",
+    "exactly_one_owned_character_per_player": true,
+    "unique_character_control": true,
+    "knowledge_partitions_independent": true,
+    "keeper_knowledge_exposed": 0,
+    "failed_character_transaction_corrupts_other_characters": false,
+    "cross_player_character_control_blocked": true,
+    "wrong_owner_attach_blocked_before_commit": true
+  },
+  "runtime_fix": {
+    "file": "solidstate_runtime/engine.py",
+    "method": "attach_character",
+    "issue": "Previously allowed a player to attach a character owned by another player.",
+    "resolution": "Fail closed on owner mismatch or existing foreign control without advancing commit.",
+    "patch_file": "ENGINE_ATTACH_326.patch"
+  },
+  "regressions": {
+    "checkpoint325": "31/31 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS",
+    "historical_multiplayer_147": "3/3 PASS",
+    "historical_multiplayer_148": "2/2 PASS",
+    "historical_multiplayer_168": "3/3 PASS"
+  },
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "files_sha256": {
+    "solidstate_runtime/multiplayer_certification_v1.py": "2db4843d9244b04e52a9d33e2d506bf0e416aa5854f531d7a83033c60ddbea78",
+    "run_tests_chunk326.py": "484c0f30194c825f09940ffa84709ebd62475aa0c07367febcdf83ff8b1ba122",
+    "NATIVE_RUNTIME_CHUNK326_REPORT.json": "72a2ba9afc5c179f7c6dbfe3c0294b82de52e8c74bb2a306d248cc2110e628b4",
+    "INIT_APPEND_326.txt": "f16c5b0601332bcfb950552ab8151241b82f57c6c4e01e79a105efe1979e0120",
+    "ENGINE_ATTACH_326.patch": "b92dc2d513164a0d231431e6211423848a099e9a4c9e79d8e1134bd283e5cdfc"
+  },
+  "next_phase": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 325,
+    "automatic_downgrade_forbidden": true,
+    "one_player_one_owned_character_required": true,
+    "knowledge_partition_required": true,
+    "conversation_memory_non_authoritative": true
+  }
+}
