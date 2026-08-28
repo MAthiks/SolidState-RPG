@@ -1,0 +1,55 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_319_V1",
+  "checkpoint": 319,
+  "checkpoint_id": "SCENARIO4_PASS_REAL_RELEASE_AUDIT_V1",
+  "parent_checkpoint": 318,
+  "status": "VERIFIED_SCENARIO4_PASS_REAL_RELEASE",
+  "scenario4": {
+    "scenario_key": "scenario4",
+    "title": "Les Registres de Brume",
+    "release_class": "PASS_REAL",
+    "pass_real": true,
+    "promotion_source": "BRUME_PASS_REAL_RELEASE_319.json",
+    "player_keeper_leaks": 0,
+    "path": [
+      "BRUME_NODE_MAIRIE",
+      "BRUME_NODE_GALERIE_WARD",
+      "BRUME_TERMINAL_MAREE_REFERMEE"
+    ]
+  },
+  "tests": {
+    "chunk319": "18/18 PASS",
+    "checkpoint315_regression": "PASS",
+    "native_core_regression": "PASS",
+    "release_tamper_fail_closed": "PASS",
+    "resolver_promotion": "PASS",
+    "scenario_selection_selectable": "PASS",
+    "player_surface_no_keeper_evidence": "PASS"
+  },
+  "scenario_status_after_release": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "files_sha256": {
+    "NATIVE_RUNTIME_CHUNK319_REPORT.json": "5dce3875a8a23391592ec31564aa13115239fb5d66df4abce343db77e4e7cf65",
+    "INIT_APPEND_319.txt": "76932549f587f7bfc7e90958ef9edb6d225c55e9b368cbfd6d30faa291e70006",
+    "run_tests_chunk319.py": "4a039dc701fe7d4c0f0db02c8b2a315f03c475b249f0e77994b5fb95b9d0c2b2",
+    "solidstate_runtime/multi_scenario_status_resolver.py": "03851e8f1855528877f11bea66536daceacdfd31fc5fc7834be5b352755b33a0",
+    "solidstate_runtime/scenario4_release_gate.py": "ddbe477d015275458ab0d805e41443c5811634a5939d6b7e15703f6df9fda935",
+    "scenario_candidates/scenario4/BRUME_PASS_REAL_RELEASE_319.json": "c28ca4dc2b4e22a24feb18703383af56bc2cd7c7d968410647b3041115aa3202"
+  },
+  "root_runtime_parent": {
+    "checkpoint": 315,
+    "archive_sha256": "5d6a05baf68dc10fae9a9bae933a9c7edddf155ae13eade29c14dfe1119b195b"
+  },
+  "anti_rollback": {
+    "parent_checkpoint_required": 318,
+    "automatic_downgrade_forbidden": true,
+    "historical_brume_classification_preserved": true,
+    "release_certificate_overlay_required": true
+  },
+  "next_phase": "SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1"
+}
