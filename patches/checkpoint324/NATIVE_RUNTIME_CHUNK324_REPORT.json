@@ -1,0 +1,32 @@
+{
+  "schema": "NATIVE_RUNTIME_CHUNK324_REPORT_V1",
+  "checkpoint_parent": 323,
+  "milestone": "SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "status": "PASS",
+  "tests_total": 25,
+  "tests_passed": 25,
+  "tests_failed": 0,
+  "scenario7_path_status": "PASS_REAL_CANDIDATE",
+  "path_length": 10,
+  "clue_anchor_edges_used": 0,
+  "clue_scene_anchor_count_preserved": 107,
+  "pass_real_promotion": false,
+  "source_pdf_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+  "source_layout_sha256": "7b00a96cb2ab83e40b576bd0cb2e96d369393f6ce714c1d59a4a4b2f6a3265e3",
+  "external_regressions": {
+    "checkpoint323": "PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "fail_closed": {
+    "derived_clue_anchor": "PASS",
+    "specific_clue_anchor_gate": "PASS",
+    "missing_manual_language_audit": "PASS",
+    "ambiguous_target": "PASS",
+    "inferred_transition": "PASS",
+    "editorial_reference_only": "PASS"
+  },
+  "player_surface_no_keeper_evidence": "PASS",
+  "scenario7_interface_before_release": "BLOCKED_AS_REQUIRED",
+  "next_gate": "SCENARIO7_PASS_REAL_RELEASE_AUDIT_V1"
+}
