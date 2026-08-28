@@ -1,0 +1,57 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_320_V1",
+  "checkpoint": 320,
+  "checkpoint_id": "SCENARIO5_SOURCE_BACKED_PATH_CLOSURE_V1",
+  "parent_checkpoint": 319,
+  "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
+  "scenario5": {
+    "scenario_key": "scenario5",
+    "title": "L'Antre de l'abomination",
+    "path_status": "PASS_REAL_CANDIDATE",
+    "pass_real": false,
+    "promotion_applied": false,
+    "historical_pass_real_certificate_reactivated": false,
+    "path_length": 10,
+    "terminal": "ANTRE_EPILOGUE_OPEN_KEEPER_RESOLUTION"
+  },
+  "tests": {
+    "chunk320": "22/22 PASS",
+    "checkpoint319_current_overlay": "PASS",
+    "checkpoint315_core": "PASS",
+    "native_core": "PASS",
+    "checkpoint318_isolated_reconstruction": "15/15 PASS",
+    "source_pdf_sha256": "PASS"
+  },
+  "source": {
+    "filename": "antre.pdf",
+    "sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb",
+    "source_layout_sha256": "adb1e8c0c9e525e32f6f5f4dde4e9c9d87a651e7f830b1c14ef8b23f5c6c5467"
+  },
+  "packaging_repair": {
+    "checkpoint316_interface_exports_restored": true,
+    "behavior_change": false
+  },
+  "files_sha256": {
+    "solidstate_runtime/source_backed_route_v2.py": "0593b8bc586a15f1c954116acfc95d0b19d3b67558306c98d83e3dae1749a7d9",
+    "solidstate_runtime/interface_v1.py": "a06629a976a71f339b64b90411eb33478a2b7379e38474efc2b1725d9f8dc21f",
+    "run_tests_chunk320.py": "6a752282d5954944fae8d564c86c6bb5c7b789b5c459af3960b057cdade549e0",
+    "NATIVE_RUNTIME_CHUNK320_REPORT.json": "09568e3f2fb28050c15662c501e38a3a21d2c01e7075d5f0bc963fa297f32522",
+    "ANTRE_PATH_CLOSURE_320.json": "fc35640258ed28a56de6aa055e228223b91fbf0e39595475e8d502f03f517b28",
+    "INIT_APPEND_320.txt": "41df47343adaf00e9b78088af1cd8208ff9f41cdb16989ee4ef7a5ee9e414b3d",
+    "EXPORT_REPAIR_320.txt": "d73ace9d059506fd5187d7330e30b03f8727cccb429dd86fc956b049aa62407a"
+  },
+  "status_boundary_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL_CANDIDATE_NOT_RELEASED",
+    "scenario6": "COMPILED_CANDIDATE_NOT_PATH_PROVEN",
+    "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
+  },
+  "next_gate": "SCENARIO5_PASS_REAL_RELEASE_AUDIT_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 319,
+    "automatic_downgrade_forbidden": true,
+    "path_proof_does_not_self_promote": true,
+    "historical_certificate_is_provenance_only": true
+  }
+}
