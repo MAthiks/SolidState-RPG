@@ -1,0 +1,4 @@
+Checkpoint 320 reconstruction repair:
+Ensure the existing Checkpoint 316 export line is:
+from .interface_v1 import ScenarioSelectionInterfaceV1, PlayerInterfaceV1, LaunchChainV1
+This repairs package export only; it does not change Interface V1 behavior.
