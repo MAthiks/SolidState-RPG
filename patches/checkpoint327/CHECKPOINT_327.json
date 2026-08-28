@@ -1,0 +1,66 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_327_V1",
+  "checkpoint": 327,
+  "checkpoint_id": "SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE_V1",
+  "parent_checkpoint": 326,
+  "status": "VERIFIED_SAVE_RESUME_SELECTED_SCENARIO_AND_FULL_INTERFACE",
+  "certification": {
+    "tests": "71/71 PASS",
+    "player_counts": [1, 2, 3, 4],
+    "all_five_pass_real_scenarios_roundtrip": true,
+    "selected_scenario_revalidated_on_restore": true,
+    "exact_commit_sequence_restored": true,
+    "next_commit_is_saved_commit_plus_one": true,
+    "control_map_roundtrip": true,
+    "player_interface_v1_roundtrip": true,
+    "mechanical_values_roundtrip": true,
+    "inventory_roundtrip": true,
+    "knowledge_partitions_roundtrip": true,
+    "keeper_player_leaks": 0,
+    "hmac_sha256_authenticated": true,
+    "secret_external_to_bundle": true,
+    "tampered_bundle_fail_closed": true,
+    "authenticated_semantic_inconsistency_fail_closed": true,
+    "restore_requires_pristine_target": true
+  },
+  "persisted_scope": [
+    "canonical_state",
+    "commit ledger",
+    "characters",
+    "party/control map",
+    "mechanical registry/inventory",
+    "mechanical values/ammunition/wounds",
+    "scenario state",
+    "knowledge partitions",
+    "session events",
+    "roll ledger/playloop/action log/world facts"
+  ],
+  "regressions": {
+    "checkpoint326": "334/334 PASS",
+    "checkpoint325": "31/31 PASS",
+    "checkpoint315": "5/5 PASS",
+    "native_core": "5/5 PASS"
+  },
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "files_sha256": {
+    "APPLY_327.md": "f49a35c4fa71a605d9f32dba5017e729bd3dcdc9ee003fda8188d69c4afa1b58",
+    "run_tests_chunk327.py": "83efb4e08bf77b8cec18b47088beea78d08fbfc94fe442383745fe68cf4a9212",
+    "NATIVE_RUNTIME_CHUNK327_REPORT.json": "94e2b5d378353b576e009a089706f78212b291c314c7c7b42962f28033eb4b94",
+    "INIT_APPEND_327.txt": "ddc0f7ceabc90d0d76476ed91423951f6cd7d5c5cba7228338d6b28d4f2d3ba9",
+    "solidstate_runtime/save_resume_v1.py": "aa3d3695e9a24a03c20ba30c5662654df0a208f3fed266a6e29af91bbe9f8aea"
+  },
+  "next_phase": "STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 326,
+    "automatic_downgrade_forbidden": true,
+    "restore_requires_pass_real_scenario": true,
+    "restore_requires_authenticated_bundle": true,
+    "conversation_memory_non_authoritative": true
+  }
+}
