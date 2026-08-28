@@ -1,0 +1,18 @@
+{
+  "backup_name": "Solid_State_v7.7_CoC7_v4.7_Working_Backup",
+  "baseline": {
+    "solid_state": "7.7",
+    "coc7_rules_core": "4.7"
+  },
+  "canonical_package": {
+    "filename": "COC7_COMPILED_RULE_PACKAGE_4_7.json",
+    "sha256_canonical": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "embedded": false,
+    "reason": "Canonical File Library artifact not mounted as local bytes; not reconstructed."
+  },
+  "included_files": [
+    "README.md",
+    "SOLID_STATE_CHAT_CONTINUITY_SNAPSHOT_v1.json",
+    "TEST_PROCEDURE_LMDP_v7.7.md"
+  ]
+}
