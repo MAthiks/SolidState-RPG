@@ -1,0 +1,70 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_329_V1",
+  "checkpoint": 329,
+  "checkpoint_id": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1",
+  "parent_checkpoint": 328,
+  "status": "VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
+  "package": {
+    "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+    "sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "zip_crc": "PASS",
+    "immutable_manifest_files": 173,
+    "package_manifest_sha256": "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9",
+    "extracted_verify_package": "PASS",
+    "extracted_self_test": "PASS",
+    "mode": "KEEPER_ASSISTED_OFFLINE_RUNTIME",
+    "internet_required": false,
+    "loopback_only": true,
+    "autonomous_ai_narration": false,
+    "commercial_source_text_embedded": false,
+    "private_source_import_required_for_commercial_scenarios": true,
+    "python_external_dependencies": 0,
+    "android_test_path": "TERMUX_OR_PYDROID_BEFORE_APK",
+    "deterministic_rebuild": true,
+    "builder_sha256": "7c5048f3b61b708a21faf466aa7367ccc8b6c1c4624e3620a14d34a698033ae6",
+    "embedded_source_payload_zip_sha256": "2b6b6c95d9d99a2515b3ea7ebeff7b70ef0e54cb2acafbc6892aee5b76a1a4c5"
+  },
+  "source_pack": {
+    "five_scenarios_source_ready_with_exact_user_sources": true,
+    "missing_source_fails_closed": true,
+    "player_projection_exposes_source_paths_or_hashes": false
+  },
+  "certification": {
+    "chunk329": "284/284 PASS",
+    "portable_rebuild_matrix": "199/199 PASS",
+    "checkpoint328_regression": "207/207 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS",
+    "player_counts": [1, 2, 3, 4],
+    "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_interface_v1": "PASS",
+    "normal_free_prompt": "Que fais-tu ?",
+    "local_os_csprng_roll_ledger": "PASS",
+    "save_resume_327": "PASS",
+    "strict_replay_328": "PASS",
+    "post_restore_action_continuity": "PASS",
+    "http_loopback_api": "PASS",
+    "external_network_dependency": false,
+    "full_rebuild_matrix": "284/284 PASS"
+  },
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "limitations": {
+    "scenario_narration_requires_keeper_or_future_local_ai": true,
+    "user_entered_stats_are_not_coc7_character_creation": true,
+    "apk_not_produced_by_this_checkpoint": true
+  },
+  "next_phase": "ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1",
+  "anti_rollback": {
+    "parent_checkpoint_required": 328,
+    "automatic_downgrade_forbidden": true,
+    "package_sha256_is_release_identity": true,
+    "commercial_sources_must_remain_non_public": true,
+    "conversation_memory_non_authoritative": true
+  }
+}
