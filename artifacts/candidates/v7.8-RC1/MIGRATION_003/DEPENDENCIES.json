@@ -1,0 +1,14 @@
+{
+  "package_id": "SSR-INTEGRATION-003",
+  "target": "Solid State v7.8-RC1",
+  "baseline": "Solid State v7.7 + CoC7 Rules Core v4.7",
+  "required_working_backup": {
+    "filename": "Solid_State_v7.7_CoC7_v4.7_Working_Backup.zip",
+    "sha256": "2adedf1049a24b1a84ad719c93110914054b0494f774be995cc8e9e5555ad2fe"
+  },
+  "source_checkpoints": {
+    "SolidState_WORK_CHECKPOINT_v7.8-RC1_STARTUP_GATE_SPEC.zip": "10f45f0e97fa6d2ff2b2940c497cded51402bea2cbe1c521a4e628e727137e68",
+    "SolidState_WORK_CHECKPOINT_v7.8-RC1_CHARACTER_CREATION_SPEC.zip": "927e13653e4942fddb81d8c5825689ab716c2caf1f0135bab4fea0aa2e36227d"
+  },
+  "integration_status": "READY_FOR_APPLICATION_WHEN_BASELINE_AVAILABLE"
+}
