@@ -1,46 +1,52 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V10",
-  "status": "CHECKPOINT_322_SCENARIO6_PATH_PROOF_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V11",
+  "status": "CHECKPOINT_323_SCENARIO6_PASS_REAL_RELEASE_VERIFIED",
   "current_authority": {
-    "checkpoint": 322,
-    "checkpoint_id": "SCENARIO6_SOURCE_BACKED_PATH_CLOSURE_V1",
-    "status": "VERIFIED_PATH_PROOF_MILESTONE_NOT_RELEASE",
-    "checkpoint_record": "patches/checkpoint322/CHECKPOINT_322.json",
-    "checkpoint_record_git_blob_sha1": "9107299fad5183862a22513c208014b8dc4b1f5d",
-    "parent_checkpoint": 321,
+    "checkpoint": 323,
+    "checkpoint_id": "SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1",
+    "status": "VERIFIED_SCENARIO6_PASS_REAL_RELEASE",
+    "checkpoint_record": "patches/checkpoint323/CHECKPOINT_323.json",
+    "checkpoint_record_git_blob_sha1": "c7c16db278e1d80d910376d2c9fa2360cb945a83",
+    "parent_checkpoint": 322,
     "tests": {
-      "chunk322": "29/29 PASS",
-      "checkpoint321_regression": "PASS",
+      "chunk323": "31/31 PASS",
+      "checkpoint322_isolated_regression": "29/29 PASS",
+      "checkpoint321_isolated_regression": "27/27 PASS",
       "checkpoint315_regression": "PASS",
-      "native_core": "PASS",
+      "native_core_regression": "PASS",
       "source_pdf_sha256": "PASS",
-      "knowledge_firewall": "PASS",
-      "player_interface_remains_blocked": "PASS"
+      "source_evidence_hashes": "PASS",
+      "release_tamper_fail_closed": "PASS",
+      "resolver_promotion": "PASS",
+      "scenario_selection_selectable": "PASS",
+      "player_surface_no_keeper_evidence": "PASS"
     },
     "scenario6": {
-      "path_status": "PASS_REAL_CANDIDATE",
-      "pass_real": false,
-      "promotion_applied": false,
-      "transition_count": 6,
-      "conditional_path": true,
-      "terminal": "MUSE_TERMINAL_ENMOUTEF_BODY_FUTURE",
-      "alternative_endings_preserved": true
+      "status": "PASS_REAL",
+      "pass_real": true,
+      "player_keeper_leaks": 0,
+      "path_length": 6,
+      "conditional_path_preserved": true,
+      "alternative_endings_preserved": true,
+      "open_conclusion_not_collapsed": true,
+      "release_authority": "MUSE_PASS_REAL_RELEASE_323.json"
     },
     "source": {
       "pdf_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
       "source_layout_sha256": "82c27f32a4244d0964fbb94ef4bb34c81b3f81775ca3561ecf3c4f8bda2f498a",
       "source_text_republished": false
     },
-    "next_phase": "SCENARIO6_PASS_REAL_RELEASE_AUDIT_V1"
+    "next_phase": "SCENARIO7_SOURCE_BACKED_PATH_CLOSURE_V1"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
     "scenario4": "PASS_REAL",
     "scenario5": "PASS_REAL",
-    "scenario6": "PASS_REAL_CANDIDATE_NOT_RELEASED",
+    "scenario6": "PASS_REAL",
     "scenario7": "COMPILED_INVESTIGATION_GRAPH_NOT_PATH_PROVEN"
   },
   "authority_order": [
+    "CHECKPOINT_323_VERIFIED_SCENARIO6_PASS_REAL_RELEASE",
     "CHECKPOINT_322_VERIFIED_SCENARIO6_PATH_PROOF",
     "CHECKPOINT_321_VERIFIED_SCENARIO5_PASS_REAL_RELEASE",
     "CHECKPOINT_320_VERIFIED_SCENARIO5_PATH_PROOF",
@@ -55,9 +61,9 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "path_proof_does_not_self_promote": true,
-    "separate_release_audit_required_for_scenario6_pass_real": true,
+    "release_certificate_required_for_pass_real": true,
     "open_conclusion_must_not_be_collapsed_to_ideal_ending": true,
+    "alternative_endings_must_be_preserved": true,
     "source_text_must_not_be_republished_to_public_repository": true,
     "keeper_player_firewall_required": true
   }
