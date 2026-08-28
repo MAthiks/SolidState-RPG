@@ -1,0 +1,25 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_V1",
+  "checkpoint_id": "SS-7.7_COC7-4.7_BASELINE",
+  "declared_at": "2026-08-27",
+  "authority": "GITHUB_SOURCE_OF_TRUTH",
+  "anti_rollback": true,
+  "solid_state": {
+    "version": "7.7",
+    "payload_status": "VERSION_NON_CONFIRMEE",
+    "sha256": null,
+    "artifact": null
+  },
+  "coc7_rules_core": {
+    "version": "4.7",
+    "payload_status": "VERSION_NON_CONFIRMEE",
+    "sha256": null,
+    "artifact": null
+  },
+  "policy": {
+    "versioned_artifacts_override_conversation_memory": true,
+    "automatic_downgrade_forbidden": true,
+    "unverifiable_current_state_message": "version non confirmée",
+    "promotion_requires_exact_artifact_and_hash": true
+  }
+}
