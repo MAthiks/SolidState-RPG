@@ -1,40 +1,39 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V17",
-  "status": "CHECKPOINT_329_OFFLINE_PLAYABLE_RUNTIME_PACKAGE_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V18",
+  "status": "CHECKPOINT_330_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2_VERIFIED",
   "current_authority": {
-    "checkpoint": 329,
-    "checkpoint_id": "OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1",
-    "status": "VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
-    "checkpoint_record": "patches/checkpoint329/CHECKPOINT_329.json",
-    "checkpoint_record_git_blob_sha1": "deb884f6a0506a887f12e421eef1fcd628c7524b",
-    "parent_checkpoint": 328,
+    "checkpoint": 330,
+    "checkpoint_id": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
+    "status": "VERIFIED_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
+    "checkpoint_record": "patches/checkpoint330/CHECKPOINT_330.json",
+    "checkpoint_record_git_blob_sha1": "62166f32edfc10e3a32553cfeb889019996dfd13",
+    "parent_checkpoint": 329,
+    "parent_package_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
     "tests": {
-      "chunk329_full_package_matrix": "284/284 PASS",
-      "portable_package_matrix": "199/199 PASS",
-      "checkpoint328_regression": "207/207 PASS",
+      "chunk330": "522/522 PASS",
+      "clean_rebuild": "522/522 PASS",
+      "checkpoint329_portable_regression": "199/199 PASS",
       "checkpoint315_regression": "5/5 PASS",
-      "native_core_regression": "5/5 PASS",
-      "zip_crc": "PASS",
-      "extracted_manifest": "173/173 PASS",
-      "extracted_self_test": "PASS"
+      "native_core_regression": "5/5 PASS"
     },
-    "offline_package": {
-      "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
-      "sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
-      "package_manifest_sha256": "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9",
-      "immutable_files": 173,
-      "internet_required": false,
-      "loopback_only": true,
-      "python_external_dependencies": 0,
-      "player_counts": [1, 2, 3, 4],
-      "save_resume_327": true,
-      "strict_replay_328": true,
-      "commercial_source_text_embedded": false,
-      "private_source_import_required": true,
-      "autonomous_ai_narration": false,
-      "keeper_assisted": true
+    "multiplayer": {
+      "player_counts_certified": [1, 2, 3, 4],
+      "exactly_one_owned_character_per_player": true,
+      "unique_character_control": true,
+      "canonical_sql_party_consistency": true,
+      "interface_control_map_consistency": true,
+      "knowledge_partitions_independent": true,
+      "keeper_to_player_leaks": 0,
+      "player_interfaces_isolated": true,
+      "failed_player_action_corrupts_siblings": false,
+      "cross_player_control_blocked": true,
+      "character_owner_immutable": true,
+      "silent_character_rebind_blocked": true,
+      "multiplayer_bootstrap_atomic": true
     },
-    "next_phase": "ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1"
+    "next_phase": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+    "phase_after_next": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+    "android_apk_work": "PAUSED_NOT_PROMOTED"
   },
   "scenario_status": {
     "scenario3": "PASS_REAL",
@@ -44,6 +43,7 @@
     "scenario7": "PASS_REAL"
   },
   "authority_order": [
+    "CHECKPOINT_330_VERIFIED_MULTIPLAYER_RECERTIFICATION_V2",
     "CHECKPOINT_329_VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
     "CHECKPOINT_328_VERIFIED_STRICT_REPLAY_CONTINUITY",
     "CHECKPOINT_327_VERIFIED_SAVE_RESUME",
@@ -56,14 +56,13 @@
   ],
   "policy": {
     "automatic_downgrade_forbidden": true,
-    "offline_release_identity_requires_zip_sha256": true,
     "commercial_sources_must_remain_non_public": true,
-    "missing_or_mismatched_private_sources_fail_closed": true,
-    "strict_replay_journal_required_on_resume": true,
-    "replay_must_not_reroll": true,
-    "save_restore_requires_authenticated_bundle": true,
+    "character_owner_transfer_must_fail_closed": true,
+    "player_control_rebind_must_fail_closed": true,
+    "multiplayer_bootstrap_must_be_atomic": true,
     "knowledge_partition_required": true,
     "keeper_player_firewall_required": true,
-    "autonomous_ai_narration_not_claimed": true
+    "save_resume_v2_not_yet_recertified": true,
+    "strict_replay_v2_not_yet_recertified": true
   }
 }
