@@ -1,0 +1,51 @@
+{
+  "schema": "SOLIDSTATE_CHUNK332_REPORT_V1",
+  "checkpoint_candidate": 332,
+  "id": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+  "parent_checkpoint": 331,
+  "result": "PASS",
+  "tests": {
+    "chunk332": "558/558 PASS",
+    "scenario_player_cases": 20,
+    "scenarios": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_counts": [1, 2, 3, 4],
+    "events_per_case": 8,
+    "save_cut_after_event": 4,
+    "offline_self_test": "PASS",
+    "focused_checkpoint330_331_regression": "30/30 PASS"
+  },
+  "continuity": {
+    "continuous_vs_resumed_commit_sequence": "IDENTICAL",
+    "continuous_vs_resumed_canonical_digest": "IDENTICAL",
+    "continuous_vs_resumed_strict_state_digest": "IDENTICAL",
+    "continuous_vs_resumed_journal_hash_chain": "IDENTICAL",
+    "continuous_vs_resumed_roll_tape": "IDENTICAL",
+    "continuous_vs_resumed_action_order": "IDENTICAL",
+    "continuous_vs_resumed_actor_trace": "IDENTICAL",
+    "reroll_on_replay": false
+  },
+  "actor_binding": {
+    "player_id_in_each_strict_event": true,
+    "character_id_in_each_strict_event": true,
+    "validated_against_multiplayer_v2_control_map": true,
+    "wrong_character_control_fails_closed_without_commit": true,
+    "reauthored_actor_trace_detected_against_expected_tape": true
+  },
+  "negative_tests": {
+    "duplicate_event_rejected": true,
+    "omitted_event_rejected": true,
+    "reordered_event_rejected": true,
+    "duplicate_rehash_rebuild_blocked": true,
+    "omission_rehash_rebuild_blocked": true,
+    "reorder_rehash_rebuild_blocked": true,
+    "valid_hash_chain_with_reassigned_actor_detected": true
+  },
+  "scenario_status": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "android_apk_work": "PAUSED_NOT_PROMOTED"
+}
