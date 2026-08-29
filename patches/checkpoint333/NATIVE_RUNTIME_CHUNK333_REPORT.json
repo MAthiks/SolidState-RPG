@@ -1,0 +1,62 @@
+{
+  "checkpoint": 333,
+  "checkpoint_id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2",
+  "result": "PASS",
+  "parent_checkpoint": 332,
+  "source_backed": true,
+  "combined_matrix": "2300/2300 PASS",
+  "core_matrix": "5 scenarios x 1-4 players = 20 cases",
+  "core_events_per_case": 12,
+  "save_resume_multi_cuts": {
+    "scenario3_1_to_4_players": [1, 6, 11],
+    "scenario4_to_7_4players": [6]
+  },
+  "keeper_to_player_leaks": 0,
+  "failure_isolation": {
+    "wrong_actor": "BLOCKED_ZERO_MUTATION",
+    "invalid_roll": "BLOCKED_ZERO_MUTATION",
+    "impossible_mechanical_delta": "BLOCKED_ZERO_MUTATION"
+  },
+  "save_resume": {
+    "continuous_vs_resumed_actor_bound_fingerprint": "IDENTICAL",
+    "canonical_state": "IDENTICAL",
+    "commit_sequence": "IDENTICAL",
+    "semantic_sql_tables": "IDENTICAL",
+    "player_views": "IDENTICAL",
+    "replay_verified_immediately_after_restore": true,
+    "replay_verified_after_resumed_segments": true
+  },
+  "tamper_battery": {
+    "bad_hmac": "REJECTED_LIVE_UNCHANGED",
+    "downgrade_floor": "REJECTED_LIVE_UNCHANGED",
+    "control_map": "REJECTED_LIVE_UNCHANGED",
+    "ownership": "REJECTED_LIVE_UNCHANGED",
+    "knowledge": "REJECTED_LIVE_UNCHANGED",
+    "actor_reattribution_after_hash_chain_rebuild": "DETECTED"
+  },
+  "parent_checkpoint332_rerun": "558/558 PASS",
+  "parent_replay_negatives": {
+    "duplicate_event": "REJECTED",
+    "omitted_event": "REJECTED",
+    "reordered_event": "REJECTED",
+    "duplicate_omit_reorder_rehash_rebuild": "BLOCKED"
+  },
+  "source_validation": {
+    "all_five_scenarios_source_ready": true,
+    "all_five_scenarios_status": "PASS_REAL",
+    "AE_COLLECTION_sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143",
+    "BRUME_KEEPER_sha256": "76dc387ef0d24e2f03d5c2e906c89ac5709552a698a9c8d93a3df5fa8282a0fa",
+    "BRUME_PLAYER_sha256": "86c414eb4d28d7bb907799b5b0e9fea2de4c600fd4d2792e304381e0688fb20b",
+    "ANTRE_SOURCE_sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb"
+  },
+  "reconstruction_identity": {
+    "checkpoint329_zip_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "checkpoint329_zip_crc": "PASS",
+    "checkpoint329_verify_package": "PASS_173_FILES",
+    "checkpoint329_offline_self_test": "PASS",
+    "checkpoint330_module_git_blob_sha1": "7dd495abe9eb0e44d3653334d39ca99d879debaa",
+    "checkpoint331_module_git_blob_sha1": "fe8caded08ec30f50a6f4c80a23de8fc5e35b510",
+    "checkpoint332_module_git_blob_sha1": "fbcab13c95317907039a961d4af4f5592bb2ffc8"
+  },
+  "private_source_policy": "Private/commercial PDFs were used only locally and were not committed to GitHub."
+}
