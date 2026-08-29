@@ -1,0 +1,71 @@
+{
+  "schema": "SOLIDSTATE_NATIVE_RUNTIME_CHUNK330_REPORT_V1",
+  "checkpoint_candidate": 330,
+  "checkpoint_id": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
+  "parent_checkpoint": 329,
+  "parent_package_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+  "result": "PASS",
+  "certification_scope": {
+    "player_counts": [1, 2, 3, 4],
+    "one_owned_character_per_player": true,
+    "unique_control": true,
+    "canonical_sql_party_consistency": true,
+    "interface_session_control_map_consistency": true,
+    "player_knowledge_partition_isolation": true,
+    "keeper_knowledge_exposed_to_player": 0,
+    "player_interface_isolation": true,
+    "normal_libre_prompt": "Que fais-tu ?",
+    "assisted_mode": "EXACTLY_3_PLAYER_SAFE_CHOICES_PLUS_1_FREE_ACTION",
+    "failed_player_mechanical_action_corrupts_siblings": false,
+    "failed_character_transaction_corrupts_siblings": false,
+    "cross_player_control_allowed": false,
+    "silent_character_owner_transfer_allowed": false,
+    "silent_player_character_rebind_allowed": false,
+    "multiplayer_bootstrap_is_atomic": true
+  },
+  "defects_found_in_parent_runtime": [
+    {
+      "id": "LATE_PLAYER_FAILURE_LEFT_PARTIAL_PARTY_STATE",
+      "status_before_fix": "CONFIRMED",
+      "evidence": "A two-player offline session with invalid P2 HP returned BLOCKED after P1 had already committed 7 revisions and remained in characters/party.",
+      "fix": "Full player-record preflight plus staged SQLite session build; only a complete SESSION_READY database replaces the pristine live slot."
+    },
+    {
+      "id": "CHARACTER_OWNER_REASSIGNMENT_SPLIT_BRAIN",
+      "status_before_fix": "CONFIRMED",
+      "evidence": "set_character could change C1 owner from P1 to P2 while party still mapped P1->C1.",
+      "fix": "Character ownership is immutable after creation; cross-owner updates fail closed without commit advance."
+    },
+    {
+      "id": "PLAYER_INTERFACE_PARTY_ONLY_OWNERSHIP_CHECK",
+      "status_before_fix": "CONFIRMED",
+      "evidence": "After owner split-brain, PlayerInterfaceV1 still returned READY for P1 because it checked only party.character_id.",
+      "fix": "PlayerInterfaceV1 now requires SQL party binding, characters.owner_id and canonical party mapping to agree."
+    }
+  ],
+  "tests": {
+    "chunk330": "522/522 PASS",
+    "clean_rebuild_from_checkpoint329_plus_patch": "522/522 PASS",
+    "checkpoint329_portable_regression": "199/199 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS"
+  },
+  "scenario_status": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "scope_boundary": {
+    "save_resume_v2_recertified_here": false,
+    "strict_replay_v2_recertified_here": false,
+    "checkpoint329_save_resume_and_strict_replay_regression_only": true,
+    "next_phase": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+    "phase_after_next": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2"
+  },
+  "public_source_policy": {
+    "commercial_source_text_republished": false,
+    "commercial_pdf_embedded": false
+  }
+}
