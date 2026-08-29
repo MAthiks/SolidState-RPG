@@ -1,38 +1,39 @@
 {
-  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V18",
-  "status": "CHECKPOINT_330_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2_VERIFIED",
+  "schema": "SOLIDSTATE_AUTHORITY_AUDIT_V19",
+  "status": "CHECKPOINT_331_MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2_VERIFIED",
   "current_authority": {
-    "checkpoint": 330,
-    "checkpoint_id": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
-    "status": "VERIFIED_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
-    "checkpoint_record": "patches/checkpoint330/CHECKPOINT_330.json",
-    "checkpoint_record_git_blob_sha1": "62166f32edfc10e3a32553cfeb889019996dfd13",
-    "parent_checkpoint": 329,
-    "parent_package_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "checkpoint": 331,
+    "checkpoint_id": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+    "status": "VERIFIED_MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+    "checkpoint_record": "patches/checkpoint331/CHECKPOINT_331.json",
+    "checkpoint_record_git_blob_sha1": "642e94456b0084954f8cd5f4362be19c4a237c7b",
+    "parent_checkpoint": 330,
     "tests": {
-      "chunk330": "522/522 PASS",
-      "clean_rebuild": "522/522 PASS",
-      "checkpoint329_portable_regression": "199/199 PASS",
+      "chunk331": "987/987 PASS",
+      "clean_rebuild": "987/987 PASS",
+      "checkpoint330_regression": "522/522 PASS",
+      "checkpoint329_adapted_portable_regression": "198/198 PASS",
       "checkpoint315_regression": "5/5 PASS",
       "native_core_regression": "5/5 PASS"
     },
-    "multiplayer": {
+    "save_resume_multiplayer_v2": {
+      "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
       "player_counts_certified": [1, 2, 3, 4],
-      "exactly_one_owned_character_per_player": true,
-      "unique_character_control": true,
-      "canonical_sql_party_consistency": true,
-      "interface_control_map_consistency": true,
-      "knowledge_partitions_independent": true,
+      "selected_scenario_exact": true,
+      "interface_session_exact": true,
+      "control_map_exact": true,
+      "mechanics_wounds_inventory_exact": true,
+      "knowledge_partitions_exact": true,
       "keeper_to_player_leaks": 0,
-      "player_interfaces_isolated": true,
-      "failed_player_action_corrupts_siblings": false,
-      "cross_player_control_blocked": true,
-      "character_owner_immutable": true,
-      "silent_character_rebind_blocked": true,
-      "multiplayer_bootstrap_atomic": true
+      "same_runtime_restore": true,
+      "new_engine_restore": true,
+      "next_commit_saved_plus_one": true,
+      "commit_ledger_contiguous": true,
+      "restore_validation_staged": true,
+      "rejected_save_preserves_live_slot": true,
+      "semantic_split_brain_fails_closed": true
     },
-    "next_phase": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
-    "phase_after_next": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+    "next_phase": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
     "android_apk_work": "PAUSED_NOT_PROMOTED"
   },
   "scenario_status": {
@@ -43,6 +44,7 @@
     "scenario7": "PASS_REAL"
   },
   "authority_order": [
+    "CHECKPOINT_331_VERIFIED_MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
     "CHECKPOINT_330_VERIFIED_MULTIPLAYER_RECERTIFICATION_V2",
     "CHECKPOINT_329_VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE",
     "CHECKPOINT_328_VERIFIED_STRICT_REPLAY_CONTINUITY",
@@ -57,12 +59,11 @@
   "policy": {
     "automatic_downgrade_forbidden": true,
     "commercial_sources_must_remain_non_public": true,
-    "character_owner_transfer_must_fail_closed": true,
-    "player_control_rebind_must_fail_closed": true,
-    "multiplayer_bootstrap_must_be_atomic": true,
     "knowledge_partition_required": true,
     "keeper_player_firewall_required": true,
-    "save_resume_v2_not_yet_recertified": true,
+    "multiplayer_save_resume_v2_required": true,
+    "untrusted_save_validation_must_not_destroy_live_slot": true,
+    "save_authority_floor_checkpoint": 330,
     "strict_replay_v2_not_yet_recertified": true
   }
 }
