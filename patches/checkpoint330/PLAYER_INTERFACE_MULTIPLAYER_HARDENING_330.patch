@@ -1,0 +1,20 @@
+--- a/solidstate_runtime/player_interface_v1.py
++++ b/solidstate_runtime/player_interface_v1.py
+@@ -5,8 +5,15 @@
+     """Strictly whitelisted player projection. Keeper state is never copied into the surface."""
+     def __init__(self, engine): self.e=engine
+     def _owned_character(self, player_id, character_id):
+-        row=self.e.db.conn.execute("SELECT character_id FROM party WHERE player_id=?",(player_id,)).fetchone()
+-        return bool(row and row["character_id"]==character_id)
++        row=self.e.db.conn.execute(
++            """SELECT p.character_id,c.owner_id
++               FROM party p JOIN characters c ON c.character_id=p.character_id
++               WHERE p.player_id=?""",(player_id,)
++        ).fetchone()
++        if not row or row["character_id"]!=character_id or row["owner_id"]!=player_id:
++            return False
++        state,_=self.e.db.state()
++        return state.get("party",{}).get(player_id)==character_id
+     def _inventory(self, character_id):
+         rows=self.e.db.conn.execute("""SELECT i.object_id,i.quantity,m.object_type
+                FROM inventory i JOIN mechanical_registry m ON m.object_id=i.object_id
