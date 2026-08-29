@@ -1,0 +1,115 @@
+--- a/offline/runtime.py
++++ b/offline/runtime.py
+@@ -47,37 +47,85 @@
+         state,commit=self.db.state(); session=state.get('interface_session')
+         return {'status':'READY','checkpoint':328,'offline_package':'V1','commit':commit,
+                 'session':session,'sources':self.source.public_status(),'scenarios':self.selection.list_scenarios()['scenarios']}
+-    def new_session(self,scenario_key,players,require_sources=True):
+-        if require_sources:
+-            src=self.source.scenario_status(scenario_key)
+-            if not src['ready']:return {'status':'BLOCKED','code':'PRIVATE_SOURCE_PACK_REQUIRED','missing':src['missing']}
+-        if not isinstance(players,list) or not 1<=len(players)<=4:return {'status':'BLOCKED','code':'PLAYER_COUNT_INVALID'}
+-        if self.db.state()[1]!=0:return {'status':'BLOCKED','code':'CURRENT_SLOT_NOT_PRISTINE'}
++    def _validate_player_records(self,players):
++        if not isinstance(players,list) or not 1<=len(players)<=4:
++            return {'status':'BLOCKED','code':'PLAYER_COUNT_INVALID'}
++        out=[]; needed=('HP','SAN','MP','Luck')
++        for p in players:
++            if not isinstance(p,dict):
++                return {'status':'BLOCKED','code':'PLAYER_RECORD_INVALID'}
++            name=str(p.get('name','')).strip(); stats=p.get('stats',{}); inventory=p.get('inventory',[])
++            if not name:
++                return {'status':'BLOCKED','code':'PLAYER_NAME_REQUIRED'}
++            if not isinstance(stats,dict) or any(not isinstance(stats.get(k),int) or isinstance(stats.get(k),bool) or stats[k]<0 for k in needed):
++                return {'status':'BLOCKED','code':'USER_PROVIDED_STATS_REQUIRED','required':list(needed)}
++            if not isinstance(inventory,list):
++                return {'status':'BLOCKED','code':'PLAYER_INVENTORY_INVALID'}
++            out.append({'name':name,'stats':{k:stats[k] for k in needed},'inventory':[str(x).strip() for x in inventory if str(x).strip()]})
++        return {'status':'PASS','players':out}
++
++    @staticmethod
++    def _populate_session(engine,launcher,scenario_key,players):
+         pids=[]
+         for i,p in enumerate(players,1):
+-            if not isinstance(p,dict):return {'status':'BLOCKED','code':'PLAYER_RECORD_INVALID'}
+-            name=str(p.get('name','')).strip(); stats=p.get('stats',{})
+-            if not name:return {'status':'BLOCKED','code':'PLAYER_NAME_REQUIRED'}
+-            needed=('HP','SAN','MP','Luck')
+-            if any(not isinstance(stats.get(k),int) or stats[k]<0 for k in needed):
+-                return {'status':'BLOCKED','code':'USER_PROVIDED_STATS_REQUIRED','required':list(needed)}
+-            pid=f'P{i}'; cid=f'C{i}_{uuid.uuid4().hex[:8]}'; pids.append(pid)
+-            cr=self.engine.set_character(cid,pid,{'name':name,'offline_profile':'USER_PROVIDED_NOT_RULE_GENERATED'})
+-            if cr.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'CHARACTER_CREATE_FAILED'}
+-            if self.engine.attach_character(pid,cid).get('status')!='COMMIT':return {'status':'ROLLBACK','code':'CHARACTER_ATTACH_FAILED'}
+-            if self.engine.wounds.initialize(cid,max(1,stats['HP']),stats['HP']).get('status')!='COMMIT':return {'status':'ROLLBACK','code':'WOUND_INIT_FAILED'}
++            stats=p['stats']; pid=f'P{i}'; cid=f'C{i}_{uuid.uuid4().hex[:8]}'; pids.append(pid)
++            cr=engine.set_character(cid,pid,{'name':p['name'],'offline_profile':'USER_PROVIDED_NOT_RULE_GENERATED'})
++            if cr.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'CHARACTER_CREATE_FAILED','player_id':pid}
++            ar=engine.attach_character(pid,cid)
++            if ar.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'CHARACTER_ATTACH_FAILED','player_id':pid,'detail':ar.get('code')}
++            wr=engine.wounds.initialize(cid,max(1,stats['HP']),stats['HP'])
++            if wr.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'WOUND_INIT_FAILED','player_id':pid}
+             for k in ('SAN','MP','Luck'):
+-                if self.engine.mechanics.set_value(cid,k,stats[k]).get('status')!='COMMIT':return {'status':'ROLLBACK','code':'STAT_INIT_FAILED','field':k}
+-            for item in p.get('inventory',[]):
+-                label=str(item).strip()
+-                if label:
+-                    oid=f'USER_ITEM_{uuid.uuid4().hex[:10]}'
+-                    self.engine.registry.register(oid,'item',cid,{'label':label},'USER_PROVIDED_OFFLINE_SETUP')
+-        launched=self.launcher.prepare_session(scenario_key,pids)
++                sr=engine.mechanics.set_value(cid,k,stats[k])
++                if sr.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'STAT_INIT_FAILED','player_id':pid,'field':k}
++            for label in p['inventory']:
++                oid=f'USER_ITEM_{uuid.uuid4().hex[:10]}'
++                ir=engine.registry.register(oid,'item',cid,{'label':label},'USER_PROVIDED_OFFLINE_SETUP')
++                if ir.get('status')!='COMMIT':return {'status':'ROLLBACK','code':'INVENTORY_INIT_FAILED','player_id':pid}
++        launched=launcher.prepare_session(scenario_key,pids)
+         if launched.get('status')!='SESSION_READY':return launched
+-        self.engine.scenario.active_scenario_id=scenario_key
+-        # Initialize strict replay state without adding an artificial commit.
+-        return {'status':'SESSION_READY','session':launched['session'],'players':self.player_views()}
++        engine.scenario.active_scenario_id=scenario_key
++        return {'status':'SESSION_READY','session':launched['session']}
++
++    def new_session(self,scenario_key,players,require_sources=True):
++        if require_sources:
++            src=self.source.scenario_status(scenario_key)
++            if not src['ready']:return {'status':'BLOCKED','code':'PRIVATE_SOURCE_PACK_REQUIRED','missing':src['missing']}
++        validated=self._validate_player_records(players)
++        if validated.get('status')!='PASS':return validated
++        state,commit=self.db.state()
++        if commit!=0 or state!={'scenario_started':False}:
++            return {'status':'BLOCKED','code':'CURRENT_SLOT_NOT_PRISTINE'}
++
++        # Build the whole multiplayer session in a separate SQLite file. Only a fully
++        # successful build replaces the pristine live slot, so a failure for P2/P3/P4
++        # cannot leave P1 or any sibling partially committed.
++        stage=self.db_path.with_name(f'.{self.db_path.name}.mpstage.{uuid.uuid4().hex}.sqlite')
++        stage_db=None
++        try:
++            stage_db=SolidStateDB(stage); stage_engine=SolidStateEngine(stage_db)
++            stage_launcher=LaunchChainV1(stage_engine,self.selection)
++            built=self._populate_session(stage_engine,stage_launcher,scenario_key,validated['players'])
++            if built.get('status')!='SESSION_READY':
++                stage_db.close(); stage_db=None; stage.unlink(missing_ok=True)
++                return built
++            stage_db.close(); stage_db=None
++            self.close()
++            try:
++                os.replace(stage,self.db_path)
++            except Exception:
++                self._open()
++                stage.unlink(missing_ok=True)
++                return {'status':'FAIL_CLOSED','code':'ATOMIC_SESSION_REPLACE_FAILED'}
++            self._open(); self.engine.scenario.active_scenario_id=scenario_key
++            return {'status':'SESSION_READY','session':built['session'],'players':self.player_views()}
++        finally:
++            if stage_db is not None:
++                try:stage_db.close()
++                except Exception:pass
++            try:stage.unlink()
++            except FileNotFoundError:pass
++
+     def player_views(self):
+         state,_=self.db.state(); s=state.get('interface_session') or {}; out=[]
+         for pid,cid in (s.get('control_map') or {}).items():
