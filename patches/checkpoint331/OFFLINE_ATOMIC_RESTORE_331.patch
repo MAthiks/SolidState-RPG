@@ -1,0 +1,82 @@
+--- a/offline/runtime.py
++++ b/offline/runtime.py
+@@ -3,7 +3,7 @@
+ from solidstate_runtime.db import SolidStateDB
+ from solidstate_runtime.engine import SolidStateEngine
+ from solidstate_runtime.player_interface_v1 import PlayerInterfaceV1, LaunchChainV1
+-from solidstate_runtime.save_resume_v1 import SaveResumeSelectedScenarioAndFullInterfaceV1
++from solidstate_runtime.save_resume_multiplayer_v2 import MultiplayerSaveResumeRecertificationV2
+ from solidstate_runtime.strict_replay_save_resume_v1 import StrictReplaySaveResumeContinuityV1
+ from .source_pack import SourcePackValidatorV1
+ from .registry import OfflineScenarioSelectionV1
+@@ -35,7 +35,7 @@
+     def _open(self):
+         self.db=SolidStateDB(self.db_path); self.engine=SolidStateEngine(self.db)
+         self.interface=PlayerInterfaceV1(self.engine); self.launcher=LaunchChainV1(self.engine,self.selection)
+-        self.save_manager=SaveResumeSelectedScenarioAndFullInterfaceV1(self.engine,self.selection,self._secret)
++        self.save_manager=MultiplayerSaveResumeRecertificationV2(self.engine,self.selection,self._secret)
+     def close(self):
+         try:self.db.close()
+         except Exception:pass
+@@ -160,20 +160,49 @@
+         if strict.get('status')!='PASS':return strict
+         path=self.saves/f'{save_id}.json'; path.write_text(json.dumps(out['bundle'],ensure_ascii=False,indent=2),encoding='utf-8')
+         return {'status':'SAVED','save_id':save_id,'file':path.name,'commit':out['bundle']['payload']['commit_sequence'],'events':strict['events']}
+-    def restore_file(self,filename):
++    def restore_file(self,filename,require_sources=True):
+         path=(self.saves/filename).resolve()
+         if path.parent!=self.saves.resolve() or not path.exists():return {'status':'FAIL_CLOSED','code':'SAVE_FILE_NOT_FOUND'}
+-        bundle=json.loads(path.read_text(encoding='utf-8'))
+-        # Restore requires a pristine target; create a fresh DB file.
+-        self.close()
+-        if self.db_path.exists():self.db_path.unlink()
+-        self._open()
+-        res=StrictReplaySaveResumeContinuityV1.restore_verified(self.save_manager,bundle)
+-        if res.get('status')!='RESTORED_STRICT':return res
+-        self.engine.scenario.active_scenario_id=res['session']['scenario_key']
+-        if not self.source.scenario_status(res['session']['scenario_key'])['ready']:
+-            return {'status':'FAIL_CLOSED','code':'PRIVATE_SOURCE_PACK_REQUIRED_AFTER_RESTORE'}
+-        return {'status':'RESTORED_STRICT','commit':res['commit'],'session':res['session'],'players':self.player_views()}
++        try:bundle=json.loads(path.read_text(encoding='utf-8'))
++        except Exception:return {'status':'FAIL_CLOSED','code':'SAVE_FILE_INVALID_JSON'}
++
++        # Never destroy the active slot to test an untrusted save. Restore and verify into
++        # an isolated SQLite staging file, then atomically replace the live DB only after
++        # authentication, semantic checks, Strict Replay regression gate and source gate.
++        stage=self.db_path.with_name(f'.{self.db_path.name}.restorestage.{uuid.uuid4().hex}.sqlite')
++        stage_db=None
++        try:
++            stage_db=SolidStateDB(stage); stage_engine=SolidStateEngine(stage_db)
++            stage_interface=PlayerInterfaceV1(stage_engine)
++            stage_manager=MultiplayerSaveResumeRecertificationV2(stage_engine,self.selection,self._secret)
++            res=StrictReplaySaveResumeContinuityV1.restore_verified(stage_manager,bundle)
++            if res.get('status')!='RESTORED_STRICT':
++                stage_db.close(); stage_db=None; stage.unlink(missing_ok=True)
++                return res
++            scenario_key=res['session']['scenario_key']
++            if require_sources and not self.source.scenario_status(scenario_key)['ready']:
++                stage_db.close(); stage_db=None; stage.unlink(missing_ok=True)
++                return {'status':'FAIL_CLOSED','code':'PRIVATE_SOURCE_PACK_REQUIRED_AFTER_RESTORE'}
++            # Projection gate on staged DB: every player interface must be independently ready.
++            for pid,cid in res['session']['control_map'].items():
++                if stage_interface.status_panel(pid,cid).get('status')!='READY':
++                    stage_db.close(); stage_db=None; stage.unlink(missing_ok=True)
++                    return {'status':'FAIL_CLOSED','code':'PLAYER_INTERFACE_RESTORE_INVALID'}
++            stage_db.close(); stage_db=None
++            self.close()
++            try:
++                os.replace(stage,self.db_path)
++            except Exception:
++                self._open(); stage.unlink(missing_ok=True)
++                return {'status':'FAIL_CLOSED','code':'ATOMIC_RESTORE_REPLACE_FAILED'}
++            self._open(); self.engine.scenario.active_scenario_id=scenario_key
++            return {'status':'RESTORED_STRICT','commit':res['commit'],'session':res['session'],'players':self.player_views()}
++        finally:
++            if stage_db is not None:
++                try:stage_db.close()
++                except Exception:pass
++            try:stage.unlink()
++            except FileNotFoundError:pass
+     def self_test(self):
+         # Uses no commercial source and never marks it source-ready. It tests the package mechanics only.
+         tmp=Path(tempfile.mkdtemp(prefix='solidstate_offline_selftest_'))
