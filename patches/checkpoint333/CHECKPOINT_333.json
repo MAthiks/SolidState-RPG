@@ -1,0 +1,67 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_333_V1",
+  "checkpoint": 333,
+  "checkpoint_id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2",
+  "parent_checkpoint": 332,
+  "parent_checkpoint_record_git_blob_sha1": "a1a8159b12404c0174cfe55d01607a2a1b9a04a8",
+  "status": "VERIFIED_MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2",
+  "certification": {
+    "chunk333": "2300/2300 PASS",
+    "source_backed": true,
+    "core_matrix": "5 scenarios x 1-4 players = 20 cases",
+    "events_per_core_case": 12,
+    "scenario3_save_resume_cuts_all_player_counts": [1, 6, 11],
+    "scenario4_to_7_four_player_save_resume_cut": 6,
+    "keeper_to_player_leaks": 0,
+    "failed_wrong_actor_zero_mutation": true,
+    "failed_invalid_roll_zero_mutation": true,
+    "failed_mechanical_action_zero_mutation": true,
+    "continuous_vs_resumed_actor_fingerprint_identical": true,
+    "continuous_vs_resumed_canonical_state_identical": true,
+    "continuous_vs_resumed_semantic_sql_identical": true,
+    "continuous_vs_resumed_player_views_identical": true,
+    "tampered_hmac_rejected_non_destructively": true,
+    "downgrade_floor_rejected_non_destructively": true,
+    "tampered_control_rejected_non_destructively": true,
+    "tampered_ownership_rejected_non_destructively": true,
+    "tampered_knowledge_rejected_non_destructively": true,
+    "actor_reattribution_after_hash_chain_rebuild_detected": true,
+    "checkpoint332_exact_rerun": "558/558 PASS",
+    "duplicate_event_rejected": true,
+    "omitted_event_rejected": true,
+    "reordered_event_rejected": true,
+    "duplicate_omit_reorder_rehash_rebuild_blocked": true,
+    "all_five_scenarios_status": "PASS_REAL",
+    "all_five_scenarios_source_ready": true
+  },
+  "reconstruction_evidence": {
+    "checkpoint329_zip_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "checkpoint329_zip_crc": "PASS",
+    "checkpoint329_verify_package": "PASS / 173 files",
+    "checkpoint329_offline_self_test": "PASS",
+    "checkpoint330_module_git_blob_sha1": "7dd495abe9eb0e44d3653334d39ca99d879debaa",
+    "checkpoint331_module_git_blob_sha1": "fe8caded08ec30f50a6f4c80a23de8fc5e35b510",
+    "checkpoint332_module_git_blob_sha1": "fbcab13c95317907039a961d4af4f5592bb2ffc8"
+  },
+  "repository_git_blob_sha1": {
+    "APPLY_333.md": "18854cf56aa5b9456237a48463769aee1f7e483f",
+    "NATIVE_RUNTIME_CHUNK333_REPORT.json": "ae6df132726e2745a63eb810fc017a4af2703585",
+    "run_tests_chunk333.py": "cf0f3093e33a140551a3443ce3fa72c9dc8c6f7c"
+  },
+  "scope_boundary": {
+    "multiplayer_state_knowledge_v2": "CERTIFIED_BY_330_AND_RELEASE_AUDITED_BY_333",
+    "multiplayer_save_resume_v2": "CERTIFIED_BY_331_AND_RELEASE_AUDITED_BY_333",
+    "multiplayer_strict_replay_v2": "CERTIFIED_BY_332_AND_RELEASE_AUDITED_BY_333",
+    "android_apk_work": "MAY_RESUME_FROM_CHECKPOINT_333_ONLY",
+    "next_phase": "ANDROID_RUNTIME_INTEGRATION_V1"
+  },
+  "anti_rollback": {
+    "parent_checkpoint_required": 332,
+    "automatic_downgrade_forbidden": true,
+    "conversation_memory_non_authoritative": true,
+    "commercial_sources_must_remain_non_public": true,
+    "replay_must_not_reroll": true,
+    "actor_trace_required_for_multiplayer_strict_replay_v2": true,
+    "android_runtime_floor": 333
+  }
+}
