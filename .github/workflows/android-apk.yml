@@ -48,3 +48,15 @@ jobs:
             android/app/build/outputs/apk/release/app-release-unsigned.apk
             android/apk-shell-sha256.txt
           if-no-files-found: error
+      - name: Collect Android signing tools
+        run: |
+          mkdir -p android-sign-tools/lib
+          cp "$ANDROID_HOME/build-tools/35.0.0/apksigner" android-sign-tools/
+          cp "$ANDROID_HOME/build-tools/35.0.0/zipalign" android-sign-tools/
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" android-sign-tools/lib/
+          chmod +x android-sign-tools/apksigner android-sign-tools/zipalign
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Android-SDK35-sign-tools
+          path: android-sign-tools
+          if-no-files-found: error
