@@ -1,49 +1,49 @@
 # Next safe action
 
-## Checkpoint 331 complete
+## Checkpoint 332 complete
 
 Current authority:
 
-`Checkpoint 331 — MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
+`Checkpoint 332 — MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`
 
 Verification:
 
-- multiplayer save/resume V2 matrix: `987/987 PASS`
-- clean rebuild from Checkpoint 330 + patch: `987/987 PASS`
-- scenarios: `scenario3` through `scenario7`
-- player counts: `1, 2, 3, 4`
-- selected scenario and SESSION_READY interface: exact after restore
-- control map and one-character-per-player ownership: exact after restore
-- PV/SAN/PM/Chance, wounds/conditions and inventory: exact after restore
-- player knowledge partitions: exact after restore
-- Keeper→Player leaks: `0`
-- same-runtime and fresh-runtime restore: `PASS`
-- next commit after resume: `saved_commit + 1`
-- malformed/tampered save: fail closed
-- rejected save changes active session: `false`
-- restore validation: isolated staging DB, atomic live replacement only after PASS
-- Checkpoint 330 regression: `522/522 PASS`
-- Checkpoint 329 adapted portable regression: `198/198 PASS`
-- Checkpoint 315/native core: `5/5 PASS`
+- Strict Replay V2: `558/558 PASS`
+- 5 scenarios × 1–4 players: `20 cases`
+- eight deterministic events per case
+- interrupted path saved after event 4 and resumed through Checkpoint 331
+- continuous/resumed commit sequence: identical
+- canonical and strict-state digests: identical
+- journal hash chain: identical
+- deterministic roll tape: identical
+- action order: identical
+- actor trace: identical
+- replay reroll: `false`
+- wrong player→character control: blocked before commit
+- duplicate / omission / reorder: rejected
+- rebuilt hash chain with actor reattribution: detected against expected actor tape
+- offline self-test: `PASS`
+- focused 330/331 regression: `30/30 PASS`
+- parent 331 certification remains `987/987 PASS`
+- parent 330 certification remains `522/522 PASS`
 - all five scenario statuses: `PASS_REAL`
-
-Closed defects: destructive restore before validation; stale save authority floor at Checkpoint 326; incomplete semantic split-brain validation.
 
 ## Next phase
 
 Proceed with:
 
-`MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`
+`MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2`
 
 Work order:
 
-1. For all five scenarios and 1–4 players, compare uninterrupted execution against save→fresh-runtime→resume execution.
-2. Require exact equality of Strict Replay event order, event identities, deterministic roll tape, hash chain, semantic commit trace and final canonical digest.
-3. Exercise independent actions from every player, including interleaved P1–P4 actions, while preserving player ownership/knowledge/interface isolation.
-4. Prove that a failed action for one player creates no replay event, no commit and no sibling-state mutation.
-5. Reject reordered, duplicated, omitted or cross-player-attributed replay events even if the enclosing save is re-authenticated.
-6. Prove resume never rerolls a recorded random value and never duplicates/omits a committed action.
-7. Re-run Checkpoint 331, 330, package/core regressions and keep all five scenarios `PASS_REAL`.
+1. Audit Checkpoints 330, 331 and 332 together as one runtime contract rather than as isolated certifications.
+2. Stress 1–4 players with long interleaved sequences, targeted failed actions and knowledge changes.
+3. Verify failed player actions create no commit, no strict event and no sibling mutation.
+4. Insert save/resume cuts at multiple commit positions, not only one fixed midpoint.
+5. Require actor-bound Strict Replay equality after every resumed segment.
+6. Re-test tampered ownership/control/knowledge/save/replay combinations across the full stack.
+7. Keep Keeper→Player leaks at `0` and all five scenarios `PASS_REAL`.
+8. Promote a release-audit checkpoint only after the complete combined matrix passes.
 
 Android APK work remains paused and unpromoted.
 
