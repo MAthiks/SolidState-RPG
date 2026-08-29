@@ -1,0 +1,66 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_332_V1",
+  "checkpoint": 332,
+  "checkpoint_id": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+  "parent_checkpoint": 331,
+  "parent_checkpoint_record_git_blob_sha1": "642e94456b0084954f8cd5f4362be19c4a237c7b",
+  "status": "VERIFIED_MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+  "certification": {
+    "chunk332": "558/558 PASS",
+    "scenario_player_matrix": "5 scenarios x 1-4 players = 20 cases",
+    "events_per_case": 8,
+    "save_resume_cut_after_event": 4,
+    "continuous_vs_resumed_commit_sequence_identical": true,
+    "continuous_vs_resumed_canonical_digest_identical": true,
+    "continuous_vs_resumed_strict_state_digest_identical": true,
+    "continuous_vs_resumed_journal_hash_chain_identical": true,
+    "continuous_vs_resumed_roll_tape_identical": true,
+    "continuous_vs_resumed_action_order_identical": true,
+    "continuous_vs_resumed_actor_trace_identical": true,
+    "reroll_during_replay": false,
+    "player_id_bound_to_each_strict_event": true,
+    "character_id_bound_to_each_strict_event": true,
+    "actor_binding_validated_against_multiplayer_v2_control_map": true,
+    "wrong_actor_control_fails_closed_without_commit": true,
+    "duplicate_event_rejected": true,
+    "omitted_event_rejected": true,
+    "reordered_event_rejected": true,
+    "duplicate_omit_reorder_rehash_rebuild_blocked": true,
+    "valid_hash_chain_actor_reattribution_detected_against_expected_tape": true,
+    "offline_self_test": "PASS",
+    "focused_checkpoint330_331_regression": "30/30 PASS"
+  },
+  "parent_authority_not_recounted_as_rerun": {
+    "checkpoint331_certified_matrix": "987/987 PASS",
+    "checkpoint330_certified_matrix": "522/522 PASS"
+  },
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "scope_boundary": {
+    "multiplayer_state_knowledge_v2": "CERTIFIED_BY_330",
+    "multiplayer_save_resume_v2": "CERTIFIED_BY_331",
+    "multiplayer_strict_replay_v2": "CERTIFIED_BY_332",
+    "android_apk_work": "PAUSED_NOT_PROMOTED",
+    "next_phase": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2"
+  },
+  "anti_rollback": {
+    "parent_checkpoint_required": 331,
+    "automatic_downgrade_forbidden": true,
+    "conversation_memory_non_authoritative": true,
+    "commercial_sources_must_remain_non_public": true,
+    "replay_must_not_reroll": true,
+    "actor_trace_required_for_multiplayer_strict_replay_v2": true
+  },
+  "repository_git_blob_sha1": {
+    "APPLY_332.md": "69a7624e8215c72c5de0dc7b387d6587f3d82654",
+    "INIT_APPEND_332.txt": "fec40f0b65b4add8405ab88d7eaba47585357c0f",
+    "NATIVE_RUNTIME_CHUNK332_REPORT.json": "721231476480309efec680f2db675015b17c84c7",
+    "run_tests_chunk332.py": "d83550895c499ed003e24f7cc096b2223dd67475",
+    "solidstate_runtime/strict_replay_multiplayer_v2.py": "fbcab13c95317907039a961d4af4f5592bb2ffc8"
+  }
+}
