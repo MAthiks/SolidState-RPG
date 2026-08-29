@@ -1,0 +1,67 @@
+--- a/solidstate_runtime/engine.py
++++ b/solidstate_runtime/engine.py
+@@ -79,7 +79,21 @@
+             self.db.conn.rollback()
+             raise
+ 
++    def _blocked_character_binding(self, code):
++        _, commit = self.db.state()
++        return {"status":"ROLLBACK_TRANSACTION","code":code,"previous_commit":commit,
++                "new_commit":commit,"changed_paths":[]}
++
+     def set_character(self, character_id, owner_id, state):
++        # Character ownership is an identity invariant. Updating a character state is
++        # permitted only for the same owner; silent ownership transfer would desync
++        # party/control-map projections and can expose another player's interface.
++        existing = self.db.conn.execute(
++            "SELECT owner_id FROM characters WHERE character_id=?", (character_id,)
++        ).fetchone()
++        if existing and existing["owner_id"] != owner_id:
++            return self._blocked_character_binding("CHARACTER_OWNER_IMMUTABLE")
++
+         def mutate(s):
+             s.setdefault("characters", {})[character_id] = state
+         result = self.transact(mutate, [f"characters.{character_id}"])
+@@ -88,7 +102,6 @@
+                 """INSERT INTO characters(character_id,owner_id,state_json,updated_commit)
+                 VALUES(?,?,?,?)
+                 ON CONFLICT(character_id) DO UPDATE SET
+-                owner_id=excluded.owner_id,
+                 state_json=excluded.state_json,
+                 updated_commit=excluded.updated_commit""",
+                 (character_id, owner_id, json.dumps(state, sort_keys=True), result["new_commit"])
+@@ -100,13 +113,29 @@
+         found = self.db.conn.execute(
+             "SELECT owner_id FROM characters WHERE character_id=?", (character_id,)
+         ).fetchone()
+-        existing = self.db.conn.execute(
++        if not found:
++            return self._blocked_character_binding("CHARACTER_NOT_FOUND")
++        if found["owner_id"] != player_id:
++            return self._blocked_character_binding("CHARACTER_OWNER_MISMATCH")
++
++        existing_character = self.db.conn.execute(
+             "SELECT player_id FROM party WHERE character_id=?", (character_id,)
+         ).fetchone()
+-        if (not found) or found["owner_id"] != player_id or (existing and existing["player_id"] != player_id):
+-            _, commit = self.db.state()
+-            return {"status":"ROLLBACK_TRANSACTION","previous_commit":commit,
+-                    "new_commit":commit,"changed_paths":[]}
++        if existing_character and existing_character["player_id"] != player_id:
++            return self._blocked_character_binding("CHARACTER_ALREADY_CONTROLLED")
++
++        existing_player = self.db.conn.execute(
++            "SELECT character_id FROM party WHERE player_id=?", (player_id,)
++        ).fetchone()
++        if existing_player and existing_player["character_id"] != character_id:
++            return self._blocked_character_binding("PLAYER_ALREADY_CONTROLS_CHARACTER")
++
++        state, _ = self.db.state()
++        canonical_party = state.get("party", {})
++        canonical_existing = canonical_party.get(player_id)
++        if canonical_existing is not None and canonical_existing != character_id:
++            return self._blocked_character_binding("CANONICAL_PARTY_CONFLICT")
++
+         def mutate(s):
+             s.setdefault("party", {})[player_id] = character_id
+         result = self.transact(mutate, [f"party.{player_id}"])
