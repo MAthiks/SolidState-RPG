@@ -1,0 +1,7 @@
+--- a/solidstate_runtime/__init__.py
++++ b/solidstate_runtime/__init__.py
+@@ -160,3 +160,4 @@
+ from .source_role_marker_detector import SourceRoleMarkerDetector
+ from .endpoint_binding_gate import EndpointBindingGate
+ from .multiplayer_certification_v2 import MultiplayerRuntimeContractV2
++from .save_resume_multiplayer_v2 import MultiplayerSaveResumeRecertificationV2
