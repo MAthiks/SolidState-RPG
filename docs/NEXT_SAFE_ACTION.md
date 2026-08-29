@@ -1,43 +1,52 @@
 # Next safe action
 
-## Checkpoint 329 complete
+## Checkpoint 330 complete
 
 Current authority:
 
-`Checkpoint 329 — OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
+`Checkpoint 330 — MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2`
 
 Verification:
 
-- full offline package matrix: `284/284 PASS`
-- portable package matrix: `199/199 PASS`
+- multiplayer V2 matrix: `522/522 PASS`
+- clean rebuild from exact Checkpoint 329 runtime + patch: `522/522 PASS`
 - player counts: `1, 2, 3, 4`
+- exactly one owned investigator per player: `PASS`
+- unique controls: `PASS`
+- canonical SQL party consistency: `PASS`
+- interface control-map consistency: `PASS`
+- independent player knowledge partitions: `PASS`
+- Keeper→Player leaks: `0`
+- isolated player interfaces: `PASS`
+- failed player action corrupts siblings: `false`
+- silent character-owner transfer: blocked
+- silent player-character rebind: blocked
+- multiplayer bootstrap: atomic
+- Checkpoint 329 portable regression: `199/199 PASS`
+- Checkpoint 315/native core: `5/5 PASS`
 - all five scenario statuses: `PASS_REAL`
-- Checkpoint 327 save/resume: `PASS`
-- Checkpoint 328 Strict Replay continuity: `207/207 PASS`
-- ZIP CRC: `PASS`
-- immutable extracted manifest: `173/173 PASS`
-- extracted self-test: `PASS`
-- certified ZIP SHA-256: `75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add`
-- external Internet dependency: `false`
-- commercial source text embedded: `false`
-- missing/mismatched private source: fail closed
-- autonomous offline AI narration: not claimed
+
+Three parent-runtime defects were closed: partial live-party state after a later player's setup failure; character owner reassignment split-brain; and the Player Interface party-only ownership gate.
 
 ## Next phase
 
 Proceed with:
 
-`ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1`
+`MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
 
 Work order:
 
-1. Wrap the exact Checkpoint 329 offline runtime in an Android application without changing certified runtime semantics.
-2. Preserve the private `sources/` boundary and implement user-controlled local PDF/source import into app-private storage.
-3. Verify imported sources against the exact SHA-256 requirements before enabling the corresponding scenario.
-4. Preserve 1–4 player controls, Player Interface V1, local rolls, authenticated save/resume and Strict Replay.
-5. Keep all HTTP/runtime traffic loopback-only or remove the HTTP bridge entirely if the Android wrapper can call the runtime directly.
-6. Ensure the APK contains no commercial scenario source material and no hard-coded private save authentication secret.
-7. Run install/start/restart/save/resume/replay tests on Android before certifying a new checkpoint.
-8. Keep autonomous local-AI narration outside the certified APK milestone unless separately audited.
+1. For 1, 2, 3 and 4 players, save a fully independent multiplayer session and restore it into a fresh runtime.
+2. Require exact preservation of player list, one-character-per-player ownership and the V2 control map.
+3. Preserve each player's PV/SAN/PM/Chance, wounds/conditions and actual inventory independently.
+4. Preserve each player's knowledge partition independently; Keeper knowledge must remain absent from every resumed player projection.
+5. Verify that a save captured after a failed action contains no partial mutation from that failed player.
+6. Reject tampered saves which alter ownership, party/control maps, player sets, character identities or knowledge partitions.
+7. Require restore to fail closed before any player surface is exposed if the multiplayer V2 contract does not validate.
+8. Keep all five scenarios `PASS_REAL` and re-run Checkpoint 330 plus Checkpoint 329/core regressions.
+
+After successful save/resume recertification, proceed with `MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`.
+
+Android APK work remains paused and unpromoted.
 
 Automatic downgrade is forbidden.
