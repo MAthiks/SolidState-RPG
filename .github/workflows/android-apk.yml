@@ -1,5 +1,10 @@
 name: Build Android APK Checkpoint 330
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/android-apk.yml'
   push:
     branches: [dev329-android-apk-wrapper]
     paths:
@@ -26,20 +31,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Build debug APK shell
+      - name: Build unsigned release APK shell
         working-directory: android
-        run: gradle --no-daemon :app:assembleDebug
+        run: gradle --no-daemon :app:assembleRelease
       - name: APK shell metadata
         working-directory: android
         run: |
-          APK=app/build/outputs/apk/debug/app-debug.apk
+          APK=app/build/outputs/apk/release/app-release-unsigned.apk
           test -f "$APK"
           sha256sum "$APK" | tee apk-shell-sha256.txt
           ls -lh "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: SolidState-Offline-Checkpoint330-apk-shell
+          name: SolidState-Offline-Checkpoint330-unsigned-apk-shell
           path: |
-            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/app-release-unsigned.apk
             android/apk-shell-sha256.txt
           if-no-files-found: error
