@@ -2,25 +2,26 @@
 
 Official version-controlled source of truth for the Solid State RPG project.
 
-## Current development authority — Checkpoint 330 VERIFIED
+## Current development authority — Checkpoint 331 VERIFIED
 
-- Checkpoint: `330`
-- ID: `MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2`
-- Parent: `329 — OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
-- Record: `patches/checkpoint330/CHECKPOINT_330.json`
-- Record Git blob SHA-1: `62166f32edfc10e3a32553cfeb889019996dfd13`
-- Multiplayer matrix: `522/522 PASS`
-- Clean rebuild from Checkpoint 329 + patch: `522/522 PASS`
-- Checkpoint 329 portable regression: `199/199 PASS`
+- Checkpoint: `331`
+- ID: `MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
+- Parent: `330 — MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2`
+- Record: `patches/checkpoint331/CHECKPOINT_331.json`
+- Record Git blob SHA-1: `642e94456b0084954f8cd5f4362be19c4a237c7b`
+- Save/resume matrix: `987/987 PASS`
+- Clean rebuild from Checkpoint 330 + patch: `987/987 PASS`
+- Checkpoint 330 regression: `522/522 PASS`
+- Checkpoint 329 adapted portable regression: `198/198 PASS`
 - Checkpoint 315/native core: `5/5 PASS`
 
-## Multiplayer V2
+## Multiplayer save/resume V2
 
-Checkpoint 330 recertifies the runtime for `1`, `2`, `3` and `4` players. Every player controls exactly one owned investigator; character controls are unique; canonical party state, SQL party bindings and the active interface control map must agree. Player knowledge partitions and Player Interface V1 surfaces remain isolated, with `0` Keeper-to-player knowledge leaks.
+Checkpoint 331 recertifies save/resume for all five `PASS_REAL` scenarios and for `1`, `2`, `3` and `4` players. The selected scenario, SESSION_READY interface record, exact player-character control map, PV/SAN/PM/Chance, wounds/conditions, inventory and independent player knowledge partitions are preserved exactly across same-runtime and fresh-runtime restoration. Keeper knowledge remains absent from every player projection.
 
-The recertification also closes three real parent-runtime defects: a late P2/P3/P4 setup failure could leave earlier players partially committed; character ownership could be silently reassigned after attachment; and Player Interface V1 trusted only the party row when checking ownership. Multiplayer setup is now staged atomically, character ownership is immutable, silent player-character rebinding is blocked, and split-brain/tampered ownership or control mappings fail closed.
+Checkpoint 331 also closes a destructive restore defect: the former offline restore path deleted the live SQLite slot before the untrusted save had passed authentication and semantic validation. Restore is now performed in an isolated staging database and the live slot is replaced atomically only after HMAC/schema/authority, semantic consistency, player-interface, inherited Strict Replay gate and private-source checks all pass. Rejected or malformed saves therefore leave the active session unchanged.
 
-A failed action or transaction for one investigator does not advance the commit or corrupt sibling states. Normal/Libre remains exactly `Que fais-tu ?`; Facile/Assisté remains exactly three player-safe suggestions plus one free action.
+The save authority floor is advanced from the historical Checkpoint 326 binding to Checkpoint 330 multiplayer V2. Re-authenticated but semantically inconsistent saves involving ownership/control, mechanics, wounds, inventory, knowledge, character state or commit history fail closed.
 
 ## Scenario status
 
@@ -32,14 +33,12 @@ A failed action or transaction for one investigator does not advance the commit 
 
 ## Scope boundary
 
-Checkpoint 329 save/resume and Checkpoint 328 Strict Replay still pass as regressions, but Checkpoint 330 does **not** claim their multiplayer V2 recertification.
+Checkpoint 331 certifies multiplayer save/resume V2. It uses the existing Strict Replay restoration gate as a regression, but does **not** yet certify full multiplayer Strict Replay V2 continuity.
 
 ## Next phase
 
-`MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
+`MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`
 
-After that: `MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`.
-
-The Android APK candidate work is paused and is not part of the current authority.
+The Android APK candidate remains paused and unpromoted.
 
 Automatic downgrade is forbidden.
