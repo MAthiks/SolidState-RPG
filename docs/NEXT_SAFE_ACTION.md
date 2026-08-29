@@ -1,51 +1,49 @@
 # Next safe action
 
-## Checkpoint 330 complete
+## Checkpoint 331 complete
 
 Current authority:
 
-`Checkpoint 330 — MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2`
+`Checkpoint 331 — MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
 
 Verification:
 
-- multiplayer V2 matrix: `522/522 PASS`
-- clean rebuild from exact Checkpoint 329 runtime + patch: `522/522 PASS`
+- multiplayer save/resume V2 matrix: `987/987 PASS`
+- clean rebuild from Checkpoint 330 + patch: `987/987 PASS`
+- scenarios: `scenario3` through `scenario7`
 - player counts: `1, 2, 3, 4`
-- exactly one owned investigator per player: `PASS`
-- unique controls: `PASS`
-- canonical SQL party consistency: `PASS`
-- interface control-map consistency: `PASS`
-- independent player knowledge partitions: `PASS`
+- selected scenario and SESSION_READY interface: exact after restore
+- control map and one-character-per-player ownership: exact after restore
+- PV/SAN/PM/Chance, wounds/conditions and inventory: exact after restore
+- player knowledge partitions: exact after restore
 - Keeper→Player leaks: `0`
-- isolated player interfaces: `PASS`
-- failed player action corrupts siblings: `false`
-- silent character-owner transfer: blocked
-- silent player-character rebind: blocked
-- multiplayer bootstrap: atomic
-- Checkpoint 329 portable regression: `199/199 PASS`
+- same-runtime and fresh-runtime restore: `PASS`
+- next commit after resume: `saved_commit + 1`
+- malformed/tampered save: fail closed
+- rejected save changes active session: `false`
+- restore validation: isolated staging DB, atomic live replacement only after PASS
+- Checkpoint 330 regression: `522/522 PASS`
+- Checkpoint 329 adapted portable regression: `198/198 PASS`
 - Checkpoint 315/native core: `5/5 PASS`
 - all five scenario statuses: `PASS_REAL`
 
-Three parent-runtime defects were closed: partial live-party state after a later player's setup failure; character owner reassignment split-brain; and the Player Interface party-only ownership gate.
+Closed defects: destructive restore before validation; stale save authority floor at Checkpoint 326; incomplete semantic split-brain validation.
 
 ## Next phase
 
 Proceed with:
 
-`MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
+`MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`
 
 Work order:
 
-1. For 1, 2, 3 and 4 players, save a fully independent multiplayer session and restore it into a fresh runtime.
-2. Require exact preservation of player list, one-character-per-player ownership and the V2 control map.
-3. Preserve each player's PV/SAN/PM/Chance, wounds/conditions and actual inventory independently.
-4. Preserve each player's knowledge partition independently; Keeper knowledge must remain absent from every resumed player projection.
-5. Verify that a save captured after a failed action contains no partial mutation from that failed player.
-6. Reject tampered saves which alter ownership, party/control maps, player sets, character identities or knowledge partitions.
-7. Require restore to fail closed before any player surface is exposed if the multiplayer V2 contract does not validate.
-8. Keep all five scenarios `PASS_REAL` and re-run Checkpoint 330 plus Checkpoint 329/core regressions.
-
-After successful save/resume recertification, proceed with `MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`.
+1. For all five scenarios and 1–4 players, compare uninterrupted execution against save→fresh-runtime→resume execution.
+2. Require exact equality of Strict Replay event order, event identities, deterministic roll tape, hash chain, semantic commit trace and final canonical digest.
+3. Exercise independent actions from every player, including interleaved P1–P4 actions, while preserving player ownership/knowledge/interface isolation.
+4. Prove that a failed action for one player creates no replay event, no commit and no sibling-state mutation.
+5. Reject reordered, duplicated, omitted or cross-player-attributed replay events even if the enclosing save is re-authenticated.
+6. Prove resume never rerolls a recorded random value and never duplicates/omits a committed action.
+7. Re-run Checkpoint 331, 330, package/core regressions and keep all five scenarios `PASS_REAL`.
 
 Android APK work remains paused and unpromoted.
 
