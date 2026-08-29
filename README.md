@@ -2,28 +2,25 @@
 
 Official version-controlled source of truth for the Solid State RPG project.
 
-## Current development authority — Checkpoint 329 VERIFIED
+## Current development authority — Checkpoint 330 VERIFIED
 
-- Checkpoint: `329`
-- ID: `OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
-- Status: `VERIFIED_OFFLINE_PLAYABLE_RUNTIME_PACKAGE`
-- Parent: `328 — STRICT_REPLAY_SAVE_RESUME_CONTINUITY_V1`
-- Record: `patches/checkpoint329/CHECKPOINT_329.json`
-- Record Git blob SHA-1: `deb884f6a0506a887f12e421eef1fcd628c7524b`
-- Certified ZIP SHA-256: `75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add`
-- Package matrix: `284/284 PASS`
-- Checkpoint 328 regression: `207/207 PASS`
+- Checkpoint: `330`
+- ID: `MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2`
+- Parent: `329 — OFFLINE_PLAYABLE_RUNTIME_PACKAGE_V1`
+- Record: `patches/checkpoint330/CHECKPOINT_330.json`
+- Record Git blob SHA-1: `62166f32edfc10e3a32553cfeb889019996dfd13`
+- Multiplayer matrix: `522/522 PASS`
+- Clean rebuild from Checkpoint 329 + patch: `522/522 PASS`
+- Checkpoint 329 portable regression: `199/199 PASS`
 - Checkpoint 315/native core: `5/5 PASS`
 
-## Offline playable runtime
+## Multiplayer V2
 
-Checkpoint 329 packages the certified runtime for practical offline execution. The package is loopback-only, requires no Internet connection and no external Python package, supports 1–4 players, Player Interface V1, local roll ledger, Checkpoint 327 authenticated save/resume and Checkpoint 328 Strict Replay continuity.
+Checkpoint 330 recertifies the runtime for `1`, `2`, `3` and `4` players. Every player controls exactly one owned investigator; character controls are unique; canonical party state, SQL party bindings and the active interface control map must agree. Player knowledge partitions and Player Interface V1 surfaces remain isolated, with `0` Keeper-to-player knowledge leaks.
 
-The extracted package verifies `173/173` immutable files against its package manifest and passes its self-test. ZIP CRC is clean. The release identity is the ZIP SHA-256 above plus the versioned checkpoint record and package manifest identity.
+The recertification also closes three real parent-runtime defects: a late P2/P3/P4 setup failure could leave earlier players partially committed; character ownership could be silently reassigned after attachment; and Player Interface V1 trusted only the party row when checking ownership. Multiplayer setup is now staged atomically, character ownership is immutable, silent player-character rebinding is blocked, and split-brain/tampered ownership or control mappings fail closed.
 
-Commercial scenario PDFs/text are **not** embedded in GitHub or in the ZIP. Exact user-owned private sources are imported locally into `sources/` and verified before a commercial scenario becomes `SOURCE_READY`; missing or mismatched sources fail closed.
-
-This is a **Keeper-assisted** offline runtime. It does not claim autonomous local-AI narration, and free-form user-entered stats are not certified as CoC7 character creation.
+A failed action or transaction for one investigator does not advance the commit or corrupt sibling states. Normal/Libre remains exactly `Que fais-tu ?`; Facile/Assisté remains exactly three player-safe suggestions plus one free action.
 
 ## Scenario status
 
@@ -33,10 +30,16 @@ This is a **Keeper-assisted** offline runtime. It does not claim autonomous loca
 - scenario6 — Muse équivoque aux yeux de sel gemme: `PASS_REAL`
 - scenario7 — L'Explorateur assassiné: `PASS_REAL`
 
+## Scope boundary
+
+Checkpoint 329 save/resume and Checkpoint 328 Strict Replay still pass as regressions, but Checkpoint 330 does **not** claim their multiplayer V2 recertification.
+
 ## Next phase
 
-`ANDROID_APK_WRAPPER_AND_PRIVATE_SOURCE_IMPORT_V1`
+`MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2`
 
-The next milestone wraps this exact Checkpoint 329 runtime for Android while preserving the ZIP/runtime identity, private-source boundary, save/resume and Strict Replay guarantees.
+After that: `MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`.
+
+The Android APK candidate work is paused and is not part of the current authority.
 
 Automatic downgrade is forbidden.
