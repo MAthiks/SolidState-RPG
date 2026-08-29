@@ -1,0 +1,69 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_330_V1",
+  "checkpoint": 330,
+  "checkpoint_id": "MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
+  "parent_checkpoint": 329,
+  "parent_checkpoint_record_git_blob_sha1": "deb884f6a0506a887f12e421eef1fcd628c7524b",
+  "parent_package_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+  "status": "VERIFIED_MULTIPLAYER_1_TO_4_STATE_KNOWLEDGE_RECERTIFICATION_V2",
+  "certification": {
+    "chunk330": "522/522 PASS",
+    "clean_rebuild_from_checkpoint329_plus_patch": "522/522 PASS",
+    "checkpoint329_portable_regression": "199/199 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS",
+    "player_counts": [1, 2, 3, 4],
+    "exactly_one_owned_character_per_player": true,
+    "unique_character_control": true,
+    "canonical_sql_party_consistency": true,
+    "interface_control_map_consistency": true,
+    "player_knowledge_partitions_independent": true,
+    "keeper_to_player_leaks": 0,
+    "player_interfaces_isolated": true,
+    "normal_libre_prompt": "Que fais-tu ?",
+    "assisted_three_plus_free": true,
+    "failed_player_action_corrupts_siblings": false,
+    "failed_character_transaction_corrupts_siblings": false,
+    "cross_player_control_blocked": true,
+    "character_owner_immutable": true,
+    "silent_character_rebind_blocked": true,
+    "multiplayer_bootstrap_atomic": true,
+    "tampered_owner_party_interface_mismatch_fails_closed": true
+  },
+  "defects_closed": [
+    "LATE_PLAYER_FAILURE_LEFT_PARTIAL_PARTY_STATE",
+    "CHARACTER_OWNER_REASSIGNMENT_SPLIT_BRAIN",
+    "PLAYER_INTERFACE_PARTY_ONLY_OWNERSHIP_CHECK"
+  ],
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "scope_boundary": {
+    "save_resume_recertified_by_checkpoint330": false,
+    "strict_replay_recertified_by_checkpoint330": false,
+    "checkpoint329_save_resume_and_strict_replay_regression_only": true,
+    "next_phase": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+    "phase_after_next": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+    "android_apk_work": "PAUSED_NOT_PROMOTED"
+  },
+  "anti_rollback": {
+    "parent_checkpoint_required": 329,
+    "automatic_downgrade_forbidden": true,
+    "conversation_memory_non_authoritative": true,
+    "commercial_sources_must_remain_non_public": true
+  },
+  "repository_git_blob_sha1": {
+    "APPLY_330.md": "872bd9f77989a42eb16d598168a4b6f834c47a9f",
+    "ENGINE_MULTIPLAYER_HARDENING_330.patch": "0b8ecc345952e2d0378e6c125a621d640374a1a8",
+    "PLAYER_INTERFACE_MULTIPLAYER_HARDENING_330.patch": "3ca5aa22fc329b511aa4c3651e703d2c6548c022",
+    "OFFLINE_MULTIPLAYER_ATOMIC_BOOTSTRAP_330.patch": "afd79cc73c52ef9cffff5ff745fae5bb971e5733",
+    "INIT_APPEND_330.txt": "315ff12bff73c65fb43e58cbff9aab159cc8d85e",
+    "NATIVE_RUNTIME_CHUNK330_REPORT.json": "88d3b99364df960661ee2dff33fc05cee5343544",
+    "run_tests_chunk330.py": "aa20c058e2cf31c40db7092e8708f0eecc5f3b6b",
+    "solidstate_runtime/multiplayer_certification_v2.py": "7dd495abe9eb0e44d3653334d39ca99d879debaa"
+  }
+}
