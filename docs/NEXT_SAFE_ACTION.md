@@ -1,50 +1,50 @@
 # Next safe action
 
-## Checkpoint 332 complete
+## Checkpoint 333 complete
 
 Current authority:
 
-`Checkpoint 332 — MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2`
+`Checkpoint 333 — MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2`
 
 Verification:
 
-- Strict Replay V2: `558/558 PASS`
-- 5 scenarios × 1–4 players: `20 cases`
-- eight deterministic events per case
-- interrupted path saved after event 4 and resumed through Checkpoint 331
-- continuous/resumed commit sequence: identical
-- canonical and strict-state digests: identical
-- journal hash chain: identical
-- deterministic roll tape: identical
-- action order: identical
-- actor trace: identical
-- replay reroll: `false`
-- wrong player→character control: blocked before commit
-- duplicate / omission / reorder: rejected
-- rebuilt hash chain with actor reattribution: detected against expected actor tape
-- offline self-test: `PASS`
-- focused 330/331 regression: `30/30 PASS`
-- parent 331 certification remains `987/987 PASS`
-- parent 330 certification remains `522/522 PASS`
+- combined source-backed full-stack audit: `2300/2300 PASS`
+- exact Checkpoint 332 rerun: `558/558 PASS`
+- 5 scenarios × 1–4 players: `20 core cases`
+- 12 interleaved actor-bound events per core case
+- Player/Keeper knowledge changes exercised
+- Keeper→Player leaks: `0`
+- failed wrong-actor, invalid-roll and impossible-mechanical actions: zero mutation
+- scenario3 save/resume cuts across 1–4 players: events `1`, `6`, `11`
+- scenario4–scenario7 four-player save/resume cut: event `6`
+- continuous/resumed actor-bound Strict Replay fingerprint: identical
+- canonical state: identical
+- semantic SQL state: identical
+- player views: identical
+- bad HMAC / downgrade floor / control / ownership / knowledge tampering: rejected non-destructively
+- actor reattribution after rebuilt hash chain: detected
+- duplicate / omission / reorder replay attacks: rejected
 - all five scenario statuses: `PASS_REAL`
+- all five private source gates: ready during certification
+- commercial/private PDFs: never committed to GitHub
 
 ## Next phase
 
 Proceed with:
 
-`MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2`
+`ANDROID_RUNTIME_INTEGRATION_V1`
 
 Work order:
 
-1. Audit Checkpoints 330, 331 and 332 together as one runtime contract rather than as isolated certifications.
-2. Stress 1–4 players with long interleaved sequences, targeted failed actions and knowledge changes.
-3. Verify failed player actions create no commit, no strict event and no sibling mutation.
-4. Insert save/resume cuts at multiple commit positions, not only one fixed midpoint.
-5. Require actor-bound Strict Replay equality after every resumed segment.
-6. Re-test tampered ownership/control/knowledge/save/replay combinations across the full stack.
-7. Keep Keeper→Player leaks at `0` and all five scenarios `PASS_REAL`.
-8. Promote a release-audit checkpoint only after the complete combined matrix passes.
+1. Reconstruct or package the exact Checkpoint 333 certified runtime stack; do not integrate an older 329-only runtime into Android.
+2. Bind the Android wrapper to the Checkpoint 333 authority record and require an anti-rollback floor of 333.
+3. Keep all commercial/private scenario PDFs outside the APK and outside GitHub; the Android app must use the same fail-closed local source-pack gate.
+4. Exercise offline launch, 1–4 player state/control/knowledge, save/resume and actor-bound Strict Replay through the Android wrapper.
+5. Verify no Android-layer serialization or lifecycle path changes canonical state, player partitions, save authentication or replay identity.
+6. Produce a deterministic release-candidate APK only after the runtime integration matrix passes.
+7. Sign the APK, verify the signature and record the final SHA-256.
+8. Promote an Android artifact only after the signed-artifact verification gate passes.
 
-Android APK work remains paused and unpromoted.
+Android work is now unpaused, but no APK is promoted yet.
 
-Automatic downgrade is forbidden.
+Automatic downgrade below Checkpoint 333 is forbidden.
