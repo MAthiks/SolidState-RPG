@@ -1,0 +1,76 @@
+{
+  "schema": "SOLIDSTATE_CHECKPOINT_331_V1",
+  "checkpoint": 331,
+  "checkpoint_id": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+  "parent_checkpoint": 330,
+  "parent_checkpoint_record_git_blob_sha1": "62166f32edfc10e3a32553cfeb889019996dfd13",
+  "status": "VERIFIED_MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+  "certification": {
+    "chunk331": "987/987 PASS",
+    "public_test_assertion_structure": "987 CHECKS",
+    "clean_rebuild_from_checkpoint330_plus_patch": "987/987 PASS",
+    "checkpoint330_regression": "522/522 PASS",
+    "checkpoint329_adapted_portable_regression": "198/198 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS",
+    "scenario_keys": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_counts": [1, 2, 3, 4],
+    "selected_scenario_exact_after_restore": true,
+    "pass_real_authority_preserved": true,
+    "interface_session_exact_after_restore": true,
+    "control_map_exact_after_restore": true,
+    "pv_san_mp_luck_exact_after_restore": true,
+    "wounds_conditions_exact_after_restore": true,
+    "inventory_exact_after_restore": true,
+    "player_knowledge_partitions_exact_after_restore": true,
+    "keeper_to_player_leaks_after_restore": 0,
+    "canonical_state_exact_after_restore": true,
+    "persisted_tables_exact_after_restore": true,
+    "same_runtime_restore": "PASS",
+    "new_engine_restore": "PASS",
+    "next_commit_is_saved_commit_plus_one": true,
+    "sibling_states_unchanged_after_target_post_resume_action": true,
+    "commit_ledger_contiguous": true,
+    "restore_staged_before_live_replace": true,
+    "rejected_save_leaves_live_slot_unchanged": true,
+    "hmac_hash_schema_authority_tampering_fails_closed": true,
+    "reauthenticated_semantic_split_brain_tampering_fails_closed": true,
+    "missing_private_source_fails_closed_without_live_mutation": true,
+    "invalid_json_fails_closed_without_live_mutation": true
+  },
+  "defects_closed": [
+    "DESTRUCTIVE_RESTORE_BEFORE_VALIDATION",
+    "SAVE_AUTHORITY_FLOOR_STALE_AT_CHECKPOINT326",
+    "SAVE_SEMANTIC_SPLIT_BRAIN_GAPS"
+  ],
+  "scenario_status_after_checkpoint": {
+    "scenario3": "PASS_REAL",
+    "scenario4": "PASS_REAL",
+    "scenario5": "PASS_REAL",
+    "scenario6": "PASS_REAL",
+    "scenario7": "PASS_REAL"
+  },
+  "scope_boundary": {
+    "multiplayer_save_resume_v2_certified": true,
+    "multiplayer_strict_replay_v2_certified": false,
+    "inherited_strict_replay_gate_regression_only": true,
+    "next_phase": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+    "android_apk_work": "PAUSED_NOT_PROMOTED"
+  },
+  "anti_rollback": {
+    "parent_checkpoint_required": 330,
+    "automatic_downgrade_forbidden": true,
+    "conversation_memory_non_authoritative": true,
+    "commercial_sources_must_remain_non_public": true,
+    "save_authority_floor": 330,
+    "live_slot_must_not_be_destroyed_to_validate_untrusted_save": true
+  },
+  "repository_git_blob_sha1": {
+    "APPLY_331.md": "0e79b2f64b2736fa05a86a0456f124e6b2d90239",
+    "INIT_AND_SAVE_EXPORT_331.patch": "8d44de3348640e1d9de48cd3e144723a7b962ffa",
+    "NATIVE_RUNTIME_CHUNK331_REPORT.json": "23ccc81f3bb4e52661559e96e2c361c94578b4da",
+    "OFFLINE_ATOMIC_RESTORE_331.patch": "34fe0248ec3f333b16ac37ab80c2e505a4db0084",
+    "run_tests_chunk331.py": "2a266a131c01a6ba76f389ebf795c375a20ec9cc",
+    "solidstate_runtime/save_resume_multiplayer_v2.py": "fe8caded08ec30f50a6f4c80a23de8fc5e35b510"
+  }
+}
