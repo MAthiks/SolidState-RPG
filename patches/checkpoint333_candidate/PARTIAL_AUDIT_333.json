@@ -1,0 +1,49 @@
+{
+  "checkpoint_candidate": 333,
+  "id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2",
+  "result": "PARTIAL_PASS_SOURCE_INDEPENDENT",
+  "parent": 332,
+  "promotion_allowed": false,
+  "source_backed_recertification_executed": false,
+  "reason_not_promoted": "Private source PDFs were found in the user Library but raw materialization into the execution environment returned 403; exact source-backed PASS_REAL gates were not rerun.",
+  "base_runtime": {
+    "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+    "sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "zip_crc": "PASS",
+    "verify_package": "PASS / 173 files",
+    "offline_self_test": "PASS"
+  },
+  "reconstructed_module_git_blob_sha1": {
+    "checkpoint330_multiplayer_certification_v2.py": "7dd495abe9eb0e44d3653334d39ca99d879debaa",
+    "checkpoint331_save_resume_multiplayer_v2.py": "fe8caded08ec30f50a6f4c80a23de8fc5e35b510",
+    "checkpoint332_strict_replay_multiplayer_v2.py": "fbcab13c95317907039a961d4af4f5592bb2ffc8"
+  },
+  "core_matrix": "5 scenarios x 1-4 players",
+  "core_events_per_case": 12,
+  "save_resume_multi_cuts": {
+    "scenario3_1_to_4_players": [1, 6, 11],
+    "scenario4_to_7_4players": [6]
+  },
+  "coverage": {
+    "long_interleaved_actor_bound_sequences": true,
+    "player_and_keeper_knowledge_changes": true,
+    "failed_wrong_actor_no_mutation": true,
+    "failed_invalid_roll_no_mutation": true,
+    "failed_mechanical_action_no_mutation": true,
+    "multiple_save_resume_positions": true,
+    "strict_replay_verified_after_resumed_segments": true,
+    "continuous_vs_resumed_canonical_state_equal": true,
+    "continuous_vs_resumed_semantic_sql_tables_equal": true,
+    "continuous_vs_resumed_player_views_equal": true,
+    "tampered_hmac_rejected": true,
+    "downgrade_floor_rejected": true,
+    "tampered_control_rejected": true,
+    "tampered_ownership_rejected": true,
+    "tampered_knowledge_rejected": true,
+    "actor_reattribution_detected_after_hash_chain_rebuild": true
+  },
+  "keeper_to_player_leaks": 0,
+  "passed": 2300,
+  "total": 2300,
+  "authority_effect": "NONE: Checkpoint 332 remains current verified authority until exact source-backed full audit passes."
+}
