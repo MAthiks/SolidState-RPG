@@ -54,6 +54,9 @@ jobs:
           cp "$ANDROID_HOME/build-tools/35.0.0/apksigner" android-sign-tools/
           cp "$ANDROID_HOME/build-tools/35.0.0/zipalign" android-sign-tools/
           cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" android-sign-tools/lib/
+          LIBCPP=$(find "$ANDROID_HOME/build-tools/35.0.0" -name 'libc++.so' -print -quit)
+          test -n "$LIBCPP"
+          cp "$LIBCPP" android-sign-tools/
           chmod +x android-sign-tools/apksigner android-sign-tools/zipalign
       - uses: actions/upload-artifact@v4
         with:
