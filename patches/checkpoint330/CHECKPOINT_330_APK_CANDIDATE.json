@@ -1,0 +1,45 @@
+{
+  "schema": "SOLIDSTATE_ANDROID_APK_CANDIDATE_330_V1",
+  "checkpoint_parent": 329,
+  "status": "APK_BUILT_AND_CRYPTOGRAPHICALLY_VERIFIED_DEVICE_TEST_PENDING",
+  "branch": "dev329-android-apk-wrapper",
+  "pull_request": 1,
+  "build_head_commit": "f10e409c7caef49bfaa43c3d3daab66bdfc26699",
+  "github_actions_run_id": 33244949086,
+  "unsigned_shell_artifact_id": 9712542380,
+  "sign_tools_artifact_id": 9712542606,
+  "apk": {
+    "name": "SolidState_Offline_Checkpoint330_TEST.apk",
+    "sha256": "62fb57012267fe86c7de477ee852f74b3230509455f25b721fabab1c51ba5e42",
+    "size_bytes": 33535629,
+    "zipalign_4byte": "PASS",
+    "signature_v2": "PASS",
+    "signature_v3": "PASS",
+    "certificate_sha256": "bbdcf653e653d4acaba8d5c95e0623e12cfaec9230d5f3d68d9f35894a5753f9",
+    "signing_identity": "ONE_OFF_CHECKPOINT330_TEST_KEY_NOT_PRODUCTION"
+  },
+  "runtime": {
+    "checkpoint": 329,
+    "asset": "assets/runtime329.zip",
+    "expected_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "extracted_from_signed_apk_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "identity": "PASS",
+    "commercial_source_pdf_embedded": false
+  },
+  "android_wrapper": {
+    "application_id": "com.solidstate.offline",
+    "version_code": 330,
+    "version_name": "0.1.0-cp329",
+    "min_sdk": 24,
+    "target_sdk": 35,
+    "abis": ["arm64-v8a", "x86_64"],
+    "python": "3.13 via Chaquopy",
+    "loopback": "127.0.0.1:8787",
+    "webview_external_navigation_blocked": true,
+    "private_pdf_import": true
+  },
+  "device_install_start_resume_test": "PENDING",
+  "checkpoint330_certified": false,
+  "main_authority_remains_checkpoint329": true,
+  "scenario_pass_real_status_changed": false
+}
