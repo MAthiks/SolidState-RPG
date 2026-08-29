@@ -1,0 +1,58 @@
+{
+  "schema": "SOLIDSTATE_NATIVE_RUNTIME_CHUNK331_REPORT_V1",
+  "checkpoint_candidate": 331,
+  "id": "MULTIPLAYER_SAVE_RESUME_RECERTIFICATION_V2",
+  "parent_checkpoint": 330,
+  "result": "PASS",
+  "tests": {
+    "chunk331": "987/987 PASS",
+    "clean_rebuild_from_checkpoint330_plus_patch": "987/987 PASS",
+    "checkpoint330_regression": "522/522 PASS",
+    "checkpoint329_adapted_portable_regression": "198/198 PASS",
+    "checkpoint315_regression": "5/5 PASS",
+    "native_core_regression": "5/5 PASS"
+  },
+  "matrix": {
+    "scenarios": ["scenario3", "scenario4", "scenario5", "scenario6", "scenario7"],
+    "player_counts": [1, 2, 3, 4]
+  },
+  "certified_invariants": [
+    "selected scenario identity and PASS_REAL certification survive restore exactly",
+    "1-4 player interface_session and control_map survive exactly",
+    "PV/SAN/MP/Luck, wounds/conditions, inventory and player knowledge partitions survive exactly",
+    "Keeper knowledge never appears in player views after restore",
+    "canonical state and all persisted tables equal authenticated bundle after restore",
+    "new-engine restore equals same-runtime restore",
+    "next state commit after resume is saved_commit+1 with sibling states unchanged",
+    "commit ledger remains contiguous",
+    "HMAC/hash/schema/authority downgrade tampering fails closed",
+    "re-authenticated semantic split-brain tampering fails closed",
+    "invalid JSON and missing private source fail closed without mutating live slot",
+    "restore validates in isolated staging DB and replaces live DB only after full success"
+  ],
+  "defects_closed": [
+    {
+      "id": "DESTRUCTIVE_RESTORE_BEFORE_VALIDATION",
+      "before": "restore_file deleted active SQLite before save authentication/semantic/source validation",
+      "after": "restore occurs in isolated staging SQLite and live slot is atomically replaced only after all gates PASS"
+    },
+    {
+      "id": "SAVE_AUTHORITY_FLOOR_STALE_AT_CHECKPOINT326",
+      "before": "save schema was bound to checkpoint 326 / multiplayer V1 authority",
+      "after": "new save schema is bound to checkpoint 330 / multiplayer recertification V2 authority"
+    },
+    {
+      "id": "SAVE_SEMANTIC_SPLIT_BRAIN_GAPS",
+      "before": "V1 did not cross-check all controlled-player mechanics/wounds/inventory/knowledge canonical-vs-SQL projections",
+      "after": "V2 performs fail-closed semantic consistency checks before restore"
+    }
+  ],
+  "scope_boundary": {
+    "save_resume_multiplayer_v2_certified": true,
+    "strict_replay_full_multiplayer_recertification": false,
+    "strict_replay_existing_gate_used_as_regression": true,
+    "next_phase": "MULTIPLAYER_STRICT_REPLAY_RECERTIFICATION_V2",
+    "android_apk_work": "PAUSED_NOT_PROMOTED"
+  },
+  "commercial_source_text_embedded": false
+}
