@@ -1,0 +1,283 @@
+{
+  "schema": "COC7_RECOVERY_OCCUPATION_BATCH_DEV_V1",
+  "batch_id": "COC7_OCCUPATIONS_BATCH2_R1_DEV",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_registry_id": "COC7_RECOVERY_REGISTRY_R1_BATCH1_DEV_V1",
+  "frozen_ancestor_registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
+  "source": {
+    "source_id": "COC7_INVESTIGATOR",
+    "document": "Call of Cthulhu 7e Investigator Handbook",
+    "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+    "chapter": "Chapter 4 - Occupations",
+    "source_pages": [73, 74, 75, 77, 78, 79]
+  },
+  "skill_extensions": {
+    "DIVING": {"name": "Diving", "base": 1, "specialization": false, "source_page": 104},
+    "ELECTRONICS": {"name": "Electronics", "base": 1, "specialization": false, "source_page": 105, "era_scope": "MODERN"},
+    "PILOT": {"name": "Pilot", "base": 1, "specialization": true, "source_page": 114},
+    "SURVIVAL": {"name": "Survival", "base": 10, "specialization": true, "source_page": 119}
+  },
+  "occupations": {
+    "BIG_GAME_HUNTER": {
+      "name": "Big Game Hunter",
+      "source_page": 73,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [20, 50],
+      "skill_slots": [
+        {"skill_family": "FIREARMS"},
+        {"choice_one_of": [{"skill": "LISTEN"}, {"skill": "SPOT_HIDDEN"}]},
+        {"skill": "NATURAL_WORLD"}, {"skill": "NAVIGATE"},
+        {"choice_one_of": [{"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "SURVIVAL", "specialization": "ANY"}]},
+        {"skill": "SCIENCE", "specialization_choice": ["BIOLOGY", "BOTANY", "ZOOLOGY"]},
+        {"skill": "STEALTH"}, {"skill": "TRACK"}
+      ]
+    },
+    "BOOK_DEALER": {
+      "name": "Book Dealer",
+      "source_page": 73,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [20, 40],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "APPRAISE"}, {"skill": "DRIVE_AUTO"}, {"skill": "HISTORY"},
+        {"skill": "LIBRARY_USE"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"interpersonal_choice": true}
+      ]
+    },
+    "BOUNTY_HUNTER": {
+      "name": "Bounty Hunter",
+      "source_page": 73,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "DRIVE_AUTO"},
+        {"choice_one_of": [{"skill": "ELECTRONICS"}, {"skill": "ELECTRICAL_REPAIR"}]},
+        {"choice_one_of_families": ["FIGHTING", "FIREARMS"]},
+        {"interpersonal_choice": true}, {"skill": "LAW"}, {"skill": "PSYCHOLOGY"}, {"skill": "TRACK"}, {"skill": "STEALTH"}
+      ]
+    },
+    "BOXER_WRESTLER": {
+      "name": "Boxer/Wrestler",
+      "source_page": 73,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "STR", "multiplier": 2}]},
+      "credit_rating": [9, 60],
+      "skill_slots": [
+        {"skill": "DODGE"}, {"skill": "FIGHTING_BRAWL"}, {"skill": "INTIMIDATE"}, {"skill": "JUMP"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "BUTLER_VALET_MAID": {
+      "name": "Butler/Valet/Maid",
+      "source_page": 74,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 40],
+      "skill_slots": [
+        {"choice_one_of": [{"skill": "ACCOUNTING"}, {"skill": "APPRAISE"}]},
+        {"skill": "ART_CRAFT", "specialization": "ANY"}, {"skill": "FIRST_AID"}, {"skill": "LISTEN"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "CLERGY": {
+      "name": "Clergy, Member of the",
+      "source_page": 74,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 60],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "HISTORY"}, {"skill": "LIBRARY_USE"}, {"skill": "LISTEN"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"interpersonal_choice": true},
+        {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "COMPUTER_PROGRAMMER_TECHNICIAN": {
+      "name": "Computer Programmer/Technician",
+      "source_page": 74,
+      "era_scope": "MODERN",
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 70],
+      "skill_slots": [
+        {"skill": "COMPUTER_USE"}, {"skill": "ELECTRICAL_REPAIR"}, {"skill": "ELECTRONICS"},
+        {"skill": "LIBRARY_USE"}, {"skill": "SCIENCE", "specialization": "MATHEMATICS"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "HACKER": {
+      "name": "Hacker",
+      "source_page": 74,
+      "era_scope": "MODERN",
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 70],
+      "skill_slots": [
+        {"skill": "COMPUTER_USE"}, {"skill": "ELECTRICAL_REPAIR"}, {"skill": "ELECTRONICS"}, {"skill": "LIBRARY_USE"},
+        {"skill": "SPOT_HIDDEN"}, {"interpersonal_choice": true}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "COWBOY_GIRL": {
+      "name": "Cowboy/girl",
+      "source_page": 75,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 20],
+      "skill_slots": [
+        {"skill": "DODGE"}, {"choice_one_of_families": ["FIGHTING", "FIREARMS"]},
+        {"choice_one_of": [{"skill": "FIRST_AID"}, {"skill": "NATURAL_WORLD"}]},
+        {"skill": "JUMP"}, {"skill": "RIDE"}, {"skill": "SURVIVAL", "specialization": "ANY"},
+        {"skill": "THROW"}, {"skill": "TRACK"}
+      ]
+    },
+    "CRAFTSPERSON": {
+      "name": "Craftsperson",
+      "source_page": 75,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "DEX", "multiplier": 2}]},
+      "credit_rating": [10, 40],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "ART_CRAFT", "specialization": "ANY", "count": 2},
+        {"skill": "MECHANICAL_REPAIR"}, {"skill": "NATURAL_WORLD"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "CULT_LEADER": {
+      "name": "Cult Leader",
+      "source_page": 77,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [30, 60],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"interpersonal_choice": true, "count": 2}, {"skill": "OCCULT"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "DESIGNER": {
+      "name": "Designer",
+      "source_page": 77,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [20, 60],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "ART_CRAFT", "specialization": "PHOTOGRAPHY"},
+        {"skill": "ART_CRAFT", "specialization": "ANY"},
+        {"choice_one_of": [{"skill": "COMPUTER_USE"}, {"skill": "LIBRARY_USE"}]},
+        {"skill": "MECHANICAL_REPAIR"}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "DILETTANTE": {
+      "name": "Dilettante",
+      "source_page": 77,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [50, 99],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ANY"}, {"skill_family": "FIREARMS"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "RIDE"},
+        {"interpersonal_choice": true}, {"personal_or_era_specialty": true, "count": 3}
+      ]
+    },
+    "DIVER": {
+      "name": "Diver",
+      "source_page": 78,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "DEX", "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "DIVING"}, {"skill": "FIRST_AID"}, {"skill": "MECHANICAL_REPAIR"},
+        {"skill": "PILOT", "specialization": "BOAT"}, {"skill": "SCIENCE", "specialization": "BIOLOGY"},
+        {"skill": "SPOT_HIDDEN"}, {"skill": "SWIM"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "DOCTOR_MEDICINE": {
+      "name": "Doctor of Medicine",
+      "source_page": 78,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 80],
+      "skill_slots": [
+        {"skill": "FIRST_AID"}, {"skill": "MEDICINE"}, {"skill": "LANGUAGE_OTHER", "specialization": "LATIN"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SCIENCE", "specialization": "BIOLOGY"},
+        {"skill": "SCIENCE", "specialization": "PHARMACY"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "DRIFTER": {
+      "name": "Drifter",
+      "source_page": 78,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["APP", "DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [0, 5],
+      "skill_slots": [
+        {"skill": "CLIMB"}, {"skill": "JUMP"}, {"skill": "LISTEN"}, {"skill": "NAVIGATE"},
+        {"interpersonal_choice": true}, {"skill": "STEALTH"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "CHAUFFEUR": {
+      "name": "Chauffeur",
+      "source_page": 78,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "DEX", "multiplier": 2}]},
+      "credit_rating": [10, 40],
+      "skill_slots": [
+        {"skill": "DRIVE_AUTO"}, {"interpersonal_choice": true, "count": 2}, {"skill": "LISTEN"},
+        {"skill": "MECHANICAL_REPAIR"}, {"skill": "NAVIGATE"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "DRIVER": {
+      "name": "Driver",
+      "source_page": 78,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 20],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "DRIVE_AUTO"}, {"skill": "LISTEN"}, {"interpersonal_choice": true},
+        {"skill": "MECHANICAL_REPAIR"}, {"skill": "NAVIGATE"}, {"skill": "PSYCHOLOGY"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "TAXI_DRIVER": {
+      "name": "Taxi Driver",
+      "source_page": 79,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "DEX", "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "DRIVE_AUTO"}, {"skill": "ELECTRICAL_REPAIR"}, {"skill": "FAST_TALK"},
+        {"skill": "MECHANICAL_REPAIR"}, {"skill": "NAVIGATE"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "EDITOR": {
+      "name": "Editor",
+      "source_page": 79,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 30],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "HISTORY"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "ELECTED_OFFICIAL": {
+      "name": "Elected Official",
+      "source_page": 79,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [50, 90],
+      "skill_slots": [
+        {"skill": "CHARM"}, {"skill": "HISTORY"}, {"skill": "INTIMIDATE"}, {"skill": "FAST_TALK"},
+        {"skill": "LISTEN"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"skill": "PERSUADE"}, {"skill": "PSYCHOLOGY"}
+      ]
+    },
+    "ENGINEER": {
+      "name": "Engineer",
+      "source_page": 79,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 60],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "TECHNICAL_DRAWING"}, {"skill": "ELECTRICAL_REPAIR"},
+        {"skill": "LIBRARY_USE"}, {"skill": "MECHANICAL_REPAIR"}, {"skill": "OPERATE_HEAVY_MACHINERY"},
+        {"skill": "SCIENCE", "specialization": "ENGINEERING"}, {"skill": "SCIENCE", "specialization": "PHYSICS"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "ENTERTAINER": {
+      "name": "Entertainer",
+      "source_page": 79,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [9, 70],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ENTERTAINMENT_ANY"}, {"skill": "DISGUISE"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "LISTEN"}, {"skill": "PSYCHOLOGY"},
+        {"personal_or_era_specialty": true, "count": 2}
+      ]
+    }
+  },
+  "copyright_boundary": "Structured mechanics/provenance only; no commercial source prose embedded.",
+  "authority_promoted": false
+}
