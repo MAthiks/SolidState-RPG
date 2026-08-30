@@ -22,7 +22,7 @@ jobs:
   c3-complete-state-delta-gate:
     runs-on: ubuntu-latest
     env:
-      C3_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+      C3_SOURCE_COMMIT: 00eabb605d74ff9ff0bebcd49c29658fde888da5
     steps:
       - name: Checkout full history
         uses: actions/checkout@v4
@@ -75,10 +75,12 @@ jobs:
           FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c3_first.sha256")"
           SECOND_SHA="$(sha256sum "${R1_C3_OUTDIR}/SolidState_Recovery_Runtime_R1_C3.zip" | awk '{print $1}')"
           test "$FIRST_SHA" = "$SECOND_SHA"
+          test "$SECOND_SHA" = "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df"
+          jq -e '.source_commit == "00eabb605d74ff9ff0bebcd49c29658fde888da5"' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
           jq -e '.parent_c2_sha256 == "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba"' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
           jq -e '.embedded_rules_sha256 == "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
           jq -e '.private_sources_embedded == false and .authority_promoted == false and .private_matrix == "1067/1067 PASS" and .keeper_to_player_leaks == 0' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
-          echo "R1_C3_SHA256=$SECOND_SHA"
+          echo "FROZEN_R1_C3_SHA256=$SECOND_SHA"
 
       - name: Verify extracted R1-C3 package and rerun public tests
         shell: bash
@@ -92,10 +94,10 @@ jobs:
           export R1_C1_RULES_ZIP="$PWD/rules/CoC7_Recovery_Rules_R1_Core.zip"
           PYTHONPATH=. python test_integration_public_r1_c3.py
 
-      - name: Upload R1-C3 candidate and evidence
+      - name: Upload frozen R1-C3 candidate and evidence
         uses: actions/upload-artifact@v4
         with:
-          name: recovery-recertification-r1-c3-runtime
+          name: recovery-recertification-r1-c3-runtime-frozen
           path: |
             recovery/recertification-r1/c3_dist/SolidState_Recovery_Runtime_R1_C3.zip
             recovery/recertification-r1/c3_dist/R1_C3_BUILD_REPORT.json
@@ -106,15 +108,14 @@ jobs:
       - name: Write R1-C3 summary
         shell: bash
         run: |
-          SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/c3_dist/R1_C3_BUILD_REPORT.json)"
           echo '## Recovery Recertification R1-C3' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo '- Checkpoint333 documentary floor: **PRESERVED**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1-C2 parent identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1-C1 rules identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-C3 identity: **553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df**' >> "$GITHUB_STEP_SUMMARY"
           echo '- C3 public tests: **24/24 PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- C3 private source-identity matrix: **1067/1067 PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Keeper→Player leaks: **0**' >> "$GITHUB_STEP_SUMMARY"
-          echo "- C3 candidate SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Next gate: `R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION`' >> "$GITHUB_STEP_SUMMARY"
