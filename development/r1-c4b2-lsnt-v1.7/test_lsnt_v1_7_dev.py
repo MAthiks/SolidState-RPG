@@ -53,8 +53,11 @@ class LSNTV17DevTests(unittest.TestCase):
         r = lsnt.resolve_route_dev("SOLEIL_NOIR", requested_pair_id=lsnt.PAIR_ID, source_hashes=fake)
         self.assertEqual(r["code"], "SOURCE_HASH_PENDING")
 
-    def test_10_structure_is_compiled_but_not_route_ready(self):
-        self.assertEqual(MANIFEST["status"], "STRUCTURE_COMPILED_SOURCE_HASH_PENDING_NOT_ROUTE_READY")
+    def test_10_dev_complete_but_not_module_ready_or_route_ready(self):
+        self.assertEqual(MANIFEST["status"], "DEV_COMPLETE_SOURCE_HASH_PENDING_NOT_MODULE_READY")
+        self.assertFalse(MANIFEST["dev_validation"]["module_ready"])
+        self.assertFalse(MANIFEST["dev_validation"]["real_source_identity_verified"])
+        self.assertEqual(MANIFEST["source_gate"]["startup_until_hashes_materialized"], "BLOCKED")
         self.assertFalse(MANIFEST["promotion"]["frozen_candidate"])
 
     def test_11_supported_players_are_one_to_four(self):
