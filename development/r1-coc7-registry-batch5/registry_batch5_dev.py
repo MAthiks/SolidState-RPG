@@ -27,6 +27,12 @@ INTERPERSONAL = batch4.INTERPERSONAL
 CLASSIC_ERAS = batch4.CLASSIC_ERAS
 MODERN_ERAS = batch4.MODERN_ERAS
 
+# Scenario years such as 1942 are intentionally not silently coerced to
+# either the source's explicit CLASSIC or MODERN scopes.  An era-scoped
+# record must match its declared scope; unscoped records remain usable.
+# This closes the historical-era bypass where e.g. COMPUTER_USE resolved
+# merely because "1942" was not present in CLASSIC_ERAS.
+
 
 def _valid_characteristic(value) -> bool:
     return isinstance(value, int) and not isinstance(value, bool) and 0 <= value <= 100
@@ -36,11 +42,42 @@ def _era_key(era: str | None) -> str:
     return str(era or "").upper()
 
 
+def _era_scope_block(record: dict, era: str | None, *, record_type: str) -> str | None:
+    key = _era_key(era)
+    if not key:
+        # No-era calls are used for materialization/reference validation.
+        return None
+    scope = str(record.get("era_scope") or "").upper()
+    if not scope:
+        return None
+    if scope == "MODERN":
+        if key in MODERN_ERAS:
+            return None
+        return f"{record_type}_NOT_AVAILABLE_IN_ERA"
+    if scope == "CLASSIC":
+        if key in CLASSIC_ERAS:
+            return None
+        return f"{record_type}_NOT_AVAILABLE_IN_ERA"
+    # Unknown source scopes are never guessed when a concrete era is supplied.
+    return f"{record_type}_ERA_SCOPE_UNRECOGNIZED"
+
+
 def resolve_skill(skill_id: str, *, dex: int | None = None, edu: int | None = None, era: str | None = None) -> dict:
     key = str(skill_id).upper()
     record = SKILL_EXTENSIONS.get(key)
     if record is None:
-        return batch4.resolve_skill(key, dex=dex, edu=edu, era=era)
+        parent_result = batch4.resolve_skill(key, dex=dex, edu=edu, era=era)
+        if parent_result.get("status") != "RESOLVED":
+            return parent_result
+        era_code = _era_scope_block(parent_result.get("record", {}), era, record_type="SKILL")
+        if era_code:
+            return {"status": "BLOCKED", "code": era_code, "skill_id": key, "era": era}
+        result = copy.deepcopy(parent_result)
+        result["delegated_through_registry_id"] = REGISTRY_ID
+        return result
+    era_code = _era_scope_block(record, era, record_type="SKILL")
+    if era_code:
+        return {"status": "BLOCKED", "code": era_code, "skill_id": key, "era": era}
     out = copy.deepcopy(record)
     out["skill_id"] = key
     return {"status": "RESOLVED", "registry_id": REGISTRY_ID, "record": out, "source_id": SOURCE_ID}
@@ -79,13 +116,7 @@ def _points_from_formula(formula: dict, characteristics: dict, *, choice_charact
 
 
 def _era_block(record: dict, era: str | None) -> str | None:
-    key = _era_key(era)
-    scope = record.get("era_scope")
-    if scope == "MODERN" and key in CLASSIC_ERAS:
-        return "OCCUPATION_NOT_AVAILABLE_IN_ERA"
-    if scope == "CLASSIC" and key in MODERN_ERAS:
-        return "OCCUPATION_NOT_AVAILABLE_IN_ERA"
-    return None
+    return _era_scope_block(record, era, record_type="OCCUPATION")
 
 
 def resolve_occupation(
@@ -117,6 +148,9 @@ def resolve_occupation(
             era=era,
         )
         if parent_result.get("status") == "RESOLVED":
+            era_code = _era_scope_block(parent_result.get("record", {}), era, record_type="OCCUPATION")
+            if era_code:
+                return {"status": "BLOCKED", "code": era_code, "occupation_id": key, "era": era}
             parent_result = copy.deepcopy(parent_result)
             parent_result["delegated_through_registry_id"] = REGISTRY_ID
             if requested != key:

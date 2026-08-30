@@ -22,9 +22,10 @@ jobs:
           python-version: '3.12'
       - name: Install PDF identity dependency
         run: python -m pip install 'pypdf>=5,<6'
-      - name: Compile source identity graph provider runtime and creation binding modules
+      - name: Compile source identity graph provider runtime creation binding and 1942 era gate
         run: |
           python -m py_compile \
+            development/r1-coc7-registry-batch5/registry_batch5_dev.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_precompile_gate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/source_identity_proof_v2.py \
@@ -36,7 +37,8 @@ jobs:
             development/r1-c4b2-lsnt-v1.7-source-identity/test_source_identity_proof_v2.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_canonical_graph_candidate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_provider_dev_runtime.py \
-            development/r1-c4b2-lsnt-v1.7-source-identity/test_canonical_creation_binding_v17_provider_dev.py
-      - name: Run v1.7 fail-closed identity graph provider runtime and creation binding suites
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_canonical_creation_binding_v17_provider_dev.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_v17_1942_era_gate.py
+      - name: Run v1.7 fail-closed identity graph provider runtime creation binding and 1942 era suites
         working-directory: development/r1-c4b2-lsnt-v1.7-source-identity
-        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py test_source_identity_proof_v2.py test_lsnt_v17_canonical_graph_candidate.py test_lsnt_v17_provider_dev_runtime.py test_canonical_creation_binding_v17_provider_dev.py
+        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py test_source_identity_proof_v2.py test_lsnt_v17_canonical_graph_candidate.py test_lsnt_v17_provider_dev_runtime.py test_canonical_creation_binding_v17_provider_dev.py test_v17_1942_era_gate.py
