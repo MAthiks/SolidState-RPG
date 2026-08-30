@@ -1,0 +1,40 @@
+{
+  "schema": "COC7_INVESTIGATOR_AGING_BATCH2_DEV_REPORT_V1",
+  "stage": "R1_COC7_INVESTIGATOR_AGING_BATCH2_DEV",
+  "module_id": "COC7_INVESTIGATOR_AGING_R1_BATCH2_DEV_V1",
+  "parent_module_id": "COC7_INVESTIGATOR_DEVELOPMENT_R1_BATCH1_DEV_V1",
+  "source_sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+  "validated_source_commit": "73b8726576cde7562bf696420d5b9c505c2ebb04",
+  "github_actions_run_id": 33304806383,
+  "result": "PASS",
+  "targeted_tests": {
+    "passed": 94,
+    "total": 94
+  },
+  "prior_validated_chain": {
+    "passed": 1079,
+    "total": 1079
+  },
+  "combined_chain": {
+    "passed": 1173,
+    "total": 1173
+  },
+  "scope": [
+    "cumulative natural and time-skip aging thresholds",
+    "explicit STR CON DEX loss allocation",
+    "turning-20 explicit STR SIZ gain allocation",
+    "age-linked EDU improvement with recorded d100 and d10",
+    "sudden magical aging gate with EDU gain suppressed",
+    "MOV and APP aging deltas",
+    "derived HP and damage-bonus/build recalculation handoff"
+  ],
+  "cumulative_aging": true,
+  "magical_aging_education_gain_suppressed": true,
+  "ordinary_skill_over_95_rule_imported_into_edu": false,
+  "automatic_stat_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "status": "DEV_VALIDATED_NOT_AUTHORITY"
+}
