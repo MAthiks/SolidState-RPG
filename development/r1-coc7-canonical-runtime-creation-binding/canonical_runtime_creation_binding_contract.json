@@ -1,0 +1,28 @@
+{
+  "schema": "COC7_CANONICAL_RUNTIME_CREATION_BINDING_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_CANONICAL_RUNTIME_CREATION_BINDING_R1_DEV_V1",
+  "parent_creation_module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH4_DEV_V1",
+  "parent_validated_commit": "3dc2b82b5a1ea2bb4f0e76694f3d8e8f26990154",
+  "parent_validated_proof": 2714,
+  "frozen_runtime_integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C4_V1",
+  "checkpoint_floor": 333,
+  "scope": [
+    "require a SourceBackedRuntimeR1C4 runtime instance",
+    "require a pre-existing C4 scenario_runtime binding before investigator creation can mutate state",
+    "validate scenario binding against frozen C4 route metadata and exact expected private source hashes",
+    "allow only C4 routes whose canonical path is ready and release class is PASS_REAL",
+    "delegate actor-bound investigator creation commit to validated Creation Batch3",
+    "delegate party finalization and PLAY_READY gate to validated Creation Batch4",
+    "preserve scenario_runtime binding across character creation and party finalization",
+    "provide spoiler-safe player creation projection without canonical path or source hashes",
+    "reject missing, blocked, substituted, or tampered scenario bindings with zero mutation"
+  ],
+  "public_test_limit": "Public CI validates exact frozen C4 binding structure using test-only state fixtures. It does not claim to replace the private-source new_canonical_session preflight.",
+  "private_validation_required": "Actual new_canonical_session with exact private source files must be tested separately before any authority promotion.",
+  "automatic_scenario_binding": false,
+  "automatic_investigator_completion": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
