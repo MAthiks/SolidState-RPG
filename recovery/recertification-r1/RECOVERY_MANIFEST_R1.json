@@ -1,8 +1,8 @@
 {
   "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_V1",
   "generation": "RECOVERY_RECERTIFICATION_R1",
-  "stage": "R1-B_NEW_RUNTIME_MATERIALIZATION",
-  "status": "R1_B_MATERIALIZED_CANDIDATE_NOT_AUTHORITY",
+  "stage": "R1-C1_RULES_MIGRATION_CORE",
+  "status": "R1_C1_RULES_MIGRATION_CANDIDATE_NOT_AUTHORITY",
   "base": {
     "branch": "main",
     "commit_sha": "5936b9e67af65b5a4d7d9c2d18ae6c44a7829db7",
@@ -14,6 +14,12 @@
     "certified_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
     "bytes_available": false,
     "substitute_may_claim_same_identity": false
+  },
+  "historical_rules_gap": {
+    "artifact_id": "COC7_COMPILED_RULE_PACKAGE_4_7",
+    "certified_sha256": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "bytes_available": false,
+    "replacement_may_claim_same_identity": false
   },
   "r1_a_public_provenance": {
     "result": "PASS",
@@ -46,11 +52,35 @@
     "byte_identical_to_historical_329": false,
     "authority_promoted": false
   },
+  "r1_c_private_source_precheck": {
+    "result": "BLOCKED_PRECONDITIONS_RECORDED",
+    "scenario_source_identities": "6/6 PASS",
+    "rulebook_source_identities": "2/2 PASS",
+    "private_sources_committed": false,
+    "historical_rules_4_7_present": false
+  },
+  "r1_c1_rules_migration_core": {
+    "result": "PASS",
+    "package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+    "source_commit": "af1d1a0113e2181c9e827f0d111273be180ca670",
+    "package": "CoC7_Recovery_Rules_R1_Core.zip",
+    "zip_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "zip_crc": "PASS",
+    "manifest_sha256": "db5e1a6daff660fdbb5df61b71ce569dc8e6c87841c17f485f76745c83a92a22",
+    "immutable_files": 4,
+    "core_mechanics_tests": "37/37 PASS",
+    "source_adapter_fail_closed_tests": "4/4 PASS",
+    "deterministic_rebuild": "PASS",
+    "byte_identical_to_historical_4_7": false,
+    "authority_promoted": false,
+    "scope": "partial source-grounded rules migration; unmigrated mechanics remain fail-closed"
+  },
   "required_next_gates": [
-    "R1-C_PRIVATE_SOURCE_BACKED_FULL_RECERTIFICATION"
+    "R1-C2_RUNTIME_RULES_INTEGRATION",
+    "R1-C3_COMPLETE_RULES_AND_SCENARIO_RECERTIFICATION"
   ],
   "promotion": {
-    "allowed_at_stage_r1_b": false,
+    "allowed_at_stage_r1_c1": false,
     "checkpoint334_created": false,
     "android_apk_promoted": false,
     "automatic_downgrade_forbidden": true,
