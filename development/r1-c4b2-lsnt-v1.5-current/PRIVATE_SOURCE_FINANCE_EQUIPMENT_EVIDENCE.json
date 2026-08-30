@@ -1,0 +1,56 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_PRIVATE_SOURCE_FINANCE_EQUIPMENT_EVIDENCE_V1",
+  "result": "PASS",
+  "qualification": "PRIVATE_SOURCE_DERIVED_FINANCE_AND_NONEMPTY_EQUIPMENT_TO_PLAY",
+  "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
+  "public_ci_run_id": 33324897883,
+  "private_report_sha256": "740ea88d8bc1a913c0cc71d843414bca604ce1237b4ebd819762fce6ea265bde",
+  "source_finance": {
+    "source_id": "COC7_INVESTIGATOR",
+    "source_sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+    "source_page": 57,
+    "table_identity": "TABLE_II_CASH_AND_ASSETS_1920S",
+    "credit_rating_tested": 20,
+    "derived_profile_sha256": "ea0e828ebc20a27135b5106ac599a75a75ab15497dde692c7adc5cadee905f3f",
+    "private_table_text_embedded": false,
+    "wrong_source_rejected": true
+  },
+  "source_equipment": {
+    "selection_mode": "EXPLICIT_TEST_FIXTURE_NOT_AUTOMATIC",
+    "selected_count": 4,
+    "registry_id": "COC7_RECOVERY_EQUIPMENT_WEAPONS_R1_BATCH1_DEV_V1",
+    "records": [
+      {"record_id": "CANTEEN_1_QUART", "source_page": 243},
+      {"record_id": "ELECTRIC_TORCH", "source_page": 242},
+      {"record_id": "COMPASS_WITH_LID", "source_page": 242},
+      {"record_id": "BINOCULARS", "source_page": 242}
+    ],
+    "scenario_plausibility_source_verified": true,
+    "automatic_selection": false,
+    "unknown_record_zero_mutation": true,
+    "private_source_text_embedded": false
+  },
+  "matrix": {
+    "player_counts": [1, 2, 3, 4],
+    "cases": "4/4 PASS",
+    "creation_commits": 10,
+    "source_driven_finance": "4/4 PASS",
+    "nonempty_equipment": "4/4 PASS",
+    "play_ready": "4/4 PASS",
+    "strict_replay": "4/4 PASS",
+    "save_restore_strict": "4/4 PASS",
+    "finance_persistence": "4/4 PASS",
+    "inventory_persistence": "4/4 PASS",
+    "scenario_binding_preserved": "4/4 PASS",
+    "player_projection_leaks": 0
+  },
+  "scope_limits": {
+    "recorded_dice_generated_by_harness": false,
+    "creation_rules_era": "1920S",
+    "1942_finance_inflation_table_invented": false,
+    "complete_purchase_price_availability_economy_certified": false
+  },
+  "private_pdf_content_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
