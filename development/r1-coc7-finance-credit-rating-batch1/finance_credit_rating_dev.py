@@ -34,7 +34,7 @@ def _valid_bool(value):
 
 
 def _valid_money(value):
-    # Runtime uses caller-normalized integral money units to avoid float/replay drift.
+    # Caller-normalized integral money units avoid float/replay drift.
     return _valid_int(value, 0)
 
 
@@ -44,6 +44,14 @@ def _valid_die(value, sides):
 
 def _blocked(code, **extra):
     return {'status': 'BLOCKED', 'code': code, **extra}
+
+
+def _validate_optional_bracket(minimum, maximum):
+    if minimum is None and maximum is None:
+        return None
+    if not _valid_int(minimum, 0, 99) or not _valid_int(maximum, 0, 99) or minimum > maximum:
+        return _blocked('TARGET_BRACKET_INVALID')
+    return [minimum, maximum]
 
 
 def validate_private_finance_profile(
@@ -154,6 +162,7 @@ def adjudicate_expenditure(
         'cash_after': current_cash_units,
         'required_total_units': amount_units,
         'cash_shortfall_units': amount_units - current_cash_units,
+        'asset_or_debt_resolution_required': True,
         'partial_cash_mutation_applied': False,
         'automatic_asset_conversion': False,
         'automatic_debt_creation': False,
@@ -209,8 +218,10 @@ def adjudicate_same_day_small_purchases(
         'cash_before': current_cash_units,
         'cash_after': current_cash_units,
         'cash_shortfall_units': total - current_cash_units,
+        'asset_or_debt_resolution_required': True,
         'partial_cash_mutation_applied': False,
         'automatic_asset_conversion': False,
+        'automatic_debt_creation': False,
         'randomness_generated': False,
     }
 
@@ -318,31 +329,40 @@ def development_credit_rating_change(
     }:
         return _blocked('CREDIT_RATING_CONDITION_UNMATERIALIZED')
 
+    explicit_bracket = _validate_optional_bracket(target_bracket_min, target_bracket_max)
+    if isinstance(explicit_bracket, dict):
+        return explicit_bracket
+
     if condition == 'STATUS_QUO':
-        if keeper_confirms_condition is not True or recorded_dice or adapter_bracket_verified or target_bracket_min is not None or target_bracket_max is not None or state_safety_net or safety_net_d10 is not None:
+        if (
+            keeper_confirms_condition is not True or recorded_dice or adapter_bracket_verified
+            or explicit_bracket is not None or state_safety_net or safety_net_d10 is not None
+        ):
             return _blocked('STATUS_QUO_MUST_NOT_CONSUME_CHANGE_INPUTS')
         return {
             'status': 'RESOLVED', 'condition': condition,
             'credit_rating_before': current_cr, 'credit_rating_after': current_cr,
             'randomness_generated': False,
         }
+
     if not keeper_confirms_condition:
         return _blocked('KEEPER_CREDIT_RATING_CHANGE_GATE_REQUIRED')
 
     if condition == 'HIGHER_ASSET_BRACKET':
         if not adapter_bracket_verified:
             return _blocked('HIGHER_BRACKET_PRIVATE_ADAPTER_GATE_REQUIRED')
-        if not _valid_int(target_bracket_min, 0, 99) or not _valid_int(target_bracket_max, 0, 99) or target_bracket_min > target_bracket_max:
+        if explicit_bracket is None:
             return _blocked('TARGET_BRACKET_INVALID')
         if state_safety_net or safety_net_d10 is not None:
             return _blocked('SAFETY_NET_INPUT_UNUSED')
+        target_bracket_min, target_bracket_max = explicit_bracket
         if target_bracket_min <= current_cr <= target_bracket_max:
             if recorded_dice:
                 return _blocked('ALREADY_IN_TARGET_BRACKET_MUST_NOT_CONSUME_DICE')
             return {
                 'status': 'RESOLVED', 'condition': condition,
                 'credit_rating_before': current_cr, 'credit_rating_after': current_cr,
-                'recorded_dice': [], 'target_bracket': [target_bracket_min, target_bracket_max],
+                'recorded_dice': [], 'target_bracket': explicit_bracket,
                 'randomness_generated': False,
             }
         if current_cr > target_bracket_max:
@@ -364,14 +384,37 @@ def development_credit_rating_change(
                 return {
                     'status': 'RESOLVED', 'condition': condition,
                     'credit_rating_before': current_cr, 'credit_rating_after': cr,
-                    'recorded_dice': used, 'target_bracket': [target_bracket_min, target_bracket_max],
+                    'recorded_dice': used, 'target_bracket': explicit_bracket,
                     'randomness_generated': False,
                 }
         return _blocked('MORE_D10_REQUIRED_TO_REACH_TARGET_BRACKET', credit_rating_reached=cr)
 
-    if adapter_bracket_verified or target_bracket_min is not None or target_bracket_max is not None:
-        if condition != 'ASSETS_MATCH_LOWER_BRACKET':
-            return _blocked('BRACKET_INPUT_UNUSED')
+    if condition == 'ASSETS_MATCH_LOWER_BRACKET':
+        if not adapter_bracket_verified:
+            return _blocked('LOWER_BRACKET_PRIVATE_ADAPTER_GATE_REQUIRED')
+        # Bracket identity may be carried only as a verified adapter gate. If explicit
+        # numeric bounds are supplied, they were already validated above and are retained
+        # for replay/audit but are not used to invent the decrease.
+        if len(recorded_dice) != 1 or not _valid_die(recorded_dice[0], 10):
+            return _blocked('DECREASE_REQUIRES_EXACT_RECORDED_D10')
+        if state_safety_net or safety_net_d10 is not None:
+            return _blocked('SAFETY_NET_INPUT_UNUSED')
+        after = max(0, current_cr - recorded_dice[0])
+        return {
+            'status': 'RESOLVED',
+            'condition': condition,
+            'credit_rating_before': current_cr,
+            'credit_rating_after': after,
+            'recorded_dice': list(recorded_dice),
+            'verified_target_bracket': explicit_bracket,
+            'state_safety_net': False,
+            'safety_net_floor': None,
+            'minimum_credit_rating_zero': True,
+            'randomness_generated': False,
+        }
+
+    if adapter_bracket_verified or explicit_bracket is not None:
+        return _blocked('BRACKET_INPUT_UNUSED')
 
     if condition == 'PROMOTION':
         if len(recorded_dice) != 1 or not _valid_die(recorded_dice[0], 6):
@@ -381,15 +424,15 @@ def development_credit_rating_change(
         after = _apply_cr_delta(current_cr, recorded_dice[0])
         if after is None:
             return _blocked('CREDIT_RATING_ABOVE_99_UNMATERIALIZED')
+        floor = None
 
-    elif condition in {'DEMOTION_OR_UNPAID_LEAVE', 'ASSETS_MATCH_LOWER_BRACKET'}:
+    elif condition == 'DEMOTION_OR_UNPAID_LEAVE':
         if len(recorded_dice) != 1 or not _valid_die(recorded_dice[0], 10):
             return _blocked('DECREASE_REQUIRES_EXACT_RECORDED_D10')
-        if condition == 'ASSETS_MATCH_LOWER_BRACKET' and not adapter_bracket_verified:
-            return _blocked('LOWER_BRACKET_PRIVATE_ADAPTER_GATE_REQUIRED')
         if state_safety_net or safety_net_d10 is not None:
             return _blocked('SAFETY_NET_INPUT_UNUSED')
         after = max(0, current_cr - recorded_dice[0])
+        floor = None
 
     elif condition == 'MAIN_INCOME_LOST':
         if len(recorded_dice) != 2 or not all(_valid_die(v, 10) for v in recorded_dice):
@@ -412,6 +455,7 @@ def development_credit_rating_change(
         if state_safety_net or safety_net_d10 is not None:
             return _blocked('SAFETY_NET_INPUT_UNUSED')
         after = max(0, current_cr - recorded_dice[0])
+        floor = None
 
     return {
         'status': 'RESOLVED',
@@ -420,7 +464,7 @@ def development_credit_rating_change(
         'credit_rating_after': after,
         'recorded_dice': list(recorded_dice),
         'state_safety_net': state_safety_net,
-        'safety_net_floor': floor if condition == 'MAIN_INCOME_LOST' else None,
+        'safety_net_floor': floor,
         'minimum_credit_rating_zero': True,
         'randomness_generated': False,
     }
