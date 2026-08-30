@@ -1,0 +1,116 @@
+name: DEV R1 CoC7 Finance Credit Rating Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-finance-credit-rating-batch1"]
+    paths:
+      - "development/r1-coc7-finance-credit-rating-batch1/**"
+      - ".github/workflows/dev-r1-coc7-finance-credit-rating-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-finance-credit-rating-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile validated chain and Finance Batch1
+        run: |
+          python -m compileall -q recovery/recertification-r1/rules_r1
+          python -m compileall -q development/r1-coc7-equipment-weapons-batch1
+          python -m compileall -q development/r1-coc7-combat-firearms-batch1
+          python -m compileall -q development/r1-coc7-combat-firearms-batch2
+          python -m compileall -q development/r1-coc7-melee-combat-batch1
+          python -m compileall -q development/r1-coc7-wounds-healing-batch1
+          python -m compileall -q development/r1-coc7-sanity-insanity-batch1
+          python -m compileall -q development/r1-coc7-sanity-treatment-batch2
+          python -m compileall -q development/r1-coc7-chase-batch1
+          python -m compileall -q development/r1-coc7-chase-batch2
+          python -m compileall -q development/r1-coc7-magic-core-batch1
+          python -m compileall -q development/r1-coc7-magic-core-batch2
+          python -m compileall -q development/r1-coc7-investigator-development-batch1
+          python -m compileall -q development/r1-coc7-investigator-aging-batch2
+          python -m compileall -q development/r1-coc7-finance-credit-rating-batch1
+      - name: Re-run frozen Rules Core tests
+        working-directory: recovery/recertification-r1
+        run: python -m rules_r1.test_core_rules
+      - name: Re-run Equipment Weapons regression
+        working-directory: development/r1-coc7-equipment-weapons-batch1
+        run: python -m unittest -v test_eqwp_batch1_dev.py
+      - name: Re-run Combat Firearms Batch1 regression
+        working-directory: development/r1-coc7-combat-firearms-batch1
+        run: python -m unittest -v test_combat_firearms_dev.py
+      - name: Re-run Combat Firearms Batch2 regression
+        working-directory: development/r1-coc7-combat-firearms-batch2
+        run: python -m unittest -v test_combat_firearms_batch2_dev.py
+      - name: Re-run Melee Combat Batch1 regression
+        working-directory: development/r1-coc7-melee-combat-batch1
+        run: python -m unittest -v test_melee_combat_dev.py
+      - name: Re-run Wounds Healing Batch1 regression
+        working-directory: development/r1-coc7-wounds-healing-batch1
+        run: python -m unittest -v test_wounds_healing_dev.py
+      - name: Re-run Sanity Insanity Batch1 regression
+        working-directory: development/r1-coc7-sanity-insanity-batch1
+        run: python -m unittest -v test_sanity_insanity_dev.py
+      - name: Re-run Sanity Treatment Batch2 regression
+        working-directory: development/r1-coc7-sanity-treatment-batch2
+        run: python -m unittest -v test_sanity_treatment_dev.py
+      - name: Re-run Chase Batch1 regression
+        working-directory: development/r1-coc7-chase-batch1
+        run: python -m unittest -v test_chase_dev.py
+      - name: Re-run Chase Batch2 regression
+        working-directory: development/r1-coc7-chase-batch2
+        run: python -m unittest -v test_chase_batch2_dev.py
+      - name: Re-run Magic Core Batch1 regression
+        working-directory: development/r1-coc7-magic-core-batch1
+        run: python -m unittest -v test_magic_core_dev.py
+      - name: Re-run Magic Core Batch2 regression
+        working-directory: development/r1-coc7-magic-core-batch2
+        run: python -m unittest -v test_magic_core_batch2_dev.py
+      - name: Re-run Investigator Development Batch1 regression
+        working-directory: development/r1-coc7-investigator-development-batch1
+        run: python -m unittest -v test_investigator_development_dev.py
+      - name: Re-run Investigator Aging Batch2 regression
+        working-directory: development/r1-coc7-investigator-aging-batch2
+        run: python -m unittest -v test_investigator_aging_dev.py
+      - name: Run Finance Credit Rating Batch1 targeted matrix
+        working-directory: development/r1-coc7-finance-credit-rating-batch1
+        run: python -m unittest -v test_finance_credit_rating_dev.py
+      - name: Confirm contract and non-authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-finance-credit-rating-batch1/finance_credit_rating_batch1_contract.json').read_text())
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1'
+          assert c['parent_aging_module_id']=='COC7_INVESTIGATOR_AGING_R1_BATCH2_DEV_V1'
+          assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['public_table_policy']['cash_asset_brackets_embedded'] is False
+          assert c['public_table_policy']['cash_refresh_values_embedded'] is False
+          assert c['public_table_policy']['spending_level_values_embedded'] is False
+          assert c['public_table_policy']['adapter_must_supply_exact_verified_values'] is True
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-finance-credit-rating-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Finance Credit Rating Batch1' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## Finance Credit Rating Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior validated chain: **1173/1173 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Finance targeted matrix: **PASS if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Commercial Cash & Assets table embedded: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic asset conversion/debt terms: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated by module: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
