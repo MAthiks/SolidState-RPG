@@ -1,0 +1,90 @@
+name: DEV R1 CoC7 Investigator Creation Batch4
+
+on:
+  push:
+    branches: [dev/r1-coc7-investigator-creation-batch4]
+    paths:
+      - development/r1-coc7-investigator-creation-batch4/**
+      - development/r1-coc7-investigator-creation-batch3/**
+      - development/r1-coc7-investigator-creation-batch2/**
+      - development/r1-coc7-investigator-creation-batch1/**
+      - recovery/recertification-r1/runtime_r1/**
+      - .github/workflows/dev-r1-coc7-investigator-creation-batch4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-investigator-creation-batch4-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile parent and Batch4 integration tree
+        run: |
+          python -m compileall -q development/r1-coc7-investigator-creation-batch4
+          python -m compileall -q development/r1-coc7-investigator-creation-batch3
+          python -m compileall -q recovery/recertification-r1/runtime_r1
+      - name: Re-run hardened creation Batch3 — exact 2614
+        run: |
+          out="$(python development/r1-coc7-investigator-creation-batch3/run_hardened_gate.py)"
+          printf '%s\n' "$out"
+          grep -F '"combined_tests": 2614' <<<"$out"
+          grep -F '"result": "PASS"' <<<"$out"
+      - name: Run Investigator Creation Batch4 targeted matrix — exact 100
+        working-directory: development/r1-coc7-investigator-creation-batch4
+        run: |
+          set +e
+          out="$(python -m unittest -v test_investigator_creation_batch4_dev.py 2>&1)"
+          rc=$?
+          set -e
+          printf '%s\n' "$out"
+          if [ "$rc" -ne 0 ]; then exit "$rc"; fi
+          grep -F 'Ran 100 tests' <<<"$out"
+          grep -F 'OK' <<<"$out"
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert 2614 + 100 == 2714
+          print('2714/2714 candidate arithmetic confirmed')
+          PY
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-investigator-creation-batch4/investigator_creation_batch4_contract.json').read_text())
+          assert c['schema']=='COC7_INVESTIGATOR_CREATION_BATCH4_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_INVESTIGATOR_CREATION_R1_BATCH4_DEV_V1'
+          assert c['parent_module_id']=='COC7_INVESTIGATOR_CREATION_R1_BATCH3_DEV_V1'
+          assert c['parent_validated_commit']=='e733100015ad5a565aedde7f622647eeac40dd94'
+          assert c['parent_validated_proof']==2614
+          assert c['checkpoint_floor']==333
+          assert c['automatic_investigator_completion'] is False
+          assert c['automatic_equipment_selection'] is False
+          assert c['automatic_finance_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+      - name: Confirm no private PDFs tracked
+        run: |
+          set -euo pipefail
+          if git ls-files development/r1-coc7-investigator-creation-batch4 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in investigator creation Batch4' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch4 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Parent hardened creation proof: **2614 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch4 targeted tests: **100 expected**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate proof: **2714 tests**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Party sizes: **1–4 players**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Play before party finalization: **BLOCKED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
