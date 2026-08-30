@@ -55,8 +55,6 @@ jobs:
   runtime-materialization-gate:
     needs: public-provenance-gate
     runs-on: ubuntu-latest
-    env:
-      RECOVERY_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout full history
         uses: actions/checkout@v4
@@ -72,26 +70,28 @@ jobs:
         working-directory: recovery/recertification-r1
         run: python -m runtime_r1.self_test
 
-      - name: First deterministic build
+      - name: First frozen deterministic R1-B build
         env:
           R1_B_OUTDIR: ${{ runner.temp }}/r1b_first
+          RECOVERY_SOURCE_COMMIT: dde2fdbb222c569423b2c9909e2d028dfb46b604
         run: |
           python recovery/recertification-r1/build_runtime_package_r1.py
           sha256sum "${R1_B_OUTDIR}/SolidState_Recovery_Runtime_R1_B.zip" | tee "${RUNNER_TEMP}/r1b_first.sha256"
 
-      - name: Second deterministic build
+      - name: Second frozen deterministic R1-B build
         env:
           R1_B_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/dist
+          RECOVERY_SOURCE_COMMIT: dde2fdbb222c569423b2c9909e2d028dfb46b604
         run: |
           python recovery/recertification-r1/build_runtime_package_r1.py
           FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1b_first.sha256")"
           SECOND_SHA="$(sha256sum "${R1_B_OUTDIR}/SolidState_Recovery_Runtime_R1_B.zip" | awk '{print $1}')"
           test "$FIRST_SHA" = "$SECOND_SHA"
-          echo "DETERMINISTIC_PACKAGE_SHA256=$SECOND_SHA"
-          test "$SECOND_SHA" != "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add"
+          test "$SECOND_SHA" = "84fa2f46b6fae095aa0df83c79b2e7467605180edd9aaec7a8cd2b5ed5eef148"
           jq -e '.byte_identical_to_historical_329 == false' "${R1_B_OUTDIR}/R1_B_BUILD_REPORT.json"
+          echo "FROZEN_R1_B_SHA256=$SECOND_SHA"
 
-      - name: Verify extracted package and rerun self-test
+      - name: Verify extracted R1-B package and rerun self-test
         shell: bash
         run: |
           set -euo pipefail
@@ -102,7 +102,7 @@ jobs:
           python verify_package.py
           PYTHONPATH=. python -m runtime_r1.self_test
 
-      - name: Upload R1-B candidate and evidence
+      - name: Upload frozen R1-B candidate and evidence
         uses: actions/upload-artifact@v4
         with:
           name: recovery-recertification-r1-b-runtime
@@ -115,8 +115,6 @@ jobs:
   rules-migration-core-gate:
     needs: runtime-materialization-gate
     runs-on: ubuntu-latest
-    env:
-      RECOVERY_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout full history
         uses: actions/checkout@v4
@@ -136,26 +134,28 @@ jobs:
         working-directory: recovery/recertification-r1
         run: python -m rules_r1.test_core_rules
 
-      - name: First deterministic rules build
+      - name: First frozen deterministic R1-C1 rules build
         env:
           R1_C1_OUTDIR: ${{ runner.temp }}/r1c1_first
+          RECOVERY_SOURCE_COMMIT: af1d1a0113e2181c9e827f0d111273be180ca670
         run: |
           python recovery/recertification-r1/build_rules_package_r1.py
           sha256sum "${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" | tee "${RUNNER_TEMP}/r1c1_first.sha256"
 
-      - name: Second deterministic rules build
+      - name: Second frozen deterministic R1-C1 rules build
         env:
           R1_C1_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/rules_dist
+          RECOVERY_SOURCE_COMMIT: af1d1a0113e2181c9e827f0d111273be180ca670
         run: |
           python recovery/recertification-r1/build_rules_package_r1.py
           FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c1_first.sha256")"
           SECOND_SHA="$(sha256sum "${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" | awk '{print $1}')"
           test "$FIRST_SHA" = "$SECOND_SHA"
-          test "$SECOND_SHA" != "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7"
+          test "$SECOND_SHA" = "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"
           jq -e '.byte_identical_to_historical_4_7 == false' "${R1_C1_OUTDIR}/R1_C1_RULES_BUILD_REPORT.json"
-          echo "DETERMINISTIC_RULES_SHA256=$SECOND_SHA"
+          echo "FROZEN_R1_C1_RULES_SHA256=$SECOND_SHA"
 
-      - name: Verify extracted rules package
+      - name: Verify extracted frozen rules package
         shell: bash
         run: |
           set -euo pipefail
@@ -165,7 +165,7 @@ jobs:
           cd "${RUNNER_TEMP}/r1c1_extract/CoC7_Recovery_Rules_R1_Core"
           PYTHONPATH=. python -m rules_r1.test_core_rules
 
-      - name: Upload R1-C1 candidate and evidence
+      - name: Upload frozen R1-C1 candidate and evidence
         uses: actions/upload-artifact@v4
         with:
           name: recovery-recertification-r1-c1-rules-core
@@ -175,18 +175,92 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  runtime-rules-integration-gate:
+    needs: rules-migration-core-gate
+    runs-on: ubuntu-latest
+    env:
+      C2_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Rebuild frozen R1-C1 dependency for integration tests
+        env:
+          R1_C1_OUTDIR: ${{ runner.temp }}/r1c2_rules
+          RECOVERY_SOURCE_COMMIT: af1d1a0113e2181c9e827f0d111273be180ca670
+        run: |
+          python recovery/recertification-r1/build_rules_package_r1.py
+          test "$(sha256sum "${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" | awk '{print $1}')" = "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"
+          echo "R1_C1_RULES_ZIP=${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" >> "$GITHUB_ENV"
+
+      - name: Run R1-C2 public cryptographic and fail-closed tests
+        working-directory: recovery/recertification-r1
+        run: python test_integration_public_r1_c2.py
+
+      - name: First deterministic R1-C2 integrated build
+        env:
+          R1_C2_OUTDIR: ${{ runner.temp }}/r1c2_first
+          RECOVERY_SOURCE_COMMIT_C2: ${{ env.C2_SOURCE_COMMIT }}
+        run: |
+          python recovery/recertification-r1/build_integrated_runtime_r1_c2.py
+          sha256sum "${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip" | tee "${RUNNER_TEMP}/r1c2_first.sha256"
+
+      - name: Second deterministic R1-C2 integrated build
+        env:
+          R1_C2_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/c2_dist
+          RECOVERY_SOURCE_COMMIT_C2: ${{ env.C2_SOURCE_COMMIT }}
+        run: |
+          python recovery/recertification-r1/build_integrated_runtime_r1_c2.py
+          FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c2_first.sha256")"
+          SECOND_SHA="$(sha256sum "${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip" | awk '{print $1}')"
+          test "$FIRST_SHA" = "$SECOND_SHA"
+          test "$SECOND_SHA" != "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add"
+          jq -e '.embedded_rules_sha256 == "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"' "${R1_C2_OUTDIR}/R1_C2_BUILD_REPORT.json"
+          jq -e '.private_sources_embedded == false and .authority_promoted == false' "${R1_C2_OUTDIR}/R1_C2_BUILD_REPORT.json"
+          echo "R1_C2_SHA256=$SECOND_SHA"
+
+      - name: Verify extracted R1-C2 package and rerun public integration tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "${RUNNER_TEMP}/r1c2_extract"
+          mkdir -p "${RUNNER_TEMP}/r1c2_extract"
+          unzip -q recovery/recertification-r1/c2_dist/SolidState_Recovery_Runtime_R1_C2.zip -d "${RUNNER_TEMP}/r1c2_extract"
+          cd "${RUNNER_TEMP}/r1c2_extract/SolidState_Recovery_Runtime_R1_C2"
+          python verify_package.py
+          export R1_C1_RULES_ZIP="$PWD/rules/CoC7_Recovery_Rules_R1_Core.zip"
+          PYTHONPATH=. python test_integration_public_r1_c2.py
+
+      - name: Upload R1-C2 candidate and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-c2-integrated-runtime
+          path: |
+            recovery/recertification-r1/c2_dist/SolidState_Recovery_Runtime_R1_C2.zip
+            recovery/recertification-r1/c2_dist/R1_C2_BUILD_REPORT.json
+            recovery/recertification-r1/R1_C2_PRIVATE_INTEGRATION_REPORT.json
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Write recovery summary
         shell: bash
         run: |
-          RUNTIME_SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json 2>/dev/null || echo 'see R1-B artifact')"
-          RULES_SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/rules_dist/R1_C1_RULES_BUILD_REPORT.json)"
+          C2_SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/c2_dist/R1_C2_BUILD_REPORT.json)"
           echo '## Recovery Recertification R1' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo '- R1-A public provenance: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- R1-B runtime materialization: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- R1-C1 source adapter fail-closed tests: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- R1-C1 CoC7 core mechanics tests: **37/37 PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo "- New Rules Core candidate SHA-256: \`$RULES_SHA\`" >> "$GITHUB_STEP_SUMMARY"
-          echo '- Historical CoC7 Rules Core 4.7 identity claimed: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-B identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-C1 Rules identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-C2 public integration gate: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-C2 private local integration precheck: **31/31 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo "- R1-C2 candidate SHA-256: \`$C2_SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDF content embedded: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Next gate: `R1-C2_RUNTIME_RULES_INTEGRATION`' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Next gate: `R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION`' >> "$GITHUB_STEP_SUMMARY"
