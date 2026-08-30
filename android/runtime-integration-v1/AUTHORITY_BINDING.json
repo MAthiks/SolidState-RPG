@@ -1,0 +1,38 @@
+{
+  "schema": "SOLIDSTATE_ANDROID_RUNTIME_AUTHORITY_BINDING_V1",
+  "status": "CANDIDATE_NOT_PROMOTED",
+  "phase": "ANDROID_RUNTIME_INTEGRATION_V1",
+  "authority": {
+    "checkpoint": 333,
+    "checkpoint_id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2",
+    "checkpoint_record_git_blob_sha1": "965695bdc3ebe13f7337bb491796f6a193bd8fa6",
+    "automatic_downgrade_forbidden": true
+  },
+  "runtime_prerequisite": {
+    "checkpoint329_zip": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+    "checkpoint329_zip_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "package_manifest_sha256": "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9",
+    "requires_layers": [330, 331, 332],
+    "runtime_available_in_current_integration_workspace": false
+  },
+  "android_gate": {
+    "private_sources_embedded": false,
+    "source_pack_must_be_local_and_ready": true,
+    "multiplayer_state_partition_required": true,
+    "atomic_save_resume_required": true,
+    "actor_bound_strict_replay_required": true,
+    "unverified_future_checkpoint_allowed": false
+  },
+  "local_contract_test": {
+    "language": "Kotlin/JVM",
+    "result": "13/13 PASS",
+    "runtime_authority_source_sha256": "35d866dec0ef847bdeb481dcd03c9b579c7d3d2fe6a5301626a7aea087964d51",
+    "test_source_sha256": "5863e01985c3eecd8c9583fa72a52a34b94993b2ec4b30e613009a336f6c1827"
+  },
+  "promotion": {
+    "checkpoint334_created": false,
+    "apk_created": false,
+    "apk_signed": false,
+    "blocked_until_exact_runtime_attach": true
+  }
+}
