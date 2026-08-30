@@ -1,0 +1,118 @@
+name: DEV R1 CoC7 Investigator Creation Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-investigator-creation-batch1"]
+    paths:
+      - "development/r1-coc7-investigator-creation-batch1/**"
+      - ".github/workflows/dev-r1-coc7-investigator-creation-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-investigator-creation-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile parent, occupation registry, and creation batch
+        run: |
+          python -m compileall -q development/r1-coc7-other-forms-damage-batch1
+          for d in development/r1-coc7-registry-batch{1,2,3,4,5}; do python -m compileall -q "$d"; done
+          python -m compileall -q development/r1-coc7-investigator-creation-batch1
+
+      - name: Re-run hardened rules parent — exact 1688
+        run: |
+          set -euo pipefail
+          python development/r1-coc7-other-forms-damage-batch1/run_hardened_gate.py 2>&1 | tee /tmp/parent.log
+          grep -q '"combined_tests": 1688' /tmp/parent.log
+          grep -q '"result": "PASS"' /tmp/parent.log
+
+      - name: Re-run occupation registry closure — exact 626
+        run: |
+          set -euo pipefail
+          run_registry() {
+            local dir="$1"; local expected="$2"; local log="$3"
+            (cd "$dir" && python -m unittest discover -v -p 'test_*_dev.py' 2>&1 | tee "$log")
+            grep -q "Ran $expected tests" "$log"
+            grep -q '^OK$' "$log"
+          }
+          run_registry development/r1-coc7-registry-batch1 50 /tmp/reg1.log
+          run_registry development/r1-coc7-registry-batch2 128 /tmp/reg2.log
+          run_registry development/r1-coc7-registry-batch3 128 /tmp/reg3.log
+          run_registry development/r1-coc7-registry-batch4 200 /tmp/reg4.log
+          run_registry development/r1-coc7-registry-batch5 120 /tmp/reg5.log
+
+      - name: Run Investigator Creation targeted matrix — exact 100
+        working-directory: development/r1-coc7-investigator-creation-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_investigator_creation_dev.py 2>&1 | tee /tmp/creation.log
+          grep -q 'Ran 100 tests' /tmp/creation.log
+          grep -q '^OK$' /tmp/creation.log
+
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert sum([50,128,128,200,120]) == 626
+          assert 1688 + 626 + 100 == 2414
+          PY
+
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-investigator-creation-batch1/investigator_creation_batch1_contract.json').read_text())
+          assert c['schema']=='COC7_INVESTIGATOR_CREATION_BATCH1_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_INVESTIGATOR_CREATION_R1_BATCH1_DEV_V1'
+          assert c['parent_rules_commit']=='da3cbd84575fd7533ec3e21e21fe07ceb4ac9b28'
+          assert c['parent_rules_test_chain']==1688
+          assert c['occupation_registry_id']=='COC7_RECOVERY_REGISTRY_R1_BATCH5_DEV_V1'
+          assert c['occupation_registry_test_chain']==626
+          assert c['sources']['investigator']['sha256']=='de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17'
+          assert c['sources']['investigator']['printed_pages']==[42,43,44,45,48,49,50]
+          m=c['materialized_rules']
+          assert m['standard_recorded_characteristic_generation'] is True
+          assert m['creation_age_modifiers_15_to_89'] is True
+          assert m['age_90_fails_closed_pending_explicit_modifier'] is True
+          assert m['age_15_19_second_luck_roll_uses_higher'] is True
+          assert m['occupation_resolution_reuses_registry_batch5'] is True
+          assert m['occupation_credit_rating_range_enforced'] is True
+          assert m['personal_interest_points_equal_INT_times_2'] is True
+          assert c['reuse_policy']['derived_stats_reused_from_frozen_rules_core'] is True
+          assert c['reuse_policy']['EDU_improvement_reused_from_investigator_aging_batch2'] is True
+          assert c['reuse_policy']['occupation_formula_reused_from_registry_batch5'] is True
+          assert c['automatic_characteristic_reroll'] is False
+          assert c['automatic_age_allocation'] is False
+          assert c['automatic_occupation_selection'] is False
+          assert c['automatic_credit_rating_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-investigator-creation-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Investigator Creation Batch1' >&2
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Hardened rules chain: **1688/1688 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Occupation closure: **626/626 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Creation targeted matrix: **100/100 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate proof: **2414/2414 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Character state commit: **NO — Batch2 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
