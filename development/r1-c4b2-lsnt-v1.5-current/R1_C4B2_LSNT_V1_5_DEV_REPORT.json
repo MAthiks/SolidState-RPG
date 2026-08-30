@@ -1,18 +1,20 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V3",
-  "result": "PASS_ROUTE_RUNTIME_REGISTRY_BINDING",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V4",
+  "result": "PASS_ROUTE_RUNTIME_REGISTRY_BINDING_RECORDED_DICE_TO_PLAY",
   "status": "DEV_VALIDATED_NOT_AUTHORITY",
   "branch": "dev/r1-c4b2-lsnt-v1.5-current",
   "base_evidence_commit": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
-  "public_binding_ci_commit": "6656bf9c944dc6144b07a132b824d8cefa77ce0a",
-  "public_binding_ci_run_id": 33324152496,
+  "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
+  "public_ci_run_id": 33324897883,
   "public_route_registry_gate": "41/41 PASS",
   "public_canonical_creation_binding_gate": "52/52 PASS",
+  "public_code_artifact_tar_sha256": "034f3bed29852510ad4a3b4c23c38c0e58e07ff6775ebdec0e3c87c6cb83f15d",
   "private_route_registry_matrix": "120/120 PASS",
   "private_route_registry_matrix_sha256": "90a76f44374a422ad5a9b7a144eacae9bd8835e0e7570c8a1bfcb050359a6cd7",
   "private_canonical_binding_matrix": "4/4 PASS",
-  "private_canonical_binding_creation_commits": 10,
   "private_canonical_binding_report_sha256": "96c7db35f99fe2bdd7bff9f6c99873c6b3835b4d960cabff5774026e5482fc92",
+  "private_recorded_dice_to_play": "4/4 PASS",
+  "private_recorded_dice_to_play_report_sha256": "082e0e5fc190b59161f016f59b0f4a7397efaa107830815638482f322ba74da8",
   "scenario": {
     "scenario_id": "LSNT-V1.5-MULTI-1942",
     "source_pair_id": "LSNT-V1.5-MULTI-1942",
@@ -44,7 +46,7 @@
   },
   "canonical_creation_binding_verified": {
     "module_id": "COC7_CANONICAL_RUNTIME_CREATION_BINDING_R1_C4B2_LSNT_DEV_V1",
-    "public_from_recorded_dice_to_atomic_boundary": "PASS",
+    "single_process_recorded_dice_to_ready": "4/4 PASS",
     "private_real_source_player_counts": [1, 2, 3, 4],
     "private_creation_commits": 10,
     "private_party_finalization": "4/4 PASS",
@@ -54,16 +56,18 @@
     "private_save_restore_strict": "4/4 PASS",
     "private_scenario_binding_preserved": "4/4 PASS",
     "player_projection_leaks": 0,
-    "registry_tamper_rejected": true
+    "reauthenticated_registry_tamper_rejected": true
   },
-  "from_dice_continuity": {
-    "result": "PASS_COMPOSED_CONTINUITY",
-    "public_exact_binding_gate": "52/52 PASS",
-    "private_transaction_gate": "4/4 PASS",
-    "single_process_private_from_dice_rerun_claimed": false
+  "recorded_dice_to_play_scope": {
+    "single_process": true,
+    "recorded_dice_inputs": true,
+    "random_dice_generated_by_harness": false,
+    "characteristics_aging_occupation_skills_story": "EXACT_PIPELINE_PASS",
+    "finance": "VALIDATED_PRE_RESOLVED_PROFILE_NOT_SOURCE_TABLE_DERIVATION",
+    "possessions": "EMPTY_NOT_NONEMPTY_EQUIPMENT_CERTIFICATION"
   },
   "private_source_content_embedded": false,
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "PRIVATE_SINGLE_PROCESS_CREATION_FROM_RECORDED_DICE_TO_C4B2_LSNT_PLAY"
+  "next_gate": "PRIVATE_SOURCE_DRIVEN_FINANCE_AND_NONEMPTY_EQUIPMENT_CREATION"
 }
