@@ -1,0 +1,74 @@
+name: DEV R1 CoC7 Equipment Weapons Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-equipment-weapons-batch1"]
+    paths:
+      - "development/r1-coc7-equipment-weapons-batch1/**"
+      - ".github/workflows/dev-r1-coc7-equipment-weapons-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-equipment-weapons-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile occupation and equipment/weapon DEV chain
+        run: |
+          python -m compileall -q development/r1-coc7-registry-batch1
+          python -m compileall -q development/r1-coc7-registry-batch2
+          python -m compileall -q development/r1-coc7-registry-batch3
+          python -m compileall -q development/r1-coc7-registry-batch4
+          python -m compileall -q development/r1-coc7-registry-batch5
+          python -m compileall -q development/r1-coc7-equipment-weapons-batch1
+      - name: Re-run occupation closure regression
+        run: |
+          python -m unittest discover -v -s development/r1-coc7-registry-batch1 -p 'test_*_dev.py'
+          python -m unittest discover -v -s development/r1-coc7-registry-batch2 -p 'test_*_dev.py'
+          python -m unittest discover -v -s development/r1-coc7-registry-batch3 -p 'test_*_dev.py'
+          python -m unittest discover -v -s development/r1-coc7-registry-batch4 -p 'test_*_dev.py'
+          python -m unittest discover -v -s development/r1-coc7-registry-batch5 -p 'test_*_dev.py'
+      - name: Run equipment and weapon targeted matrix
+        working-directory: development/r1-coc7-equipment-weapons-batch1
+        run: python -m unittest -v test_eqwp_batch1_dev.py
+      - name: Confirm lineage and non-authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('development/r1-coc7-equipment-weapons-batch1')
+          e=json.loads((base/'equipment_batch1.json').read_text())
+          w=json.loads((base/'weapons_batch1.json').read_text())
+          r=json.loads((base/'DEV_EQWP_BATCH1_REPORT.json').read_text())
+          assert e['status']==w['status']==r['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert e['parent_registry_id']==w['parent_registry_id']==r['parent_registry_id']=='COC7_RECOVERY_REGISTRY_R1_BATCH5_DEV_V1'
+          assert e['frozen_ancestor_registry_id']==w['frozen_ancestor_registry_id']==r['frozen_ancestor_registry_id']=='COC7_RECOVERY_REGISTRY_R1_C4_V1'
+          assert len(e['equipment'])==92
+          assert len(w['weapons'])==61
+          assert len(w['skill_extensions'])==12
+          assert e['authority_promoted'] is w['authority_promoted'] is r['authority_promoted'] is False
+          assert e['auto_possession'] is w['auto_possession'] is r['auto_possession'] is False
+          PY
+      - name: Confirm no private PDF is tracked
+        run: |
+          if git ls-files development/r1-coc7-equipment-weapons-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private rulebook PDF tracked in equipment/weapon batch' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## CoC7 Equipment + Weapons Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Occupation regression chain: **PASS if this job is green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Equipment references: **92**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Weapon mechanics: **61**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Skill extensions: **12**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Auto possession: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prices embedded: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
