@@ -124,11 +124,13 @@ class LSNTV17WorldClockDevTests(unittest.TestCase):
         self.assertEqual(r["code"], "FRONT_CHECK_ALREADY_RESOLVED")
         self.assertEqual(len(state["front"]["history"]), 1)
 
-    def test_22_replay_uses_recorded_roll(self):
+    def test_22_replay_uses_recorded_roll_with_stable_provenance(self):
         state = base_state("J1 18:00")
         r = world.resolve_front_check(state, check_time="J1 18:00", recorded_roll=6, replay=True)
-        self.assertEqual(r["mode"], "RECORDED_REPLAY")
+        self.assertEqual(r["mode"], "RECORDED_INPUT")
+        self.assertEqual(r["execution_mode"], "REPLAY_VERIFICATION")
         self.assertEqual(r["roll"], 6)
+        self.assertEqual(state["front"]["history"][0]["mode"], "RECORDED_INPUT")
 
     def test_23_front_check_wrong_time_blocked(self):
         state = base_state("J1 12:00")
