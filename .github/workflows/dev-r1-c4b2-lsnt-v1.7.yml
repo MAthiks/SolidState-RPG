@@ -23,9 +23,9 @@ jobs:
       - name: Compile only C4B2 DEV sources
         run: python -m compileall -q development/r1-c4b2-lsnt-v1.7
 
-      - name: Run targeted LSNT v1.7 DEV tests
+      - name: Run targeted LSNT v1.7 DEV suite
         working-directory: development/r1-c4b2-lsnt-v1.7
-        run: python test_lsnt_v1_7_dev.py
+        run: python -m unittest discover -v -p 'test_*_dev.py'
 
       - name: Confirm no v1.7 private PDF is tracked
         run: |
@@ -56,7 +56,9 @@ jobs:
           echo '- Dedicated DEV branch: **YES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Targeted tests only: **YES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1 rebuild in DEV: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- v1.7 structure compiled: **YES**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Exact source hashes: **PENDING BYTES MOUNT**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Runtime startup: **FAIL-CLOSED / BLOCKED UNTIL HASHES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Scenario manifest + graph: **COMPILED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- State binding + 1–4 player synthetic harness: **TESTED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Exact v1.7 source hashes: **PENDING BYTES MOUNT**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Production runtime startup: **FAIL-CLOSED / BLOCKED UNTIL HASHES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Synthetic identity mode: **TEST ONLY / NEVER CANONICAL**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
