@@ -1,0 +1,32 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_PRIVATE_RECORDED_DICE_TO_PLAY_SUMMARY_V1",
+  "result": "PASS",
+  "status": "PRIVATE_EVIDENCE_NOT_AUTHORITY",
+  "tested_branch": "dev/r1-c4b2-lsnt-v1.5-current",
+  "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
+  "public_ci_run_id": 33324897883,
+  "public_code_artifact_tar_sha256": "034f3bed29852510ad4a3b4c23c38c0e58e07ff6775ebdec0e3c87c6cb83f15d",
+  "private_local_report_sha256": "082e0e5fc190b59161f016f59b0f4a7397efaa107830815638482f322ba74da8",
+  "single_process": true,
+  "recorded_dice_inputs_used": true,
+  "random_dice_generated_by_harness": false,
+  "player_counts": [1, 2, 3, 4],
+  "cases": "4/4 PASS",
+  "creation_commits": 10,
+  "recorded_dice_to_ready": "4/4 PASS",
+  "play_ready": "4/4 PASS",
+  "strict_replay": "4/4 PASS",
+  "save_restore_strict": "4/4 PASS",
+  "scenario_binding_preserved": "4/4 PASS",
+  "player_projection_leaks": 0,
+  "reauthenticated_registry_tamper_rejected": true,
+  "scope_limits": [
+    "Recorded dice are supplied deterministic inputs; no RNG-generation claim is made.",
+    "Finance uses the exact public helper's validated pre-resolved finance profile; no source-table derivation is claimed.",
+    "Possessions are empty; non-empty equipment purchase/selection is not certified by this run."
+  ],
+  "private_source_content_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "next_gate": "PRIVATE_SOURCE_DRIVEN_FINANCE_AND_NONEMPTY_EQUIPMENT_CREATION"
+}
