@@ -49,15 +49,23 @@ jobs:
           mkdir -p recovery/recertification-r1/rules
           cp "$RULES" recovery/recertification-r1/rules/CoC7_Recovery_Rules_R1_Core.zip
 
-      - name: Rebuild exact frozen R1-C3 parent
+      - name: Rebuild exact frozen R1-C2 and R1-C3 parents
         env:
+          R1_C2_OUTDIR: ${{ runner.temp }}/r1c2_frozen
+          RECOVERY_SOURCE_COMMIT_C2: 12f680f52a8a027ce38617d003355aaebcbcc269
           R1_C3_OUTDIR: ${{ runner.temp }}/r1c3_frozen
           RECOVERY_SOURCE_COMMIT_C3: 00eabb605d74ff9ff0bebcd49c29658fde888da5
         run: |
           set -euo pipefail
+          python recovery/recertification-r1/build_integrated_runtime_r1_c2.py
+          C2_ZIP="${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip"
+          C2_SHA="$(sha256sum "$C2_ZIP" | awk '{print $1}')"
+          test "$C2_SHA" = "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba"
+          export R1_C2_FROZEN_ZIP="$C2_ZIP"
           python recovery/recertification-r1/build_integrated_runtime_r1_c3.py
           C3_SHA="$(sha256sum "${R1_C3_OUTDIR}/SolidState_Recovery_Runtime_R1_C3.zip" | awk '{print $1}')"
           test "$C3_SHA" = "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df"
+          echo "FROZEN_R1_C2_SHA256=$C2_SHA"
           echo "FROZEN_R1_C3_SHA256=$C3_SHA"
 
       - name: Run R1-C4 public registry and router tests
@@ -122,6 +130,7 @@ jobs:
           echo '## Recovery Recertification R1-C4' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo '- Checkpoint333 documentary floor: **PRESERVED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-C2 parent: **PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1-C3 parent: **PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1-C1 Rules: **PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Public registry/router tests: **45/45 PASS**' >> "$GITHUB_STEP_SUMMARY"
