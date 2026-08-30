@@ -1,0 +1,15 @@
+{
+  "schema":"SOLIDSTATE_COC7_REGISTRY_DEV_REPORT_V1",
+  "stage":"R1_COC7_REGISTRY_BATCH5_OCCUPATION_CLOSURE_DEV",
+  "status":"DEV_VALIDATED_OCCUPATION_COVERAGE_CLOSURE_CANDIDATE_NOT_FROZEN_NOT_AUTHORITY",
+  "result":"PASS",
+  "branch":"dev/r1-coc7-registry-batch5",
+  "validated_commit":"8111b431910977352f50b02c05867f6aedcc50ec",
+  "ci_run_id":33289088906,
+  "frozen_ancestor_registry_id":"COC7_RECOVERY_REGISTRY_R1_C4_V1",
+  "source":{"source_id":"COC7_INVESTIGATOR","sha256":"de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17"},
+  "tests":{"batch1":50,"batch2":128,"batch3":128,"batch4":200,"batch5":120,"total_targeted_chain":626,"result":"PASS"},
+  "registry":{"cumulative_occupation_records":114,"explicit_variant_groups":7,"batch5_skill_extensions":1,"unknown_records_fail_closed":true,"ambiguous_group_auto_selection":false,"private_pdf_tracked":false},
+  "promotion":{"module_ready":false,"frozen_candidate":false,"checkpoint334_created":false,"authority_promoted":false,"android_promoted":false},
+  "next_gate":"R1_COC7_EQUIPMENT_AND_WEAPON_REGISTRY_EXPANSION_DEV"
+}
