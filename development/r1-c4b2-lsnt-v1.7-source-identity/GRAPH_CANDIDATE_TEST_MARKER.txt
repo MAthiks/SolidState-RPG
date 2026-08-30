@@ -1,0 +1,1 @@
+LSNT v1.7 graph candidate staging marker. Non-executable; exact PDF hashes pending.
