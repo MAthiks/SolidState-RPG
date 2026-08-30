@@ -39,20 +39,7 @@ jobs:
         run: |
           tar -czf c4b2-public-code.tgz \
             development/r1-c4b2-lsnt-v1.5-current \
-            development/r1-coc7-investigator-development-batch1 \
-            development/r1-coc7-investigator-aging-batch2 \
-            development/r1-coc7-investigator-creation-batch1 \
-            development/r1-coc7-investigator-creation-batch2 \
-            development/r1-coc7-investigator-creation-batch3 \
-            development/r1-coc7-investigator-creation-batch4 \
-            development/r1-coc7-registry-batch1 \
-            development/r1-coc7-registry-batch2 \
-            development/r1-coc7-registry-batch3 \
-            development/r1-coc7-registry-batch4 \
-            development/r1-coc7-registry-batch5 \
-            development/r1-coc7-finance-credit-rating-batch1 \
-            development/r1-coc7-equipment-weapons-batch1 \
-            development/r1-coc7-other-forms-damage-batch1 \
+            development/r1-coc7-* \
             recovery/recertification-r1
           sha256sum c4b2-public-code.tgz > c4b2-public-code.tgz.sha256
       - name: Upload exact public code bundle
