@@ -15,6 +15,7 @@ LSNT_PATH = {
         "LSNT_START_BIR_HALIM_BRIEFING",
         "LSNT_NODE_ABANDONED_CONVOY",
         "LSNT_NODE_SIDI_MARUT",
+        "LSNT_NODE_OASIS",
         "LSNT_NODE_FORT_17B",
         "LSNT_NODE_WADI_MIRRORS",
         "LSNT_NODE_CAMP_SALVI",
@@ -44,7 +45,7 @@ LSNT_PATH = {
     "clue_network": {
         "LSNT_NODE_ABANDONED_CONVOY": ["PROGETTO_NERO", "QASR_IREM", "ANOMALY"],
         "LSNT_NODE_FORT_17B": ["CAMP_SALVI", "TRANSFER_TIMELINE"],
-        "LSNT_NODE_SIDI_MARUT": ["CROISSANT_CREUX", "SECONDARY_ACCESS"],
+        "LSNT_NODE_OASIS": ["CROISSANT_CREUX", "SECONDARY_ACCESS"],
         "LSNT_NODE_CAMP_SALVI": ["CHAMBER_ZENITH", "DANGER"],
         "LSNT_NODE_WADI_MIRRORS": ["NON_MILITARY_NATURE"],
         "LSNT_NODE_QASR_IREM": ["ORIGIN", "CLOSURE"],
@@ -98,7 +99,7 @@ LSNT_PATH = {
     "individual_sanity_required": True,
     "party_resolution_required": True,
     "ten_ending_families_preserved": True,
-    "bcr_ally_autonomous": True,
+    "bcra_ally_autonomous": True,
 }
 
 ROUTES = dict(ROUTES_C4B)
