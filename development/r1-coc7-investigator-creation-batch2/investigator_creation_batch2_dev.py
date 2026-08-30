@@ -35,8 +35,19 @@ OPTIONAL_BACKSTORY = (
     'ENCOUNTERS_WITH_STRANGE_ENTITIES',
 )
 SUPPORTED_SLOT_KEYS = {
-    'skill', 'specialization', 'count', 'choice_one_of', 'interpersonal_choice', 'allowed',
-    'personal_or_era_specialty', 'skill_family', 'notes', 'note', 'era_scope', 'restriction',
+    'skill', 'specialization', 'specialization_choice', 'required_specialization',
+    'count', 'choice_one_of', 'choice_one_of_families', 'choice_n_of',
+    'interpersonal_choice', 'allowed', 'personal_or_era_specialty',
+    'academic_or_personal_specialty', 'field_of_study', 'personal_specialty',
+    'skill_family', 'notes', 'note', 'era_scope', 'era_variant', 'restriction',
+    'specialist_reading_topic_allowed', 'trade_specialty_allowed', 'keeper_authorized_option',
+}
+PLACEHOLDER_SPECIALIZATIONS = {
+    'ANY', 'ANY_OTHER', 'TRADE_ANY', 'INSTRUMENT', 'ALPINE_OR_APPROPRIATE',
+    'INVESTIGATOR_LANGUAGE',
+}
+GENERIC_SPECIALTY_KEYS = {
+    'personal_or_era_specialty', 'academic_or_personal_specialty', 'field_of_study', 'personal_specialty',
 }
 
 
@@ -89,6 +100,20 @@ def occupation_slot_schema_audit() -> dict:
                 unsupported.append({'occupation_id': occupation_id, 'slot': index, 'code': 'SLOT_COUNT_INVALID'})
             else:
                 count += n
+            if 'specialization_choice' in slot:
+                choices = slot['specialization_choice']
+                if not isinstance(choices, list) or not choices or not all(isinstance(x, str) and x.strip() for x in choices):
+                    unsupported.append({'occupation_id': occupation_id, 'slot': index, 'code': 'SPECIALIZATION_CHOICE_SCHEMA_INVALID'})
+            if 'choice_one_of_families' in slot:
+                families = slot['choice_one_of_families']
+                if not isinstance(families, list) or not families or not all(isinstance(x, str) and x.strip() for x in families):
+                    unsupported.append({'occupation_id': occupation_id, 'slot': index, 'code': 'FAMILY_CHOICE_SCHEMA_INVALID'})
+            if 'choice_n_of' in slot:
+                plan = slot['choice_n_of']
+                if not isinstance(plan, dict) or not _valid_int(plan.get('n'), 1) or not isinstance(plan.get('choices'), list) or not plan['choices']:
+                    unsupported.append({'occupation_id': occupation_id, 'slot': index, 'code': 'CHOICE_N_SCHEMA_INVALID'})
+                elif int(plan['n']) != int(n):
+                    unsupported.append({'occupation_id': occupation_id, 'slot': index, 'code': 'CHOICE_N_COUNT_MISMATCH'})
         if count != 8:
             bad_count.append({'occupation_id': occupation_id, 'count': count})
     return {
@@ -136,23 +161,45 @@ def _resolve_skill_record(skill_id: str, specialization: str | None, *, characte
     return {'status': 'BLOCKED', 'code': 'SKILL_OR_SPECIALIZATION_UNRESOLVED', 'skill_id': requested, 'specialization': specialization_norm}
 
 
+def _specialization_matches(expected, sid: str, spec: str | None, base_skill: str) -> bool:
+    if expected is None:
+        return sid == base_skill
+    token = _norm(expected)
+    if token in PLACEHOLDER_SPECIALIZATIONS:
+        return (sid == base_skill and bool(spec)) or sid.startswith(base_skill + '_')
+    return spec == token or sid == f'{base_skill}_{token}'
+
+
 def _alternative_match(alt: dict, selection: dict) -> bool:
     sid = _norm(selection.get('skill_id', ''))
     spec = _norm(selection.get('specialization')) if selection.get('specialization') else None
     if 'skill' in alt:
         expected = _norm(alt['skill'])
+        if 'specialization_choice' in alt:
+            allowed = {_norm(x) for x in alt['specialization_choice']}
+            return (sid == expected and spec in allowed) or any(sid == f'{expected}_{x}' for x in allowed)
         expected_spec = alt.get('specialization')
-        if sid not in {expected, f'{expected}_{_norm(expected_spec)}' if expected_spec and expected_spec != 'ANY' else expected} and not sid.startswith(expected + '_'):
-            return False
-        if expected_spec == 'ANY':
-            return bool(spec or sid.startswith(expected + '_'))
-        if expected_spec:
-            return spec == _norm(expected_spec) or sid == f'{expected}_{_norm(expected_spec)}'
+        if expected_spec is not None:
+            return _specialization_matches(expected_spec, sid, spec, expected)
         return sid == expected
     if 'skill_family' in alt:
         family = _norm(alt['skill_family'])
-        return sid == family or sid.startswith(family + '_')
+        if not (sid == family or sid.startswith(family + '_')):
+            return False
+        required = alt.get('required_specialization')
+        if required:
+            return spec == _norm(required) or sid == f'{family}_{_norm(required)}'
+        return sid != family or bool(spec)
     return False
+
+
+def _generic_specialty_matches(selection: dict, *, keeper_authorized_mythos: bool) -> dict:
+    sid = _norm(selection.get('skill_id', ''))
+    if not sid:
+        return {'status': 'BLOCKED', 'code': 'OCCUPATION_SKILL_ID_REQUIRED'}
+    if sid == 'CTHULHU_MYTHOS' and not keeper_authorized_mythos:
+        return {'status': 'BLOCKED', 'code': 'CTHULHU_MYTHOS_STARTING_SKILL_REQUIRES_KEEPER_AUTHORIZATION'}
+    return {'status': 'MATCHED'}
 
 
 def _slot_matches(slot: dict, selection: dict, *, keeper_authorized_mythos: bool) -> dict:
@@ -163,24 +210,30 @@ def _slot_matches(slot: dict, selection: dict, *, keeper_authorized_mythos: bool
 
     if 'skill' in slot:
         expected = _norm(slot['skill'])
-        expected_spec = slot.get('specialization')
-        if expected_spec == 'ANY':
-            matched = sid == expected or sid.startswith(expected + '_')
-            if not matched or (sid == expected and not spec):
-                return {'status': 'BLOCKED', 'code': 'OCCUPATION_SPECIALIZATION_REQUIRED'}
-        elif expected_spec:
-            fixed = _norm(expected_spec)
-            if not (sid == f'{expected}_{fixed}' or (sid == expected and spec == fixed)):
-                return {'status': 'BLOCKED', 'code': 'OCCUPATION_FIXED_SPECIALIZATION_MISMATCH'}
-        elif sid != expected:
-            return {'status': 'BLOCKED', 'code': 'OCCUPATION_SKILL_SLOT_MISMATCH'}
+        if 'specialization_choice' in slot:
+            allowed = {_norm(x) for x in slot['specialization_choice']}
+            if not ((sid == expected and spec in allowed) or any(sid == f'{expected}_{x}' for x in allowed)):
+                return {'status': 'BLOCKED', 'code': 'OCCUPATION_SPECIALIZATION_CHOICE_INVALID', 'allowed': sorted(allowed)}
+        else:
+            expected_spec = slot.get('specialization')
+            if expected_spec is not None:
+                if not _specialization_matches(expected_spec, sid, spec, expected):
+                    code = 'OCCUPATION_SPECIALIZATION_REQUIRED' if _norm(expected_spec) in PLACEHOLDER_SPECIALIZATIONS else 'OCCUPATION_FIXED_SPECIALIZATION_MISMATCH'
+                    return {'status': 'BLOCKED', 'code': code}
+            elif sid != expected:
+                return {'status': 'BLOCKED', 'code': 'OCCUPATION_SKILL_SLOT_MISMATCH'}
         return {'status': 'MATCHED'}
 
     if 'skill_family' in slot:
         family = _norm(slot['skill_family'])
         if not (sid == family or sid.startswith(family + '_')):
             return {'status': 'BLOCKED', 'code': 'OCCUPATION_SKILL_FAMILY_MISMATCH'}
-        if sid == family and not spec:
+        required = slot.get('required_specialization')
+        if required:
+            fixed = _norm(required)
+            if not (spec == fixed or sid == f'{family}_{fixed}'):
+                return {'status': 'BLOCKED', 'code': 'OCCUPATION_FIXED_SPECIALIZATION_MISMATCH'}
+        elif sid == family and not spec:
             return {'status': 'BLOCKED', 'code': 'OCCUPATION_SPECIALIZATION_REQUIRED'}
         return {'status': 'MATCHED'}
 
@@ -192,15 +245,42 @@ def _slot_matches(slot: dict, selection: dict, *, keeper_authorized_mythos: bool
             return {'status': 'BLOCKED', 'code': 'OCCUPATION_CHOICE_NOT_ALLOWED'}
         return {'status': 'MATCHED'}
 
+    if 'choice_one_of_families' in slot:
+        families = tuple(_norm(x) for x in slot['choice_one_of_families'])
+        matched_family = next((family for family in families if sid == family or sid.startswith(family + '_')), None)
+        if matched_family is None:
+            return {'status': 'BLOCKED', 'code': 'OCCUPATION_FAMILY_CHOICE_NOT_ALLOWED', 'allowed': list(families)}
+        if sid == matched_family and not spec:
+            return {'status': 'BLOCKED', 'code': 'OCCUPATION_SPECIALIZATION_REQUIRED'}
+        return {'status': 'MATCHED'}
+
+    if 'choice_n_of' in slot:
+        plan = slot['choice_n_of']
+        choices = plan.get('choices') if isinstance(plan, dict) else None
+        if not isinstance(choices, list) or not choices or not all(isinstance(x, dict) for x in choices):
+            return {'status': 'BLOCKED', 'code': 'OCCUPATION_CHOICE_N_SCHEMA_INVALID'}
+        if not any(_alternative_match(alt, selection) for alt in choices):
+            return {'status': 'BLOCKED', 'code': 'OCCUPATION_CHOICE_NOT_ALLOWED'}
+        return {'status': 'MATCHED'}
+
     if slot.get('interpersonal_choice'):
         allowed = tuple(_norm(x) for x in (slot.get('allowed') or registry.INTERPERSONAL))
         if sid not in allowed:
             return {'status': 'BLOCKED', 'code': 'OCCUPATION_INTERPERSONAL_CHOICE_INVALID', 'allowed': list(allowed)}
         return {'status': 'MATCHED'}
 
-    if slot.get('personal_or_era_specialty'):
-        if sid == 'CTHULHU_MYTHOS' and not keeper_authorized_mythos:
-            return {'status': 'BLOCKED', 'code': 'CTHULHU_MYTHOS_STARTING_SKILL_REQUIRES_KEEPER_AUTHORIZATION'}
+    if any(slot.get(key) for key in GENERIC_SPECIALTY_KEYS):
+        generic = _generic_specialty_matches(selection, keeper_authorized_mythos=keeper_authorized_mythos)
+        if generic['status'] != 'MATCHED':
+            return generic
+        option = slot.get('keeper_authorized_option')
+        if isinstance(option, dict) and _norm(option.get('skill', '')) == sid:
+            if not keeper_authorized_mythos:
+                return {'status': 'BLOCKED', 'code': 'KEEPER_AUTHORIZED_OCCUPATION_OPTION_REQUIRED'}
+            advised = option.get('advised_starting_max')
+            points = selection.get('points', 0)
+            if _valid_int(advised, 0) and _valid_int(points, 0) and points > advised:
+                return {'status': 'BLOCKED', 'code': 'KEEPER_AUTHORIZED_OPTION_ADVISED_MAX_EXCEEDED', 'advised_max': advised}
         return {'status': 'MATCHED'}
 
     return {'status': 'BLOCKED', 'code': 'OCCUPATION_SLOT_SCHEMA_UNSUPPORTED'}
