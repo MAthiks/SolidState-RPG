@@ -1,0 +1,69 @@
+{
+  "schema": "COC7_INVESTIGATOR_CREATION_BATCH1_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH1_DEV_V1",
+  "parent_rules_commit": "da3cbd84575fd7533ec3e21e21fe07ceb4ac9b28",
+  "parent_rules_test_chain": 1688,
+  "occupation_registry_id": "COC7_RECOVERY_REGISTRY_R1_BATCH5_DEV_V1",
+  "occupation_registry_test_chain": 626,
+  "sources": {
+    "investigator": {
+      "source_id": "COC7_INVESTIGATOR",
+      "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+      "printed_pages": [42, 43, 44, 45, 48, 49, 50]
+    },
+    "keeper": {
+      "source_id": "COC7_KEEPER",
+      "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+      "reuse_only": true
+    }
+  },
+  "materialized_rules": {
+    "standard_recorded_characteristic_generation": true,
+    "STR_CON_DEX_APP_POW_use_3D6_times_5": true,
+    "SIZ_INT_EDU_use_2D6_plus_6_times_5": true,
+    "LUCK_uses_3D6_times_5": true,
+    "creation_age_modifiers_15_to_89": true,
+    "age_90_fails_closed_pending_explicit_modifier": true,
+    "age_15_19_second_luck_roll_uses_higher": true,
+    "creation_EDU_improvement_checks_reuse_aging_primitive": true,
+    "physical_age_deductions_require_explicit_allocation": true,
+    "derived_stats_reuse_frozen_rules_core": true,
+    "occupation_resolution_reuses_registry_batch5": true,
+    "occupation_credit_rating_range_enforced": true,
+    "occupation_skill_point_budget_materialized": true,
+    "personal_interest_points_equal_INT_times_2": true,
+    "cthulhu_mythos_personal_interest_requires_keeper_exception": true
+  },
+  "out_of_scope_batch2": [
+    "occupation_skill_allocation_across_eight_slots",
+    "personal_interest_skill_allocation",
+    "backstory_minimum_entries",
+    "starting_equipment_and_financial_profile_binding",
+    "final_character_creation_transaction_commit"
+  ],
+  "reuse_policy": {
+    "derived_stats_reused_from_frozen_rules_core": true,
+    "EDU_improvement_reused_from_investigator_aging_batch2": true,
+    "occupation_formula_reused_from_registry_batch5": true,
+    "duplicate_occupation_registry_created": false,
+    "duplicate_damage_bonus_build_engine_created": false
+  },
+  "fail_closed": {
+    "unrecorded_or_invalid_dice": true,
+    "age_outside_materialized_creation_scope": true,
+    "age_physical_deduction_not_explicit": true,
+    "missing_EDU_improvement_roll": true,
+    "ambiguous_occupation_variant": true,
+    "occupation_characteristic_choice_missing": true,
+    "credit_rating_outside_occupation_range": true
+  },
+  "automatic_characteristic_reroll": false,
+  "automatic_age_allocation": false,
+  "automatic_occupation_selection": false,
+  "automatic_credit_rating_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
