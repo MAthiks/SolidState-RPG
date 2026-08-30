@@ -1,7 +1,7 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_PRECOMPILE_STATUS_V1",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_PRECOMPILE_STATUS_V2",
   "branch": "dev/r1-c4b2-lsnt-v1.7-source-identity",
-  "status": "PRECOMPILE_VALIDATED_SOURCE_BYTES_PENDING",
+  "status": "CANONICAL_GRAPH_CANDIDATE_VALIDATED_SOURCE_BYTES_PENDING",
   "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
   "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
   "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
@@ -9,10 +9,12 @@
   "source_library_content_verified": true,
   "exact_pdf_byte_hashes_materialized": false,
   "private_runtime_compilation_allowed": false,
-  "public_precompile_tests": "23/23 PASS",
-  "public_ci_commit": "5d75039285abc85c187612377ea235ee53b0ee83",
-  "public_ci_run_id": 33329647136,
+  "canonical_runtime_activation_allowed": false,
+  "public_ci_tests": "65/65 PASS",
+  "public_ci_commit": "3843230b74e7ebeadb8456c7b4f549ef13d9ce6d",
+  "public_ci_run_id": 33332132586,
   "materializer": "development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py",
+  "graph_candidate": "development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_canonical_graph_candidate.py",
   "materializer_behavior": {
     "checks_pdf_header": true,
     "extracts_document_text": true,
@@ -23,19 +25,36 @@
     "rejects_v1_5_hash_reuse": true,
     "rejects_keeper_player_hash_collision": true
   },
-  "precompile_verified": {
-    "player_counts": [1, 2, 3, 4],
-    "world_clock_j1_j4": true,
+  "graph_candidate_verified": {
+    "non_executable_until_hash_allowlist_materialized": true,
+    "locations": 10,
+    "clue_nodes": 8,
+    "single_clue_indispensable": false,
+    "independent_nonhuman_routes": 3,
+    "world_clock_events": 11,
     "front_checks": ["0600", "1800"],
-    "ending_family_count": 10,
-    "knowledge_partition_required": true,
-    "timeline_sync_if_split": true,
+    "travel_records": 7,
     "exposure_thresholds": [2, 4, 6],
-    "shared_water_liters": {"1": 32, "2": 48, "3": 64, "4": 80},
+    "sanity_records": 6,
+    "resolution_methods": 6,
+    "ending_family_count": 10,
+    "state_contract_present": true,
+    "player_counts": [1, 2, 3, 4],
+    "knowledge_partition_required": true,
+    "individual_inventory_separated": true,
+    "player_projection_guardian_truth_exposed": false,
+    "player_projection_future_events_exposed": false,
+    "player_projection_source_hashes_exposed": false,
+    "player_projection_canonical_graph_exposed": false,
+    "activation_without_exact_hashes": "BLOCKED_ZERO_MUTATION"
+  },
+  "shared_resources_verified": {
+    "water_liters": {"1": 32, "2": 48, "3": 64, "4": 80},
     "team_radio_batteries": 2,
+    "vehicle": "FORD_FORDOR_C11ADF_DESERT",
+    "fuel": "FULL_TANK_PLUS_TWO_20L_JERRICANS",
     "fuel_capacity_numeric_invented": false,
-    "fuel_consumption_numeric_invented": false,
-    "player_projection_guardian_values_exposed": false
+    "fuel_consumption_numeric_invented": false
   },
   "anti_rollback": {
     "v1_5_promotable": false,
@@ -45,5 +64,5 @@
   },
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "MOUNT_BOTH_V1_7_PDF_BYTES_AND_RUN_MATERIALIZER"
+  "next_gate": "MOUNT_BOTH_V1_7_PDF_BYTES_MATERIALIZE_SHA256_2_OF_2_THEN_BIND_GRAPH"
 }
