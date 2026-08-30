@@ -1,0 +1,35 @@
+name: DEV R1 CoC7 Investigator Creation Batch4 Hardened
+
+on:
+  push:
+    branches: [dev/r1-coc7-investigator-creation-batch4]
+    paths:
+      - development/r1-coc7-investigator-creation-batch4/**
+      - .github/workflows/dev-r1-coc7-investigator-creation-batch4-hardened.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile creation Batch4
+        run: python -m compileall -q development/r1-coc7-investigator-creation-batch4
+      - name: Run exact hardened 2714-test gate
+        run: |
+          out="$(python development/r1-coc7-investigator-creation-batch4/run_hardened_gate.py)"
+          printf '%s\n' "$out"
+          grep -F '"combined_tests": 2714' <<<"$out"
+          grep -F '"result": "PASS"' <<<"$out"
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch4 hardened gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined proof: **2714/2714 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Party creation finalization: **VERIFIED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
