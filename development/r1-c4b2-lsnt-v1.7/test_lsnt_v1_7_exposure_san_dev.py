@@ -170,16 +170,20 @@ class LSNTV17ExposureSanDevTests(unittest.TestCase):
         r = es.apply_sanity_experience(s, actor_player_id="P1", character_id="C1", experience_id="OBSERVE_ACTIVE_CHAMBER", san_check_success=False, recorded_loss=10)
         self.assertEqual(r["new_san"], 0)
 
-    def test_25_replay_marks_recorded_provenance(self):
+    def test_25_replay_uses_recorded_input_with_stable_provenance(self):
         s = state()
         r = es.apply_sanity_experience(s, actor_player_id="P1", character_id="C1", experience_id="DISCOVER_SHADOW_GATE", san_check_success=False, recorded_loss=5, replay=True)
-        self.assertEqual(r["provenance"], "RECORDED_REPLAY")
+        self.assertEqual(r["provenance"], "RECORDED_INPUT")
+        self.assertEqual(r["execution_mode"], "REPLAY_VERIFICATION")
+        self.assertEqual(s["scenario_san_journal"][-1]["provenance"], "RECORDED_INPUT")
         self.assertEqual(s["scenario_san_journal"][-1]["recorded_loss"], 5)
 
     def test_26_live_input_is_recorded_not_generated_here(self):
         s = state()
         r = es.apply_sanity_experience(s, actor_player_id="P1", character_id="C1", experience_id="DISCOVER_SHADOW_GATE", san_check_success=False, recorded_loss=4)
-        self.assertEqual(r["provenance"], "RECORDED_LIVE_INPUT")
+        self.assertEqual(r["provenance"], "RECORDED_INPUT")
+        self.assertEqual(r["execution_mode"], "LIVE_COMMIT")
+        self.assertEqual(s["scenario_san_journal"][-1]["provenance"], "RECORDED_INPUT")
         self.assertEqual(s["scenario_san_journal"][-1]["loss"], 4)
 
     def test_27_each_player_san_is_isolated(self):
