@@ -1,0 +1,75 @@
+name: DEV R1 CoC7 Registry Batch3
+
+on:
+  push:
+    branches: [dev/r1-coc7-registry-batch3]
+    paths:
+      - development/r1-coc7-registry-batch1/**
+      - development/r1-coc7-registry-batch2/**
+      - development/r1-coc7-registry-batch3/**
+      - .github/workflows/dev-r1-coc7-registry-batch3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-registry-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Compile registry DEV chain only
+        run: |
+          python -m compileall -q development/r1-coc7-registry-batch1
+          python -m compileall -q development/r1-coc7-registry-batch2
+          python -m compileall -q development/r1-coc7-registry-batch3
+
+      - name: Re-run Batch1 targeted tests
+        working-directory: development/r1-coc7-registry-batch1
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+
+      - name: Re-run Batch2 targeted tests
+        working-directory: development/r1-coc7-registry-batch2
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+
+      - name: Run Batch3 targeted matrix
+        working-directory: development/r1-coc7-registry-batch3
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+
+      - name: Confirm lineage and non-authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('development/r1-coc7-registry-batch3/occupations_batch3.json').read_text())
+          spans=json.loads(Path('development/r1-coc7-registry-batch3/source_spans_batch3.json').read_text())
+          assert d['status'] == 'DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert d['parent_registry_id'] == 'COC7_RECOVERY_REGISTRY_R1_BATCH2_DEV_V1'
+          assert d['frozen_ancestor_registry_id'] == 'COC7_RECOVERY_REGISTRY_R1_C4_V1'
+          assert d['authority_promoted'] is False
+          assert spans['authority_promoted'] is False
+          assert len(d['occupations']) == 24
+          PY
+
+      - name: Confirm no private rulebook PDF is tracked
+        run: |
+          set -euo pipefail
+          if git ls-files development/r1-coc7-registry-batch3 | grep -Ei '\.pdf$'; then
+            echo 'Private rulebook PDF tracked in Batch3' >&2
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo '## CoC7 Registry Batch3 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch1 regression: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch2 regression: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch3 occupations: **24**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Cumulative occupations: **58**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen C4 registry mutated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
