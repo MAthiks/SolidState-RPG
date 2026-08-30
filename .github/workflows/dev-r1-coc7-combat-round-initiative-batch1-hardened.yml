@@ -1,0 +1,36 @@
+name: DEV R1 CoC7 Combat Round Initiative Batch1 Hardened
+
+on:
+  push:
+    branches: ["dev/r1-coc7-combat-round-initiative-batch1"]
+    paths:
+      - "development/r1-coc7-combat-round-initiative-batch1/**"
+      - ".github/workflows/dev-r1-coc7-combat-round-initiative-batch1-hardened.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile batch and parent source tree
+        run: |
+          python -m compileall -q recovery/recertification-r1/rules_r1
+          python -m compileall -q development/r1-coc7-combat-round-initiative-batch1
+      - name: Run exact hardened 1528-test gate
+        run: python development/r1-coc7-combat-round-initiative-batch1/run_hardened_gate.py
+      - name: Summary
+        run: |
+          echo '## Combat Round / Initiative Batch1 hardened gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Parent chain: **1456/1456 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Targeted matrix: **72/72 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined: **1528/1528 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Contract + DEV report: **verified**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
