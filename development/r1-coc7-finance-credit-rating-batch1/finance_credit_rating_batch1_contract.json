@@ -1,0 +1,68 @@
+{
+  "schema": "COC7_FINANCE_CREDIT_RATING_BATCH1_DEV_V1",
+  "module_id": "COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_aging_module_id": "COC7_INVESTIGATOR_AGING_R1_BATCH2_DEV_V1",
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [61, 95, 96, 97],
+    "private_table_dependency": "Table II: Cash and Assets remains outside the public repository and must be resolved by a source-backed adapter."
+  },
+  "materialized_rules": {
+    "credit_rating_use": {
+      "acts_as_financial_and_social_status_gauge": true,
+      "may_be_used_for_financial_status_goals": true,
+      "may_substitute_for_APP_for_first_impressions": true,
+      "never_receives_experience_tick": true
+    },
+    "day_to_day_spending": {
+      "living_standard_expenses_can_be_unbookkept_when_keeper_confirms_within_standard": true,
+      "spending_level_is_daily_no_bookkeeping_threshold": true,
+      "purchase_above_spending_level_deducts_full_purchase_from_cash": true,
+      "insufficient_cash_requires_explicit_asset_or_debt_resolution": true,
+      "asset_conversion_time_is_keeper_determined": true,
+      "same_day_small_purchases_may_be_combined_at_keeper_discretion": true
+    },
+    "money_in": {
+      "large_sum_may_enter_cash_immediately": true,
+      "large_sum_may_become_assets_only_through_explicit_investment_resolution": true
+    },
+    "development_credit_rating_changes": {
+      "higher_asset_bracket": "recorded 1D10 steps until Credit Rating enters externally verified bracket",
+      "promotion": "recorded 1D6 increase",
+      "status_quo": "no change",
+      "demotion_or_unpaid_leave": "recorded 1D10 decrease",
+      "assets_now_match_lower_bracket": "recorded 1D10 decrease after source-backed bracket confirmation",
+      "main_income_lost": "recorded 2D10 decrease at each applicable development phase; optional safety-net floor requires a recorded 1D10",
+      "crash": "recorded 1D100 decrease with floor zero"
+    },
+    "development_finance_refresh": {
+      "after_credit_rating_review_add_table_cash_amount_to_remaining_cash": true,
+      "if_credit_rating_changed_asset_value_is_recalculated_from_private_table_adapter": true,
+      "if_credit_rating_unchanged_assets_are_not_silently_recalculated": true
+    }
+  },
+  "public_table_policy": {
+    "cash_asset_brackets_embedded": false,
+    "cash_refresh_values_embedded": false,
+    "spending_level_values_embedded": false,
+    "adapter_must_supply_exact_verified_values": true
+  },
+  "explicitly_blocked_batch1": [
+    "AUTOMATIC_PRICE_INVENTION",
+    "AUTOMATIC_LIVING_STANDARD_CLASSIFICATION",
+    "AUTOMATIC_ASSET_CONVERSION",
+    "AUTOMATIC_ASSET_CONVERSION_DURATION",
+    "AUTOMATIC_DEBT_TERMS",
+    "AUTOMATIC_CREDIT_RATING_CHANGE_WITHOUT_KEEPER_OR_SOURCE_GATE",
+    "AUTOMATIC_CASH_ASSET_TABLE_LOOKUP_IN_PUBLIC_MODULE",
+    "AUTOMATIC_EMPLOYMENT_NARRATIVE",
+    "AUTOMATIC_PURCHASE_AVAILABILITY",
+    "COMMERCIAL_CASH_AND_ASSETS_TABLE_REPRODUCTION"
+  ],
+  "randomness_policy": "No random values are generated. D100, D10, D6 and 2D10 values must be supplied as recorded runtime/replay values.",
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
