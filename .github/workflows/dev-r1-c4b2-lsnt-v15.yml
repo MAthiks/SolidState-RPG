@@ -1,0 +1,31 @@
+name: DEV R1 C4B2 LSNT v1.5
+
+on:
+  push:
+    branches:
+      - dev/r1-c4b2-lsnt-v1.5-current
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-route-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile C4B2 modules
+        run: |
+          python -m py_compile \
+            recovery/recertification-r1/scenario_router_r1_c4b2_lsnt.py \
+            recovery/recertification-r1/integrated_adjudication_r1_c4b2_lsnt.py \
+            recovery/recertification-r1/test_lsnt_router_public_r1_c4b2.py
+      - name: Run public LSNT v1.5 gate
+        working-directory: recovery/recertification-r1
+        run: python test_lsnt_router_public_r1_c4b2.py
