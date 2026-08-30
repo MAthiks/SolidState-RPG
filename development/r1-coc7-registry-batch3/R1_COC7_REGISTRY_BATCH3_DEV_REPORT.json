@@ -1,0 +1,41 @@
+{
+  "schema": "SOLIDSTATE_COC7_REGISTRY_DEV_REPORT_V1",
+  "stage": "R1_COC7_REGISTRY_BATCH3_DEV",
+  "status": "DEV_VALIDATED_NOT_FROZEN_NOT_AUTHORITY",
+  "result": "PASS",
+  "branch": "dev/r1-coc7-registry-batch3",
+  "validated_commit": "6a6216702c500ba288932d73f53f9aee9d62e99e",
+  "ci_run_id": 33288679259,
+  "parent_batch2_commit": "c215ea11d592d03b8ec028ba449a3e6cbec3f582",
+  "frozen_ancestor_registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
+  "source": {
+    "source_id": "COC7_INVESTIGATOR",
+    "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17"
+  },
+  "tests": {
+    "batch3_targeted": {"passed": 128, "total": 128, "runtime_seconds": 0.013},
+    "batch2_regression": {"passed": 128, "total": 128},
+    "batch1_regression": {"passed": 50, "total": 50},
+    "compile": "PASS",
+    "lineage_gate": "PASS",
+    "private_pdf_tracking_gate": "PASS"
+  },
+  "registry": {
+    "batch1_occupations": 11,
+    "batch2_occupations": 23,
+    "batch3_occupations": 24,
+    "cumulative_occupations": 58,
+    "batch3_skill_extensions": 1,
+    "unknown_records_fail_closed": true,
+    "era_gates_active": true,
+    "automatic_equipment_possession": false
+  },
+  "promotion": {
+    "module_ready": false,
+    "frozen_candidate": false,
+    "checkpoint334_created": false,
+    "authority_promoted": false,
+    "android_promoted": false
+  },
+  "next_gate": "R1_COC7_REGISTRY_BATCH4_DEV"
+}
