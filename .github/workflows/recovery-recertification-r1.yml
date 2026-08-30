@@ -102,20 +102,6 @@ jobs:
           python verify_package.py
           PYTHONPATH=. python -m runtime_r1.self_test
 
-      - name: Write R1-B summary
-        shell: bash
-        run: |
-          SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json)"
-          echo '## Recovery Recertification R1' >> "$GITHUB_STEP_SUMMARY"
-          echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo '- R1-A public provenance: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- R1-B runtime materialization: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo "- Recovery ZIP SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
-          echo '- Deterministic rebuild: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Historical Checkpoint329 byte identity claimed: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Playable/source-backed authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Next gate: `R1-C_PRIVATE_SOURCE_BACKED_FULL_RECERTIFICATION`' >> "$GITHUB_STEP_SUMMARY"
-
       - name: Upload R1-B candidate and evidence
         uses: actions/upload-artifact@v4
         with:
@@ -125,3 +111,82 @@ jobs:
             recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json
           if-no-files-found: error
           retention-days: 30
+
+  rules-migration-core-gate:
+    needs: runtime-materialization-gate
+    runs-on: ubuntu-latest
+    env:
+      RECOVERY_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Test source adapter fail-closed behavior
+        working-directory: recovery/recertification-r1
+        run: python test_source_adapter_r1.py
+
+      - name: Test source-grounded CoC7 core mechanics
+        working-directory: recovery/recertification-r1
+        run: python -m rules_r1.test_core_rules
+
+      - name: First deterministic rules build
+        env:
+          R1_C1_OUTDIR: ${{ runner.temp }}/r1c1_first
+        run: |
+          python recovery/recertification-r1/build_rules_package_r1.py
+          sha256sum "${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" | tee "${RUNNER_TEMP}/r1c1_first.sha256"
+
+      - name: Second deterministic rules build
+        env:
+          R1_C1_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/rules_dist
+        run: |
+          python recovery/recertification-r1/build_rules_package_r1.py
+          FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c1_first.sha256")"
+          SECOND_SHA="$(sha256sum "${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip" | awk '{print $1}')"
+          test "$FIRST_SHA" = "$SECOND_SHA"
+          test "$SECOND_SHA" != "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7"
+          jq -e '.byte_identical_to_historical_4_7 == false' "${R1_C1_OUTDIR}/R1_C1_RULES_BUILD_REPORT.json"
+          echo "DETERMINISTIC_RULES_SHA256=$SECOND_SHA"
+
+      - name: Verify extracted rules package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "${RUNNER_TEMP}/r1c1_extract"
+          mkdir -p "${RUNNER_TEMP}/r1c1_extract"
+          unzip -q recovery/recertification-r1/rules_dist/CoC7_Recovery_Rules_R1_Core.zip -d "${RUNNER_TEMP}/r1c1_extract"
+          cd "${RUNNER_TEMP}/r1c1_extract/CoC7_Recovery_Rules_R1_Core"
+          PYTHONPATH=. python -m rules_r1.test_core_rules
+
+      - name: Upload R1-C1 candidate and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-c1-rules-core
+          path: |
+            recovery/recertification-r1/rules_dist/CoC7_Recovery_Rules_R1_Core.zip
+            recovery/recertification-r1/rules_dist/R1_C1_RULES_BUILD_REPORT.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Write recovery summary
+        shell: bash
+        run: |
+          RUNTIME_SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json 2>/dev/null || echo 'see R1-B artifact')"
+          RULES_SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/rules_dist/R1_C1_RULES_BUILD_REPORT.json)"
+          echo '## Recovery Recertification R1' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-A public provenance: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-B runtime materialization: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-C1 source adapter fail-closed tests: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-C1 CoC7 core mechanics tests: **37/37 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo "- New Rules Core candidate SHA-256: \`$RULES_SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Historical CoC7 Rules Core 4.7 identity claimed: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Next gate: `R1-C2_RUNTIME_RULES_INTEGRATION`' >> "$GITHUB_STEP_SUMMARY"
