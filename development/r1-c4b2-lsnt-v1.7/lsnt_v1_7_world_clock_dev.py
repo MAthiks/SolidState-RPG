@@ -154,9 +154,11 @@ def resolve_front_check(
             return {"status": "BLOCKED", "code": "FRONT_CAUSAL_MODIFIER_INVALID"}
         adjusted = recorded_roll + sum(modifiers)
         result = "AXIS" if adjusted <= 2 else "STATUS_QUO" if adjusted <= 4 else "ALLIES"
+        # Persisted state records the source of the value, not whether this particular
+        # execution is a live commit or a replay verification. That keeps replay semantic state identical.
         record = {
             "check_time": check_time,
-            "mode": "RECORDED_REPLAY" if replay else "RECORDED_LIVE_INPUT",
+            "mode": "RECORDED_INPUT",
             "result": result,
             "roll": recorded_roll,
             "modifiers": modifiers,
@@ -165,7 +167,11 @@ def resolve_front_check(
     front["state"] = result
     front["last_check"] = check_time
     front["history"].append(record)
-    return {"status": "RESOLVED", **copy.deepcopy(record)}
+    return {
+        "status": "RESOLVED",
+        **copy.deepcopy(record),
+        "execution_mode": "REPLAY_VERIFICATION" if replay else "LIVE_COMMIT",
+    }
 
 
 def apply_travel(
