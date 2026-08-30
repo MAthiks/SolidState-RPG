@@ -1,8 +1,8 @@
 {
   "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_V1",
   "generation": "RECOVERY_RECERTIFICATION_R1",
-  "stage": "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION",
-  "status": "R1_C3_FROZEN_CANDIDATE_NOT_AUTHORITY",
+  "stage": "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION",
+  "status": "R1_C4_FROZEN_CANDIDATE_NOT_AUTHORITY",
   "base": {
     "branch": "main",
     "commit_sha": "5936b9e67af65b5a4d7d9c2d18ae6c44a7829db7",
@@ -125,11 +125,58 @@
       "Full occupation, skill, equipment and weapon registries plus remaining CoC7 mechanics still require migration."
     ]
   },
+  "r1_c4_registry_and_canonical_scenario_router": {
+    "result": "PASS",
+    "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C4_V1",
+    "source_commit": "9d84e463db86f73e388315470ad8272f54f5677d",
+    "package": "SolidState_Recovery_Runtime_R1_C4.zip",
+    "zip_sha256": "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b",
+    "zip_crc": "PASS",
+    "manifest_sha256": "5b5d39f99cab202321759d7691c6aef58b942d066d36b3f110107044c727b5fd",
+    "immutable_files": 21,
+    "parent_r1_c3_sha256": "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df",
+    "embedded_rules_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
+    "router_id": "SOLIDSTATE_CANONICAL_SCENARIO_ROUTER_R1_C4_V1",
+    "registry_scope": {
+      "skills": 43,
+      "occupations": 1,
+      "verified_occupation": "ARCHAEOLOGIST",
+      "equipment_reference_records": 4,
+      "weapon_records": 3,
+      "unknown_records_fail_closed": true,
+      "automatic_possession_from_registry": false
+    },
+    "public_tests": "45/45 PASS",
+    "private_router_matrix": "222/222 PASS",
+    "private_source_identities": "8/8 PASS",
+    "canonical_route_ready": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR"],
+    "source_ready_path_blocked": ["SOLEIL_NOIR"],
+    "source_identity_blocked": ["MAISON_PENDU"],
+    "c3_mapping_correction": {
+      "id": "C3-MAP-001",
+      "scenario": "MAISON_PENDU",
+      "old_mapping": "AE_COLLECTION",
+      "new_status": "BLOCKED_SOURCE_IDENTITY_UNVERIFIED",
+      "automatic_substitution": false
+    },
+    "canonical_save_binding_revalidated_on_restore": true,
+    "tampered_route_rejected_after_reauthentication": true,
+    "identity_frozen_in_ci": true,
+    "private_sources_embedded": false,
+    "authority_promoted": false,
+    "scope_limits": [
+      "Only Archaeologist is currently materialized as a verified occupation; other occupations remain fail-closed.",
+      "Equipment registry remains a minimal reference subset and never grants possession.",
+      "Soleil Noir v1.5 source pair is verified but its canonical path is not compiled in C4.",
+      "Maison du Pendu is no longer substituted by Aventures Effroyables; its current source identity remains unverified in the recovery runtime."
+    ]
+  },
   "required_next_gates": [
-    "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION"
+    "R1-C4B_EXPAND_REGISTRIES_AND_COMPILE_REMAINING_SCENARIO_ROUTES"
   ],
   "promotion": {
-    "allowed_at_stage_r1_c3": false,
+    "allowed_at_stage_r1_c4": false,
     "checkpoint334_created": false,
     "android_apk_promoted": false,
     "automatic_downgrade_forbidden": true,
