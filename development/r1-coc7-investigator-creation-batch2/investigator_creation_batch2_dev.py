@@ -79,6 +79,37 @@ def _all_occupation_records() -> dict:
     return out
 
 
+def _materialized_science_specializations() -> set[str]:
+    found = set()
+
+    def inspect(item):
+        if not isinstance(item, dict):
+            return
+        family = _norm(item.get('skill_family', '')) if item.get('skill_family') else None
+        skill = _norm(item.get('skill', '')) if item.get('skill') else None
+        if family == 'SCIENCE' or skill == 'SCIENCE':
+            required = item.get('required_specialization')
+            if isinstance(required, str) and _norm(required) not in PLACEHOLDER_SPECIALIZATIONS:
+                found.add(_norm(required))
+            spec = item.get('specialization')
+            if isinstance(spec, str) and _norm(spec) not in PLACEHOLDER_SPECIALIZATIONS:
+                found.add(_norm(spec))
+            for value in item.get('specialization_choice', []) if isinstance(item.get('specialization_choice'), list) else []:
+                if isinstance(value, str) and value.strip():
+                    found.add(_norm(value))
+        for alt in item.get('choice_one_of', []) if isinstance(item.get('choice_one_of'), list) else []:
+            inspect(alt)
+        plan = item.get('choice_n_of')
+        if isinstance(plan, dict):
+            for alt in plan.get('choices', []) if isinstance(plan.get('choices'), list) else []:
+                inspect(alt)
+
+    for record in _all_occupation_records().values():
+        for slot in record.get('skill_slots', []):
+            inspect(slot)
+    return found
+
+
 def occupation_slot_schema_audit() -> dict:
     unsupported = []
     bad_count = []
@@ -136,6 +167,13 @@ def _expanded_slots(record: dict) -> list[dict]:
 def _resolve_skill_record(skill_id: str, specialization: str | None, *, characteristics: dict, era: str) -> dict:
     requested = _norm(skill_id)
     specialization_norm = _norm(specialization) if specialization else None
+    if requested == 'SCIENCE' and specialization_norm and specialization_norm not in _materialized_science_specializations():
+        return {
+            'status': 'BLOCKED',
+            'code': 'SCIENCE_SPECIALIZATION_UNMATERIALIZED',
+            'skill_id': requested,
+            'specialization': specialization_norm,
+        }
     candidates = [requested]
     if specialization_norm:
         candidates.insert(0, f'{requested}_{specialization_norm}')
