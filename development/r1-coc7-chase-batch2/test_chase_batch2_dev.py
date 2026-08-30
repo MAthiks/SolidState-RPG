@@ -178,11 +178,13 @@ class ChaseBatch2Tests(unittest.TestCase):
 
     def test_multi_layout_basic(self):
         r=c.multiple_participant_layout(pursuers=[{'id':'P1','mov':8},{'id':'P2','mov':10}],fleeing=[{'id':'F1','mov':9},{'id':'F2','mov':10}])
-        self.assertTrue(r['chase_continues']); self.assertEqual(r['positions']['P2'],1); self.assertEqual(r['positions']['F1'],3); self.assertEqual(r['positions']['F2'],4)
+        self.assertTrue(r['chase_continues']); self.assertEqual(r['pursuers_left_behind'],['P1'])
+        self.assertEqual(r['positions']['P2'],0); self.assertEqual(r['positions']['F1'],2); self.assertEqual(r['positions']['F2'],3)
 
     def test_multi_escape_eligible_not_auto_selected(self):
         r=c.multiple_participant_layout(pursuers=[{'id':'P','mov':8}],fleeing=[{'id':'F','mov':9}])
-        self.assertEqual(r['escape_eligible'],['F']); self.assertTrue(r['chase_continues']); self.assertFalse(r['automatic_escape_choice_made'])
+        self.assertEqual(r['escape_eligible'],['F']); self.assertFalse(r['chase_continues'])
+        self.assertEqual(r['escaped_by_choice'],[]); self.assertEqual(r['pursuers_left_behind'],['P'])
 
     def test_multi_escape_by_explicit_choice(self):
         r=c.multiple_participant_layout(pursuers=[{'id':'P','mov':8}],fleeing=[{'id':'F','mov':9}],fleeing_choose_escape_ids=['F'])
@@ -212,14 +214,11 @@ class ChaseBatch2Tests(unittest.TestCase):
         self.assertFalse(c.barrier_ram(vehicle_build=1,barrier_hp_before=1,recorded_d10=[1])['randomness_generated'])
 
 
-# Extra data-driven checks: each one is a distinct unittest, keeping CI counts visible.
 def _add_generated_tests():
     cases=[]
     for locations,assist,expected in [(1,False,0),(2,False,1),(3,False,1),(4,False,2),(5,False,2),(2,True,0),(3,True,0),(4,True,1),(5,True,1)]:
         cases.append(('accel',locations,assist,expected))
-    for incident,dice,expected in [
-        ('MINOR',[2],1),('MODERATE',[4],4),('SEVERE',[8],8),('MAYHEM',[4,5],9),('ROAD_KILL',[1,2,3,4,5],15)
-    ]:
+    for incident,dice,expected in [('MINOR',[2],1),('MODERATE',[4],4),('SEVERE',[8],8),('MAYHEM',[4,5],9),('ROAD_KILL',[1,2,3,4,5],15)]:
         cases.append(('collision',incident,dice,expected))
     for attacker,target,expected in [(5,3,0),(5,4,0),(5,5,0),(5,6,1),(5,7,2)]:
         cases.append(('maneuver',attacker,target,expected))
