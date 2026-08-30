@@ -231,8 +231,7 @@ def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict
         seen.add(actor_id)
         parsed.append({'actor_id': actor_id, 'characteristic': characteristic})
 
-    # Source order for combined physical effort is lowest characteristic first.
-    remaining = sorted(parsed, key=lambda p: (p['characteristic'], p['actor_id']))
+    remaining = sorted(parsed, key=lambda p: p['characteristic'])
     opposition = opposition_value
     reducers = []
 
@@ -251,6 +250,14 @@ def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict
                 'automatic_helper_selection': False,
                 'randomness_generated': False,
             }
+        lowest = remaining[0]['characteristic']
+        tied_lowest = [p['actor_id'] for p in remaining if p['characteristic'] == lowest]
+        if len(tied_lowest) > 1:
+            return _blocked(
+                'LOWEST_CHARACTERISTIC_REDUCER_TIE_KEEPER_RESOLUTION_REQUIRED',
+                characteristic=lowest,
+                candidates=tied_lowest,
+            )
         reducer = remaining.pop(0)
         next_opposition = opposition - reducer['characteristic']
         if next_opposition <= 0:
