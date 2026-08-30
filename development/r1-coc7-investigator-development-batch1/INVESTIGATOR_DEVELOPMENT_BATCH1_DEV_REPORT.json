@@ -1,0 +1,35 @@
+{
+  "schema": "COC7_INVESTIGATOR_DEVELOPMENT_BATCH1_DEV_REPORT_V1",
+  "stage": "R1_COC7_INVESTIGATOR_DEVELOPMENT_BATCH1_DEV",
+  "module_id": "COC7_INVESTIGATOR_DEVELOPMENT_R1_BATCH1_DEV_V1",
+  "parent_module_id": "COC7_MAGIC_CORE_R1_BATCH2_DEV_V1",
+  "source_sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+  "validated_source_commit": "1842028f6294185f22b5ed240c48630f5fc5301c",
+  "github_actions_run_id": 33304409038,
+  "result": "PASS",
+  "targeted_tests": {
+    "passed": 92,
+    "total": 92
+  },
+  "prior_validated_chain": {
+    "passed": 987,
+    "total": 987
+  },
+  "combined_chain": {
+    "passed": 1079,
+    "total": 1079
+  },
+  "scope": [
+    "experience tick eligibility",
+    "skill improvement checks",
+    "90 percent threshold sanity reward handoff",
+    "campaign training and academic self-study gates",
+    "optional Luck recovery"
+  ],
+  "aging_effects_included": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "status": "DEV_VALIDATED_NOT_AUTHORITY"
+}
