@@ -1,0 +1,53 @@
+{
+  "schema": "COC7_OTHER_FORMS_DAMAGE_BATCH1_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_OTHER_FORMS_DAMAGE_R1_BATCH1_DEV_V1",
+  "parent_ranged_thrown_armor_module_id": "COC7_RANGED_THROWN_ARMOR_R1_BATCH1_DEV_V1",
+  "parent_validated_commit": "9815b353f3fa7c4ef01b34ab6019ed1675a6ecef",
+  "parent_validated_test_chain": 1608,
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [123, 124],
+    "scope": "Other Forms of Damage, repeated exposure, asphyxiation/drowning, and poison CON mitigation"
+  },
+  "materialized_rules": {
+    "severity_profiles": {
+      "MINOR": "1D3",
+      "MODERATE": "1D6",
+      "SEVERE": "1D10",
+      "DEADLY": "2D10",
+      "TERMINAL": "4D10",
+      "SPLAT": "8D10"
+    },
+    "severity_selected_explicitly_not_inferred_from_narrative": true,
+    "damage_dice_are_recorded_inputs": true,
+    "repeated_exposure_can_apply_damage_each_successive_round": true,
+    "asphyxiation_con_check_each_round_until_first_failure": true,
+    "asphyxiation_exertion_requires_hard_con": true,
+    "asphyxiation_damage_after_failed_con_continues_each_round_until_breathing": true,
+    "asphyxiation_death_at_zero_hp_ignores_major_wound_rule": true,
+    "poison_extreme_con_halves_damage": true,
+    "poison_critical_shakeoff_is_keeper_optional_not_automatic": true,
+    "poison_symptom_effect_is_keeper_selected": true
+  },
+  "reuse_policy": {
+    "success_levels_reused_from_frozen_rules_core": true,
+    "ordinary_damage_state_reused_from_wounds_healing_batch1": true,
+    "duplicate_percentile_engine_created": false,
+    "duplicate_major_wound_engine_created": false
+  },
+  "fail_closed": {
+    "unknown_severity": true,
+    "recorded_damage_dice_mismatch": true,
+    "odd_poison_damage_halving_without_explicit_resolution": true,
+    "automatic_poison_symptom_selection": true,
+    "automatic_narrative_severity_selection": true
+  },
+  "automatic_severity_selection": false,
+  "automatic_poison_symptom_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
