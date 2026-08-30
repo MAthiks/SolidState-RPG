@@ -1,0 +1,51 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V1",
+  "result": "PASS_ROUTE_RUNTIME",
+  "status": "DEV_VALIDATED_NOT_AUTHORITY",
+  "branch": "dev/r1-c4b2-lsnt-v1.5-current",
+  "base_evidence_commit": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
+  "public_ci_commit": "4bcf2c2dd9ff8be38995647fa494f518723b49ac",
+  "public_ci_run_id": 33323313413,
+  "public_gate": "27/27 PASS",
+  "private_route_matrix": "94/94 PASS",
+  "private_route_matrix_sha256": "6a59d8371092ef38433b569d0b197b484c084d70b928d743f31458a8d4c070f7",
+  "scenario": {
+    "scenario_id": "LSNT-V1.5-MULTI-1942",
+    "source_pair_id": "LSNT-V1.5-MULTI-1942",
+    "keeper_sha256": "9c1e609d50250599a30fdb3ec899cf8b62cc9638944891900d0a982d958760f6",
+    "player_sha256": "9838b2f3e816e1ce08c29fa148eef765d2d1934a334ce8a78f8313fe6dc1b889",
+    "source_identity": "2/2 PASS"
+  },
+  "route_features_verified": {
+    "one_to_four_players": true,
+    "non_linear_investigation": true,
+    "single_clue_indispensable": false,
+    "world_clock_j1_j4": true,
+    "front_track_twice_daily": true,
+    "individual_exposure_thresholds": [2, 4, 6],
+    "knowledge_partition_required": true,
+    "timeline_synchronizer_if_split": true,
+    "individual_sanity": true,
+    "autonomous_bcra_ally": true,
+    "ending_families": 10
+  },
+  "runtime_verified": {
+    "new_canonical_session_1_to_4": "PASS",
+    "player_projection_keeper_path_leaks": 0,
+    "player_projection_source_hash_leaks": 0,
+    "action_commit": "PASS",
+    "strict_replay": "PASS",
+    "save_restore_strict": "PASS",
+    "reauthenticated_route_tamper_rejected": "PASS",
+    "wrong_source_zero_mutation": "PASS"
+  },
+  "from_dice_continuity": {
+    "result": "PASS_COMPOSED_CONTINUITY",
+    "evidence_file": "development/r1-coc7-canonical-runtime-creation-binding/PRIVATE_FULL_CREATION_COMPOSED_EVIDENCE.json",
+    "single_process_private_from_dice_rerun_claimed": false
+  },
+  "private_source_content_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "next_gate": "C4B2_LSNT_REQUIRED_MECHANICAL_REGISTRY_EXPANSION"
+}
