@@ -1,0 +1,46 @@
+{
+  "schema": "SOLIDSTATE_PRIVATE_FULL_CREATION_COMPOSED_EVIDENCE_V1",
+  "result": "PASS_COMPOSED_CONTINUITY",
+  "qualification": "ACCELERATED_COMPOSITION_OF_EXACT_VALIDATED_BOUNDARIES",
+  "base_executable_commit": "67a54a708f0cec51896a2080b436879754c01256",
+  "evidence_head": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
+  "evidence_head_code_delta_from_base": "NONE",
+  "single_process_private_from_dice_rerun_completed": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "private_pdf_embedded": false,
+  "upstream_creation_chain": {
+    "batch1_combined": "2414/2414 PASS",
+    "batch2_combined": "2514/2514 PASS",
+    "batch3_combined": "2614/2614 PASS",
+    "batch4_combined": "2714/2714 PASS",
+    "batch4_test_helper_blob": "fa9f38e6f5db111bd527d5d681a4de8748ac1627",
+    "recorded_dice_to_batch2_ready_exercised": true,
+    "batch2_ready_to_finance_equipment_atomic_ready_exercised": true,
+    "one_to_four_players_exercised": true,
+    "party_finalization_and_strict_replay_exercised": true
+  },
+  "canonical_binding_chain": {
+    "public_binding": "100/100 PASS",
+    "combined_public": "2814/2814 PASS",
+    "canonical_binding_to_runtime_c4": true
+  },
+  "private_downstream_chain": {
+    "actual_private_transaction_cases": "16/16 PASS",
+    "creation_commits": "40/40 PASS",
+    "save_restore_strict": "16/16 PASS",
+    "strict_replay": "16/16 PASS",
+    "private_source_identities": "8/8 PASS",
+    "independent_rerun_report_sha256": "a69c03ac6f9e4381a8e0d77255497311f88db16096adab7eb39415f2f5774054"
+  },
+  "continuity_argument": [
+    "The exact Batch4 public helper constructs investigator creation from recorded characteristic dice, age inputs, EDU checks, occupation selection, skill allocation and story inputs before producing the Batch3 atomic-ready bundle.",
+    "The validated Batch3/B4 boundary is the same READY_FOR_ATOMIC_COMMIT boundary consumed by the independently rerun private canonical transaction harness.",
+    "The canonical binding module and C4 runtime executable bytes are unchanged between the public proof base and the evidence-only head.",
+    "The private C4 session reopens and verifies the exact mounted rulebooks and scenario sources before the canonical transaction begins.",
+    "Therefore the validated upstream from-dice path and the actual private downstream canonical path meet at an exact, hash-bound interface without an unvalidated executable gap."
+  ],
+  "scope_limit": "This is a composed continuity proof, not a claim that one new local process reran every upstream creation module against private PDFs from the first die to the final restored action.",
+  "development_gate": "PASS_TO_C4B2_ROUTE_ALIGNMENT",
+  "promotion_gate": "NOT_GRANTED"
+}
