@@ -101,7 +101,7 @@ class LuckSpendingBatch1Tests(unittest.TestCase):
         self.assertEqual(resolved(original_roll=100, spend_points=10)['code'], 'ORIGINAL_FUMBLE_CANNOT_BE_BOUGHT_OFF_WITH_LUCK')
 
     def test_023_low_skill_96_fumble_blocks(self):
-        self.assertEqual(resolved(value=40, original_roll=96, spend_points=60)['code'], 'ORIGINAL_FUMBLE_CANNOT_BE_BOUGHT_OFF_WITH_LUCK')
+        self.assertEqual(resolved(current_luck=99, value=40, original_roll=96, spend_points=60)['code'], 'ORIGINAL_FUMBLE_CANNOT_BE_BOUGHT_OFF_WITH_LUCK')
 
     def test_024_value_50_roll_96_is_not_automatic_fumble(self):
         r = resolved(value=50, original_roll=96, spend_points=47)
@@ -156,7 +156,7 @@ class LuckSpendingBatch1Tests(unittest.TestCase):
         self.assertEqual(r['adjusted_level'], 'HARD')
 
     def test_038_regular_failure_can_become_extreme_success(self):
-        r = resolved(value=60, original_roll=70, spend_points=58)
+        r = resolved(current_luck=99, value=60, original_roll=70, spend_points=58)
         self.assertEqual(r['adjusted_roll'], 12)
         self.assertEqual(r['adjusted_level'], 'EXTREME')
 
@@ -223,7 +223,7 @@ class LuckSpendingBatch1Tests(unittest.TestCase):
         self.assertFalse(r['adjusted_success'])
 
     def test_056_extreme_difficulty_succeeds_at_fifth(self):
-        r = resolved(value=60, original_roll=70, spend_points=58, difficulty='EXTREME')
+        r = resolved(current_luck=99, value=60, original_roll=70, spend_points=58, difficulty='EXTREME')
         self.assertTrue(r['adjusted_success'])
 
     def test_057_regular_boundary_exact_skill(self):
