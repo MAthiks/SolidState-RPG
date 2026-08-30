@@ -1,0 +1,60 @@
+{
+  "schema": "COC7_COMBAT_ROUND_INITIATIVE_BATCH1_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_COMBAT_ROUND_INITIATIVE_R1_BATCH1_DEV_V1",
+  "parent_luck_module_id": "COC7_LUCK_SPENDING_R1_BATCH1_DEV_V1",
+  "parent_validated_commit": "1d948322eb30078314e0e3fad0fcf80ee70989bf",
+  "parent_validated_test_chain": 1456,
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [102, 112],
+    "scope": "Combat rounds, DEX order, action opportunity, delay, and readied-firearm DEX order"
+  },
+  "materialized_rules": {
+    "one_turn_opportunity_per_capable_willing_combatant_per_round": true,
+    "base_order_highest_dex_first": true,
+    "dex_tie_higher_combat_skill_first": true,
+    "unresolved_exact_tie_fails_closed": true,
+    "readied_firearm_shot_uses_dex_plus_50": true,
+    "readied_firearm_bonus_reused_from_firearms_batch1": true,
+    "combat_action_kinds": [
+      "FIGHTING_ATTACK",
+      "FIREARMS_ATTACK",
+      "FIGHTING_MANEUVER",
+      "FLEE",
+      "CAST_SPELL",
+      "OTHER_TIME_ACTION"
+    ],
+    "monster_multiple_attacks_share_one_monster_turn": true,
+    "character_may_delay_until_another_character_acts": true,
+    "simultaneous_delayed_actions_use_highest_raw_dex": true,
+    "simultaneous_delayed_raw_dex_tie_fails_closed": true,
+    "mutual_wait_can_end_with_both_actions_lost_only_by_explicit_keeper_resolution": true,
+    "round_completion_requires_every_declared_participant_to_be_nonpending": true
+  },
+  "reuse_policy": {
+    "firearm_dex_order_reused_from_combat_firearms_batch1": true,
+    "duplicate_readied_firearm_bonus_engine_created": false,
+    "combat_attack_resolution_not_duplicated": true,
+    "melee_resolution_not_duplicated": true
+  },
+  "fail_closed": {
+    "duplicate_actor": true,
+    "invalid_dex_or_combat_skill": true,
+    "unsupported_action_kind": true,
+    "readied_firearm_flag_on_non_firearms_action": true,
+    "multiple_attacks_for_nonmonster": true,
+    "initiative_exact_tie": true,
+    "delay_target_missing_or_self": true,
+    "simultaneous_delay_raw_dex_tie": true,
+    "round_status_map_missing_or_extra_actor": true
+  },
+  "automatic_action_selection": false,
+  "automatic_tie_break": false,
+  "automatic_round_end_on_mutual_wait": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
