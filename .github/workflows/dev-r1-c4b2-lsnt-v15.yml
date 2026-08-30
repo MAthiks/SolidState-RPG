@@ -39,6 +39,8 @@ jobs:
         run: |
           tar -czf c4b2-public-code.tgz \
             development/r1-c4b2-lsnt-v1.5-current \
+            development/r1-coc7-investigator-aging-batch1 \
+            development/r1-coc7-investigator-aging-batch2 \
             development/r1-coc7-investigator-creation-batch1 \
             development/r1-coc7-investigator-creation-batch2 \
             development/r1-coc7-investigator-creation-batch3 \
