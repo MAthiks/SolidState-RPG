@@ -1,0 +1,31 @@
+{
+  "schema": "COC7_CANONICAL_RUNTIME_CREATION_BINDING_PRIVATE_TRANSACTION_E2E_SUMMARY_V1",
+  "result": "PASS",
+  "scope_boundary": "READY_FOR_ATOMIC_COMMIT_TO_CANONICAL_PLAY_SAVE_RESTORE",
+  "exact_module_git_blobs": {
+    "batch3": "17b314379fe05b08eb013e8780842867d3b8f36e",
+    "batch4": "ea5d63c150d6ca2f0e8818381014653f2cb80685",
+    "canonical_binding": "e724f59f01856b4e21c676ecdd41615d9d322cd3"
+  },
+  "frozen_c4_runtime_sha256": "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b",
+  "rules_package_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+  "scenario_player_cases": {"passed": 16, "total": 16},
+  "ready_scenarios": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR"],
+  "player_counts": [1, 2, 3, 4],
+  "creation_commit_count_total": 40,
+  "play_ready_cases": 16,
+  "strict_replay_cases": 16,
+  "restore_strict_cases": 16,
+  "scenario_binding_preserved_cases": 16,
+  "player_projection_canonical_path_leaks": 0,
+  "player_projection_source_hash_leaks": 0,
+  "blocked_routes": {
+    "SOLEIL_NOIR": {"status": "FAIL_CLOSED", "code": "CANONICAL_PATH_UNCOMPILED", "zero_mutation": true},
+    "MAISON_PENDU": {"status": "FAIL_CLOSED", "code": "SCENARIO_SOURCE_IDENTITY_UNVERIFIED", "zero_mutation": true}
+  },
+  "local_full_report_sha256": "92b353a2c708d0267bd78b996258dcfe29c5e4075f78dfa3a639785bf7cfb079",
+  "full_from_dice_private_e2e_completed": false,
+  "private_pdfs_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
