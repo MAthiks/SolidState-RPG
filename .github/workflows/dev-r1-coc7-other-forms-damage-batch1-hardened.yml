@@ -1,0 +1,36 @@
+name: DEV R1 CoC7 Other Forms Damage Batch1 Hardened
+
+on:
+  push:
+    branches: ["dev/r1-coc7-other-forms-damage-batch1"]
+    paths:
+      - "development/r1-coc7-other-forms-damage-batch1/**"
+      - ".github/workflows/dev-r1-coc7-other-forms-damage-batch1-hardened.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile new batch
+        run: python -m compileall -q development/r1-coc7-other-forms-damage-batch1
+      - name: Run exact hardened 1688-test gate
+        run: |
+          set -euo pipefail
+          python development/r1-coc7-other-forms-damage-batch1/run_hardened_gate.py 2>&1 | tee /tmp/hardened.log
+          grep -q '"combined_tests": 1688' /tmp/hardened.log
+          grep -q '"result": "PASS"' /tmp/hardened.log
+      - name: Summary
+        run: |
+          echo '## Other Forms Damage Batch1 hardened gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined exact chain: **1688/1688 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Source: **Keeper pp. 123-124 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic severity/symptom selection: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
