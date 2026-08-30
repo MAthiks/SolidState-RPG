@@ -1,6 +1,6 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V4",
-  "result": "PASS_ROUTE_RUNTIME_REGISTRY_BINDING_RECORDED_DICE_TO_PLAY",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V5",
+  "result": "PASS_ROUTE_RUNTIME_REGISTRY_BINDING_SOURCE_FINANCE_EQUIPMENT_TO_PLAY",
   "status": "DEV_VALIDATED_NOT_AUTHORITY",
   "branch": "dev/r1-c4b2-lsnt-v1.5-current",
   "base_evidence_commit": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
@@ -15,6 +15,8 @@
   "private_canonical_binding_report_sha256": "96c7db35f99fe2bdd7bff9f6c99873c6b3835b4d960cabff5774026e5482fc92",
   "private_recorded_dice_to_play": "4/4 PASS",
   "private_recorded_dice_to_play_report_sha256": "082e0e5fc190b59161f016f59b0f4a7397efaa107830815638482f322ba74da8",
+  "private_source_finance_equipment_to_play": "4/4 PASS",
+  "private_source_finance_equipment_report_sha256": "740ea88d8bc1a913c0cc71d843414bca604ce1237b4ebd819762fce6ea265bde",
   "scenario": {
     "scenario_id": "LSNT-V1.5-MULTI-1942",
     "source_pair_id": "LSNT-V1.5-MULTI-1942",
@@ -58,16 +60,31 @@
     "player_projection_leaks": 0,
     "reauthenticated_registry_tamper_rejected": true
   },
-  "recorded_dice_to_play_scope": {
+  "source_finance_equipment_verified": {
+    "finance_source_id": "COC7_INVESTIGATOR",
+    "finance_source_page": 57,
+    "finance_table_identity": "TABLE_II_CASH_AND_ASSETS_1920S",
+    "finance_profile_derived_during_private_run": true,
+    "wrong_finance_source_rejected": true,
+    "nonempty_equipment_selected_records": 4,
+    "equipment_private_source_pages_revalidated": true,
+    "equipment_selection_automatic": false,
+    "unknown_equipment_zero_mutation": true,
+    "finance_persistence": "4/4 PASS",
+    "inventory_persistence": "4/4 PASS"
+  },
+  "creation_scope": {
     "single_process": true,
     "recorded_dice_inputs": true,
     "random_dice_generated_by_harness": false,
     "characteristics_aging_occupation_skills_story": "EXACT_PIPELINE_PASS",
-    "finance": "VALIDATED_PRE_RESOLVED_PROFILE_NOT_SOURCE_TABLE_DERIVATION",
-    "possessions": "EMPTY_NOT_NONEMPTY_EQUIPMENT_CERTIFICATION"
+    "finance": "PRIVATE_SOURCE_DERIVED_TABLE_II_1920S_PASS",
+    "possessions": "EXPLICIT_NONEMPTY_SOURCE_REVALIDATED_PASS",
+    "complete_purchase_price_availability_economy": "NOT_CLAIMED",
+    "separate_1942_finance_inflation_table": "NOT_INVENTED"
   },
   "private_source_content_embedded": false,
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "PRIVATE_SOURCE_DRIVEN_FINANCE_AND_NONEMPTY_EQUIPMENT_CREATION"
+  "next_gate": "C4B2_DEV_FREEZE_AUDIT_AND_CROSS_SCENARIO_NONREGRESSION"
 }
