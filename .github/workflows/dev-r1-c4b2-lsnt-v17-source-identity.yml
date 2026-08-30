@@ -27,10 +27,12 @@ jobs:
           python -m py_compile \
             development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_precompile_gate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/source_identity_proof_v2.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_canonical_graph_candidate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_precompile_gate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_materialize_v17_source_identity.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_source_identity_proof_v2.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_canonical_graph_candidate.py
-      - name: Run v1.7 fail-closed precompile materializer and graph suites
+      - name: Run v1.7 fail-closed identity and graph suites
         working-directory: development/r1-c4b2-lsnt-v1.7-source-identity
-        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py test_lsnt_v17_canonical_graph_candidate.py
+        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py test_source_identity_proof_v2.py test_lsnt_v17_canonical_graph_candidate.py

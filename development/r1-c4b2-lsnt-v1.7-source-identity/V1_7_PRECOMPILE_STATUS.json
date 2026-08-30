@@ -1,68 +1,45 @@
 {
   "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_PRECOMPILE_STATUS_V2",
   "branch": "dev/r1-c4b2-lsnt-v1.7-source-identity",
-  "status": "CANONICAL_GRAPH_CANDIDATE_VALIDATED_SOURCE_BYTES_PENDING",
+  "status": "PROVIDER_ATTESTATION_DEV_UNBLOCKED_BYTE_EXACT_PENDING",
   "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
   "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
   "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
   "runtime_dependency_on_v1_5": false,
   "source_library_content_verified": true,
+  "source_library_full_document_retrieval": {
+    "keeper_pages": 3,
+    "player_pages": 1
+  },
   "exact_pdf_byte_hashes_materialized": false,
-  "private_runtime_compilation_allowed": false,
-  "canonical_runtime_activation_allowed": false,
-  "public_ci_tests": "65/65 PASS",
-  "public_ci_commit": "3843230b74e7ebeadb8456c7b4f549ef13d9ce6d",
-  "public_ci_run_id": 33332132586,
-  "materializer": "development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py",
-  "graph_candidate": "development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_canonical_graph_candidate.py",
-  "materializer_behavior": {
-    "checks_pdf_header": true,
-    "extracts_document_text": true,
-    "requires_exact_source_id": true,
-    "requires_exact_pair_id": true,
-    "requires_role_marker": true,
-    "computes_sha256_from_raw_bytes": true,
-    "rejects_v1_5_hash_reuse": true,
-    "rejects_keeper_player_hash_collision": true
+  "provider_attestation": {
+    "level": "PROVIDER_ATTESTED",
+    "dev_runtime_allowed": true,
+    "dev_matrix_allowed": true,
+    "module_ready_allowed": false,
+    "frozen_candidate_allowed": false,
+    "promotion_allowed": false,
+    "provider_object_tokens_embedded_publicly": false,
+    "raw_pdf_hash_equivalence_claimed": false
   },
-  "graph_candidate_verified": {
-    "non_executable_until_hash_allowlist_materialized": true,
-    "locations": 10,
-    "clue_nodes": 8,
-    "single_clue_indispensable": false,
-    "independent_nonhuman_routes": 3,
-    "world_clock_events": 11,
-    "front_checks": ["0600", "1800"],
-    "travel_records": 7,
-    "exposure_thresholds": [2, 4, 6],
-    "sanity_records": 6,
-    "resolution_methods": 6,
-    "ending_family_count": 10,
-    "state_contract_present": true,
-    "player_counts": [1, 2, 3, 4],
-    "knowledge_partition_required": true,
-    "individual_inventory_separated": true,
-    "player_projection_guardian_truth_exposed": false,
-    "player_projection_future_events_exposed": false,
-    "player_projection_source_hashes_exposed": false,
-    "player_projection_canonical_graph_exposed": false,
-    "activation_without_exact_hashes": "BLOCKED_ZERO_MUTATION"
+  "byte_exact_policy": {
+    "required_for": [
+      "MODULE_READY",
+      "FROZEN_CANDIDATE",
+      "PROMOTION"
+    ],
+    "reuse_v1_5_hashes": false,
+    "fallback_to_v1_5_or_v1_6": false
   },
-  "shared_resources_verified": {
-    "water_liters": {"1": 32, "2": 48, "3": 64, "4": 80},
-    "team_radio_batteries": 2,
-    "vehicle": "FORD_FORDOR_C11ADF_DESERT",
-    "fuel": "FULL_TANK_PLUS_TWO_20L_JERRICANS",
-    "fuel_capacity_numeric_invented": false,
-    "fuel_consumption_numeric_invented": false
+  "canonical_graph_candidate": {
+    "validated": true,
+    "previous_ci": "65/65 PASS",
+    "activation_with_unmaterialized_raw_hashes": "DEV_ONLY_PROVIDER_ATTESTED",
+    "portable_byte_identity": false
   },
-  "anti_rollback": {
-    "v1_5_promotable": false,
-    "v1_5_hash_reuse_allowed": false,
-    "fallback_to_v1_5_or_v1_6": false,
-    "activation_before_2_of_2_byte_hashes": false
-  },
+  "source_identity_v2_local_tests": "20/20 PASS",
+  "public_ci_for_v2": "PENDING_ON_COMMIT",
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "MOUNT_BOTH_V1_7_PDF_BYTES_MATERIALIZE_SHA256_2_OF_2_THEN_BIND_GRAPH"
+  "next_gate": "RUN_PROVIDER_ATTESTED_DEV_RUNTIME_1_TO_4_MATRIX_THEN_REQUIRE_BYTE_EXACT_FOR_MODULE_READY"
 }
