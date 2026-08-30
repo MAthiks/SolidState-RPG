@@ -1,11 +1,12 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V5",
-  "result": "PASS_ROUTE_RUNTIME_REGISTRY_BINDING_SOURCE_FINANCE_EQUIPMENT_TO_PLAY",
-  "status": "DEV_VALIDATED_NOT_AUTHORITY",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V6",
+  "result": "PASS_C4B2_DEV_FREEZE_AUDIT",
+  "status": "DEV_FREEZE_CANDIDATE_NOT_AUTHORITY",
   "branch": "dev/r1-c4b2-lsnt-v1.5-current",
   "base_evidence_commit": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
   "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
   "public_ci_run_id": 33324897883,
+  "latest_evidence_ci_run_id": 33325553028,
   "public_route_registry_gate": "41/41 PASS",
   "public_canonical_creation_binding_gate": "52/52 PASS",
   "public_code_artifact_tar_sha256": "034f3bed29852510ad4a3b4c23c38c0e58e07ff6775ebdec0e3c87c6cb83f15d",
@@ -17,25 +18,14 @@
   "private_recorded_dice_to_play_report_sha256": "082e0e5fc190b59161f016f59b0f4a7397efaa107830815638482f322ba74da8",
   "private_source_finance_equipment_to_play": "4/4 PASS",
   "private_source_finance_equipment_report_sha256": "740ea88d8bc1a913c0cc71d843414bca604ce1237b4ebd819762fce6ea265bde",
+  "cross_scenario_freeze_audit": "20/20 PASS",
+  "cross_scenario_freeze_audit_report_sha256": "6ca3d8741e026a27d02e0ef8afb075d3c339c0b6bf936c86d77262855eb5b80b",
   "scenario": {
     "scenario_id": "LSNT-V1.5-MULTI-1942",
     "source_pair_id": "LSNT-V1.5-MULTI-1942",
     "keeper_sha256": "9c1e609d50250599a30fdb3ec899cf8b62cc9638944891900d0a982d958760f6",
     "player_sha256": "9838b2f3e816e1ce08c29fa148eef765d2d1934a334ce8a78f8313fe6dc1b889",
     "source_identity": "2/2 PASS"
-  },
-  "route_features_verified": {
-    "one_to_four_players": true,
-    "non_linear_investigation": true,
-    "single_clue_indispensable": false,
-    "world_clock_j1_j4": true,
-    "front_track_twice_daily": true,
-    "individual_exposure_thresholds": [2, 4, 6],
-    "knowledge_partition_required": true,
-    "timeline_synchronizer_if_split": true,
-    "individual_sanity": true,
-    "autonomous_bcra_ally": true,
-    "ending_families": 10
   },
   "registry_verified": {
     "registry_id": "COC7_RECOVERY_REGISTRY_R1_C4B2_LSNT_V1",
@@ -46,45 +36,39 @@
     "explosive_type_auto_selection": false,
     "scenario_reference_binding": "PASS"
   },
-  "canonical_creation_binding_verified": {
-    "module_id": "COC7_CANONICAL_RUNTIME_CREATION_BINDING_R1_C4B2_LSNT_DEV_V1",
-    "single_process_recorded_dice_to_ready": "4/4 PASS",
-    "private_real_source_player_counts": [1, 2, 3, 4],
+  "creation_verified": {
+    "single_process_recorded_dice_to_play": "4/4 PASS",
+    "source_derived_finance": "4/4 PASS",
+    "nonempty_source_revalidated_equipment": "4/4 PASS",
     "private_creation_commits": 10,
-    "private_party_finalization": "4/4 PASS",
-    "private_play_ready": "4/4 PASS",
-    "private_action_commit": "4/4 PASS",
-    "private_strict_replay": "4/4 PASS",
-    "private_save_restore_strict": "4/4 PASS",
-    "private_scenario_binding_preserved": "4/4 PASS",
-    "player_projection_leaks": 0,
-    "reauthenticated_registry_tamper_rejected": true
-  },
-  "source_finance_equipment_verified": {
-    "finance_source_id": "COC7_INVESTIGATOR",
-    "finance_source_page": 57,
-    "finance_table_identity": "TABLE_II_CASH_AND_ASSETS_1920S",
-    "finance_profile_derived_during_private_run": true,
-    "wrong_finance_source_rejected": true,
-    "nonempty_equipment_selected_records": 4,
-    "equipment_private_source_pages_revalidated": true,
-    "equipment_selection_automatic": false,
-    "unknown_equipment_zero_mutation": true,
     "finance_persistence": "4/4 PASS",
-    "inventory_persistence": "4/4 PASS"
+    "inventory_persistence": "4/4 PASS",
+    "player_projection_leaks": 0,
+    "wrong_finance_source_rejected": true,
+    "unknown_equipment_zero_mutation": true
   },
-  "creation_scope": {
-    "single_process": true,
-    "recorded_dice_inputs": true,
+  "cross_scenario_verified": {
+    "playable_scenarios": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR", "SOLEIL_NOIR"],
+    "player_counts": [1, 2, 3, 4],
+    "playable_cases": "20/20 PASS",
+    "creation_commits": 50,
+    "strict_replay": "20/20 PASS",
+    "save_restore_strict": "20/20 PASS",
+    "finance_persistence": "20/20 PASS",
+    "inventory_persistence": "20/20 PASS",
+    "scenario_binding_preserved": "20/20 PASS",
+    "player_projection_leaks": 0,
+    "maison_pendu_expected_fail_closed": "PASS_ZERO_MUTATION_SOURCE_NOT_MOUNTED"
+  },
+  "scope_limits": {
     "random_dice_generated_by_harness": false,
-    "characteristics_aging_occupation_skills_story": "EXACT_PIPELINE_PASS",
-    "finance": "PRIVATE_SOURCE_DERIVED_TABLE_II_1920S_PASS",
-    "possessions": "EXPLICIT_NONEMPTY_SOURCE_REVALIDATED_PASS",
+    "finance_rules_era": "1920S",
+    "separate_1942_finance_model_invented": false,
     "complete_purchase_price_availability_economy": "NOT_CLAIMED",
-    "separate_1942_finance_inflation_table": "NOT_INVENTED"
+    "maison_pendu_private_source_mounted": false
   },
   "private_source_content_embedded": false,
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "C4B2_DEV_FREEZE_AUDIT_AND_CROSS_SCENARIO_NONREGRESSION"
+  "next_gate": "RECOVERY_R1_RELEASE_CANDIDATE_FULL_AUDIT"
 }
