@@ -1,0 +1,36 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_CROSS_SCENARIO_FREEZE_AUDIT_EVIDENCE_V1",
+  "result": "PASS",
+  "qualification": "DEV_FREEZE_AUDIT_NOT_AUTHORITY",
+  "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
+  "private_report_sha256": "6ca3d8741e026a27d02e0ef8afb075d3c339c0b6bf936c86d77262855eb5b80b",
+  "playable_scenarios": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR", "SOLEIL_NOIR"],
+  "player_counts": [1, 2, 3, 4],
+  "matrix": {
+    "playable_cases": "20/20 PASS",
+    "creation_commits": 50,
+    "strict_replay": "20/20 PASS",
+    "save_restore_strict": "20/20 PASS",
+    "finance_persistence": "20/20 PASS",
+    "inventory_persistence": "20/20 PASS",
+    "scenario_binding_preserved": "20/20 PASS",
+    "player_projection_leaks": 0
+  },
+  "expected_blocked": {
+    "scenario": "MAISON_PENDU",
+    "result": "PASS_FAIL_CLOSED",
+    "code": "SCENARIO_SOURCE_PREFLIGHT_FAILED",
+    "zero_mutation": true,
+    "reason": "exact private scenario source not mounted in this runtime environment"
+  },
+  "scope_limits": {
+    "random_dice_generated_by_harness": false,
+    "finance_rules_era": "1920S",
+    "separate_1942_finance_model_invented": false,
+    "generic_equipment_used_for_cross_scenario_transaction_regression": true,
+    "scenario_specific_starting_kit_entitlement_inferred": false
+  },
+  "private_source_content_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
