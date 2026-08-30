@@ -23,6 +23,7 @@ jobs:
       - name: Compile C4B2 modules
         run: |
           python -m py_compile \
+            recovery/recertification-r1/registry_r1_c4b2_lsnt.py \
             recovery/recertification-r1/scenario_router_r1_c4b2_lsnt.py \
             recovery/recertification-r1/integrated_adjudication_r1_c4b2_lsnt.py \
             recovery/recertification-r1/test_lsnt_router_public_r1_c4b2.py
