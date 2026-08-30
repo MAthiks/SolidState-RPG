@@ -1,0 +1,60 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_DEV_REPORT_V1",
+  "stage": "R1-C4B2_DEV",
+  "status": "DEV_COMPLETE_SOURCE_HASH_PENDING_NOT_MODULE_READY",
+  "result": "PASS",
+  "scenario_id": "LSNT-V1.7-STANDALONE-1942",
+  "keeper_document_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+  "player_document_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+  "branch": "dev/r1-c4b2-lsnt-v1.7",
+  "validated_commit": "5b6ad2c125aff4d3dfcbe92edf0d05ea2909631c",
+  "ci_run_id": 33287909019,
+  "targeted_tests": {"passed": 173, "total": 173, "runtime_seconds": 0.405},
+  "scope": {
+    "scenario_manifest": "PASS",
+    "v1_5_v1_6_runtime_rejection": "PASS",
+    "canonical_graph_structure": "PASS",
+    "world_clock_j1_j4": "PASS",
+    "front_track": "PASS",
+    "travel_causality": "PASS",
+    "exposure": "PASS",
+    "san": "PASS",
+    "knowledge_partition": "PASS",
+    "player_projection": "PASS",
+    "state_binding": "PASS",
+    "hmac_save_restore": "PASS",
+    "strict_replay": "PASS",
+    "continuous_vs_resumed_1_to_4_players": "PASS",
+    "ten_ending_families": "PASS",
+    "romain_persy_autonomous_npc": "PASS"
+  },
+  "security": {
+    "wrong_actor_zero_mutation": true,
+    "recorded_front_roll_never_rerolled": true,
+    "recorded_san_loss_never_rerolled": true,
+    "duplicate_event_rejected": true,
+    "omitted_event_detected": true,
+    "reordered_event_detected": true,
+    "event_hash_tamper_detected": true,
+    "reauthenticated_state_tamper_detected": true,
+    "player_projection_keeper_graph_leaks": 0,
+    "private_pdf_tracked": false
+  },
+  "source_identity": {
+    "keeper_sha256": null,
+    "player_sha256": null,
+    "status": "PENDING_EXACT_PDF_BYTES",
+    "synthetic_hashes_used_for_runtime_plumbing_tests": true,
+    "synthetic_identity_may_be_canonical": false,
+    "production_startup": "BLOCKED_FAIL_CLOSED"
+  },
+  "promotion": {
+    "module_ready": false,
+    "frozen_candidate": false,
+    "package_built": false,
+    "checkpoint334_created": false,
+    "authority_promoted": false,
+    "android_promoted": false
+  },
+  "next_gate": "MATERIALIZE_EXACT_V1_7_KEEPER_AND_PLAYER_SHA256_THEN_RUN_MODULE_READY_MATRIX"
+}
