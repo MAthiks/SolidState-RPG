@@ -1,0 +1,101 @@
+name: Recover Checkpoint 329 Candidate
+
+on:
+  push:
+    branches:
+      - android-runtime-integration-v1
+    paths:
+      - .github/workflows/recover-checkpoint329.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recover historical builder and manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p recovery
+          git show cc389751a8c95a29f7ced70df1fc963d57173b6f:patches/checkpoint329/build_offline_package_v1.py.zlib.b64 > recovery/build_offline_package_v1.py.zlib.b64
+          git show 802b494aa9281ab18a0bcd9f3d31bb12808ce690:patches/checkpoint329/OFFLINE_PACKAGE_MANIFEST_329.json.zlib.b64 > recovery/OFFLINE_PACKAGE_MANIFEST_329.json.zlib.b64
+          python - <<'PY'
+          import base64, zlib, pathlib
+          root = pathlib.Path('recovery')
+          for src, dst in [
+              ('build_offline_package_v1.py.zlib.b64', 'build_offline_package_v1.py'),
+              ('OFFLINE_PACKAGE_MANIFEST_329.json.zlib.b64', 'OFFLINE_PACKAGE_MANIFEST_329.json'),
+          ]:
+              raw = base64.b64decode((root/src).read_bytes())
+              (root/dst).write_bytes(zlib.decompress(raw))
+          PY
+          test "$(sha256sum recovery/build_offline_package_v1.py | awk '{print $1}')" = "7c5048f3b61b708a21faf466aa7367ccc8b6c1c4624e3620a14d34a698033ae6"
+          test "$(sha256sum recovery/OFFLINE_PACKAGE_MANIFEST_329.json | awk '{print $1}')" = "aba613f506e92248ee7e8ffd4a190c0d293b9e638be116659ad06a4e9a703dc9"
+          echo "HISTORICAL_TRANSPORT_IDENTITIES=PASS"
+
+      - name: Inspect recovered builder contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('recovery/build_offline_package_v1.py')
+          lines = p.read_text(encoding='utf-8').splitlines()
+          needles = ('argparse', 'sys.argv', '__main__', 'SolidState_Offline_Runtime', 'zip', 'output', 'OUT', 'manifest')
+          for i, line in enumerate(lines, 1):
+              if any(n in line for n in needles):
+                  print(f'{i}: {line[:400]}')
+          PY
+          set +e
+          python recovery/build_offline_package_v1.py --help > recovery/builder_help.txt 2>&1
+          rc=$?
+          set -e
+          echo "BUILDER_HELP_EXIT=$rc"
+          cat recovery/builder_help.txt
+
+      - name: Attempt deterministic reconstruction
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p recovery/run
+          cp recovery/build_offline_package_v1.py recovery/run/
+          cp recovery/OFFLINE_PACKAGE_MANIFEST_329.json recovery/run/
+          cd recovery/run
+          set +e
+          python build_offline_package_v1.py > ../builder_run.log 2>&1
+          rc=$?
+          set -e
+          echo "BUILDER_EXIT=$rc"
+          cat ../builder_run.log
+          echo "--- generated files ---"
+          find . -maxdepth 3 -type f -printf '%p %s bytes\n' | sort
+          zip_path="$(find . -type f -name 'SolidState_Offline_Runtime_v1_Checkpoint329.zip' -print -quit)"
+          if [ -z "$zip_path" ]; then
+            echo "RECOVERY_RESULT=NO_ZIP"
+            exit 2
+          fi
+          actual="$(sha256sum "$zip_path" | awk '{print $1}')"
+          echo "RECOVERED_ZIP_SHA256=$actual"
+          if [ "$actual" != "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add" ]; then
+            echo "RECOVERY_RESULT=HASH_MISMATCH"
+            exit 3
+          fi
+          unzip -t "$zip_path"
+          echo "RECOVERY_RESULT=EXACT_HASH_PASS"
+
+      - name: Upload exact recovered ZIP
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkpoint329-exact-recovery
+          path: recovery/run/SolidState_Offline_Runtime_v1_Checkpoint329.zip
+          if-no-files-found: error
+          retention-days: 7
