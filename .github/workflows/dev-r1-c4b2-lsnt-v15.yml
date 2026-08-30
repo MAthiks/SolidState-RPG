@@ -26,7 +26,12 @@ jobs:
             recovery/recertification-r1/registry_r1_c4b2_lsnt.py \
             recovery/recertification-r1/scenario_router_r1_c4b2_lsnt.py \
             recovery/recertification-r1/integrated_adjudication_r1_c4b2_lsnt.py \
-            recovery/recertification-r1/test_lsnt_router_public_r1_c4b2.py
-      - name: Run public LSNT v1.5 gate
+            recovery/recertification-r1/test_lsnt_router_public_r1_c4b2.py \
+            development/r1-c4b2-lsnt-v1.5-current/canonical_runtime_creation_binding_c4b2_lsnt.py \
+            development/r1-c4b2-lsnt-v1.5-current/test_canonical_runtime_creation_binding_c4b2_lsnt.py
+      - name: Run public LSNT v1.5 route and registry gate
         working-directory: recovery/recertification-r1
         run: python test_lsnt_router_public_r1_c4b2.py
+      - name: Run public canonical creation binding gate
+        working-directory: development/r1-c4b2-lsnt-v1.5-current
+        run: python -m unittest -v test_canonical_runtime_creation_binding_c4b2_lsnt.py
