@@ -1,0 +1,36 @@
+name: DEV R1 CoC7 Canonical Runtime Creation Binding Hardened
+
+on:
+  push:
+    branches: [dev/r1-coc7-canonical-runtime-creation-binding]
+    paths:
+      - development/r1-coc7-canonical-runtime-creation-binding/**
+      - .github/workflows/dev-r1-coc7-canonical-runtime-creation-binding-hardened.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile canonical creation binding
+        run: python -m compileall -q development/r1-coc7-canonical-runtime-creation-binding
+      - name: Run exact hardened 2814-test gate
+        run: |
+          out="$(python development/r1-coc7-canonical-runtime-creation-binding/run_hardened_gate.py)"
+          printf '%s\n' "$out"
+          grep -F '"combined_tests": 2814' <<<"$out"
+          grep -F '"result": "PASS"' <<<"$out"
+      - name: Summary
+        run: |
+          echo '## Canonical Runtime Creation Binding hardened gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined public proof: **2814/2814 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Recorded private C4 source preflight: **16/16 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Full private creation E2E: **NOT YET CLAIMED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
