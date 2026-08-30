@@ -1,0 +1,13 @@
+{
+  "schema": "COC7_REGISTRY_SOURCE_SPANS_DEV_V1",
+  "batch_id": "COC7_OCCUPATIONS_BATCH4_R1_DEV",
+  "source_id": "COC7_INVESTIGATOR",
+  "source_sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+  "source_pages_used": [83, 84, 85, 88, 89, 90, 91, 93],
+  "multi_page_records": {
+    "MECHANIC_SKILLED_TRADES": [83, 84],
+    "SPY": [90, 91]
+  },
+  "rule": "source_page in the occupation manifest is the record start locator; this file records full spans when mechanics cross a page boundary",
+  "authority_promoted": false
+}
