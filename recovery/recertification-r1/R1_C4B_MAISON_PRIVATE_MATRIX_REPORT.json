@@ -1,0 +1,26 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B_MAISON_PRIVATE_MATRIX_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C4B_MAISON_SOURCE_AND_CANONICAL_ROUTE_RECERTIFICATION",
+  "qualification": "PRIVATE_SOURCE_IDENTITY_AND_CANONICAL_ROUTE_GATE",
+  "result": "PASS",
+  "passed": 93,
+  "total": 93,
+  "source_identities": "9/9 PASS",
+  "maison_source_id": "MAISON_PENDU_SOURCE",
+  "maison_source_sha256": "03867cec90056dfb2777bdc6ff38013dd44acad9d8b08ecd571e795518ba1ee0",
+  "player_counts": [1, 2, 3, 4],
+  "strict_restore": "PASS",
+  "route_tamper_rejection": "PASS",
+  "ae_collection_substitution": "REJECTED",
+  "keeper_to_player_canonical_path_leaks": 0,
+  "private_source_content_embedded": false,
+  "authority_promoted": false,
+  "scope_limits": [
+    "This report certifies the exact Maison du Pendu source identity and the recovery canonical investigation graph; it does not republish source text.",
+    "The graph preserves optional investigation branches and does not force clue order.",
+    "R1-C4 registry breadth remains unchanged in this substage.",
+    "Soleil Noir v1.5 canonical route remains the next uncompiled scenario route."
+  ],
+  "next_gate": "R1-C4B2_SOLEIL_NOIR_CANONICAL_ROUTE_AND_REGISTRY_EXPANSION"
+}
