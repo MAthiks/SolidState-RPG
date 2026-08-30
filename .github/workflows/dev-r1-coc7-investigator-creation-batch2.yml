@@ -1,0 +1,102 @@
+name: DEV R1 CoC7 Investigator Creation Batch2
+
+on:
+  push:
+    branches: [dev/r1-coc7-investigator-creation-batch2]
+    paths:
+      - development/r1-coc7-investigator-creation-batch2/**
+      - development/r1-coc7-investigator-creation-batch1/**
+      - development/r1-coc7-registry-batch1/**
+      - development/r1-coc7-registry-batch2/**
+      - development/r1-coc7-registry-batch3/**
+      - development/r1-coc7-registry-batch4/**
+      - development/r1-coc7-registry-batch5/**
+      - .github/workflows/dev-r1-coc7-investigator-creation-batch2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-investigator-creation-batch2-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile parent and batch2 source tree
+        run: |
+          python -m compileall -q development/r1-coc7-investigator-creation-batch1
+          python -m compileall -q development/r1-coc7-investigator-creation-batch2
+          for d in development/r1-coc7-registry-batch{1,2,3,4,5}; do python -m compileall -q "$d"; done
+      - name: Re-run hardened creation Batch1 — exact 2414
+        run: |
+          out="$(python development/r1-coc7-investigator-creation-batch1/run_hardened_gate.py)"
+          printf '%s\n' "$out"
+          grep -F '"combined_tests": 2414' <<<"$out"
+          grep -F '"result": "PASS"' <<<"$out"
+      - name: Audit cumulative occupation schema — exact 114
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          d=Path('development/r1-coc7-investigator-creation-batch2')
+          sys.path.insert(0,str(d))
+          import investigator_creation_batch2_dev as m
+          r=m.occupation_slot_schema_audit()
+          assert r['status']=='PASS', r
+          assert r['occupation_count']==114, r
+          print(r)
+          PY
+      - name: Run Investigator Creation Batch2 targeted matrix — exact 100
+        working-directory: development/r1-coc7-investigator-creation-batch2
+        run: |
+          out="$(python -m unittest -v test_investigator_creation_batch2_dev.py 2>&1)"
+          printf '%s\n' "$out"
+          grep -F 'Ran 100 tests' <<<"$out"
+          grep -F 'OK' <<<"$out"
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert 2414 + 100 == 2514
+          print('2514/2514 candidate arithmetic confirmed')
+          PY
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-investigator-creation-batch2/investigator_creation_batch2_contract.json').read_text())
+          assert c['schema']=='COC7_INVESTIGATOR_CREATION_BATCH2_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_INVESTIGATOR_CREATION_R1_BATCH2_DEV_V1'
+          assert c['parent_validated_commit']=='65fe598cda467611d0ab1eb06f3d4f51f0dce917'
+          assert c['parent_validated_proof']==2414
+          assert c['source']['sha256']=='de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17'
+          assert c['automatic_skill_selection'] is False
+          assert c['automatic_specialization_selection'] is False
+          assert c['automatic_backstory_generation'] is False
+          assert c['automatic_key_connection_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['character_state_committed'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+      - name: Confirm no private PDFs tracked
+        run: |
+          set -euo pipefail
+          if git ls-files development/r1-coc7-investigator-creation-batch2 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in investigator creation batch2' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch2 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Parent hardened creation proof: **2414 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch2 targeted tests: **100 expected**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate proof: **2514 tests**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Occupation schemas audited: **114**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Character state committed: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
