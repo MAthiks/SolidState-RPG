@@ -1,0 +1,52 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_SOURCE_IDENTITY_GATE_V1",
+  "status": "BLOCKED_MISSING_EXACT_SOURCE_BYTES",
+  "migration_status": "VERSION_NON_CONFIRMEE",
+  "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+  "required_sources": [
+    {
+      "role": "KEEPER",
+      "source_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+      "expected_filename_hint": "Le_Soleil_Noir_de_Tobrouk_v1.7_Gardien_STANDALONE.pdf",
+      "sha256": null,
+      "bytes_verified": false
+    },
+    {
+      "role": "PLAYER",
+      "source_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+      "expected_filename_hint": "Le_Soleil_Noir_de_Tobrouk_v1.7_Joueur_STANDALONE.pdf",
+      "sha256": null,
+      "bytes_verified": false
+    }
+  ],
+  "supersedes_for_execution": [
+    "LSNT-V1.5-MULTI-1942",
+    "LSNT-V1.6-HM-1942"
+  ],
+  "v1_5_runtime_dependency_allowed": false,
+  "source_identity_policy": {
+    "reuse_v1_5_hashes": false,
+    "infer_hash_from_filename_or_text_index": false,
+    "compile_route_before_2_of_2_hashes_verified": false,
+    "fallback_to_older_pair": false
+  },
+  "external_lock_reference": {
+    "lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+    "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+    "engine": "Solid State v7.8.1 candidate",
+    "correction": "018",
+    "ironman_commit": 6,
+    "payload_sha256": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e"
+  },
+  "required_next_transition": "MATERIALIZE_EXACT_SHA256_FOR_BOTH_V1_7_PDFS",
+  "after_identity_gate": [
+    "CREATE_V1_7_SCENARIO_MANIFEST",
+    "COMPILE_V1_7_CANONICAL_GRAPH",
+    "BIND_PLAYER_PROJECTION_AND_STATE",
+    "RUN_1_TO_4_PLAYER_MATRIX",
+    "RUN_SAVE_RESUME_STRICT_REPLAY_AND_TAMPER_GATES"
+  ],
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "private_source_content_embedded": false
+}
