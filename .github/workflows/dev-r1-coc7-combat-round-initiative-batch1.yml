@@ -1,0 +1,152 @@
+name: DEV R1 CoC7 Combat Round Initiative Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-combat-round-initiative-batch1"]
+    paths:
+      - "development/r1-coc7-combat-round-initiative-batch1/**"
+      - ".github/workflows/dev-r1-coc7-combat-round-initiative-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-combat-round-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile validated parent chain and Combat Round Batch1
+        run: |
+          python -m compileall -q recovery/recertification-r1/rules_r1
+          for d in \
+            r1-coc7-equipment-weapons-batch1 \
+            r1-coc7-combat-firearms-batch1 \
+            r1-coc7-combat-firearms-batch2 \
+            r1-coc7-melee-combat-batch1 \
+            r1-coc7-wounds-healing-batch1 \
+            r1-coc7-sanity-insanity-batch1 \
+            r1-coc7-sanity-treatment-batch2 \
+            r1-coc7-chase-batch1 \
+            r1-coc7-chase-batch2 \
+            r1-coc7-magic-core-batch1 \
+            r1-coc7-magic-core-batch2 \
+            r1-coc7-investigator-development-batch1 \
+            r1-coc7-investigator-aging-batch2 \
+            r1-coc7-finance-credit-rating-batch1 \
+            r1-coc7-general-skill-resolution-batch1 \
+            r1-coc7-luck-spending-batch1 \
+            r1-coc7-combat-round-initiative-batch1
+          do
+            python -m compileall -q "development/$d"
+          done
+
+      - name: Re-run exact validated chain and targeted matrix
+        run: |
+          set -euo pipefail
+
+          (cd recovery/recertification-r1 && python -m rules_r1.test_core_rules 2>&1 | tee /tmp/rules.log)
+          grep -Eq '"passed"[[:space:]]*:[[:space:]]*37' /tmp/rules.log
+          grep -Eq '"total"[[:space:]]*:[[:space:]]*37' /tmp/rules.log
+
+          run_test() {
+            local dir="$1"
+            local file="$2"
+            local count="$3"
+            local log="$4"
+            (cd "$dir" && python -m unittest -v "$file" 2>&1 | tee "$log")
+            grep -q "Ran $count tests" "$log"
+          }
+
+          run_test development/r1-coc7-equipment-weapons-batch1 test_eqwp_batch1_dev.py 173 /tmp/eqwp.log
+          run_test development/r1-coc7-combat-firearms-batch1 test_combat_firearms_dev.py 55 /tmp/firearms1.log
+          run_test development/r1-coc7-combat-firearms-batch2 test_combat_firearms_batch2_dev.py 79 /tmp/firearms2.log
+          run_test development/r1-coc7-melee-combat-batch1 test_melee_combat_dev.py 65 /tmp/melee.log
+          run_test development/r1-coc7-wounds-healing-batch1 test_wounds_healing_dev.py 98 /tmp/wounds.log
+          run_test development/r1-coc7-sanity-insanity-batch1 test_sanity_insanity_dev.py 80 /tmp/sanity1.log
+          run_test development/r1-coc7-sanity-treatment-batch2 test_sanity_treatment_dev.py 75 /tmp/sanity2.log
+          run_test development/r1-coc7-chase-batch1 test_chase_dev.py 70 /tmp/chase1.log
+          run_test development/r1-coc7-chase-batch2 test_chase_batch2_dev.py 84 /tmp/chase2.log
+          run_test development/r1-coc7-magic-core-batch1 test_magic_core_dev.py 96 /tmp/magic1.log
+          run_test development/r1-coc7-magic-core-batch2 test_magic_core_batch2_dev.py 75 /tmp/magic2.log
+          run_test development/r1-coc7-investigator-development-batch1 test_investigator_development_dev.py 92 /tmp/invdev.log
+          run_test development/r1-coc7-investigator-aging-batch2 test_investigator_aging_dev.py 94 /tmp/aging.log
+          run_test development/r1-coc7-finance-credit-rating-batch1 test_finance_credit_rating_dev.py 99 /tmp/finance.log
+          run_test development/r1-coc7-general-skill-resolution-batch1 test_general_skill_resolution_dev.py 104 /tmp/general.log
+          run_test development/r1-coc7-luck-spending-batch1 test_luck_spending_dev.py 80 /tmp/luck.log
+          run_test development/r1-coc7-combat-round-initiative-batch1 test_combat_round_initiative_dev.py 72 /tmp/combatround.log
+
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          parent = sum([37,173,55,79,65,98,80,75,70,84,96,75,92,94,99,104,80])
+          assert parent == 1456
+          assert parent + 72 == 1528
+          PY
+
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('development/r1-coc7-combat-round-initiative-batch1/combat_round_initiative_batch1_contract.json')
+          c=json.loads(p.read_text())
+          assert c['schema']=='COC7_COMBAT_ROUND_INITIATIVE_BATCH1_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_COMBAT_ROUND_INITIATIVE_R1_BATCH1_DEV_V1'
+          assert c['parent_luck_module_id']=='COC7_LUCK_SPENDING_R1_BATCH1_DEV_V1'
+          assert c['parent_validated_commit']=='1d948322eb30078314e0e3fad0fcf80ee70989bf'
+          assert c['parent_validated_test_chain']==1456
+          assert c['source']['source_id']=='COC7_KEEPER'
+          assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['source']['printed_pages']==[102,112]
+          m=c['materialized_rules']
+          assert m['one_turn_opportunity_per_capable_willing_combatant_per_round'] is True
+          assert m['base_order_highest_dex_first'] is True
+          assert m['dex_tie_higher_combat_skill_first'] is True
+          assert m['unresolved_exact_tie_fails_closed'] is True
+          assert m['readied_firearm_shot_uses_dex_plus_50'] is True
+          assert m['readied_firearm_bonus_reused_from_firearms_batch1'] is True
+          assert m['monster_multiple_attacks_share_one_monster_turn'] is True
+          assert m['character_may_delay_until_another_character_acts'] is True
+          assert m['simultaneous_delayed_actions_use_highest_raw_dex'] is True
+          assert m['simultaneous_delayed_raw_dex_tie_fails_closed'] is True
+          assert m['mutual_wait_can_end_with_both_actions_lost_only_by_explicit_keeper_resolution'] is True
+          assert m['round_completion_requires_every_declared_participant_to_be_nonpending'] is True
+          reuse=c['reuse_policy']
+          assert reuse['firearm_dex_order_reused_from_combat_firearms_batch1'] is True
+          assert reuse['duplicate_readied_firearm_bonus_engine_created'] is False
+          assert reuse['combat_attack_resolution_not_duplicated'] is True
+          assert reuse['melee_resolution_not_duplicated'] is True
+          assert c['automatic_action_selection'] is False
+          assert c['automatic_tie_break'] is False
+          assert c['automatic_round_end_on_mutual_wait'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-combat-round-initiative-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Combat Round Initiative Batch1' >&2
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo '## Combat Round / Initiative Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior validated chain: **1456/1456 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combat Round targeted matrix: **72/72 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate chain: **1528/1528 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Source: **Keeper pp. 102, 112 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- DEX + 50 firearm order primitive: **REUSED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic action/tie selection: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
