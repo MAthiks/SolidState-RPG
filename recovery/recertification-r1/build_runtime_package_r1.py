@@ -68,7 +68,7 @@ manifest = {
     "source_commit": head,
     "documentary_authority_floor": 333,
     "historical_checkpoint329_sha256": HISTORICAL_329,
-    "claims_historical_329_byte_identity": false if False else False,
+    "claims_historical_329_byte_identity": False,
     "immutable_files": rows,
 }
 (STAGE / "PACKAGE_MANIFEST.json").write_text(
