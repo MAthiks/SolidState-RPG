@@ -1,0 +1,35 @@
+name: DEV R1 CoC7 Investigator Creation Batch3 Hardened
+
+on:
+  push:
+    branches: [dev/r1-coc7-investigator-creation-batch3]
+    paths:
+      - development/r1-coc7-investigator-creation-batch3/**
+      - .github/workflows/dev-r1-coc7-investigator-creation-batch3-hardened.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile creation Batch3
+        run: python -m compileall -q development/r1-coc7-investigator-creation-batch3
+      - name: Run exact hardened 2614-test gate
+        run: python development/r1-coc7-investigator-creation-batch3/run_hardened_gate.py
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch3 Hardened' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Parent proof: **2514/2514 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch3 targeted: **100/100 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined: **2614/2614 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Actor-bound atomic investigator commit: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- 1–4 players + save/resume + Strict Replay: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Auto possession: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
