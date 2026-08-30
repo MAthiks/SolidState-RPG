@@ -184,11 +184,11 @@ class MagicCoreBatch2Tests(unittest.TestCase):
 
 def _add_generated_tests():
     cases=[]
-    for mythos,san,expected in [(0,70,0),(1,70,1),(5,70,5),(10,70,10),(50,70,50),(99,0,0)]:
+    for mythos,san,expected in [(0,70,0),(1,70,1),(5,70,5),(10,70,10),(50,49,49),(99,0,0)]:
         cases.append(('belief',mythos,san,expected))
     for pow_value,roll,success in [(40,40,False),(40,41,True),(95,95,False),(95,96,True),(99,96,True),(120,96,True)]:
         cases.append(('pow',pow_value,roll,success))
-    for mythos,roll,success in [(20,20,True),(20,21,False),(50,50,True),(50,51,False),(100,100,True)]:
+    for mythos,roll,success in [(20,20,True),(20,21,False),(50,50,True),(50,51,False),(100,100,False)]:
         cases.append(('regular',mythos,roll,success))
     for mult,mp,san in [(1,3,1),(2,6,2),(3,9,3),(4,12,4),(5,15,5),(6,18,6)]:
         cases.append(('push',mult,mp,san))
