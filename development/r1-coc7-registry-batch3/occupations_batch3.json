@@ -1,0 +1,283 @@
+{
+  "schema": "COC7_RECOVERY_OCCUPATION_BATCH_DEV_V1",
+  "batch_id": "COC7_OCCUPATIONS_BATCH3_R1_DEV",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_registry_id": "COC7_RECOVERY_REGISTRY_R1_BATCH2_DEV_V1",
+  "frozen_ancestor_registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
+  "source": {
+    "source_id": "COC7_INVESTIGATOR",
+    "document": "Call of Cthulhu 7e Investigator Handbook",
+    "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+    "chapter": "Chapter 4 - Occupations",
+    "source_pages": [80, 81, 82, 86, 87]
+  },
+  "skill_extensions": {
+    "SLEIGHT_OF_HAND": {"name": "Sleight of Hand", "base": 10, "specialization": false, "source_page": 118}
+  },
+  "occupations": {
+    "EXPLORER": {
+      "name": "Explorer",
+      "source_page": 80,
+      "era_scope": "CLASSIC",
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["APP", "DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [55, 80],
+      "skill_slots": [
+        {"choice_one_of": [{"skill": "CLIMB"}, {"skill": "SWIM"}]}, {"skill_family": "FIREARMS"},
+        {"skill": "HISTORY"}, {"skill": "JUMP"}, {"skill": "NATURAL_WORLD"}, {"skill": "NAVIGATE"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "SURVIVAL", "specialization": "ANY"}
+      ]
+    },
+    "FARMER": {
+      "name": "Farmer",
+      "source_page": 80,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "FARMING"}, {"skill": "DRIVE_AUTO", "era_variant": "WAGON"},
+        {"interpersonal_choice": true}, {"skill": "MECHANICAL_REPAIR"}, {"skill": "NATURAL_WORLD"},
+        {"skill": "OPERATE_HEAVY_MACHINERY"}, {"skill": "TRACK"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "FEDERAL_AGENT": {
+      "name": "Federal Agent",
+      "source_page": 80,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [20, 40],
+      "skill_slots": [
+        {"skill": "DRIVE_AUTO"}, {"skill": "FIGHTING_BRAWL"}, {"skill_family": "FIREARMS"}, {"skill": "LAW"},
+        {"skill": "PERSUADE"}, {"skill": "STEALTH"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "FIREFIGHTER": {
+      "name": "Firefighter",
+      "source_page": 80,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "CLIMB"}, {"skill": "DODGE"}, {"skill": "DRIVE_AUTO"}, {"skill": "FIRST_AID"},
+        {"skill": "JUMP"}, {"skill": "MECHANICAL_REPAIR"}, {"skill": "OPERATE_HEAVY_MACHINERY"}, {"skill": "THROW"}
+      ]
+    },
+    "FOREIGN_CORRESPONDENT": {
+      "name": "Foreign Correspondent",
+      "source_page": 80,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 40],
+      "skill_slots": [
+        {"skill": "HISTORY"}, {"skill": "LANGUAGE_OTHER", "specialization": "ANY"},
+        {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"}, {"skill": "LISTEN"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "FORENSIC_SURGEON": {
+      "name": "Forensic Surgeon",
+      "source_page": 81,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [40, 60],
+      "skill_slots": [
+        {"skill": "LANGUAGE_OTHER", "specialization": "LATIN"}, {"skill": "LIBRARY_USE"}, {"skill": "MEDICINE"},
+        {"skill": "PERSUADE"}, {"skill": "SCIENCE", "specialization": "BIOLOGY"},
+        {"skill": "SCIENCE", "specialization": "FORENSICS"}, {"skill": "SCIENCE", "specialization": "PHARMACY"},
+        {"skill": "SPOT_HIDDEN"}
+      ]
+    },
+    "GAMBLER": {
+      "name": "Gambler",
+      "source_page": 81,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["APP", "DEX"], "multiplier": 2}]},
+      "credit_rating": [8, 50],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "ART_CRAFT", "specialization": "ACTING"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "LISTEN"}, {"skill": "PSYCHOLOGY"},
+        {"skill": "SLEIGHT_OF_HAND"}, {"skill": "SPOT_HIDDEN"}
+      ]
+    },
+    "GANGSTER_BOSS": {
+      "name": "Gangster Boss",
+      "source_page": 81,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [60, 95],
+      "skill_slots": [
+        {"skill_family": "FIGHTING"}, {"skill_family": "FIREARMS"}, {"skill": "LAW"}, {"skill": "LISTEN"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}
+      ]
+    },
+    "GANGSTER_UNDERLING": {
+      "name": "Gangster Underling",
+      "source_page": 81,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 20],
+      "skill_slots": [
+        {"skill": "DRIVE_AUTO"}, {"skill_family": "FIGHTING"}, {"skill_family": "FIREARMS"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "GENTLEMAN_LADY": {
+      "name": "Gentleman/Lady",
+      "source_page": 81,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [40, 90],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ANY"}, {"interpersonal_choice": true, "count": 2},
+        {"choice_one_of": [{"skill": "FIREARMS_RIFLE"}, {"skill": "FIREARMS_SHOTGUN"}]},
+        {"skill": "HISTORY"}, {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "NAVIGATE"}, {"skill": "RIDE"}
+      ]
+    },
+    "HOBO": {
+      "name": "Hobo",
+      "source_page": 82,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["APP", "DEX"], "multiplier": 2}]},
+      "credit_rating": [0, 5],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ANY"}, {"skill": "CLIMB"}, {"skill": "JUMP"}, {"skill": "LISTEN"},
+        {"choice_one_of": [{"skill": "LOCKSMITH"}, {"skill": "SLEIGHT_OF_HAND"}]}, {"skill": "NAVIGATE"},
+        {"skill": "STEALTH"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "HOSPITAL_ORDERLY": {
+      "name": "Hospital Orderly",
+      "source_page": 82,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "STR", "multiplier": 2}]},
+      "credit_rating": [6, 15],
+      "skill_slots": [
+        {"skill": "ELECTRICAL_REPAIR"}, {"interpersonal_choice": true}, {"skill": "FIGHTING_BRAWL"},
+        {"skill": "FIRST_AID"}, {"skill": "LISTEN"}, {"skill": "MECHANICAL_REPAIR"}, {"skill": "PSYCHOLOGY"}, {"skill": "STEALTH"}
+      ]
+    },
+    "INVESTIGATIVE_JOURNALIST": {
+      "name": "Investigative Journalist",
+      "source_page": 82,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization_choice": ["ART", "PHOTOGRAPHY"]}, {"interpersonal_choice": true},
+        {"skill": "HISTORY"}, {"skill": "LIBRARY_USE"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "REPORTER": {
+      "name": "Reporter",
+      "source_page": 82,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ACTING"}, {"skill": "HISTORY"}, {"skill": "LISTEN"},
+        {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"}, {"interpersonal_choice": true},
+        {"skill": "PSYCHOLOGY"}, {"skill": "STEALTH"}, {"skill": "SPOT_HIDDEN"}
+      ]
+    },
+    "JUDGE": {
+      "name": "Judge",
+      "source_page": 82,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [50, 80],
+      "skill_slots": [
+        {"skill": "HISTORY"}, {"skill": "INTIMIDATE"}, {"skill": "LAW"}, {"skill": "LIBRARY_USE"},
+        {"skill": "LISTEN"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"skill": "PERSUADE"}, {"skill": "PSYCHOLOGY"}
+      ]
+    },
+    "PARAPSYCHOLOGIST": {
+      "name": "Parapsychologist",
+      "source_page": 86,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ANTHROPOLOGY"}, {"skill": "ART_CRAFT", "specialization": "PHOTOGRAPHY"}, {"skill": "HISTORY"},
+        {"skill": "LIBRARY_USE"}, {"skill": "OCCULT"}, {"skill": "LANGUAGE_OTHER", "specialization": "ANY"},
+        {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "PHARMACIST": {
+      "name": "Pharmacist",
+      "source_page": 86,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [35, 75],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "FIRST_AID"}, {"skill": "LANGUAGE_OTHER", "specialization": "LATIN"},
+        {"skill": "LIBRARY_USE"}, {"interpersonal_choice": true}, {"skill": "PSYCHOLOGY"},
+        {"skill": "SCIENCE", "specialization": "PHARMACY"}, {"skill": "SCIENCE", "specialization": "CHEMISTRY"}
+      ]
+    },
+    "PHOTOGRAPHER": {
+      "name": "Photographer",
+      "source_page": 86,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "PHOTOGRAPHY"}, {"interpersonal_choice": true}, {"skill": "PSYCHOLOGY"},
+        {"skill": "SCIENCE", "specialization": "CHEMISTRY"}, {"skill": "STEALTH"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "PHOTOJOURNALIST": {
+      "name": "Photojournalist",
+      "source_page": 86,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "PHOTOGRAPHY"}, {"skill": "CLIMB"}, {"interpersonal_choice": true},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "PSYCHOLOGY"}, {"skill": "SCIENCE", "specialization": "CHEMISTRY"},
+        {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "PILOT": {
+      "name": "Pilot",
+      "source_page": 87,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "DEX", "multiplier": 2}]},
+      "credit_rating": [20, 70],
+      "skill_slots": [
+        {"skill": "ELECTRICAL_REPAIR"}, {"skill": "MECHANICAL_REPAIR"}, {"skill": "NAVIGATE"},
+        {"skill": "OPERATE_HEAVY_MACHINERY"}, {"skill": "PILOT", "specialization": "AIRCRAFT"},
+        {"skill": "SCIENCE", "specialization": "ASTRONOMY"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "AVIATOR": {
+      "name": "Aviator",
+      "source_page": 87,
+      "era_scope": "CLASSIC",
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 60],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "ELECTRICAL_REPAIR"}, {"skill": "LISTEN"}, {"skill": "MECHANICAL_REPAIR"},
+        {"skill": "NAVIGATE"}, {"skill": "PILOT", "specialization": "AIRCRAFT"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    },
+    "POLICE_DETECTIVE": {
+      "name": "Police Detective",
+      "source_page": 87,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [20, 50],
+      "skill_slots": [
+        {"choice_one_of": [{"skill": "ART_CRAFT", "specialization": "ACTING"}, {"skill": "DISGUISE"}]},
+        {"skill_family": "FIREARMS"}, {"skill": "LAW"}, {"skill": "LISTEN"}, {"interpersonal_choice": true},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "UNIFORMED_POLICE_OFFICER": {
+      "name": "Uniformed Police Officer",
+      "source_page": 87,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "FIGHTING_BRAWL"}, {"skill_family": "FIREARMS"}, {"skill": "FIRST_AID"}, {"interpersonal_choice": true},
+        {"skill": "LAW"}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"},
+        {"choice_one_of": [{"skill": "DRIVE_AUTO"}, {"skill": "RIDE"}], "personal_specialty": true}
+      ]
+    },
+    "PRIVATE_INVESTIGATOR": {
+      "name": "Private Investigator",
+      "source_page": 87,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "PHOTOGRAPHY"}, {"skill": "DISGUISE"}, {"skill": "LAW"},
+        {"skill": "LIBRARY_USE"}, {"interpersonal_choice": true}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"},
+        {"personal_or_era_specialty": true}
+      ]
+    }
+  },
+  "copyright_boundary": "Structured mechanics/provenance only; no commercial source prose embedded.",
+  "authority_promoted": false
+}
