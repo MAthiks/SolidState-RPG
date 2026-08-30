@@ -1,0 +1,41 @@
+{
+  "schema": "COC7_COMBAT_ROUND_INITIATIVE_BATCH1_DEV_REPORT_V1",
+  "module_id": "COC7_COMBAT_ROUND_INITIATIVE_R1_BATCH1_DEV_V1",
+  "result": "PASS",
+  "source_commit_tested": "0302b7dc7ce80ffb806f4201f597830644285e05",
+  "github_actions_run_id": 33308751347,
+  "targeted_tests": {
+    "passed": 72,
+    "total": 72
+  },
+  "prior_validated_chain": {
+    "passed": 1456,
+    "total": 1456
+  },
+  "combined_chain": {
+    "passed": 1528,
+    "total": 1528
+  },
+  "source_grounded": true,
+  "keeper_source_id": "COC7_KEEPER",
+  "keeper_source_sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+  "keeper_printed_pages": [102, 112],
+  "highest_dex_first": true,
+  "dex_tie_higher_combat_skill_first": true,
+  "exact_tie_fail_closed": true,
+  "readied_firearm_dex_plus_50_reused": true,
+  "monster_multiple_attacks_share_one_turn": true,
+  "delayed_action_supported": true,
+  "simultaneous_delayed_action_uses_raw_dex": true,
+  "simultaneous_delay_tie_fail_closed": true,
+  "mutual_wait_requires_explicit_keeper_resolution": true,
+  "round_completion_requires_no_pending_declared_participant": true,
+  "automatic_action_selection": false,
+  "automatic_tie_break": false,
+  "automatic_round_end_on_mutual_wait": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "status": "DEV_VALIDATED_NOT_AUTHORITY"
+}
