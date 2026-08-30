@@ -1,0 +1,49 @@
+{
+  "schema": "COC7_LUCK_SPENDING_BATCH1_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_LUCK_SPENDING_R1_BATCH1_DEV_V1",
+  "parent_general_skill_module_id": "COC7_GENERAL_SKILL_RESOLUTION_R1_BATCH1_DEV_V1",
+  "parent_validated_commit": "3201879ddf2bec1f88212e41c03a503244bb49ca",
+  "parent_validated_test_chain": 1376,
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [99],
+    "scope": "Optional rule: Spending Luck"
+  },
+  "materialized_rules": {
+    "spend_after_recorded_skill_or_characteristic_roll": true,
+    "one_luck_point_changes_roll_by_one": true,
+    "spend_cannot_exceed_current_luck": true,
+    "only_roll_owner_may_spend": true,
+    "excluded_roll_kinds": ["LUCK", "DAMAGE", "SANITY", "SANITY_LOSS"],
+    "pushed_roll_result_cannot_be_altered": true,
+    "original_critical_cannot_be_bought_off": true,
+    "original_fumble_cannot_be_bought_off": true,
+    "firearm_malfunction_cannot_be_bought_off": true,
+    "luck_spend_blocks_experience_check": true,
+    "luck_score_reduced_atomically": true
+  },
+  "reuse_policy": {
+    "success_levels_reused_from_frozen_rules_core": true,
+    "difficulty_resolution_reused_from_frozen_rules_core": true,
+    "experience_tick_reused_from_investigator_development_batch1": true,
+    "luck_recovery_not_duplicated": true,
+    "duplicate_percentile_engine_created": false
+  },
+  "fail_closed": {
+    "invalid_or_unrecorded_roll": true,
+    "wrong_actor": true,
+    "overspend": true,
+    "unsupported_roll_kind": true,
+    "pushed_roll": true,
+    "original_critical_or_fumble": true,
+    "firearm_malfunction": true,
+    "adjusted_roll_below_one": true
+  },
+  "automatic_spend_amount_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
