@@ -1,0 +1,32 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C3_PRIVATE_MATRIX_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION",
+  "qualification": "PRIVATE_SOURCE_IDENTITY_BACKED_RUNTIME_MATRIX",
+  "result": "PASS",
+  "authority_promoted": false,
+  "private_source_content_embedded": false,
+  "core_matrix": "6 scenario identities x 1-4 players = 24 cases",
+  "events_per_core_case": 12,
+  "save_resume_cuts": {
+    "MAISON_PENDU_1_TO_4": [1, 6, 11],
+    "OTHER_5_4P": [6]
+  },
+  "keeper_to_player_leaks": 0,
+  "passed": 1067,
+  "total": 1067,
+  "scenario_identity_mapping": {
+    "MAISON_PENDU": ["AE_COLLECTION"],
+    "BRUME": ["BRUME_KEEPER", "BRUME_PLAYER"],
+    "ANTRE": ["ANTRE_SOURCE"],
+    "MUSE": ["AE_COLLECTION"],
+    "EXPLORATEUR": ["AE_COLLECTION"],
+    "SOLEIL_NOIR": ["SOLEIL_NOIR_KEEPER", "SOLEIL_NOIR_PLAYER"]
+  },
+  "scope_limits": [
+    "Scenario sources are cryptographically identity-gated; this matrix does not claim full canonical scenario-event interpretation.",
+    "Rules Package R1 remains a partial source-grounded mechanical core.",
+    "Full occupation/skill/equipment/weapon registries and remaining CoC7 mechanics still require migration before authority promotion."
+  ],
+  "next_gate": "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION"
+}
