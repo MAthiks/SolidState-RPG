@@ -1,0 +1,69 @@
+{
+  "schema": "COC7_INVESTIGATOR_CREATION_BATCH2_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH2_DEV_V1",
+  "parent_batch1_module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH1_DEV_V1",
+  "parent_validated_commit": "65fe598cda467611d0ab1eb06f3d4f51f0dce917",
+  "parent_validated_proof": 2414,
+  "source": {
+    "source_id": "COC7_INVESTIGATOR",
+    "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+    "printed_pages": [49, 50, 51, 52, 53, 54, 55, 56],
+    "scope": "Occupation skill allocation, personal interests, weapon specializations, backstory, key connection, and basic identity details"
+  },
+  "materialized_rules": {
+    "occupation_points_only_on_resolved_occupation_skill_choices": true,
+    "occupation_credit_rating_already_reserved_by_batch1": true,
+    "unspent_occupation_points_are_lost": true,
+    "skill_allocations_add_to_materialized_base_chance": true,
+    "personal_interest_budget_equals_batch1_INT_times_2": true,
+    "personal_interest_can_raise_occupation_or_other_skills": true,
+    "cthulhu_mythos_personal_interest_requires_explicit_keeper_authorization": true,
+    "fighting_firearms_unspecified_specialization_requires_player_choice": true,
+    "all_occupation_slot_choices_are_explicit": true,
+    "backstory_first_six_categories_require_at_least_one_entry_each": true,
+    "key_backstory_connection_must_reference_an_existing_entry": true,
+    "name_gender_birthplace_are_explicit_player_fields": true,
+    "skill_half_and_fifth_values_derived_after_allocation": true
+  },
+  "required_backstory_categories": [
+    "PERSONAL_DESCRIPTION",
+    "IDEOLOGY_BELIEFS",
+    "SIGNIFICANT_PEOPLE",
+    "MEANINGFUL_LOCATIONS",
+    "TREASURED_POSSESSIONS",
+    "TRAITS"
+  ],
+  "out_of_scope_batch3": [
+    "private_cash_assets_spending_profile_binding",
+    "starting_equipment_and_weapon_possession_binding",
+    "living_standard_possession_adjudication",
+    "final_atomic_character_state_commit_to_multiplayer_runtime"
+  ],
+  "reuse_policy": {
+    "batch1_preflight_reused": true,
+    "occupation_registry_batch5_reused": true,
+    "skill_base_registry_reused": true,
+    "no_duplicate_occupation_formula_engine": true,
+    "no_duplicate_characteristic_generation_engine": true
+  },
+  "fail_closed": {
+    "occupation_slot_choice_missing_or_duplicate": true,
+    "unsupported_occupation_slot_schema": true,
+    "skill_or_specialization_unresolved": true,
+    "occupation_allocation_exceeds_budget": true,
+    "personal_interest_allocation_exceeds_budget": true,
+    "unauthorized_cthulhu_mythos_personal_interest": true,
+    "missing_backstory_required_category": true,
+    "key_connection_not_present_in_backstory": true
+  },
+  "automatic_skill_selection": false,
+  "automatic_specialization_selection": false,
+  "automatic_backstory_generation": false,
+  "automatic_key_connection_selection": false,
+  "random_values_generated_by_module": false,
+  "character_state_committed": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
