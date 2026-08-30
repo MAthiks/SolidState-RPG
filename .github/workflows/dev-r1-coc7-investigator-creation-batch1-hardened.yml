@@ -1,0 +1,39 @@
+name: DEV R1 CoC7 Investigator Creation Batch1 Hardened
+
+on:
+  push:
+    branches: ["dev/r1-coc7-investigator-creation-batch1"]
+    paths:
+      - "development/r1-coc7-investigator-creation-batch1/**"
+      - ".github/workflows/dev-r1-coc7-investigator-creation-batch1-hardened.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile creation batch
+        run: python -m compileall -q development/r1-coc7-investigator-creation-batch1
+      - name: Run exact hardened 2414-test gate
+        run: |
+          set -euo pipefail
+          python development/r1-coc7-investigator-creation-batch1/run_hardened_gate.py 2>&1 | tee /tmp/hardened.log
+          grep -q '"combined_tests": 2414' /tmp/hardened.log
+          grep -q '"result": "PASS"' /tmp/hardened.log
+          grep -q '"character_state_committed": false' /tmp/hardened.log
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch1 hardened gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Rules chain: **1688/1688 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Occupation registry: **626/626 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Creation Batch1: **100/100 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined proof: **2414/2414 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Character state commit: **NO — Batch2 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
