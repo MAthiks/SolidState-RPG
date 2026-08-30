@@ -52,8 +52,12 @@ jobs:
       - name: Run Investigator Creation Batch2 targeted matrix — exact 100
         working-directory: development/r1-coc7-investigator-creation-batch2
         run: |
+          set +e
           out="$(python -m unittest -v test_investigator_creation_batch2_dev.py 2>&1)"
+          rc=$?
+          set -e
           printf '%s\n' "$out"
+          if [ "$rc" -ne 0 ]; then exit "$rc"; fi
           grep -F 'Ran 100 tests' <<<"$out"
           grep -F 'OK' <<<"$out"
       - name: Confirm exact test-chain arithmetic
