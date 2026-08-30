@@ -1,0 +1,145 @@
+{
+  "schema": "COC7_RECOVERY_OCCUPATION_BATCH_DEV_V1",
+  "batch_id": "COC7_OCCUPATIONS_BATCH1_R1_DEV",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "source": {
+    "source_id": "COC7_INVESTIGATOR",
+    "document": "Call of Cthulhu 7e Investigator Handbook",
+    "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+    "chapter": "Chapter 4 - Occupations"
+  },
+  "skill_extensions": {
+    "ANIMAL_HANDLING": {"name": "Animal Handling", "base": 5, "specialization": false, "source_page": 97},
+    "ART_CRAFT": {"name": "Art/Craft", "base": 5, "specialization": true, "source_page": 97},
+    "COMPUTER_USE": {"name": "Computer Use", "base": 5, "specialization": false, "source_page": 97, "era_scope": "MODERN"},
+    "LANGUAGE_OWN": {"name": "Language (Own)", "base": "EDU", "specialization": true, "source_page": 97}
+  },
+  "occupations": {
+    "ALIENIST": {
+      "name": "Alienist",
+      "source_page": 71,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 60],
+      "skill_slots": [
+        {"skill": "LAW"}, {"skill": "LISTEN"}, {"skill": "MEDICINE"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "PSYCHOANALYSIS"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SCIENCE", "specialization": "BIOLOGY"},
+        {"skill": "SCIENCE", "specialization": "CHEMISTRY"}
+      ]
+    },
+    "ANIMAL_TRAINER": {
+      "name": "Animal Trainer",
+      "source_page": 71,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["APP", "POW"], "multiplier": 2}]},
+      "credit_rating": [10, 40],
+      "skill_slots": [
+        {"skill": "ANIMAL_HANDLING"}, {"skill": "JUMP"}, {"skill": "LISTEN"},
+        {"skill": "NATURAL_WORLD"}, {"skill": "SCIENCE", "specialization": "ZOOLOGY"},
+        {"skill": "STEALTH"}, {"skill": "TRACK"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "ANTIQUARIAN": {
+      "name": "Antiquarian",
+      "source_page": 71,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 70],
+      "skill_slots": [
+        {"skill": "APPRAISE"}, {"skill": "ART_CRAFT", "specialization": "ANY"}, {"skill": "HISTORY"},
+        {"skill": "LIBRARY_USE"}, {"skill": "LANGUAGE_OTHER", "specialization": "ANY"},
+        {"interpersonal_choice": true}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "ANTIQUE_DEALER": {
+      "name": "Antique Dealer",
+      "source_page": 71,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 50],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "APPRAISE"}, {"skill": "DRIVE_AUTO"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "HISTORY"},
+        {"skill": "LIBRARY_USE"}, {"skill": "NAVIGATE"}
+      ]
+    },
+    "ARCHAEOLOGIST": {
+      "name": "Archaeologist",
+      "source_page": 71,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [10, 40],
+      "skill_slots": [
+        {"skill": "APPRAISE"}, {"skill": "ARCHAEOLOGY"}, {"skill": "HISTORY"},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "LIBRARY_USE"},
+        {"skill": "SPOT_HIDDEN"}, {"skill": "MECHANICAL_REPAIR"},
+        {"choice_one_of": [{"skill": "NAVIGATE"}, {"skill": "SCIENCE", "specialization": "ANY"}]}
+      ]
+    },
+    "ARCHITECT": {
+      "name": "Architect",
+      "source_page": 72,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [30, 70],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"skill": "ART_CRAFT", "specialization": "TECHNICAL_DRAWING"}, {"skill": "LAW"},
+        {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"choice_one_of": [{"skill": "COMPUTER_USE"}, {"skill": "LIBRARY_USE"}]},
+        {"skill": "PERSUADE"}, {"skill": "PSYCHOLOGY"}, {"skill": "SCIENCE", "specialization": "MATHEMATICS"}
+      ]
+    },
+    "ARTIST": {
+      "name": "Artist",
+      "source_page": 72,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "POW"], "multiplier": 2}]},
+      "credit_rating": [9, 50],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "ANY"},
+        {"choice_one_of": [{"skill": "HISTORY"}, {"skill": "NATURAL_WORLD"}]},
+        {"interpersonal_choice": true}, {"skill": "LANGUAGE_OTHER", "specialization": "ANY"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true, "count": 2}
+      ]
+    },
+    "ASYLUM_ATTENDANT": {
+      "name": "Asylum Attendant",
+      "source_page": 72,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["STR", "DEX"], "multiplier": 2}]},
+      "credit_rating": [8, 20],
+      "skill_slots": [
+        {"skill": "DODGE"}, {"skill": "FIGHTING_BRAWL"}, {"skill": "FIRST_AID"},
+        {"interpersonal_choice": true, "count": 2}, {"skill": "LISTEN"},
+        {"skill": "PSYCHOLOGY"}, {"skill": "STEALTH"}
+      ]
+    },
+    "ATHLETE": {
+      "name": "Athlete",
+      "source_page": 72,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"choice_one_of": ["DEX", "STR"], "multiplier": 2}]},
+      "credit_rating": [9, 70],
+      "skill_slots": [
+        {"skill": "CLIMB"}, {"skill": "JUMP"}, {"skill": "FIGHTING_BRAWL"}, {"skill": "RIDE"},
+        {"interpersonal_choice": true}, {"skill": "SWIM"}, {"skill": "THROW"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "AUTHOR": {
+      "name": "Author",
+      "source_page": 72,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 4}]},
+      "credit_rating": [9, 30],
+      "skill_slots": [
+        {"skill": "ART_CRAFT", "specialization": "LITERATURE"}, {"skill": "HISTORY"}, {"skill": "LIBRARY_USE"},
+        {"choice_one_of": [{"skill": "NATURAL_WORLD"}, {"skill": "OCCULT"}]},
+        {"skill": "LANGUAGE_OTHER", "specialization": "ANY"}, {"skill": "LANGUAGE_OWN", "specialization": "INVESTIGATOR_LANGUAGE"},
+        {"skill": "PSYCHOLOGY"}, {"personal_or_era_specialty": true}
+      ]
+    },
+    "BARTENDER": {
+      "name": "Bartender",
+      "source_page": 73,
+      "points_formula": {"terms": [{"characteristic": "EDU", "multiplier": 2}, {"characteristic": "APP", "multiplier": 2}]},
+      "credit_rating": [8, 25],
+      "skill_slots": [
+        {"skill": "ACCOUNTING"}, {"interpersonal_choice": true, "count": 2}, {"skill": "FIGHTING_BRAWL"},
+        {"skill": "LISTEN"}, {"skill": "PSYCHOLOGY"}, {"skill": "SPOT_HIDDEN"}, {"personal_or_era_specialty": true}
+      ]
+    }
+  },
+  "copyright_boundary": "Structured mechanics/provenance only; no commercial source prose embedded.",
+  "authority_promoted": false
+}
