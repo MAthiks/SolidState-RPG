@@ -25,11 +25,30 @@
     "maison_pendu_blocked_as_source_unverified": true,
     "local_sanitized_report_sha256": "806fa114cecc3760469ac6fee2d28806d000d30a2c82bc8af9771ca3a32a0dd8"
   },
+  "private_canonical_transaction_e2e": {
+    "result": "PASS",
+    "scope_boundary": "READY_FOR_ATOMIC_COMMIT_TO_CANONICAL_PLAY_SAVE_RESTORE",
+    "scenario_player_cases": {"passed": 16, "total": 16},
+    "creation_commit_count_total": 40,
+    "play_ready_cases": 16,
+    "strict_replay_cases": 16,
+    "restore_strict_cases": 16,
+    "scenario_binding_preserved_cases": 16,
+    "player_projection_canonical_path_leaks": 0,
+    "player_projection_source_hash_leaks": 0,
+    "local_full_report_sha256": "92b353a2c708d0267bd78b996258dcfe29c5e4075f78dfa3a639785bf7cfb079",
+    "exact_module_git_blobs": {
+      "batch3": "17b314379fe05b08eb013e8780842867d3b8f36e",
+      "batch4": "ea5d63c150d6ca2f0e8818381014653f2cb80685",
+      "canonical_binding": "e724f59f01856b4e21c676ecdd41615d9d322cd3"
+    }
+  },
   "public_fixture_scope": "Exact frozen C4 binding structure only; public CI does not reopen commercial source files.",
+  "private_transaction_e2e_completed": true,
   "private_full_creation_end_to_end_completed": false,
   "automatic_scenario_binding": false,
   "private_pdf_embedded": false,
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_stage": "PRIVATE_CANONICAL_CREATION_E2E_AND_C4B_ROUTE_ALIGNMENT"
+  "next_stage": "PRIVATE_FROM_DICE_E2E_OR_C4B_ROUTE_ALIGNMENT"
 }
