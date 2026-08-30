@@ -1,8 +1,8 @@
 {
   "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_V1",
   "generation": "RECOVERY_RECERTIFICATION_R1",
-  "stage": "R1-C2_RUNTIME_RULES_INTEGRATION",
-  "status": "R1_C2_INTEGRATED_RUNTIME_CANDIDATE_NOT_AUTHORITY",
+  "stage": "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION",
+  "status": "R1_C3_FROZEN_CANDIDATE_NOT_AUTHORITY",
   "base": {
     "branch": "main",
     "commit_sha": "5936b9e67af65b5a4d7d9c2d18ae6c44a7829db7",
@@ -91,19 +91,45 @@
     "private_source_backed_precheck": "31/31 PASS",
     "private_source_identities": "8/8 PASS",
     "private_sources_embedded": false,
-    "byte_identical_to_historical_329": false,
+    "identity_frozen_as_c3_parent": true,
+    "authority_promoted": false
+  },
+  "r1_c3_complete_state_delta_and_scenario_identity_matrix": {
+    "result": "PASS",
+    "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C3_V1",
+    "source_commit": "00eabb605d74ff9ff0bebcd49c29658fde888da5",
+    "package": "SolidState_Recovery_Runtime_R1_C3.zip",
+    "zip_sha256": "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df",
+    "zip_crc": "PASS",
+    "manifest_sha256": "41b98ea799ab5ec48e7d92a57ee727e0beab6b5903dabcd7378a0ebb3038472e",
+    "immutable_files": 15,
+    "parent_c2_sha256": "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba",
+    "embedded_rules_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "generic_mechanical_delta_stats": ["HP", "SAN", "MP", "Luck"],
+    "san_authoritative_mutation": "MATERIALIZED_AND_STRICT_REPLAYABLE",
+    "public_tests": "24/24 PASS",
+    "private_matrix": "1067/1067 PASS",
+    "scenario_identities": 6,
+    "player_counts": [1, 2, 3, 4],
+    "core_cases": 24,
+    "events_per_core_case": 12,
+    "keeper_to_player_leaks": 0,
+    "save_resume": "PASS_AT_CUTS_1_6_11_AND_CROSS_SCENARIO_CUT_6",
+    "identity_frozen_in_ci": true,
+    "private_sources_embedded": false,
     "authority_promoted": false,
+    "qualification": "PRIVATE_SOURCE_IDENTITY_BACKED_RUNTIME_MATRIX",
     "scope_limits": [
-      "SAN mutation remains fail-closed until a generic replayable stat-delta journal exists.",
-      "Rules migration remains partial.",
-      "Full scenario/full-stack successor matrix remains pending."
+      "Scenario source identity gating is certified, but full canonical scenario-event interpretation is not yet recertified.",
+      "Rules Package R1 remains partial.",
+      "Full occupation, skill, equipment and weapon registries plus remaining CoC7 mechanics still require migration."
     ]
   },
   "required_next_gates": [
-    "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION"
+    "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION"
   ],
   "promotion": {
-    "allowed_at_stage_r1_c2": false,
+    "allowed_at_stage_r1_c3": false,
     "checkpoint334_created": false,
     "android_apk_promoted": false,
     "automatic_downgrade_forbidden": true,
