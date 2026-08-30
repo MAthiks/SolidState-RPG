@@ -138,6 +138,8 @@ def apply_sanity_experience(
     new_san = max(0, current_san - int(loss))
     row["stats"]["SAN"] = new_san
     journal = state.setdefault("scenario_san_journal", [])
+    # Persisted provenance is canonical and replay-stable. Whether the reducer is
+    # currently verifying replay is returned separately and never changes saved state.
     journal.append({
         "player_id": actor_player_id,
         "character_id": character_id,
@@ -149,7 +151,7 @@ def apply_sanity_experience(
         "loss": loss,
         "old_san": current_san,
         "new_san": new_san,
-        "provenance": "RECORDED_REPLAY" if replay else "RECORDED_LIVE_INPUT",
+        "provenance": "RECORDED_INPUT",
     })
     return {
         "status": "COMMITTED",
@@ -157,5 +159,6 @@ def apply_sanity_experience(
         "new_san": new_san,
         "loss": loss,
         "loss_expression": expr,
-        "provenance": journal[-1]["provenance"],
+        "provenance": "RECORDED_INPUT",
+        "execution_mode": "REPLAY_VERIFICATION" if replay else "LIVE_COMMIT",
     }
