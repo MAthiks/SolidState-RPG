@@ -1,0 +1,56 @@
+{
+  "schema": "COC7_RECOVERY_RULE_PACKAGE_R1_PROVENANCE_V1",
+  "package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+  "status": "MIGRATION_CANDIDATE_NOT_CANONICAL_4_7",
+  "documentary_authority_floor": 333,
+  "historical_rules_core": {
+    "id": "COC7_COMPILED_RULE_PACKAGE_4_7",
+    "sha256": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "bytes_available": false,
+    "identity_claimed_by_this_package": false
+  },
+  "private_sources": [
+    {
+      "source_id": "COC7_KEEPER",
+      "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+      "pages": {
+        "skill_rolls_and_difficulty": [82, 91],
+        "pushed_rolls": [84],
+        "bonus_penalty_and_opposed": [90, 91],
+        "wounds_healing": [119, 120, 121],
+        "firearms_range": [112],
+        "sanity": [154, 155, 156]
+      }
+    },
+    {
+      "source_id": "COC7_INVESTIGATOR",
+      "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17",
+      "pages": {
+        "characteristics": [43, 44, 45],
+        "age_modifiers": [45, 48],
+        "damage_bonus_build_hp_mov": [48, 49],
+        "occupation_skill_points": [49],
+        "personal_interest_points": [50]
+      }
+    }
+  ],
+  "materialized_records": [
+    "PERCENTILE_SUCCESS_LEVELS",
+    "REGULAR_HARD_EXTREME_DIFFICULTY",
+    "OPPOSED_ROLL",
+    "BONUS_PENALTY_DICE",
+    "PUSHED_ROLL_ELIGIBILITY",
+    "INVESTIGATOR_DERIVED_HP_SAN_MP_MOV_DB_BUILD",
+    "OCCUPATION_POINT_FORMULAS_SUBSET",
+    "PERSONAL_INTEREST_POINTS",
+    "MAJOR_WOUND_DYING_CLASSIFICATION",
+    "TEMPORARY_INDEFINITE_PERMANENT_INSANITY_THRESHOLDS",
+    "FIREARMS_RANGE_DIFFICULTY"
+  ],
+  "scope_limits": [
+    "This is not the complete Call of Cthulhu 7e rules corpus.",
+    "Occupation formulas not explicitly materialized fail closed.",
+    "Skill registry, full occupation registry, equipment/weapon registry, combat maneuvers, healing progression, chase rules, magic and full Sanity treatment remain later migration gates.",
+    "No raw commercial source text is embedded in this package."
+  ]
+}
