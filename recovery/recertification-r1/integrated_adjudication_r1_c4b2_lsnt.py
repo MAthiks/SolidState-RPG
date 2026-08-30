@@ -5,6 +5,14 @@ import hashlib
 import hmac
 
 from integrated_adjudication_r1_c4b import SourceBackedRuntimeR1C4B
+from registry_r1_c4b2_lsnt import (
+    REGISTRY_ID,
+    resolve_equipment,
+    resolve_occupation,
+    resolve_skill,
+    resolve_weapon,
+    scenario_reference_status,
+)
 from scenario_router_r1_c4b2_lsnt import ROUTER_ID, resolve_route_c4b2
 from runtime_r1.core import CHECKPOINT_FLOOR, canon
 
@@ -14,6 +22,20 @@ AUTHORITY_ID = "RECOVERY_RECERTIFICATION_R1_C4B2_LSNT"
 
 
 class SourceBackedRuntimeR1C4B2LSNT(SourceBackedRuntimeR1C4B):
+    def registry_resolve(self, registry: str, record_id: str, **kwargs):
+        registry = str(registry).upper()
+        if registry == "OCCUPATION":
+            return resolve_occupation(record_id, characteristics=kwargs.get("characteristics"))
+        if registry == "SKILL":
+            return resolve_skill(record_id, dex=kwargs.get("dex"))
+        if registry == "EQUIPMENT":
+            return resolve_equipment(record_id)
+        if registry == "WEAPON":
+            return resolve_weapon(record_id)
+        if registry == "SCENARIO_REFERENCE":
+            return scenario_reference_status(record_id)
+        return {"status": "BLOCKED", "code": "REGISTRY_UNKNOWN", "registry": registry}
+
     def scenario_preflight(self, scenario_key: str):
         return resolve_route_c4b2(scenario_key, self.source_paths)
 
@@ -23,6 +45,7 @@ class SourceBackedRuntimeR1C4B2LSNT(SourceBackedRuntimeR1C4B):
             return result
         state = self._get_state()
         state["scenario_runtime"]["router_id"] = ROUTER_ID
+        state["scenario_runtime"]["registry_id"] = REGISTRY_ID
         self._commit_state(state)
         return {**result, "integration_id": INTEGRATION_ID}
 
@@ -77,6 +100,7 @@ class SourceBackedRuntimeR1C4B2LSNT(SourceBackedRuntimeR1C4B):
             expected_hashes = {row["source_id"]: row["sha256"] for row in routed["sources"]}
             if (
                 scenario.get("router_id") != ROUTER_ID
+                or scenario.get("registry_id") != REGISTRY_ID
                 or scenario.get("scenario_id") != canonical.get("scenario_id")
                 or scenario.get("source_ids") != list(canonical.get("source_ids", ()))
                 or scenario.get("source_hashes") != expected_hashes
