@@ -1,0 +1,79 @@
+{
+  "schema": "COC7_GENERAL_SKILL_RESOLUTION_BATCH1_DEV_V1",
+  "module_id": "COC7_GENERAL_SKILL_RESOLUTION_R1_BATCH1_DEV_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_finance_module_id": "COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1",
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [82, 83, 84, 85, 86, 88, 89, 90, 91]
+  },
+  "materialized_rules": {
+    "living_opponent_difficulty": {
+      "below_50": "REGULAR",
+      "50_to_89": "HARD",
+      "90_or_more": "EXTREME"
+    },
+    "pushed_rolls": {
+      "second_and_final_attempt": true,
+      "player_must_justify_extra_effort_or_time": true,
+      "goal_must_remain_same": true,
+      "difficulty_normally_remains_same": true,
+      "difficulty_may_change_only_if_situation_changed": true,
+      "only_skill_or_characteristic_rolls_supported": true,
+      "luck_sanity_combat_chase_damage_and_sanity_loss_are_not_pushable": true,
+      "opposed_rolls_are_not_pushable": true,
+      "fumble_consequence_cannot_be_erased_by_a_push": true,
+      "failed_push_requires_keeper_defined_consequence": true,
+      "success_achieves_original_goal": true
+    },
+    "group_skill_rolls": {
+      "participants_are_keeper_selected_explicit_inputs": true,
+      "any_success_mode": true,
+      "all_success_mode": true,
+      "one_success_can_be_sufficient_when_keeper_selects_any_success_mode": true,
+      "all_participants_must_succeed_when_keeper_selects_all_success_mode": true,
+      "same_investigator_retry_of_same_goal_requires_push": true,
+      "new_investigator_attempt_requires_keeper_permission": true,
+      "automatic_participant_selection": false
+    },
+    "physical_human_limits": {
+      "single_investigator_upper_faceable_limit_is_characteristic_plus_100": true,
+      "beyond_limit_is_impossible_without_combined_effort": true,
+      "combined_effort_deducts_characteristics_from_lowest_upward": true,
+      "used_reducers_do_not_make_the_final_roll": true,
+      "remaining_investigators_may_roll_once_opposition_is_faceable": true,
+      "opposition_may_not_be_reduced_to_zero_or_below": true,
+      "a_skill_or_characteristic_roll_is_always_required": true
+    },
+    "luck_int_idea_know": {
+      "group_luck_uses_unique_lowest_luck_investigator": true,
+      "lowest_luck_tie_is_fail_closed_for_keeper_resolution": true,
+      "bad_event_lowest_luck_victim_can_be_selected_without_roll_when_keeper_declares_that_mode": true,
+      "intelligence_and_idea_rolls_use_INT": true,
+      "know_roll_uses_EDU": true,
+      "know_roll_defers_to_specific_skill_when_keeper_marks_one_applicable": true,
+      "no_narrative_solution_or_cost_is_auto_generated": true
+    }
+  },
+  "reuse_policy": {
+    "success_levels_reused_from_frozen_rules_core": true,
+    "opposed_resolution_reused_from_frozen_rules_core": true,
+    "bonus_penalty_percentile_digits_reused_from_frozen_rules_core": true,
+    "duplicate_success_level_engine_created": false
+  },
+  "explicitly_blocked_batch1": [
+    "AUTOMATIC_PUSH_JUSTIFICATION",
+    "AUTOMATIC_PUSH_FAILURE_CONSEQUENCE",
+    "AUTOMATIC_GROUP_PARTICIPANT_SELECTION",
+    "AUTOMATIC_GROUP_LUCK_TIE_BREAK",
+    "AUTOMATIC_IDEA_ROLL_NARRATIVE_SOLUTION",
+    "AUTOMATIC_KNOW_ROLL_SUBSTITUTION_WHEN_SPECIFIC_SKILL_APPLIES",
+    "AUTOMATIC_PHYSICAL_HELPER_SELECTION_OUTSIDE_SOURCE_ORDER",
+    "REROLLING_RECORDED_DICE"
+  ],
+  "randomness_policy": "No random values are generated. All percentile values are supplied as recorded runtime/replay values.",
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
