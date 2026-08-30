@@ -267,7 +267,7 @@ def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict
 
     if not remaining:
         return _blocked('NO_INVESTIGATOR_REMAINS_TO_MAKE_REQUIRED_ROLL')
-    if not all(opposition <= p['characteristic'] + 100 for p in remaining):
+    if not any(opposition <= p['characteristic'] + 100 for p in remaining):
         return _blocked(
             'OPPOSITION_BEYOND_REMAINING_HUMAN_LIMITS',
             opposition_after_reductions=opposition,
