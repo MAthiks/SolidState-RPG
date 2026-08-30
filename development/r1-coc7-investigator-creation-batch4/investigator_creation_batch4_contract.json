@@ -1,0 +1,37 @@
+{
+  "schema": "COC7_INVESTIGATOR_CREATION_BATCH4_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH4_DEV_V1",
+  "parent_module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH3_DEV_V1",
+  "parent_validated_commit": "e733100015ad5a565aedde7f622647eeac40dd94",
+  "parent_validated_proof": 2614,
+  "checkpoint_floor": 333,
+  "scope": [
+    "inspect 1 to 4 actor-owned investigator creation transactions without mutating runtime state",
+    "require every player-owned character to have a completed Batch3 creation transaction before play",
+    "require one matching creation commit record for every completed investigator",
+    "require current and initial character baselines to match before play begins",
+    "finalize party creation atomically from SESSION_READY to PLAY_READY",
+    "bind a roster fingerprint to the created investigator baselines",
+    "block gameplay before PLAY_READY with zero mutation",
+    "preserve actor ownership gates after PLAY_READY",
+    "preserve save restore and Strict Replay after party finalization",
+    "preserve independent character creation transactions so one failed creation does not corrupt another"
+  ],
+  "out_of_scope_fail_closed": [
+    "shared ownership of one investigator",
+    "starting play with an incomplete investigator",
+    "editing an investigator after party finalization through the creation transaction",
+    "finalizing after gameplay journal events already exist",
+    "automatic investigator completion",
+    "automatic equipment or finance decisions",
+    "scenario-specific start logic"
+  ],
+  "automatic_investigator_completion": false,
+  "automatic_equipment_selection": false,
+  "automatic_finance_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
