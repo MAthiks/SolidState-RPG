@@ -1,0 +1,46 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_ANTI_ROLLBACK_V1_7_SUPERSESSION_V1",
+  "result": "PROMOTION_BLOCKED",
+  "status": "ACTIVE_ANTI_ROLLBACK_GUARD",
+  "historical_dev_branch": "dev/r1-c4b2-lsnt-v1.5-current",
+  "historical_dev_scenario_pair": "LSNT-V1.5-MULTI-1942",
+  "historical_dev_validation": "PASS_C4B2_DEV_FREEZE_AUDIT",
+  "historical_dev_promotable": false,
+  "superseding_runtime_target": {
+    "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+    "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+    "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+    "v1_5_runtime_dependency": false,
+    "execution_policy": "V1_7_REPLACES_PREVIOUS_VERSIONS_FOR_EXECUTION"
+  },
+  "external_authority_lock_observed": {
+    "lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+    "status": "ACTIVE",
+    "authority_level": "ABOVE_INSTALL_PACK",
+    "install_generation_floor": 4,
+    "minimum_pack_version": "1.1.4",
+    "engine": "Solid State v7.8.1 candidate",
+    "correction": "018",
+    "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+    "ironman_commit": 6,
+    "payload_sha256": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e"
+  },
+  "current_verification": {
+    "v1_7_pdf_identifiers_found_in_versioned_file_library_artifacts": true,
+    "v1_7_exact_pdf_bytes_mounted_in_current_runtime": false,
+    "v1_7_exact_pdf_sha256_materialized_in_repository": false,
+    "required_v7_8_1_correction_zip_bytes_verified_in_current_runtime": false,
+    "github_v1_7_runtime_migration_found": false,
+    "migration_version_status": "VERSION_NON_CONFIRMEE"
+  },
+  "forbidden_actions": [
+    "PROMOTE_LSNT_V1_5_AS_CURRENT_RUNTIME",
+    "CREATE_CHECKPOINT_FROM_LSNT_V1_5_AS_CURRENT",
+    "SILENTLY_REUSE_V1_5_SOURCE_HASHES_FOR_V1_7",
+    "CLAIM_V1_7_CRYPTOGRAPHIC_SOURCE_IDENTITY_WITHOUT_BYTES"
+  ],
+  "next_gate": "R1_C4B2_LSNT_V1_7_SOURCE_IDENTITY_AND_MIGRATION",
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "private_source_content_embedded": false
+}
