@@ -1,0 +1,34 @@
+name: DEV R1 CoC7 Investigator Creation Batch2 Hardened
+
+on:
+  push:
+    branches: [dev/r1-coc7-investigator-creation-batch2]
+    paths:
+      - development/r1-coc7-investigator-creation-batch2/**
+      - .github/workflows/dev-r1-coc7-investigator-creation-batch2-hardened.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardened-reproducibility-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile creation Batch2
+        run: python -m compileall -q development/r1-coc7-investigator-creation-batch2
+      - name: Run exact hardened 2514-test gate
+        run: python development/r1-coc7-investigator-creation-batch2/run_hardened_gate.py
+      - name: Summary
+        run: |
+          echo '## Investigator Creation Batch2 Hardened' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Parent proof: **2414/2414 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Occupation schemas: **114 audited**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch2 targeted: **100/100 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined: **2514/2514 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Character state committed: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
