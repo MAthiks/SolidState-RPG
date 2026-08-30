@@ -22,7 +22,7 @@ jobs:
   c4-registry-canonical-router-gate:
     runs-on: ubuntu-latest
     env:
-      C4_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+      C4_SOURCE_COMMIT: 9d84e463db86f73e388315470ad8272f54f5677d
     steps:
       - name: Checkout full history
         uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
         run: |
           jq -e '.result == "PASS" and .passed == 222 and .total == 222 and .source_identities == "8/8 PASS" and .authority_promoted == false and .private_source_content_embedded == false and .c3_mapping_correction.id == "C3-MAP-001" and .c3_mapping_correction.automatic_substitution == false' recovery/recertification-r1/R1_C4_PRIVATE_ROUTER_REPORT.json
 
-      - name: First deterministic R1-C4 build
+      - name: First frozen deterministic R1-C4 build
         env:
           R1_C4_OUTDIR: ${{ runner.temp }}/r1c4_first
           RECOVERY_SOURCE_COMMIT_C4: ${{ env.C4_SOURCE_COMMIT }}
@@ -84,7 +84,7 @@ jobs:
           python recovery/recertification-r1/build_integrated_runtime_r1_c4.py
           sha256sum "${R1_C4_OUTDIR}/SolidState_Recovery_Runtime_R1_C4.zip" | tee "${RUNNER_TEMP}/r1c4_first.sha256"
 
-      - name: Second deterministic R1-C4 build
+      - name: Second frozen deterministic R1-C4 build
         env:
           R1_C4_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/c4_dist
           RECOVERY_SOURCE_COMMIT_C4: ${{ env.C4_SOURCE_COMMIT }}
@@ -94,13 +94,15 @@ jobs:
           FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c4_first.sha256")"
           SECOND_SHA="$(sha256sum "${R1_C4_OUTDIR}/SolidState_Recovery_Runtime_R1_C4.zip" | awk '{print $1}')"
           test "$FIRST_SHA" = "$SECOND_SHA"
+          test "$SECOND_SHA" = "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b"
+          jq -e '.source_commit == "9d84e463db86f73e388315470ad8272f54f5677d"' "${R1_C4_OUTDIR}/R1_C4_BUILD_REPORT.json"
           jq -e '.parent_r1_c3_sha256 == "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df"' "${R1_C4_OUTDIR}/R1_C4_BUILD_REPORT.json"
           jq -e '.embedded_rules_sha256 == "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"' "${R1_C4_OUTDIR}/R1_C4_BUILD_REPORT.json"
           jq -e '.public_tests == "45/45 PASS" and .private_matrix == "222/222 PASS" and .private_sources_embedded == false and .authority_promoted == false' "${R1_C4_OUTDIR}/R1_C4_BUILD_REPORT.json"
           test "$SECOND_SHA" != "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add"
-          echo "R1_C4_SHA256=$SECOND_SHA"
+          echo "FROZEN_R1_C4_SHA256=$SECOND_SHA"
 
-      - name: Verify extracted R1-C4 package and rerun public tests
+      - name: Verify extracted frozen R1-C4 package and rerun public tests
         shell: bash
         run: |
           set -euo pipefail
@@ -112,7 +114,7 @@ jobs:
           export R1_C1_RULES_ZIP="$PWD/rules/CoC7_Recovery_Rules_R1_Core.zip"
           PYTHONPATH=. python test_registry_router_public_r1_c4.py
 
-      - name: Upload R1-C4 candidate and evidence
+      - name: Upload frozen R1-C4 candidate and evidence
         uses: actions/upload-artifact@v4
         with:
           name: recovery-recertification-r1-c4-runtime
@@ -139,6 +141,6 @@ jobs:
           echo '- Canonical routes ready: **BRUME / ANTRE / MUSE / EXPLORATEUR**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Soleil Noir v1.5: **SOURCE READY / PATH BLOCKED**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Maison du Pendu: **SOURCE IDENTITY BLOCKED**' >> "$GITHUB_STEP_SUMMARY"
-          echo "- C4 candidate SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Frozen C4 SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Next gate: `R1-C4B_EXPAND_REGISTRIES_AND_COMPILE_REMAINING_SCENARIO_ROUTES`' >> "$GITHUB_STEP_SUMMARY"
