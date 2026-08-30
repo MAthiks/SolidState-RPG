@@ -1,0 +1,49 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_PRECOMPILE_STATUS_V1",
+  "branch": "dev/r1-c4b2-lsnt-v1.7-source-identity",
+  "status": "PRECOMPILE_VALIDATED_SOURCE_BYTES_PENDING",
+  "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
+  "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+  "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+  "runtime_dependency_on_v1_5": false,
+  "source_library_content_verified": true,
+  "exact_pdf_byte_hashes_materialized": false,
+  "private_runtime_compilation_allowed": false,
+  "public_precompile_tests": "23/23 PASS",
+  "public_ci_commit": "5d75039285abc85c187612377ea235ee53b0ee83",
+  "public_ci_run_id": 33329647136,
+  "materializer": "development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py",
+  "materializer_behavior": {
+    "checks_pdf_header": true,
+    "extracts_document_text": true,
+    "requires_exact_source_id": true,
+    "requires_exact_pair_id": true,
+    "requires_role_marker": true,
+    "computes_sha256_from_raw_bytes": true,
+    "rejects_v1_5_hash_reuse": true,
+    "rejects_keeper_player_hash_collision": true
+  },
+  "precompile_verified": {
+    "player_counts": [1, 2, 3, 4],
+    "world_clock_j1_j4": true,
+    "front_checks": ["0600", "1800"],
+    "ending_family_count": 10,
+    "knowledge_partition_required": true,
+    "timeline_sync_if_split": true,
+    "exposure_thresholds": [2, 4, 6],
+    "shared_water_liters": {"1": 32, "2": 48, "3": 64, "4": 80},
+    "team_radio_batteries": 2,
+    "fuel_capacity_numeric_invented": false,
+    "fuel_consumption_numeric_invented": false,
+    "player_projection_guardian_values_exposed": false
+  },
+  "anti_rollback": {
+    "v1_5_promotable": false,
+    "v1_5_hash_reuse_allowed": false,
+    "fallback_to_v1_5_or_v1_6": false,
+    "activation_before_2_of_2_byte_hashes": false
+  },
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "next_gate": "MOUNT_BOTH_V1_7_PDF_BYTES_AND_RUN_MATERIALIZER"
+}
