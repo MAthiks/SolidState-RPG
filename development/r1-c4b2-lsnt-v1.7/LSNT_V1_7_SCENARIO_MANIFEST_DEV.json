@@ -1,0 +1,98 @@
+{
+  "schema": "SOLIDSTATE_SCENARIO_MANIFEST_DEV_V1",
+  "stage": "R1-C4B2_DEV",
+  "status": "STRUCTURE_COMPILED_SOURCE_HASH_PENDING_NOT_ROUTE_READY",
+  "authority_promoted": false,
+  "scenario": {
+    "scenario_key": "SOLEIL_NOIR",
+    "title": "Le Soleil Noir de Tobrouk",
+    "edition": "v1.7 STANDALONE CANONICAL EDITION",
+    "pair_id": "LSNT-V1.7-STANDALONE-1942",
+    "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+    "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+    "era": "JUIN_1942",
+    "supported_player_counts": [1, 2, 3, 4],
+    "runtime_dependency_on_v1_5": false,
+    "runtime_dependency_on_v1_6": false,
+    "legacy_editions": ["v1.5", "v1.6"],
+    "legacy_runtime_status": "PROVENANCE_ONLY"
+  },
+  "source_gate": {
+    "mode": "DUAL_PROTECTED",
+    "keeper": {
+      "source_id": "LSNT_V1_7_KEEPER",
+      "document_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+      "expected_sha256": null,
+      "hash_status": "PENDING_BYTES_MOUNT"
+    },
+    "player": {
+      "source_id": "LSNT_V1_7_PLAYER",
+      "document_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+      "expected_sha256": null,
+      "hash_status": "PENDING_BYTES_MOUNT"
+    },
+    "legacy_pair_may_satisfy_gate": false,
+    "startup_until_hashes_materialized": "BLOCKED"
+  },
+  "scenario_contract": {
+    "world_clock": "J1-J4",
+    "front_track": true,
+    "knowledge_partition": "Knowledge[CharacterID]",
+    "party_state_required": true,
+    "world_state_required": true,
+    "exposure_range": [0, 6],
+    "exposure_thresholds": [2, 4, 6],
+    "single_clue_required": false,
+    "distinct_non_human_proof_routes": 3,
+    "ending_families": 10,
+    "romain_persy": {
+      "name": "Romain Persy",
+      "age": 33,
+      "role": "BCRA liaison/renseignement",
+      "npc_autonomous": true,
+      "never_replacement_pc": true
+    }
+  },
+  "state_binding": [
+    "WORLD_TIME",
+    "PARTY_SPLIT",
+    "POSITION[CharacterID]",
+    "ROMAIN_PERSY",
+    "HP",
+    "SAN",
+    "MP",
+    "LUCK",
+    "EXPOSURE",
+    "INVENTORY",
+    "SHARED_RESOURCES",
+    "VEHICLE",
+    "WATER",
+    "FUEL",
+    "AMMO",
+    "RADIO",
+    "FRONT",
+    "FACTIONS",
+    "KNOWLEDGE",
+    "SHARED_KNOWLEDGE",
+    "EVENTS",
+    "CONSEQUENCES_PENDING"
+  ],
+  "player_projection": {
+    "keeper_truth_exposed": false,
+    "canonical_graph_exposed": false,
+    "keeper_notes_exposed": false,
+    "per_character_knowledge": true,
+    "split_party_auto_shares_clues": false,
+    "persistent_visible_resources": ["WATER", "FUEL", "AMMO", "VEHICLE", "RADIO", "HEALING"]
+  },
+  "historical_technical_fail_closed": {
+    "ford_c11adf_exact_tank_capacity": "UNKNOWN_UNTIL_VALIDATED",
+    "ford_c11adf_exact_consumption": "UNKNOWN_UNTIL_VALIDATED",
+    "automatic_range_estimate_for_pacing": false
+  },
+  "promotion": {
+    "frozen_candidate": false,
+    "checkpoint334_created": false,
+    "android_promoted": false
+  }
+}
