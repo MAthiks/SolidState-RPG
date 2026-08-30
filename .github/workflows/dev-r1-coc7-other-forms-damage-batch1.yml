@@ -1,0 +1,99 @@
+name: DEV R1 CoC7 Other Forms Damage Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-other-forms-damage-batch1"]
+    paths:
+      - "development/r1-coc7-other-forms-damage-batch1/**"
+      - ".github/workflows/dev-r1-coc7-other-forms-damage-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-other-forms-damage-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile parent gate and new batch
+        run: |
+          python -m compileall -q development/r1-coc7-ranged-thrown-armor-batch1
+          python -m compileall -q development/r1-coc7-other-forms-damage-batch1
+
+      - name: Re-run hardened parent chain — exact 1608
+        run: |
+          set -euo pipefail
+          python development/r1-coc7-ranged-thrown-armor-batch1/run_hardened_gate.py 2>&1 | tee /tmp/parent.log
+          grep -q '"combined_tests": 1608' /tmp/parent.log
+          grep -q '"result": "PASS"' /tmp/parent.log
+
+      - name: Run Other Forms Damage targeted matrix — exact 80
+        working-directory: development/r1-coc7-other-forms-damage-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_other_forms_damage_dev.py 2>&1 | tee /tmp/otherdamage.log
+          grep -q 'Ran 80 tests' /tmp/otherdamage.log
+          grep -q '^OK$' /tmp/otherdamage.log
+
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert 1608 + 80 == 1688
+          PY
+
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-other-forms-damage-batch1/other_forms_damage_batch1_contract.json').read_text())
+          assert c['schema']=='COC7_OTHER_FORMS_DAMAGE_BATCH1_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_OTHER_FORMS_DAMAGE_R1_BATCH1_DEV_V1'
+          assert c['parent_ranged_thrown_armor_module_id']=='COC7_RANGED_THROWN_ARMOR_R1_BATCH1_DEV_V1'
+          assert c['parent_validated_commit']=='9815b353f3fa7c4ef01b34ab6019ed1675a6ecef'
+          assert c['parent_validated_test_chain']==1608
+          assert c['source']['source_id']=='COC7_KEEPER'
+          assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['source']['printed_pages']==[123,124]
+          m=c['materialized_rules']
+          assert m['severity_selected_explicitly_not_inferred_from_narrative'] is True
+          assert m['damage_dice_are_recorded_inputs'] is True
+          assert m['repeated_exposure_can_apply_damage_each_successive_round'] is True
+          assert m['asphyxiation_exertion_requires_hard_con'] is True
+          assert m['asphyxiation_death_at_zero_hp_ignores_major_wound_rule'] is True
+          assert m['poison_extreme_con_halves_damage'] is True
+          assert m['poison_critical_shakeoff_is_keeper_optional_not_automatic'] is True
+          assert c['reuse_policy']['ordinary_damage_state_reused_from_wounds_healing_batch1'] is True
+          assert c['reuse_policy']['duplicate_percentile_engine_created'] is False
+          assert c['automatic_severity_selection'] is False
+          assert c['automatic_poison_symptom_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-other-forms-damage-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Other Forms Damage Batch1' >&2
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo '## Other Forms Damage Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior hardened chain: **1608/1608 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Other Forms Damage targeted matrix: **80/80 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate chain: **1688/1688 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Source: **Keeper pp. 123-124 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic severity selection: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic poison symptoms: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
