@@ -35,3 +35,29 @@ jobs:
       - name: Run public canonical creation binding gate
         working-directory: development/r1-c4b2-lsnt-v1.5-current
         run: python -m unittest -v test_canonical_runtime_creation_binding_c4b2_lsnt.py
+      - name: Build exact public code bundle
+        run: |
+          tar -czf c4b2-public-code.tgz \
+            development/r1-c4b2-lsnt-v1.5-current \
+            development/r1-coc7-investigator-creation-batch1 \
+            development/r1-coc7-investigator-creation-batch2 \
+            development/r1-coc7-investigator-creation-batch3 \
+            development/r1-coc7-investigator-creation-batch4 \
+            development/r1-coc7-registry-batch1 \
+            development/r1-coc7-registry-batch2 \
+            development/r1-coc7-registry-batch3 \
+            development/r1-coc7-registry-batch4 \
+            development/r1-coc7-registry-batch5 \
+            development/r1-coc7-finance-credit-rating-batch1 \
+            development/r1-coc7-equipment-weapons-batch1 \
+            recovery/recertification-r1
+          sha256sum c4b2-public-code.tgz > c4b2-public-code.tgz.sha256
+      - name: Upload exact public code bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: c4b2-public-code-${{ github.sha }}
+          path: |
+            c4b2-public-code.tgz
+            c4b2-public-code.tgz.sha256
+          if-no-files-found: error
+          retention-days: 1
