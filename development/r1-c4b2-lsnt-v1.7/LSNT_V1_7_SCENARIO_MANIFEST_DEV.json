@@ -1,7 +1,7 @@
 {
   "schema": "SOLIDSTATE_SCENARIO_MANIFEST_DEV_V1",
   "stage": "R1-C4B2_DEV",
-  "status": "STRUCTURE_COMPILED_SOURCE_HASH_PENDING_NOT_ROUTE_READY",
+  "status": "DEV_COMPLETE_SOURCE_HASH_PENDING_NOT_MODULE_READY",
   "authority_promoted": false,
   "scenario": {
     "scenario_key": "SOLEIL_NOIR",
@@ -89,6 +89,25 @@
     "ford_c11adf_exact_tank_capacity": "UNKNOWN_UNTIL_VALIDATED",
     "ford_c11adf_exact_consumption": "UNKNOWN_UNTIL_VALIDATED",
     "automatic_range_estimate_for_pacing": false
+  },
+  "dev_validation": {
+    "result": "PASS",
+    "targeted_tests": "173/173 PASS",
+    "ci_run_id": 33287909019,
+    "validated_commit": "5b6ad2c125aff4d3dfcbe92edf0d05ea2909631c",
+    "runtime_seconds": 0.405,
+    "player_counts": [1, 2, 3, 4],
+    "integrated_continuous_vs_resumed": "PASS",
+    "strict_replay": "PASS",
+    "recorded_front_roll_never_rerolled": true,
+    "recorded_san_loss_never_rerolled": true,
+    "wrong_actor_zero_mutation": true,
+    "duplicate_omit_reorder_tamper_rejected": true,
+    "keeper_graph_in_player_projection": false,
+    "synthetic_source_identity_mode": "TEST_ONLY_NOT_CANONICAL",
+    "real_source_identity_verified": false,
+    "module_ready": false,
+    "blocking_dependency": "MATERIALIZE_EXACT_SHA256_FOR_V1_7_KEEPER_AND_PLAYER_PDF_BYTES"
   },
   "promotion": {
     "frozen_candidate": false,
