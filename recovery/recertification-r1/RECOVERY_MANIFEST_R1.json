@@ -1,0 +1,40 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-A_PUBLIC_PROVENANCE",
+  "status": "CANDIDATE_NOT_AUTHORITY",
+  "base": {
+    "branch": "main",
+    "commit_sha": "5936b9e67af65b5a4d7d9c2d18ae6c44a7829db7",
+    "documentary_authority_checkpoint": 333,
+    "documentary_authority_id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2"
+  },
+  "historical_gap": {
+    "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+    "certified_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "bytes_available": false,
+    "substitute_may_claim_same_identity": false
+  },
+  "public_identity_gate": {
+    "CHECKPOINT.md": "024a925076ca1759b08dd0a166479460e5cb3f3d",
+    "manifest/authority_floor.json": "f2263080e0cf97b42eb19293348a5958c3cebe7b",
+    "patches/checkpoint333/CHECKPOINT_333.json": "965695bdc3ebe13f7337bb491796f6a193bd8fa6",
+    "patches/checkpoint333/APPLY_333.md": "18854cf56aa5b9456237a48463769aee1f7e483f",
+    "patches/checkpoint333/run_tests_chunk333.py": "cf0f3093e33a140551a3443ce3fa72c9dc8c6f7c",
+    "patches/checkpoint333/NATIVE_RUNTIME_CHUNK333_REPORT.json": "ae6df132726e2745a63eb810fc017a4af2703585",
+    "patches/checkpoint330/solidstate_runtime/multiplayer_certification_v2.py": "7dd495abe9eb0e44d3653334d39ca99d879debaa",
+    "patches/checkpoint331/solidstate_runtime/save_resume_multiplayer_v2.py": "fe8caded08ec30f50a6f4c80a23de8fc5e35b510",
+    "patches/checkpoint332/solidstate_runtime/strict_replay_multiplayer_v2.py": "fbcab13c95317907039a961d4af4f5592bb2ffc8"
+  },
+  "required_next_gates": [
+    "R1-B_NEW_RUNTIME_MATERIALIZATION",
+    "R1-C_PRIVATE_SOURCE_BACKED_FULL_RECERTIFICATION"
+  ],
+  "promotion": {
+    "allowed_at_stage_r1_a": false,
+    "checkpoint334_created": false,
+    "android_apk_promoted": false,
+    "automatic_downgrade_forbidden": true,
+    "commercial_sources_must_remain_non_public": true
+  }
+}

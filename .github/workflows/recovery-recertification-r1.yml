@@ -1,0 +1,65 @@
+name: Recovery Recertification R1-A
+
+on:
+  push:
+    branches:
+      - recovery/recertification-r1
+    paths:
+      - recovery/recertification-r1/**
+      - patches/checkpoint330/**
+      - patches/checkpoint331/**
+      - patches/checkpoint332/**
+      - patches/checkpoint333/**
+      - CHECKPOINT.md
+      - manifest/authority_floor.json
+      - .github/workflows/recovery-recertification-r1.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - recovery/recertification-r1/**
+      - .github/workflows/recovery-recertification-r1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-provenance-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run R1-A public provenance gate
+        run: python recovery/recertification-r1/run_public_gate_r1.py
+
+      - name: Compile tracked Python sources
+        run: python -m compileall -q patches recovery/recertification-r1
+
+      - name: Write gate summary
+        shell: bash
+        run: |
+          echo '## Recovery Recertification R1-A' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Public provenance gate: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Playable runtime certified: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private source-backed recertification: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Checkpoint 334 created: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Android APK promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Next gate: `R1-B_NEW_RUNTIME_MATERIALIZATION`' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload R1-A evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-a-evidence
+          path: recovery/recertification-r1/R1_A_GATE_REPORT.json
+          if-no-files-found: error
+          retention-days: 30
