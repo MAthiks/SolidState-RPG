@@ -212,13 +212,19 @@ def subsequent_same_goal_attempt_gate(
     }
 
 
-def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict]) -> dict:
+def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict], reducer_actor_ids: list[str]) -> dict:
     if not _valid_int(opposition_value, 1):
         return _blocked('PHYSICAL_OPPOSITION_INVALID')
     if not isinstance(investigators, list) or not investigators:
         return _blocked('PHYSICAL_INVESTIGATORS_REQUIRED')
+    if not isinstance(reducer_actor_ids, list) or any(not _valid_text(v) for v in reducer_actor_ids):
+        return _blocked('PHYSICAL_REDUCER_PLAN_INVALID')
+    if len(set(reducer_actor_ids)) != len(reducer_actor_ids):
+        return _blocked('PHYSICAL_REDUCER_DUPLICATE')
+
     parsed = []
     seen = set()
+    by_id = {}
     for idx, participant in enumerate(investigators):
         if not isinstance(participant, dict) or set(participant) != {'actor_id', 'characteristic'}:
             return _blocked('PHYSICAL_PARTICIPANT_RECORD_INVALID', index=idx)
@@ -229,43 +235,57 @@ def physical_human_limit_plan(*, opposition_value: int, investigators: list[dict
         if not _valid_int(characteristic, 0):
             return _blocked('PHYSICAL_CHARACTERISTIC_INVALID', index=idx)
         seen.add(actor_id)
-        parsed.append({'actor_id': actor_id, 'characteristic': characteristic})
+        rec = {'actor_id': actor_id, 'characteristic': characteristic}
+        parsed.append(rec)
+        by_id[actor_id] = rec
 
-    remaining = sorted(parsed, key=lambda p: p['characteristic'])
+    if any(actor_id not in by_id for actor_id in reducer_actor_ids):
+        return _blocked('PHYSICAL_REDUCER_NOT_A_PARTICIPANT')
+
+    remaining = list(parsed)
     opposition = opposition_value
     reducers = []
-
-    while remaining:
-        capable = [p for p in remaining if opposition <= p['characteristic'] + 100]
-        if capable:
-            difficulty_record = living_opponent_difficulty(opposition)
-            return {
-                'status': 'RESOLVED',
-                'opposition_before': opposition_value,
-                'opposition_after_reductions': opposition,
-                'difficulty': difficulty_record['difficulty'],
-                'reducers': reducers,
-                'eligible_rollers': [p['actor_id'] for p in remaining if opposition <= p['characteristic'] + 100],
-                'a_roll_is_still_required': True,
-                'automatic_helper_selection': False,
-                'randomness_generated': False,
-            }
-        lowest = remaining[0]['characteristic']
-        tied_lowest = [p['actor_id'] for p in remaining if p['characteristic'] == lowest]
-        if len(tied_lowest) > 1:
+    for actor_id in reducer_actor_ids:
+        if len(remaining) <= 1:
+            return _blocked('PHYSICAL_PLAN_MUST_LEAVE_AT_LEAST_ONE_ROLLER')
+        lowest_value = min(p['characteristic'] for p in remaining)
+        chosen = by_id[actor_id]
+        if chosen not in remaining:
+            return _blocked('PHYSICAL_REDUCER_ALREADY_USED')
+        if chosen['characteristic'] != lowest_value:
             return _blocked(
-                'LOWEST_CHARACTERISTIC_REDUCER_TIE_KEEPER_RESOLUTION_REQUIRED',
-                characteristic=lowest,
-                candidates=tied_lowest,
+                'PHYSICAL_REDUCERS_MUST_BE_USED_LOWEST_CHARACTERISTIC_FIRST',
+                required_lowest_characteristic=lowest_value,
+                chosen_actor_id=actor_id,
             )
-        reducer = remaining.pop(0)
-        next_opposition = opposition - reducer['characteristic']
+        next_opposition = opposition - chosen['characteristic']
         if next_opposition <= 0:
             return _blocked('PHYSICAL_OPPOSITION_MAY_NOT_BE_REDUCED_TO_ZERO_OR_BELOW')
-        reducers.append(reducer['actor_id'])
+        remaining.remove(chosen)
+        reducers.append(actor_id)
         opposition = next_opposition
 
-    return _blocked('NO_INVESTIGATOR_REMAINS_TO_MAKE_REQUIRED_ROLL')
+    if not remaining:
+        return _blocked('NO_INVESTIGATOR_REMAINS_TO_MAKE_REQUIRED_ROLL')
+    if not all(opposition <= p['characteristic'] + 100 for p in remaining):
+        return _blocked(
+            'OPPOSITION_BEYOND_REMAINING_HUMAN_LIMITS',
+            opposition_after_reductions=opposition,
+            remaining_actor_ids=[p['actor_id'] for p in remaining],
+        )
+
+    difficulty_record = living_opponent_difficulty(opposition)
+    return {
+        'status': 'RESOLVED',
+        'opposition_before': opposition_value,
+        'opposition_after_reductions': opposition,
+        'difficulty': difficulty_record['difficulty'],
+        'reducers': reducers,
+        'eligible_rollers': [p['actor_id'] for p in remaining],
+        'a_roll_is_still_required': True,
+        'automatic_helper_selection': False,
+        'randomness_generated': False,
+    }
 
 
 def group_luck_selector(*, investigators: list[dict], mode: str) -> dict:
