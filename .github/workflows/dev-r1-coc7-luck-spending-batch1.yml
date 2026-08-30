@@ -147,12 +147,14 @@ jobs:
           assert sum([37,173,55,79,65,98,80,75,70,84,96,75,92,94,99,104]) == 1376
           assert 1376 + 80 == 1456
           PY
-      - name: Confirm contract and non-authority invariants
+      - name: Confirm contract, milestone and non-authority invariants
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          c=json.loads(Path('development/r1-coc7-luck-spending-batch1/luck_spending_batch1_contract.json').read_text())
+          base=Path('development/r1-coc7-luck-spending-batch1')
+          c=json.loads((base/'luck_spending_batch1_contract.json').read_text())
+          r=json.loads((base/'LUCK_SPENDING_BATCH1_DEV_REPORT.json').read_text())
           assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
           assert c['module_id']=='COC7_LUCK_SPENDING_R1_BATCH1_DEV_V1'
           assert c['parent_general_skill_module_id']=='COC7_GENERAL_SKILL_RESOLUTION_R1_BATCH1_DEV_V1'
@@ -180,6 +182,32 @@ jobs:
           assert c['private_pdf_embedded'] is False
           assert c['authority_promoted'] is False
           assert c['checkpoint_created'] is False
+          assert r['schema']=='COC7_LUCK_SPENDING_BATCH1_DEV_REPORT_V1'
+          assert r['module_id']==c['module_id']
+          assert r['result']=='PASS'
+          assert r['source_commit_tested']=='03645a751ed3b21097f9a81ecbb4eccd87b50eec'
+          assert r['github_actions_run_id']==33308172610
+          assert r['targeted_tests']=={'passed':80,'total':80}
+          assert r['prior_validated_chain']=={'passed':1376,'total':1376}
+          assert r['combined_chain']=={'passed':1456,'total':1456}
+          assert r['source_grounded'] is True
+          assert r['keeper_source_id']==c['source']['source_id']
+          assert r['keeper_source_sha256']==c['source']['sha256']
+          assert r['keeper_printed_pages']==[99]
+          assert r['own_roll_ownership_gate'] is True
+          assert r['one_luck_point_changes_roll_by_one'] is True
+          assert r['pushed_roll_result_cannot_be_altered'] is True
+          assert r['critical_fumble_malfunction_protected'] is True
+          assert r['experience_check_blocked_after_luck_spend'] is True
+          assert r['frozen_success_engine_reused'] is True
+          assert r['investigator_development_tick_engine_reused'] is True
+          assert r['luck_recovery_duplicated'] is False
+          assert r['automatic_spend_amount_selection'] is False
+          assert r['random_values_generated_by_module'] is False
+          assert r['private_pdf_embedded'] is False
+          assert r['authority_promoted'] is False
+          assert r['checkpoint_created'] is False
+          assert r['status']=='DEV_VALIDATED_NOT_AUTHORITY'
           PY
       - name: Confirm no private PDFs tracked
         run: |
@@ -189,12 +217,13 @@ jobs:
           fi
       - name: Summary
         run: |
-          echo '## Luck Spending Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Hardened parent chain: **1376/1376 required**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Luck Spending targeted matrix: **80/80 required**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Combined candidate chain: **1456/1456 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '## Luck Spending Batch1 hardened DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior validated chain: **1376/1376 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Luck Spending targeted matrix: **80/80 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined chain: **1456/1456 PASS required**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Source: **Keeper p. 99 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Own-roll ownership gate: **REQUIRED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Critical/fumble/malfunction protected: **YES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Automatic spend amount: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
