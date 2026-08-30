@@ -1,0 +1,43 @@
+{
+  "schema": "COC7_INVESTIGATOR_CREATION_BATCH3_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH3_DEV_V1",
+  "parent_module_id": "COC7_INVESTIGATOR_CREATION_R1_BATCH2_DEV_V1",
+  "parent_validated_commit": "a76d6d176209c110b25069a6e359b77d11422ed5",
+  "parent_validated_proof": 2514,
+  "integration_dependencies": {
+    "finance_module_id": "COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1",
+    "equipment_weapon_registry_id": "COC7_RECOVERY_EQUIPMENT_WEAPONS_R1_BATCH1_DEV_V1",
+    "runtime_schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_B_V1",
+    "checkpoint_floor": 333
+  },
+  "scope": [
+    "validate explicitly supplied private finance profile",
+    "require finance Credit Rating to match the selected investigator Credit Rating",
+    "validate explicitly selected equipment and weapon possession against source-backed registries",
+    "never grant possession from a registry lookup alone",
+    "build canonical investigator state from Batch1 and Batch2 validated preflights",
+    "commit investigator state atomically to the actor-owned runtime character slot",
+    "update runtime initial character baseline so Strict Replay begins from the created investigator",
+    "support 1 to 4 independently owned investigators",
+    "reject wrong actor, wrong character, duplicate creation commit, unknown possession, invalid finance profile, or malformed preflight with zero mutation"
+  ],
+  "out_of_scope_fail_closed": [
+    "automatic item purchasing from commercial price tables",
+    "automatic starting equipment selection",
+    "automatic debt creation",
+    "automatic asset conversion",
+    "scenario-specific equipment grants",
+    "shared ownership of an investigator",
+    "editing an already committed investigator through the creation transaction"
+  ],
+  "automatic_equipment_selection": false,
+  "automatic_weapon_selection": false,
+  "automatic_asset_conversion": false,
+  "automatic_debt_creation": false,
+  "random_values_generated_by_module": false,
+  "private_cash_assets_table_embedded": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
