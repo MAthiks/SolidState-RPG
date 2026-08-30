@@ -1,0 +1,44 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C3_IDENTITY_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION",
+  "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C3_V1",
+  "package_name": "SolidState_Recovery_Runtime_R1_C3.zip",
+  "status": "CANDIDATE_NOT_AUTHORITY",
+  "documentary_authority_floor": 333,
+  "checkpoint334_created": false,
+  "android_apk_promoted": false,
+  "runtime_parent": {
+    "package": "SolidState_Recovery_Runtime_R1_C2.zip",
+    "certified_candidate_sha256": "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba",
+    "source_commit": "12f680f52a8a027ce38617d003355aaebcbcc269"
+  },
+  "rules_dependency": {
+    "package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+    "zip_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "historical_4_7_identity_claimed": false
+  },
+  "materialized_c3": [
+    "generic typed actor-bound mechanical deltas for HP/SAN/MP/Luck",
+    "SAN authoritative state mutation",
+    "generic mechanical delta Strict Replay without reroll",
+    "C3 HMAC save/restore with replay validation",
+    "delta tamper detection after malicious re-authentication",
+    "source identity cache keyed by immutable file fingerprint",
+    "six-scenario-identity 1-4 player private runtime matrix"
+  ],
+  "private_matrix": {
+    "result": "1067/1067 PASS",
+    "scenario_identities": 6,
+    "player_counts": [1, 2, 3, 4],
+    "events_per_core_case": 12,
+    "keeper_to_player_leaks": 0,
+    "qualification": "PRIVATE_SOURCE_IDENTITY_BACKED_RUNTIME_MATRIX"
+  },
+  "scope_limits": [
+    "Scenario identity gating is certified, but full canonical scenario-event interpretation is not yet recertified.",
+    "Rules Package R1 remains partial.",
+    "Full occupation, skill, equipment and weapon registries plus remaining CoC7 mechanics are not yet migrated."
+  ],
+  "next_gate": "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION"
+}

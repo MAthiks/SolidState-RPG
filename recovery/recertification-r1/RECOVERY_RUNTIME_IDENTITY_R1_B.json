@@ -1,0 +1,23 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_B_IDENTITY_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-B_NEW_RUNTIME_MATERIALIZATION",
+  "package_name": "SolidState_Recovery_Runtime_R1_B.zip",
+  "status": "CANDIDATE_NOT_AUTHORITY",
+  "documentary_authority_floor": 333,
+  "checkpoint334_created": false,
+  "android_apk_promoted": false,
+  "historical_checkpoint329": {
+    "artifact": "SolidState_Offline_Runtime_v1_Checkpoint329.zip",
+    "certified_sha256": "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add",
+    "byte_identity_claimed": false
+  },
+  "scope": {
+    "player_counts": [1, 2, 3, 4],
+    "actor_bound_replay": true,
+    "replay_reroll": false,
+    "authenticated_save_resume": "HMAC-SHA256",
+    "keeper_player_partition": true,
+    "private_source_backed_recertification": "PENDING_R1_C"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "SOLIDSTATE_R1_C4_PRIVATE_ROUTER_MATRIX_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION",
+  "qualification": "PRIVATE_SOURCE_AND_CANONICAL_ROUTE_GATE",
+  "result": "PASS",
+  "passed": 222,
+  "total": 222,
+  "source_identities": "8/8 PASS",
+  "historical_route_matrix": "4 routes x 1-4 players = 16 sessions",
+  "route_ready": [
+    "BRUME",
+    "ANTRE",
+    "MUSE",
+    "EXPLORATEUR"
+  ],
+  "source_ready_path_blocked": [
+    "SOLEIL_NOIR"
+  ],
+  "source_identity_blocked": [
+    "MAISON_PENDU"
+  ],
+  "c3_mapping_correction": {
+    "id": "C3-MAP-001",
+    "scenario": "MAISON_PENDU",
+    "old_mapping": "AE_COLLECTION",
+    "new_status": "BLOCKED_SOURCE_IDENTITY_UNVERIFIED",
+    "automatic_substitution": false
+  },
+  "private_source_content_embedded": false,
+  "authority_promoted": false,
+  "scope_limits": [
+    "Occupation registry currently materializes Archaeologist only; other occupations remain fail-closed.",
+    "Equipment registry is a minimal non-possession reference subset.",
+    "Soleil Noir v1.5 source pair is verified but its canonical path is not yet compiled in R1-C4.",
+    "Maison du Pendu source exists in File Library but exact bytes/hash are not mounted in the recovery runtime."
+  ],
+  "next_gate": "R1-C4B_EXPAND_REGISTRIES_AND_COMPILE_REMAINING_SCENARIO_ROUTES"
+}

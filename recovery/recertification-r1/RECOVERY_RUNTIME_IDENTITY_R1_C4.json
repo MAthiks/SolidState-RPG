@@ -1,0 +1,23 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_IDENTITY_R1_C4_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION",
+  "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C4_V1",
+  "status": "CANDIDATE_NOT_AUTHORITY",
+  "documentary_authority_floor": 333,
+  "parent_r1_c3_sha256": "553b95b761dc0426d4d163fb137988287574a56c913447a297b192874b6a98df",
+  "embedded_rules_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+  "registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
+  "router_id": "SOLIDSTATE_CANONICAL_SCENARIO_ROUTER_R1_C4_V1",
+  "public_registry_tests": "45/45 PASS",
+  "private_router_matrix": "222/222 PASS",
+  "source_identities": "8/8 PASS",
+  "route_ready": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR"],
+  "source_ready_path_blocked": ["SOLEIL_NOIR"],
+  "source_identity_blocked": ["MAISON_PENDU"],
+  "c3_mapping_correction": "C3-MAP-001",
+  "private_sources_embedded": false,
+  "authority_promoted": false,
+  "checkpoint334_created": false,
+  "next_gate": "R1-C4B_EXPAND_REGISTRIES_AND_COMPILE_REMAINING_SCENARIO_ROUTES"
+}

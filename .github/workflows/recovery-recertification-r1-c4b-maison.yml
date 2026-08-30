@@ -1,0 +1,118 @@
+name: Recovery Recertification R1-C4B Maison
+
+on:
+  push:
+    branches: [recovery/recertification-r1]
+    paths:
+      - recovery/recertification-r1/**
+      - .github/workflows/recovery-recertification-r1-c4b-maison.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - recovery/recertification-r1/**
+      - .github/workflows/recovery-recertification-r1-c4b-maison.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  c4b-maison-gate:
+    runs-on: ubuntu-latest
+    env:
+      EXPECTED_R1_C4B_MAISON_SHA256: b6ebc6acde07a3063c6eef4025d4fa4c35a35d2c5839a66123c64c6821fb39cd
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+
+      - name: Reconfirm Checkpoint333 floor
+        run: python recovery/recertification-r1/run_public_gate_r1.py
+
+      - name: Rebuild frozen Rules Core R1
+        env:
+          R1_C1_OUTDIR: ${{ runner.temp }}/rules
+          RECOVERY_SOURCE_COMMIT: af1d1a0113e2181c9e827f0d111273be180ca670
+        run: |
+          set -euo pipefail
+          python recovery/recertification-r1/build_rules_package_r1.py
+          RULES="${R1_C1_OUTDIR}/CoC7_Recovery_Rules_R1_Core.zip"
+          test "$(sha256sum "$RULES" | awk '{print $1}')" = "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"
+          mkdir -p recovery/recertification-r1/rules
+          cp "$RULES" recovery/recertification-r1/rules/CoC7_Recovery_Rules_R1_Core.zip
+
+      - name: Rebuild frozen R1-C4 parent
+        env:
+          R1_C4_OUTDIR: ${{ runner.temp }}/c4_parent
+          RECOVERY_SOURCE_COMMIT_C4: 9d84e463db86f73e388315470ad8272f54f5677d
+        run: |
+          set -euo pipefail
+          python recovery/recertification-r1/build_integrated_runtime_r1_c4.py
+          C4="${R1_C4_OUTDIR}/SolidState_Recovery_Runtime_R1_C4.zip"
+          test "$(sha256sum "$C4" | awk '{print $1}')" = "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b"
+          echo "R1_C4_FROZEN_ZIP=$C4" >> "$GITHUB_ENV"
+
+      - name: Run public Maison C4B tests
+        working-directory: recovery/recertification-r1
+        run: python test_maison_router_public_r1_c4b.py
+
+      - name: Verify sanitized private Maison evidence
+        run: |
+          jq -e '.result == "PASS" and .passed == 93 and .total == 93 and .source_identities == "9/9 PASS" and .maison_source_sha256 == "03867cec90056dfb2777bdc6ff38013dd44acad9d8b08ecd571e795518ba1ee0" and .ae_collection_substitution == "REJECTED" and .keeper_to_player_canonical_path_leaks == 0 and .private_source_content_embedded == false and .authority_promoted == false' recovery/recertification-r1/R1_C4B_MAISON_PRIVATE_MATRIX_REPORT.json
+
+      - name: First frozen deterministic C4B Maison build
+        env:
+          R1_C4B_OUTDIR: ${{ runner.temp }}/c4b_first
+          RECOVERY_SOURCE_COMMIT_C4B: 8b05b0f532b2f0d977865227fa268aaae74b9b85
+        run: |
+          set -euo pipefail
+          python recovery/recertification-r1/build_integrated_runtime_r1_c4b_maison.py
+          FIRST="$(sha256sum "${R1_C4B_OUTDIR}/SolidState_Recovery_Runtime_R1_C4B_MAISON.zip" | awk '{print $1}')"
+          test "$FIRST" = "$EXPECTED_R1_C4B_MAISON_SHA256"
+          echo "$FIRST" > "${RUNNER_TEMP}/c4b_first.sha"
+
+      - name: Second frozen deterministic C4B Maison build
+        env:
+          R1_C4B_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/c4b_maison_dist
+          RECOVERY_SOURCE_COMMIT_C4B: 8b05b0f532b2f0d977865227fa268aaae74b9b85
+        run: |
+          set -euo pipefail
+          python recovery/recertification-r1/build_integrated_runtime_r1_c4b_maison.py
+          FIRST="$(cat "${RUNNER_TEMP}/c4b_first.sha")"
+          SECOND="$(sha256sum "${R1_C4B_OUTDIR}/SolidState_Recovery_Runtime_R1_C4B_MAISON.zip" | awk '{print $1}')"
+          test "$FIRST" = "$SECOND"
+          test "$SECOND" = "$EXPECTED_R1_C4B_MAISON_SHA256"
+          jq -e '.parent_r1_c4_sha256 == "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b" and .maison_source_sha256 == "03867cec90056dfb2777bdc6ff38013dd44acad9d8b08ecd571e795518ba1ee0" and .private_matrix == "93/93 PASS" and .private_sources_embedded == false and .authority_promoted == false' "${R1_C4B_OUTDIR}/R1_C4B_MAISON_BUILD_REPORT.json"
+          echo "R1_C4B_MAISON_SHA256=$SECOND"
+
+      - name: Verify extracted frozen C4B package
+        run: |
+          set -euo pipefail
+          mkdir -p "${RUNNER_TEMP}/extract"
+          unzip -q recovery/recertification-r1/c4b_maison_dist/SolidState_Recovery_Runtime_R1_C4B_MAISON.zip -d "${RUNNER_TEMP}/extract"
+          cd "${RUNNER_TEMP}/extract/SolidState_Recovery_Runtime_R1_C4B_MAISON"
+          python verify_package.py
+          PYTHONPATH=. python test_maison_router_public_r1_c4b.py
+
+      - name: Upload frozen C4B Maison candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-c4b-maison
+          path: |
+            recovery/recertification-r1/c4b_maison_dist/SolidState_Recovery_Runtime_R1_C4B_MAISON.zip
+            recovery/recertification-r1/c4b_maison_dist/R1_C4B_MAISON_BUILD_REPORT.json
+            recovery/recertification-r1/R1_C4B_MAISON_PRIVATE_MATRIX_REPORT.json
+          retention-days: 30
+
+      - name: Summary
+        run: |
+          SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/c4b_maison_dist/R1_C4B_MAISON_BUILD_REPORT.json)"
+          echo '## R1-C4B Maison' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Exact Maison source identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private matrix: **93/93 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- 1–4 players / strict save-restore: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- AE_COLLECTION substitution: **REJECTED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen identity reproduction: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo "- Candidate SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
