@@ -1,0 +1,120 @@
+name: Recovery Recertification R1-C3
+
+on:
+  push:
+    branches:
+      - recovery/recertification-r1
+    paths:
+      - recovery/recertification-r1/**
+      - .github/workflows/recovery-recertification-r1-c3.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - recovery/recertification-r1/**
+      - .github/workflows/recovery-recertification-r1-c3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  c3-complete-state-delta-gate:
+    runs-on: ubuntu-latest
+    env:
+      C3_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Reconfirm R1-A provenance floor
+        run: python recovery/recertification-r1/run_public_gate_r1.py
+
+      - name: Rebuild exact frozen R1-C2 parent
+        env:
+          R1_C2_OUTDIR: ${{ runner.temp }}/r1c2_frozen
+          RECOVERY_SOURCE_COMMIT_C2: 12f680f52a8a027ce38617d003355aaebcbcc269
+        run: |
+          python recovery/recertification-r1/build_integrated_runtime_r1_c2.py
+          C2_SHA="$(sha256sum "${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip" | awk '{print $1}')"
+          test "$C2_SHA" = "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba"
+          echo "R1_C2_FROZEN_ZIP=${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip" >> "$GITHUB_ENV"
+          unzip -p "${R1_C2_OUTDIR}/SolidState_Recovery_Runtime_R1_C2.zip" '*/rules/CoC7_Recovery_Rules_R1_Core.zip' > "${RUNNER_TEMP}/CoC7_Recovery_Rules_R1_Core.zip"
+          test "$(sha256sum "${RUNNER_TEMP}/CoC7_Recovery_Rules_R1_Core.zip" | awk '{print $1}')" = "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"
+          echo "R1_C1_RULES_ZIP=${RUNNER_TEMP}/CoC7_Recovery_Rules_R1_Core.zip" >> "$GITHUB_ENV"
+
+      - name: Run R1-C3 public generic-delta and replay tests
+        working-directory: recovery/recertification-r1
+        run: python test_integration_public_r1_c3.py
+
+      - name: Verify sanitized private matrix evidence
+        run: |
+          jq -e '.result == "PASS" and .passed == 1067 and .total == 1067 and .keeper_to_player_leaks == 0 and .authority_promoted == false and .private_source_content_embedded == false' recovery/recertification-r1/R1_C3_PRIVATE_MATRIX_REPORT.json
+
+      - name: First deterministic R1-C3 build
+        env:
+          R1_C3_OUTDIR: ${{ runner.temp }}/r1c3_first
+          RECOVERY_SOURCE_COMMIT_C3: ${{ env.C3_SOURCE_COMMIT }}
+        run: |
+          python recovery/recertification-r1/build_integrated_runtime_r1_c3.py
+          sha256sum "${R1_C3_OUTDIR}/SolidState_Recovery_Runtime_R1_C3.zip" | tee "${RUNNER_TEMP}/r1c3_first.sha256"
+
+      - name: Second deterministic R1-C3 build
+        env:
+          R1_C3_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/c3_dist
+          RECOVERY_SOURCE_COMMIT_C3: ${{ env.C3_SOURCE_COMMIT }}
+        run: |
+          python recovery/recertification-r1/build_integrated_runtime_r1_c3.py
+          FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1c3_first.sha256")"
+          SECOND_SHA="$(sha256sum "${R1_C3_OUTDIR}/SolidState_Recovery_Runtime_R1_C3.zip" | awk '{print $1}')"
+          test "$FIRST_SHA" = "$SECOND_SHA"
+          jq -e '.parent_c2_sha256 == "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba"' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
+          jq -e '.embedded_rules_sha256 == "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2"' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
+          jq -e '.private_sources_embedded == false and .authority_promoted == false and .private_matrix == "1067/1067 PASS" and .keeper_to_player_leaks == 0' "${R1_C3_OUTDIR}/R1_C3_BUILD_REPORT.json"
+          echo "R1_C3_SHA256=$SECOND_SHA"
+
+      - name: Verify extracted R1-C3 package and rerun public tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "${RUNNER_TEMP}/r1c3_extract"
+          mkdir -p "${RUNNER_TEMP}/r1c3_extract"
+          unzip -q recovery/recertification-r1/c3_dist/SolidState_Recovery_Runtime_R1_C3.zip -d "${RUNNER_TEMP}/r1c3_extract"
+          cd "${RUNNER_TEMP}/r1c3_extract/SolidState_Recovery_Runtime_R1_C3"
+          python verify_package.py
+          export R1_C1_RULES_ZIP="$PWD/rules/CoC7_Recovery_Rules_R1_Core.zip"
+          PYTHONPATH=. python test_integration_public_r1_c3.py
+
+      - name: Upload R1-C3 candidate and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-c3-runtime
+          path: |
+            recovery/recertification-r1/c3_dist/SolidState_Recovery_Runtime_R1_C3.zip
+            recovery/recertification-r1/c3_dist/R1_C3_BUILD_REPORT.json
+            recovery/recertification-r1/R1_C3_PRIVATE_MATRIX_REPORT.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Write R1-C3 summary
+        shell: bash
+        run: |
+          SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/c3_dist/R1_C3_BUILD_REPORT.json)"
+          echo '## Recovery Recertification R1-C3' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Checkpoint333 documentary floor: **PRESERVED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-C2 parent identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1-C1 rules identity: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- C3 public tests: **24/24 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- C3 private source-identity matrix: **1067/1067 PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Keeper→Player leaks: **0**' >> "$GITHUB_STEP_SUMMARY"
+          echo "- C3 candidate SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Next gate: `R1-C4_REGISTRY_AND_CANONICAL_SCENARIO_ROUTER_RECERTIFICATION`' >> "$GITHUB_STEP_SUMMARY"
