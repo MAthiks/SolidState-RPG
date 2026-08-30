@@ -1,0 +1,201 @@
+name: DEV R1 CoC7 Luck Spending Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-luck-spending-batch1"]
+    paths:
+      - "development/r1-coc7-luck-spending-batch1/**"
+      - ".github/workflows/dev-r1-coc7-luck-spending-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-luck-spending-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile validated parent chain and Luck Spending Batch1
+        run: |
+          python -m compileall -q recovery/recertification-r1/rules_r1
+          python -m compileall -q development/r1-coc7-equipment-weapons-batch1
+          python -m compileall -q development/r1-coc7-combat-firearms-batch1
+          python -m compileall -q development/r1-coc7-combat-firearms-batch2
+          python -m compileall -q development/r1-coc7-melee-combat-batch1
+          python -m compileall -q development/r1-coc7-wounds-healing-batch1
+          python -m compileall -q development/r1-coc7-sanity-insanity-batch1
+          python -m compileall -q development/r1-coc7-sanity-treatment-batch2
+          python -m compileall -q development/r1-coc7-chase-batch1
+          python -m compileall -q development/r1-coc7-chase-batch2
+          python -m compileall -q development/r1-coc7-magic-core-batch1
+          python -m compileall -q development/r1-coc7-magic-core-batch2
+          python -m compileall -q development/r1-coc7-investigator-development-batch1
+          python -m compileall -q development/r1-coc7-investigator-aging-batch2
+          python -m compileall -q development/r1-coc7-finance-credit-rating-batch1
+          python -m compileall -q development/r1-coc7-general-skill-resolution-batch1
+          python -m compileall -q development/r1-coc7-luck-spending-batch1
+      - name: Re-run frozen Rules Core — exact 37
+        working-directory: recovery/recertification-r1
+        run: |
+          set -o pipefail
+          python -m rules_r1.test_core_rules 2>&1 | tee /tmp/rules.log
+          grep -Eq '"passed"[[:space:]]*:[[:space:]]*37' /tmp/rules.log
+          grep -Eq '"total"[[:space:]]*:[[:space:]]*37' /tmp/rules.log
+      - name: Re-run Equipment Weapons — exact 173
+        working-directory: development/r1-coc7-equipment-weapons-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_eqwp_batch1_dev.py 2>&1 | tee /tmp/eqwp.log
+          grep -q 'Ran 173 tests' /tmp/eqwp.log
+      - name: Re-run Combat Firearms Batch1 — exact 55
+        working-directory: development/r1-coc7-combat-firearms-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_combat_firearms_dev.py 2>&1 | tee /tmp/firearms1.log
+          grep -q 'Ran 55 tests' /tmp/firearms1.log
+      - name: Re-run Combat Firearms Batch2 — exact 79
+        working-directory: development/r1-coc7-combat-firearms-batch2
+        run: |
+          set -o pipefail
+          python -m unittest -v test_combat_firearms_batch2_dev.py 2>&1 | tee /tmp/firearms2.log
+          grep -q 'Ran 79 tests' /tmp/firearms2.log
+      - name: Re-run Melee Combat — exact 65
+        working-directory: development/r1-coc7-melee-combat-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_melee_combat_dev.py 2>&1 | tee /tmp/melee.log
+          grep -q 'Ran 65 tests' /tmp/melee.log
+      - name: Re-run Wounds Healing — exact 98
+        working-directory: development/r1-coc7-wounds-healing-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_wounds_healing_dev.py 2>&1 | tee /tmp/wounds.log
+          grep -q 'Ran 98 tests' /tmp/wounds.log
+      - name: Re-run Sanity Insanity — exact 80
+        working-directory: development/r1-coc7-sanity-insanity-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_sanity_insanity_dev.py 2>&1 | tee /tmp/sanity1.log
+          grep -q 'Ran 80 tests' /tmp/sanity1.log
+      - name: Re-run Sanity Treatment — exact 75
+        working-directory: development/r1-coc7-sanity-treatment-batch2
+        run: |
+          set -o pipefail
+          python -m unittest -v test_sanity_treatment_dev.py 2>&1 | tee /tmp/sanity2.log
+          grep -q 'Ran 75 tests' /tmp/sanity2.log
+      - name: Re-run Chase Batch1 — exact 70
+        working-directory: development/r1-coc7-chase-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_chase_dev.py 2>&1 | tee /tmp/chase1.log
+          grep -q 'Ran 70 tests' /tmp/chase1.log
+      - name: Re-run Chase Batch2 — exact 84
+        working-directory: development/r1-coc7-chase-batch2
+        run: |
+          set -o pipefail
+          python -m unittest -v test_chase_batch2_dev.py 2>&1 | tee /tmp/chase2.log
+          grep -q 'Ran 84 tests' /tmp/chase2.log
+      - name: Re-run Magic Core Batch1 — exact 96
+        working-directory: development/r1-coc7-magic-core-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_magic_core_dev.py 2>&1 | tee /tmp/magic1.log
+          grep -q 'Ran 96 tests' /tmp/magic1.log
+      - name: Re-run Magic Core Batch2 — exact 75
+        working-directory: development/r1-coc7-magic-core-batch2
+        run: |
+          set -o pipefail
+          python -m unittest -v test_magic_core_batch2_dev.py 2>&1 | tee /tmp/magic2.log
+          grep -q 'Ran 75 tests' /tmp/magic2.log
+      - name: Re-run Investigator Development — exact 92
+        working-directory: development/r1-coc7-investigator-development-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_investigator_development_dev.py 2>&1 | tee /tmp/invdev.log
+          grep -q 'Ran 92 tests' /tmp/invdev.log
+      - name: Re-run Investigator Aging — exact 94
+        working-directory: development/r1-coc7-investigator-aging-batch2
+        run: |
+          set -o pipefail
+          python -m unittest -v test_investigator_aging_dev.py 2>&1 | tee /tmp/aging.log
+          grep -q 'Ran 94 tests' /tmp/aging.log
+      - name: Re-run Finance Credit Rating — exact 99
+        working-directory: development/r1-coc7-finance-credit-rating-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_finance_credit_rating_dev.py 2>&1 | tee /tmp/finance.log
+          grep -q 'Ran 99 tests' /tmp/finance.log
+      - name: Re-run General Skill Resolution — exact 104
+        working-directory: development/r1-coc7-general-skill-resolution-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_general_skill_resolution_dev.py 2>&1 | tee /tmp/general.log
+          grep -q 'Ran 104 tests' /tmp/general.log
+      - name: Run Luck Spending Batch1 targeted matrix — exact 80
+        working-directory: development/r1-coc7-luck-spending-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_luck_spending_dev.py 2>&1 | tee /tmp/luck.log
+          grep -q 'Ran 80 tests' /tmp/luck.log
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert sum([37,173,55,79,65,98,80,75,70,84,96,75,92,94,99,104]) == 1376
+          assert 1376 + 80 == 1456
+          PY
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-luck-spending-batch1/luck_spending_batch1_contract.json').read_text())
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_LUCK_SPENDING_R1_BATCH1_DEV_V1'
+          assert c['parent_general_skill_module_id']=='COC7_GENERAL_SKILL_RESOLUTION_R1_BATCH1_DEV_V1'
+          assert c['parent_validated_commit']=='3201879ddf2bec1f88212e41c03a503244bb49ca'
+          assert c['parent_validated_test_chain']==1376
+          assert c['source']['source_id']=='COC7_KEEPER'
+          assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['source']['printed_pages']==[99]
+          m=c['materialized_rules']
+          assert m['one_luck_point_changes_roll_by_one'] is True
+          assert m['only_roll_owner_may_spend'] is True
+          assert m['excluded_roll_kinds']==['LUCK','DAMAGE','SANITY','SANITY_LOSS']
+          assert m['pushed_roll_result_cannot_be_altered'] is True
+          assert m['original_critical_cannot_be_bought_off'] is True
+          assert m['original_fumble_cannot_be_bought_off'] is True
+          assert m['firearm_malfunction_cannot_be_bought_off'] is True
+          assert m['luck_spend_blocks_experience_check'] is True
+          assert c['reuse_policy']['success_levels_reused_from_frozen_rules_core'] is True
+          assert c['reuse_policy']['difficulty_resolution_reused_from_frozen_rules_core'] is True
+          assert c['reuse_policy']['experience_tick_reused_from_investigator_development_batch1'] is True
+          assert c['reuse_policy']['luck_recovery_not_duplicated'] is True
+          assert c['reuse_policy']['duplicate_percentile_engine_created'] is False
+          assert c['automatic_spend_amount_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-luck-spending-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Luck Spending Batch1' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## Luck Spending Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Hardened parent chain: **1376/1376 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Luck Spending targeted matrix: **80/80 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate chain: **1456/1456 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Source: **Keeper p. 99 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Own-roll ownership gate: **REQUIRED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic spend amount: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
