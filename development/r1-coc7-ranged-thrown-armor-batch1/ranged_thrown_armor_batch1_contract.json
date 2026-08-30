@@ -1,0 +1,51 @@
+{
+  "schema": "COC7_RANGED_THROWN_ARMOR_BATCH1_CONTRACT_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "module_id": "COC7_RANGED_THROWN_ARMOR_R1_BATCH1_DEV_V1",
+  "parent_combat_round_module_id": "COC7_COMBAT_ROUND_INITIATIVE_R1_BATCH1_DEV_V1",
+  "parent_validated_commit": "3a79fbe7636d68c50751793e80f328fb7b7071fc",
+  "parent_validated_test_chain": 1528,
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [108, 112],
+    "scope": "Ranged missile and thrown attacks, close-range fight-back gate, strength-based half damage bonus, range difficulty, and armor damage reduction"
+  },
+  "materialized_rules": {
+    "ranged_missile_attacks_use_firearm_style_range_difficulty": true,
+    "thrown_attacks_use_firearm_style_range_difficulty": true,
+    "thrown_attacks_may_be_opposed_by_dodge": true,
+    "fight_back_against_ranged_or_thrown_only_within_dex_over_5_feet": true,
+    "strength_based_thrown_and_missile_weapons_use_half_damage_bonus": true,
+    "bows_use_half_damage_bonus": true,
+    "crossbows_do_not_use_half_damage_bonus": true,
+    "thrown_str_over_5_range_is_materialized": true,
+    "armor_subtracts_points_from_damage_passing_through_armor": true,
+    "armor_never_reduces_damage_below_zero": true,
+    "armor_not_applied_to_magical_poison_or_drowning_damage": true
+  },
+  "reuse_policy": {
+    "weapon_registry_reused": true,
+    "firearm_range_difficulty_reused_from_frozen_rules_core": true,
+    "ranged_missile_firearm_attack_plan_reused_where_compatible": true,
+    "dodge_exchange_reused_from_melee_batch1": true,
+    "duplicate_percentile_engine_created": false,
+    "duplicate_melee_exchange_engine_created": false
+  },
+  "fail_closed": {
+    "unknown_weapon": true,
+    "weapon_not_ranged_or_thrown": true,
+    "invalid_strength_or_dex": true,
+    "invalid_distance": true,
+    "fight_back_outside_source_distance": true,
+    "unmaterialized_range_form": true,
+    "negative_armor": true,
+    "unrecognized_damage_category": true
+  },
+  "automatic_target_defense_selection": false,
+  "automatic_armor_selection": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
