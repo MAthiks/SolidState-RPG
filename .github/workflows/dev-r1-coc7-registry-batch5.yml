@@ -1,0 +1,72 @@
+name: DEV R1 CoC7 Registry Batch5 Closure
+
+on:
+  push:
+    branches: [dev/r1-coc7-registry-batch5]
+    paths:
+      - development/r1-coc7-registry-batch1/**
+      - development/r1-coc7-registry-batch2/**
+      - development/r1-coc7-registry-batch3/**
+      - development/r1-coc7-registry-batch4/**
+      - development/r1-coc7-registry-batch5/**
+      - .github/workflows/dev-r1-coc7-registry-batch5.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-registry-closure-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile DEV registry chain only
+        run: |
+          for d in development/r1-coc7-registry-batch{1,2,3,4,5}; do python -m compileall -q "$d"; done
+      - name: Batch1 regression
+        working-directory: development/r1-coc7-registry-batch1
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+      - name: Batch2 regression
+        working-directory: development/r1-coc7-registry-batch2
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+      - name: Batch3 regression
+        working-directory: development/r1-coc7-registry-batch3
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+      - name: Batch4 regression
+        working-directory: development/r1-coc7-registry-batch4
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+      - name: Batch5 closure matrix
+        working-directory: development/r1-coc7-registry-batch5
+        run: python -m unittest discover -v -p 'test_*_dev.py'
+      - name: Confirm closure lineage and non-authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('development/r1-coc7-registry-batch5/occupations_batch5.json').read_text())
+          assert d['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert d['parent_registry_id']=='COC7_RECOVERY_REGISTRY_R1_BATCH4_DEV_V1'
+          assert d['frozen_ancestor_registry_id']=='COC7_RECOVERY_REGISTRY_R1_C4_V1'
+          assert d['authority_promoted'] is False
+          assert len(d['occupations'])==17
+          PY
+      - name: Confirm no private rulebook PDF is tracked
+        run: |
+          set -euo pipefail
+          if git ls-files development/r1-coc7-registry-batch5 | grep -Ei '\.pdf$'; then
+            echo 'Private rulebook PDF tracked in Batch5' >&2
+            exit 1
+          fi
+      - name: Summary
+        run: |
+          echo '## CoC7 Registry Batch5 occupation closure DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior regression tests: **506 PASS expected**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Batch5 closure tests: **120 expected**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Total targeted chain: **626 tests expected**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Cumulative occupation records: **114**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Ambiguous occupation groups: **fail-closed until variant choice**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen C4 registry mutated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
