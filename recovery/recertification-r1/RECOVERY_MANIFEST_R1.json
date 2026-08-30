@@ -1,8 +1,8 @@
 {
   "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_V1",
   "generation": "RECOVERY_RECERTIFICATION_R1",
-  "stage": "R1-C1_RULES_MIGRATION_CORE",
-  "status": "R1_C1_RULES_MIGRATION_CANDIDATE_NOT_AUTHORITY",
+  "stage": "R1-C2_RUNTIME_RULES_INTEGRATION",
+  "status": "R1_C2_INTEGRATED_RUNTIME_CANDIDATE_NOT_AUTHORITY",
   "base": {
     "branch": "main",
     "commit_sha": "5936b9e67af65b5a4d7d9c2d18ae6c44a7829db7",
@@ -50,6 +50,7 @@
     "extracted_package_self_test": "143/143 PASS",
     "deterministic_rebuild": "PASS",
     "byte_identical_to_historical_329": false,
+    "identity_frozen_in_ci": true,
     "authority_promoted": false
   },
   "r1_c_private_source_precheck": {
@@ -72,15 +73,37 @@
     "source_adapter_fail_closed_tests": "4/4 PASS",
     "deterministic_rebuild": "PASS",
     "byte_identical_to_historical_4_7": false,
+    "identity_frozen_in_ci": true,
     "authority_promoted": false,
     "scope": "partial source-grounded rules migration; unmigrated mechanics remain fail-closed"
   },
+  "r1_c2_runtime_rules_integration": {
+    "result": "PASS",
+    "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C2_V1",
+    "source_commit": "12f680f52a8a027ce38617d003355aaebcbcc269",
+    "package": "SolidState_Recovery_Runtime_R1_C2.zip",
+    "zip_sha256": "20cc854247ea6427e4c31ee6572a9d312d1178ac89d31dd0856128ddaa0f55ba",
+    "zip_crc": "PASS",
+    "manifest_sha256": "301ebf1f2dd39d6445d29411f9570a5f44d21a91e4bf4377d3e171fb9d9ffc01",
+    "immutable_files": 11,
+    "embedded_rules_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "public_integration_gate": "PASS",
+    "private_source_backed_precheck": "31/31 PASS",
+    "private_source_identities": "8/8 PASS",
+    "private_sources_embedded": false,
+    "byte_identical_to_historical_329": false,
+    "authority_promoted": false,
+    "scope_limits": [
+      "SAN mutation remains fail-closed until a generic replayable stat-delta journal exists.",
+      "Rules migration remains partial.",
+      "Full scenario/full-stack successor matrix remains pending."
+    ]
+  },
   "required_next_gates": [
-    "R1-C2_RUNTIME_RULES_INTEGRATION",
-    "R1-C3_COMPLETE_RULES_AND_SCENARIO_RECERTIFICATION"
+    "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION"
   ],
   "promotion": {
-    "allowed_at_stage_r1_c1": false,
+    "allowed_at_stage_r1_c2": false,
     "checkpoint334_created": false,
     "android_apk_promoted": false,
     "automatic_downgrade_forbidden": true,
