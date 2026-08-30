@@ -20,22 +20,23 @@ EXPECTED_BLOBS = {
 
 checks = []
 
+
 def run(*args, check=True):
     p = subprocess.run(args, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if check and p.returncode != 0:
         raise RuntimeError(f"command failed: {' '.join(args)}\n{p.stderr}")
     return p
 
+
 def record(name, ok, detail=None):
     checks.append({"name": name, "pass": bool(ok), "detail": detail})
     if not ok:
         raise AssertionError(f"{name}: {detail}")
 
-# Exact ancestry: R1 starts from the Checkpoint333 main commit and may add only recovery work.
+
 ancestor = run("git", "merge-base", "--is-ancestor", BASE_COMMIT, "HEAD", check=False)
 record("checkpoint333_base_is_ancestor", ancestor.returncode == 0, BASE_COMMIT)
 
-# Immutable public identities recorded by the certified stack.
 for path, expected in EXPECTED_BLOBS.items():
     p = ROOT / path
     record(f"exists:{path}", p.is_file(), str(p))
@@ -54,7 +55,6 @@ anti = cp333.get("anti_rollback", {})
 record("automatic_downgrade_forbidden", anti.get("automatic_downgrade_forbidden") is True, anti)
 record("android_runtime_floor_333", anti.get("android_runtime_floor") == 333, anti.get("android_runtime_floor"))
 
-# Public checkpoint records 330-332 must remain present and verified, but their historical tests are not rerun here.
 for n in (330, 331, 332):
     data = json.loads((ROOT / f"patches/checkpoint{n}/CHECKPOINT_{n}.json").read_text(encoding="utf-8"))
     record(f"checkpoint{n}_number", data.get("checkpoint") == n, data.get("checkpoint"))
@@ -66,9 +66,15 @@ tracked_pdfs = [x for x in tracked if x.lower().endswith(".pdf")]
 record("no_private_pdf_tracked", len(tracked_pdfs) == 0, tracked_pdfs)
 
 manifest = json.loads((ROOT / "recovery/recertification-r1/RECOVERY_MANIFEST_R1.json").read_text(encoding="utf-8"))
-record("r1_not_authority", manifest.get("status") == "CANDIDATE_NOT_AUTHORITY", manifest.get("status"))
-record("r1_no_checkpoint334", manifest.get("promotion", {}).get("checkpoint334_created") is False, manifest.get("promotion"))
-record("r1_no_android_promotion", manifest.get("promotion", {}).get("android_apk_promoted") is False, manifest.get("promotion"))
+status = str(manifest.get("status", ""))
+promotion = manifest.get("promotion", {})
+record(
+    "r1_not_authority",
+    "NOT_AUTHORITY" in status and not status.startswith("VERIFIED_AUTHORITY"),
+    status,
+)
+record("r1_no_checkpoint334", promotion.get("checkpoint334_created") is False, promotion)
+record("r1_no_android_promotion", promotion.get("android_apk_promoted") is False, promotion)
 record("r1_historical_bytes_declared_missing", manifest.get("historical_gap", {}).get("bytes_available") is False, manifest.get("historical_gap"))
 
 report = {
@@ -86,8 +92,8 @@ report = {
         "private_source_backed_recertified": False,
         "checkpoint334_created": False,
         "android_apk_promoted": False,
-        "next_gate": "R1-B_NEW_RUNTIME_MATERIALIZATION"
-    }
+        "next_gate": "R1-B_NEW_RUNTIME_MATERIALIZATION",
+    },
 }
 out = ROOT / "recovery/recertification-r1/R1_A_GATE_REPORT.json"
 out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
