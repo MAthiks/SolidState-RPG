@@ -1,0 +1,30 @@
+name: DEV R1 C4B2 LSNT v1.7 Source Identity
+
+on:
+  push:
+    branches:
+      - dev/r1-c4b2-lsnt-v1.7-source-identity
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-identity-precompile-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile precompile gate
+        run: |
+          python -m py_compile \
+            development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_precompile_gate.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_precompile_gate.py
+      - name: Run v1.7 fail-closed precompile suite
+        working-directory: development/r1-c4b2-lsnt-v1.7-source-identity
+        run: python -m unittest -v test_lsnt_v17_precompile_gate.py
