@@ -1,0 +1,67 @@
+{
+  "schema": "COC7_INVESTIGATOR_DEVELOPMENT_BATCH1_DEV_V1",
+  "module_id": "COC7_INVESTIGATOR_DEVELOPMENT_R1_BATCH1_DEV_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_magic_module_id": "COC7_MAGIC_CORE_R1_BATCH2_DEV_V1",
+  "frozen_rules_package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "chapter": "Chapter 5 - Game System",
+    "printed_pages": [94, 98, 99]
+  },
+  "materialized_rules": {
+    "experience_ticks": {
+      "successful_skill_use_can_earn_tick": true,
+      "bonus_die_use_blocks_tick": true,
+      "luck_spend_on_roll_blocks_tick": true,
+      "opposed_roll_only_winner_can_tick": true,
+      "one_pending_tick_per_skill": true,
+      "cthulhu_mythos_never_ticks": true,
+      "credit_rating_never_ticks": true
+    },
+    "development_improvement": {
+      "checked_skill_required": true,
+      "recorded_d100_required": true,
+      "improves_if_roll_above_current_skill_or_over_95": true,
+      "successful_improvement_adds_recorded_1d10": true,
+      "skills_may_exceed_100": true,
+      "failed_improvement_adds_zero": true,
+      "pending_check_consumed_after_resolution": true,
+      "crossing_90_percent_threshold_requests_recorded_2d6_sanity_reward": true
+    },
+    "training": {
+      "campaign_context": true,
+      "default_segment_months": 4,
+      "successful_valid_segment_grants_experience_check": true,
+      "keeper_judges_course_participation_and_validity": true,
+      "renowned_teacher_variation_requires_keeper_authorization": true,
+      "self_study_academic_default_months": 4,
+      "self_study_uses_improvement_check_procedure": true
+    },
+    "optional_luck_recovery": {
+      "optional_rule": true,
+      "check_after_each_session": true,
+      "recorded_d100_above_current_luck_recovers_recorded_1d10": true,
+      "equal_or_lower_recovers_zero": true,
+      "luck_caps_at_99": true,
+      "starting_luck_is_not_a_reset_target": true
+    }
+  },
+  "explicitly_blocked_batch1": [
+    "AUTOMATIC_DEVELOPMENT_PHASE_TIMING",
+    "AUTOMATIC_RANDOM_ROLL_GENERATION",
+    "AUTOMATIC_SKILL_TICK_FROM_UNVERIFIED_SUCCESS",
+    "AUTOMATIC_TRAINING_COURSE_VALIDATION",
+    "AUTOMATIC_RENOWNED_TEACHER_BONUS",
+    "AUTOMATIC_SANITY_DICE_GENERATION",
+    "AGING_EFFECTS",
+    "EMPLOYMENT_AND_CREDIT_RATING_CHANGES",
+    "BACKSTORY_REWRITES",
+    "SCENARIO_REWARDS"
+  ],
+  "randomness_policy": "No random values are generated. Percentile, D10 and 2D6 values must be supplied as recorded runtime/replay values.",
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
