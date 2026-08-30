@@ -1,16 +1,12 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_STATUS_V3",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_7_STATUS_V4",
   "branch": "dev/r1-c4b2-lsnt-v1.7-source-identity",
-  "status": "PROVIDER_ATTESTED_DEV_RUNTIME_VALIDATED_BYTE_EXACT_PENDING",
+  "status": "PROVIDER_ATTESTED_1942_CREATION_TO_PLAY_TRANSACTION_VALIDATED_BYTE_EXACT_AND_1942_FINANCE_PENDING",
   "scenario_pair": "LSNT-V1.7-STANDALONE-1942",
   "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
   "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
   "runtime_dependency_on_v1_5": false,
   "source_library_content_verified": true,
-  "source_library_full_document_retrieval": {
-    "keeper_pages": 3,
-    "player_pages": 1
-  },
   "source_identity": {
     "verification_level": "PROVIDER_ATTESTED",
     "provider_pair_digest": "c2cda9a32720e1966169a9d2e10cb8eeb9b28de50869380d6639b8e97f41913f",
@@ -18,21 +14,36 @@
     "raw_pdf_hash_equivalence_claimed": false
   },
   "public_validation": {
-    "runtime_commit": "96e57fc02822b3c7edc29bc212cf5f3c499a687c",
-    "ci_run_id": 33333752730,
-    "tests": "102/102 PASS",
-    "identity_graph_and_provider_runtime": "PASS"
+    "commit": "2958584ad66e789fe2714308bcbb0647553b47dd",
+    "ci_run_id": 33335622890,
+    "tests": "168/168 PASS",
+    "1942_era_gate": "PASS",
+    "canonical_creation_binding": "PASS",
+    "provider_runtime": "PASS"
   },
   "private_validation": {
-    "provider_attested_runtime_matrix": "4/4 PASS",
-    "report_sha256": "c8cf18fa16cd3474059ea1230cc3b38efb54575091a499209464e3e07ece9690",
+    "1942_recorded_dice_to_play_transaction_matrix": "4/4 PASS",
+    "creation_commits": 10,
     "strict_replay": "4/4 PASS",
     "save_restore": "4/4 PASS",
     "knowledge_partition": "4/4 PASS",
+    "scenario_contract_preserved": "4/4 PASS",
     "player_projection_leaks": 0,
-    "wrong_actor_zero_mutation": true,
-    "source_binding_tamper_rejected": true,
-    "graph_binding_tamper_rejected": true
+    "report_sha256": "e82a1b935fec6e5e3f3e2e6d7674fb2bd5bd32c06945ba5232dab28efdfc9fd7",
+    "private_code_blobs_exactly_match_public": true
+  },
+  "1942_era_policy": {
+    "modern_scoped_records_silently_allowed": false,
+    "classic_scoped_records_silently_extended_to_1942": false,
+    "unscoped_archaeologist_allowed": true,
+    "unknown_concrete_era_for_scoped_record": "FAIL_CLOSED"
+  },
+  "finance_and_equipment_boundary": {
+    "transaction_fixture_used": true,
+    "1942_finance_source_certified": false,
+    "1920s_finance_table_reused_as_1942_authority": false,
+    "1942_inflation_or_purchase_economy_invented": false,
+    "full_1942_equipment_economy_certified": false
   },
   "certification_boundary": {
     "dev_runtime_allowed": true,
@@ -40,11 +51,7 @@
     "module_ready_allowed": false,
     "frozen_candidate_allowed": false,
     "promotion_allowed": false,
-    "byte_exact_required_for": [
-      "MODULE_READY",
-      "FROZEN_CANDIDATE",
-      "PROMOTION"
-    ]
+    "byte_exact_required_for": ["MODULE_READY", "FROZEN_CANDIDATE", "PROMOTION"]
   },
   "anti_rollback": {
     "v1_5_promotable": false,
@@ -53,5 +60,5 @@
   },
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "BIND_CANONICAL_INVESTIGATOR_CREATION_TO_V17_PROVIDER_DEV_RUNTIME_THEN_REQUIRE_BYTE_EXACT_FOR_MODULE_READY"
+  "next_gate": "RESOLVE_1942_FINANCE_AND_STARTING_EQUIPMENT_FROM_VALIDATED_SOURCES_OR_KEEP_EXPLICITLY_UNCERTIFIED_THEN_REQUIRE_BYTE_EXACT_FOR_MODULE_READY"
 }
