@@ -22,13 +22,15 @@ jobs:
           python-version: '3.12'
       - name: Install PDF identity dependency
         run: python -m pip install 'pypdf>=5,<6'
-      - name: Compile source identity modules
+      - name: Compile source identity and graph candidate modules
         run: |
           python -m py_compile \
             development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_precompile_gate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/materialize_v17_source_identity.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/lsnt_v17_canonical_graph_candidate.py \
             development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_precompile_gate.py \
-            development/r1-c4b2-lsnt-v1.7-source-identity/test_materialize_v17_source_identity.py
-      - name: Run v1.7 fail-closed precompile and materializer suites
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_materialize_v17_source_identity.py \
+            development/r1-c4b2-lsnt-v1.7-source-identity/test_lsnt_v17_canonical_graph_candidate.py
+      - name: Run v1.7 fail-closed precompile materializer and graph suites
         working-directory: development/r1-c4b2-lsnt-v1.7-source-identity
-        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py
+        run: python -m unittest -v test_lsnt_v17_precompile_gate.py test_materialize_v17_source_identity.py test_lsnt_v17_canonical_graph_candidate.py
