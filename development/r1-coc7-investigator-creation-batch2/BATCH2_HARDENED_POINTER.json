@@ -1,0 +1,9 @@
+{
+  "schema": "COC7_INVESTIGATOR_CREATION_BATCH2_HARDENED_POINTER_V1",
+  "validated_dev_commit": "a76d6d176209c110b25069a6e359b77d11422ed5",
+  "hardened_run_id": 33312864818,
+  "combined_tests": 2514,
+  "result": "PASS",
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
