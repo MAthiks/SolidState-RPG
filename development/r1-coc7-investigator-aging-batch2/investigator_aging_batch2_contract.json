@@ -1,0 +1,69 @@
+{
+  "schema": "COC7_INVESTIGATOR_AGING_BATCH2_DEV_V1",
+  "module_id": "COC7_INVESTIGATOR_AGING_R1_BATCH2_DEV_V1",
+  "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_development_module_id": "COC7_INVESTIGATOR_DEVELOPMENT_R1_BATCH1_DEV_V1",
+  "source": {
+    "source_id": "COC7_KEEPER",
+    "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779",
+    "printed_pages": [32, 98],
+    "source_roles": {
+      "32": "EDU improvement check procedure and EDU 99 ceiling",
+      "98": "cumulative in-play aging thresholds and sudden magical aging note"
+    }
+  },
+  "materialized_rules": {
+    "natural_or_time_skip_aging": {
+      "cumulative_crossed_thresholds": true,
+      "turning_20": {
+        "edu_improvement_checks": 1,
+        "add_total_points_among": ["STR", "SIZ"],
+        "point_total": 5
+      },
+      "turning_40": {"edu_improvement_checks": 1, "physical_deduction": 5, "APP_deduction": 5, "MOV_deduction": 1},
+      "turning_50": {"edu_improvement_checks": 1, "physical_deduction": 5, "APP_deduction": 5, "MOV_deduction": 1},
+      "turning_60": {"edu_improvement_checks": 1, "physical_deduction": 10, "APP_deduction": 5, "MOV_deduction": 1},
+      "turning_70": {"edu_improvement_checks": 0, "physical_deduction": 20, "APP_deduction": 5, "MOV_deduction": 1},
+      "turning_80": {"edu_improvement_checks": 0, "physical_deduction": 40, "APP_deduction": 5, "MOV_deduction": 1},
+      "each_decade_after_80": {"edu_improvement_checks": 0, "physical_deduction": 80, "APP_deduction": 0, "MOV_deduction": 1}
+    },
+    "edu_improvement": {
+      "success_condition": "recorded_1d100 > current_EDU",
+      "success_gain": "recorded_1d10",
+      "maximum_EDU": 99,
+      "ordinary_skill_over_95_rule_imported": false
+    },
+    "sudden_magical_aging": {
+      "keeper_confirmation_required": true,
+      "negative_physical_effects_may_apply": true,
+      "education_gain_suppressed": true,
+      "turning_20_positive_STR_SIZ_gain_suppressed": true
+    },
+    "allocation": {
+      "STR_CON_DEX_losses_must_be_explicit": true,
+      "turning_20_STR_SIZ_gain_must_be_explicit": true,
+      "automatic_stat_selection": false
+    },
+    "derived_state_handoff": {
+      "HP_recalculation_required_if_CON_or_SIZ_changes": true,
+      "damage_bonus_and_build_recalculation_required_if_STR_or_SIZ_changes": true,
+      "MOV_aging_delta_is_explicit": true
+    }
+  },
+  "fail_closed_boundaries": [
+    "AGE_NOT_ADVANCING",
+    "MISSING_OR_EXTRA_MILESTONE_ALLOCATION",
+    "ALLOCATION_TOTAL_MISMATCH",
+    "NEGATIVE_CHARACTERISTIC_WOULD_RESULT",
+    "APP_REDUCTION_BELOW_ZERO_UNMATERIALIZED",
+    "MOV_REDUCTION_BELOW_ZERO_UNMATERIALIZED",
+    "MISSING_OR_EXTRA_EDU_CHECK_RECORD",
+    "UNRECORDED_EDU_GAIN_D10",
+    "UNUSED_EDU_GAIN_D10",
+    "MAGICAL_AGING_WITHOUT_KEEPER_CONFIRMATION"
+  ],
+  "randomness_policy": "No percentile or D10 is generated. All EDU improvement dice are supplied as recorded runtime/replay values.",
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false
+}
