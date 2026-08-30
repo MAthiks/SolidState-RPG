@@ -35,30 +35,41 @@ jobs:
             exit 1
           fi
 
-      - name: Confirm DEV remains non-authoritative
+      - name: Confirm DEV-complete remains non-authoritative
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           p = Path('development/r1-c4b2-lsnt-v1.7/LSNT_V1_7_SCENARIO_MANIFEST_DEV.json')
           d = json.loads(p.read_text())
-          assert d['status'] == 'STRUCTURE_COMPILED_SOURCE_HASH_PENDING_NOT_ROUTE_READY'
+          assert d['status'] == 'DEV_COMPLETE_SOURCE_HASH_PENDING_NOT_MODULE_READY'
           assert d['authority_promoted'] is False
+          assert d['dev_validation']['result'] == 'PASS'
+          assert d['dev_validation']['targeted_tests'] == '173/173 PASS'
+          assert d['dev_validation']['module_ready'] is False
+          assert d['dev_validation']['real_source_identity_verified'] is False
           assert d['promotion']['frozen_candidate'] is False
           assert d['promotion']['checkpoint334_created'] is False
           assert d['promotion']['android_promoted'] is False
           assert d['source_gate']['startup_until_hashes_materialized'] == 'BLOCKED'
+          r = json.loads(Path('development/r1-c4b2-lsnt-v1.7/R1_C4B2_LSNT_V1_7_DEV_REPORT.json').read_text())
+          assert r['result'] == 'PASS'
+          assert r['targeted_tests']['passed'] == 173 and r['targeted_tests']['total'] == 173
+          assert r['source_identity']['status'] == 'PENDING_EXACT_PDF_BYTES'
+          assert r['promotion']['module_ready'] is False
+          assert r['promotion']['package_built'] is False
           PY
 
       - name: Summary
         run: |
-          echo '## R1-C4B2 LSNT v1.7 - DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '## R1-C4B2 LSNT v1.7 - DEV complete' >> "$GITHUB_STEP_SUMMARY"
           echo '- Dedicated DEV branch: **YES**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Targeted tests only: **YES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Targeted suite: **173/173 PASS**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Frozen R1 rebuild in DEV: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Scenario manifest + graph: **COMPILED**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- State binding + 1–4 player synthetic harness: **TESTED**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Exact v1.7 source hashes: **PENDING BYTES MOUNT**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Manifest / graph / clock / Front / Exposure / SAN / endings: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Integrated 1–4 player save/resume + Strict Replay: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Exact v1.7 source hashes: **PENDING PDF BYTES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Production runtime startup: **FAIL-CLOSED / BLOCKED UNTIL HASHES**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Synthetic identity mode: **TEST ONLY / NEVER CANONICAL**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Module Ready: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Package/freeze: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
