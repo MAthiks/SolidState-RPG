@@ -2,12 +2,7 @@ name: DEV R1-C4B2 LSNT v1.7
 
 on:
   push:
-    branches: [recovery/recertification-r1]
-    paths:
-      - development/r1-c4b2-lsnt-v1.7/**
-      - .github/workflows/dev-r1-c4b2-lsnt-v1.7.yml
-  pull_request:
-    branches: [main]
+    branches: [dev/r1-c4b2-lsnt-v1.7]
     paths:
       - development/r1-c4b2-lsnt-v1.7/**
       - .github/workflows/dev-r1-c4b2-lsnt-v1.7.yml
@@ -58,8 +53,9 @@ jobs:
       - name: Summary
         run: |
           echo '## R1-C4B2 LSNT v1.7 - DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Dedicated DEV branch: **YES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Targeted tests only: **YES**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Full R1 recertification triggered by DEV directory: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Frozen R1 rebuild in DEV: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- v1.7 structure compiled: **YES**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Exact source hashes: **PENDING BYTES MOUNT**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Runtime startup: **FAIL-CLOSED / BLOCKED UNTIL HASHES**' >> "$GITHUB_STEP_SUMMARY"
