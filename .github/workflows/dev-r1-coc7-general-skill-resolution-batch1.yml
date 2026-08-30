@@ -37,73 +37,156 @@ jobs:
           python -m compileall -q development/r1-coc7-investigator-aging-batch2
           python -m compileall -q development/r1-coc7-finance-credit-rating-batch1
           python -m compileall -q development/r1-coc7-general-skill-resolution-batch1
-      - name: Re-run frozen Rules Core tests
+      - name: Re-run frozen Rules Core tests — exact 37
         working-directory: recovery/recertification-r1
-        run: python -m rules_r1.test_core_rules
-      - name: Re-run Equipment Weapons regression
+        run: |
+          set -o pipefail
+          python -m rules_r1.test_core_rules 2>&1 | tee /tmp/rules-core.log
+          grep -Eq '"passed"[[:space:]]*:[[:space:]]*37' /tmp/rules-core.log
+          grep -Eq '"total"[[:space:]]*:[[:space:]]*37' /tmp/rules-core.log
+      - name: Re-run Equipment Weapons regression — exact 173
         working-directory: development/r1-coc7-equipment-weapons-batch1
-        run: python -m unittest -v test_eqwp_batch1_dev.py
-      - name: Re-run Combat Firearms Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_eqwp_batch1_dev.py 2>&1 | tee /tmp/eqwp.log
+          grep -q 'Ran 173 tests' /tmp/eqwp.log
+      - name: Re-run Combat Firearms Batch1 regression — exact 55
         working-directory: development/r1-coc7-combat-firearms-batch1
-        run: python -m unittest -v test_combat_firearms_dev.py
-      - name: Re-run Combat Firearms Batch2 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_combat_firearms_dev.py 2>&1 | tee /tmp/firearms1.log
+          grep -q 'Ran 55 tests' /tmp/firearms1.log
+      - name: Re-run Combat Firearms Batch2 regression — exact 79
         working-directory: development/r1-coc7-combat-firearms-batch2
-        run: python -m unittest -v test_combat_firearms_batch2_dev.py
-      - name: Re-run Melee Combat Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_combat_firearms_batch2_dev.py 2>&1 | tee /tmp/firearms2.log
+          grep -q 'Ran 79 tests' /tmp/firearms2.log
+      - name: Re-run Melee Combat Batch1 regression — exact 65
         working-directory: development/r1-coc7-melee-combat-batch1
-        run: python -m unittest -v test_melee_combat_dev.py
-      - name: Re-run Wounds Healing Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_melee_combat_dev.py 2>&1 | tee /tmp/melee.log
+          grep -q 'Ran 65 tests' /tmp/melee.log
+      - name: Re-run Wounds Healing Batch1 regression — exact 98
         working-directory: development/r1-coc7-wounds-healing-batch1
-        run: python -m unittest -v test_wounds_healing_dev.py
-      - name: Re-run Sanity Insanity Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_wounds_healing_dev.py 2>&1 | tee /tmp/wounds.log
+          grep -q 'Ran 98 tests' /tmp/wounds.log
+      - name: Re-run Sanity Insanity Batch1 regression — exact 80
         working-directory: development/r1-coc7-sanity-insanity-batch1
-        run: python -m unittest -v test_sanity_insanity_dev.py
-      - name: Re-run Sanity Treatment Batch2 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_sanity_insanity_dev.py 2>&1 | tee /tmp/sanity1.log
+          grep -q 'Ran 80 tests' /tmp/sanity1.log
+      - name: Re-run Sanity Treatment Batch2 regression — exact 75
         working-directory: development/r1-coc7-sanity-treatment-batch2
-        run: python -m unittest -v test_sanity_treatment_dev.py
-      - name: Re-run Chase Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_sanity_treatment_dev.py 2>&1 | tee /tmp/sanity2.log
+          grep -q 'Ran 75 tests' /tmp/sanity2.log
+      - name: Re-run Chase Batch1 regression — exact 70
         working-directory: development/r1-coc7-chase-batch1
-        run: python -m unittest -v test_chase_dev.py
-      - name: Re-run Chase Batch2 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_chase_dev.py 2>&1 | tee /tmp/chase1.log
+          grep -q 'Ran 70 tests' /tmp/chase1.log
+      - name: Re-run Chase Batch2 regression — exact 84
         working-directory: development/r1-coc7-chase-batch2
-        run: python -m unittest -v test_chase_batch2_dev.py
-      - name: Re-run Magic Core Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_chase_batch2_dev.py 2>&1 | tee /tmp/chase2.log
+          grep -q 'Ran 84 tests' /tmp/chase2.log
+      - name: Re-run Magic Core Batch1 regression — exact 96
         working-directory: development/r1-coc7-magic-core-batch1
-        run: python -m unittest -v test_magic_core_dev.py
-      - name: Re-run Magic Core Batch2 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_magic_core_dev.py 2>&1 | tee /tmp/magic1.log
+          grep -q 'Ran 96 tests' /tmp/magic1.log
+      - name: Re-run Magic Core Batch2 regression — exact 75
         working-directory: development/r1-coc7-magic-core-batch2
-        run: python -m unittest -v test_magic_core_batch2_dev.py
-      - name: Re-run Investigator Development Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_magic_core_batch2_dev.py 2>&1 | tee /tmp/magic2.log
+          grep -q 'Ran 75 tests' /tmp/magic2.log
+      - name: Re-run Investigator Development Batch1 regression — exact 92
         working-directory: development/r1-coc7-investigator-development-batch1
-        run: python -m unittest -v test_investigator_development_dev.py
-      - name: Re-run Investigator Aging Batch2 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_investigator_development_dev.py 2>&1 | tee /tmp/invdev.log
+          grep -q 'Ran 92 tests' /tmp/invdev.log
+      - name: Re-run Investigator Aging Batch2 regression — exact 94
         working-directory: development/r1-coc7-investigator-aging-batch2
-        run: python -m unittest -v test_investigator_aging_dev.py
-      - name: Re-run Finance Credit Rating Batch1 regression
+        run: |
+          set -o pipefail
+          python -m unittest -v test_investigator_aging_dev.py 2>&1 | tee /tmp/aging.log
+          grep -q 'Ran 94 tests' /tmp/aging.log
+      - name: Re-run Finance Credit Rating Batch1 regression — exact 99
         working-directory: development/r1-coc7-finance-credit-rating-batch1
-        run: python -m unittest -v test_finance_credit_rating_dev.py
-      - name: Run General Skill Resolution Batch1 targeted matrix
+        run: |
+          set -o pipefail
+          python -m unittest -v test_finance_credit_rating_dev.py 2>&1 | tee /tmp/finance.log
+          grep -q 'Ran 99 tests' /tmp/finance.log
+      - name: Run General Skill Resolution Batch1 targeted matrix — exact 104
         working-directory: development/r1-coc7-general-skill-resolution-batch1
-        run: python -m unittest -v test_general_skill_resolution_dev.py
-      - name: Confirm contract and non-authority
+        run: |
+          set -o pipefail
+          python -m unittest -v test_general_skill_resolution_dev.py 2>&1 | tee /tmp/general-skill.log
+          grep -q 'Ran 104 tests' /tmp/general-skill.log
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          parent_counts = [37,173,55,79,65,98,80,75,70,84,96,75,92,94,99]
+          assert sum(parent_counts) == 1272
+          assert 1272 + 104 == 1376
+          PY
+      - name: Confirm contract, milestone and non-authority invariants
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          c=json.loads(Path('development/r1-coc7-general-skill-resolution-batch1/general_skill_resolution_batch1_contract.json').read_text())
+          base=Path('development/r1-coc7-general-skill-resolution-batch1')
+          c=json.loads((base/'general_skill_resolution_batch1_contract.json').read_text())
+          r=json.loads((base/'GENERAL_SKILL_RESOLUTION_BATCH1_DEV_REPORT.json').read_text())
           assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
           assert c['module_id']=='COC7_GENERAL_SKILL_RESOLUTION_R1_BATCH1_DEV_V1'
           assert c['parent_finance_module_id']=='COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1'
+          assert c['source']['source_id']=='COC7_KEEPER'
           assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['source']['printed_pages']==[82,83,84,85,86,88,89,90,91]
           assert c['reuse_policy']['success_levels_reused_from_frozen_rules_core'] is True
           assert c['reuse_policy']['opposed_resolution_reused_from_frozen_rules_core'] is True
           assert c['reuse_policy']['bonus_penalty_percentile_digits_reused_from_frozen_rules_core'] is True
           assert c['reuse_policy']['duplicate_success_level_engine_created'] is False
           assert c['materialized_rules']['group_skill_rolls']['automatic_participant_selection'] is False
+          assert c['materialized_rules']['physical_human_limits']['combined_effort_deducts_characteristics_from_lowest_upward'] is True
+          assert c['materialized_rules']['physical_human_limits']['remaining_investigators_may_roll_once_opposition_is_faceable'] is True
+          assert c['materialized_rules']['physical_human_limits']['opposition_may_not_be_reduced_to_zero_or_below'] is True
+          assert c['materialized_rules']['physical_human_limits']['a_skill_or_characteristic_roll_is_always_required'] is True
           assert c['materialized_rules']['luck_int_idea_know']['lowest_luck_tie_is_fail_closed_for_keeper_resolution'] is True
           assert c['private_pdf_embedded'] is False
           assert c['authority_promoted'] is False
           assert c['checkpoint_created'] is False
+          assert r['schema']=='COC7_GENERAL_SKILL_RESOLUTION_BATCH1_DEV_REPORT_V1'
+          assert r['module_id']==c['module_id']
+          assert r['result']=='PASS'
+          assert r['source_commit_tested']=='6cf7b395c0fc630b6b9ce15b6a941e0d28a287c0'
+          assert r['github_actions_run_id']==33307635272
+          assert r['targeted_tests']=={'passed':104,'total':104}
+          assert r['prior_validated_chain']=={'passed':1272,'total':1272}
+          assert r['combined_chain']=={'passed':1376,'total':1376}
+          assert r['source_grounded'] is True
+          assert r['keeper_source_sha256']==c['source']['sha256']
+          assert r['duplicate_success_engine_created'] is False
+          assert r['automatic_group_participant_selection'] is False
+          assert r['automatic_group_luck_tie_break'] is False
+          assert r['automatic_physical_helper_selection'] is False
+          assert r['random_values_generated_by_module'] is False
+          assert r['private_pdf_embedded'] is False
+          assert r['authority_promoted'] is False
+          assert r['checkpoint_created'] is False
+          assert r['status']=='DEV_VALIDATED_NOT_AUTHORITY'
           PY
       - name: Confirm no private PDFs tracked
         run: |
@@ -113,11 +196,13 @@ jobs:
           fi
       - name: Summary
         run: |
-          echo '## General Skill Resolution Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Prior validated chain: **1272/1272 required**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- General Skill targeted matrix: **PASS if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '## General Skill Resolution Batch1 hardened DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Prior validated chain: **1272/1272 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- General Skill targeted matrix: **104/104 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined chain: **1376/1376 PASS required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Keeper source pages: **82–91 scoped / hash pinned**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Duplicate success engine: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Automatic participant/tie selection: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Automatic participant/tie/helper selection: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Random values generated by module: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
           echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
