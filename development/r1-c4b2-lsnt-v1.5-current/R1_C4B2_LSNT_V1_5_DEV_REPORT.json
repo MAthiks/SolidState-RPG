@@ -1,12 +1,12 @@
 {
-  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V6",
-  "result": "PASS_C4B2_DEV_FREEZE_AUDIT",
-  "status": "DEV_FREEZE_CANDIDATE_NOT_AUTHORITY",
+  "schema": "SOLIDSTATE_R1_C4B2_LSNT_V1_5_DEV_REPORT_V7",
+  "result": "PASS_C4B2_DEV_FREEZE_AUDIT_SUPERSEDED",
+  "status": "HISTORICAL_DEV_VALIDATED_NOT_PROMOTABLE",
   "branch": "dev/r1-c4b2-lsnt-v1.5-current",
   "base_evidence_commit": "6051f839aa5b495e833ca55d24f20340ee0e9c8e",
   "public_exact_code_commit": "d1d44a666ec88d87f1cfe817c88c573031abfc60",
   "public_ci_run_id": 33324897883,
-  "latest_evidence_ci_run_id": 33325553028,
+  "latest_freeze_ci_run_id": 33325682845,
   "public_route_registry_gate": "41/41 PASS",
   "public_canonical_creation_binding_gate": "52/52 PASS",
   "public_code_artifact_tar_sha256": "034f3bed29852510ad4a3b4c23c38c0e58e07ff6775ebdec0e3c87c6cb83f15d",
@@ -20,12 +20,26 @@
   "private_source_finance_equipment_report_sha256": "740ea88d8bc1a913c0cc71d843414bca604ce1237b4ebd819762fce6ea265bde",
   "cross_scenario_freeze_audit": "20/20 PASS",
   "cross_scenario_freeze_audit_report_sha256": "6ca3d8741e026a27d02e0ef8afb075d3c339c0b6bf936c86d77262855eb5b80b",
-  "scenario": {
+  "historical_scenario": {
     "scenario_id": "LSNT-V1.5-MULTI-1942",
     "source_pair_id": "LSNT-V1.5-MULTI-1942",
     "keeper_sha256": "9c1e609d50250599a30fdb3ec899cf8b62cc9638944891900d0a982d958760f6",
     "player_sha256": "9838b2f3e816e1ce08c29fa148eef765d2d1934a334ce8a78f8313fe6dc1b889",
-    "source_identity": "2/2 PASS"
+    "source_identity": "2/2 PASS",
+    "promotion_allowed": false
+  },
+  "supersession_guard": {
+    "active": true,
+    "superseding_pair": "LSNT-V1.7-STANDALONE-1942",
+    "keeper_id": "LSNT-GARDIEN-V1.7-STANDALONE-1942",
+    "player_id": "LSNT-JOUEUR-V1.7-STANDALONE-1942",
+    "v1_5_runtime_dependency": false,
+    "external_authority_lock_id": "SOLIDSTATE-AUTHORITY-LOCK-D5-304",
+    "external_authority_lock_level": "ABOVE_INSTALL_PACK",
+    "external_authority_payload_sha256": "18490fbad2ceaeda10d1ad43295474e6c6c0103014c93e004323ec0405df079e",
+    "v1_7_exact_source_hashes_currently_materialized": false,
+    "v1_7_migration_status": "VERSION_NON_CONFIRMEE",
+    "evidence_file": "development/r1-c4b2-lsnt-v1.5-current/ANTI_ROLLBACK_V1_7_SUPERSEDES_V1_5.json"
   },
   "registry_verified": {
     "registry_id": "COC7_RECOVERY_REGISTRY_R1_C4B2_LSNT_V1",
@@ -48,7 +62,7 @@
     "unknown_equipment_zero_mutation": true
   },
   "cross_scenario_verified": {
-    "playable_scenarios": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR", "SOLEIL_NOIR"],
+    "playable_scenarios": ["BRUME", "ANTRE", "MUSE", "EXPLORATEUR", "SOLEIL_NOIR_V1_5_HISTORICAL"],
     "player_counts": [1, 2, 3, 4],
     "playable_cases": "20/20 PASS",
     "creation_commits": 50,
@@ -65,10 +79,13 @@
     "finance_rules_era": "1920S",
     "separate_1942_finance_model_invented": false,
     "complete_purchase_price_availability_economy": "NOT_CLAIMED",
-    "maison_pendu_private_source_mounted": false
+    "maison_pendu_private_source_mounted": false,
+    "v1_7_pdf_bytes_mounted_in_current_runtime": false,
+    "required_v7_8_1_correction_zip_bytes_verified_in_current_runtime": false
   },
+  "promotion_blocked_by": "LSNT-V1.7-STANDALONE-1942",
   "private_source_content_embedded": false,
   "authority_promoted": false,
   "checkpoint_created": false,
-  "next_gate": "RECOVERY_R1_RELEASE_CANDIDATE_FULL_AUDIT"
+  "next_gate": "R1_C4B2_LSNT_V1_7_SOURCE_IDENTITY_AND_MIGRATION"
 }
