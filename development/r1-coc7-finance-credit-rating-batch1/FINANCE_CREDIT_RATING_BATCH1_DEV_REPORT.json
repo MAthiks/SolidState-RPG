@@ -1,0 +1,35 @@
+{
+  "schema": "COC7_FINANCE_CREDIT_RATING_BATCH1_DEV_REPORT_V1",
+  "module_id": "COC7_FINANCE_CREDIT_RATING_R1_BATCH1_DEV_V1",
+  "result": "PASS",
+  "source_commit_tested": "7ed50338fde863e425a9e0ad090db47d0bd1635b",
+  "github_actions_run_id": 33306078960,
+  "targeted_tests": {
+    "passed": 99,
+    "total": 99
+  },
+  "prior_validated_chain": {
+    "passed": 1173,
+    "total": 1173
+  },
+  "combined_chain": {
+    "passed": 1272,
+    "total": 1272
+  },
+  "source_grounded": true,
+  "credit_rating_experience_tick_allowed": false,
+  "public_cash_assets_table_values_embedded": false,
+  "public_cash_refresh_values_embedded": false,
+  "public_spending_level_values_embedded": false,
+  "private_adapter_required_for_exact_finance_profile": true,
+  "automatic_asset_conversion": false,
+  "automatic_asset_conversion_duration": false,
+  "automatic_debt_terms": false,
+  "automatic_credit_rating_change_without_gate": false,
+  "insufficient_cash_partial_mutation": false,
+  "random_values_generated_by_module": false,
+  "private_pdf_embedded": false,
+  "authority_promoted": false,
+  "checkpoint_created": false,
+  "status": "DEV_VALIDATED_NOT_AUTHORITY"
+}
