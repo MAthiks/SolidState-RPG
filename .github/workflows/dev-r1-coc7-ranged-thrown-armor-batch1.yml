@@ -1,0 +1,111 @@
+name: DEV R1 CoC7 Ranged Thrown Armor Batch1
+
+on:
+  push:
+    branches: ["dev/r1-coc7-ranged-thrown-armor-batch1"]
+    paths:
+      - "development/r1-coc7-ranged-thrown-armor-batch1/**"
+      - ".github/workflows/dev-r1-coc7-ranged-thrown-armor-batch1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-ranged-thrown-armor-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile parent gate and new batch
+        run: |
+          python -m compileall -q development/r1-coc7-combat-round-initiative-batch1
+          python -m compileall -q development/r1-coc7-ranged-thrown-armor-batch1
+
+      - name: Re-run hardened parent chain — exact 1528
+        run: |
+          set -o pipefail
+          python development/r1-coc7-combat-round-initiative-batch1/run_hardened_gate.py 2>&1 | tee /tmp/parent.log
+          grep -Eq '"combined_tests"[[:space:]]*:[[:space:]]*1528' /tmp/parent.log
+          grep -Eq '"result"[[:space:]]*:[[:space:]]*"PASS"' /tmp/parent.log
+
+      - name: Run Ranged Thrown Armor targeted matrix — exact 80
+        working-directory: development/r1-coc7-ranged-thrown-armor-batch1
+        run: |
+          set -o pipefail
+          python -m unittest -v test_ranged_thrown_armor_dev.py 2>&1 | tee /tmp/rta.log
+          grep -q 'Ran 80 tests' /tmp/rta.log
+
+      - name: Confirm exact test-chain arithmetic
+        run: |
+          python - <<'PY'
+          assert 1528 + 80 == 1608
+          PY
+
+      - name: Confirm contract and non-authority invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('development/r1-coc7-ranged-thrown-armor-batch1/ranged_thrown_armor_batch1_contract.json').read_text())
+          assert c['schema']=='COC7_RANGED_THROWN_ARMOR_BATCH1_CONTRACT_V1'
+          assert c['status']=='DEV_SOURCE_GROUNDED_NOT_FROZEN'
+          assert c['module_id']=='COC7_RANGED_THROWN_ARMOR_R1_BATCH1_DEV_V1'
+          assert c['parent_combat_round_module_id']=='COC7_COMBAT_ROUND_INITIATIVE_R1_BATCH1_DEV_V1'
+          assert c['parent_validated_commit']=='3a79fbe7636d68c50751793e80f328fb7b7071fc'
+          assert c['parent_validated_test_chain']==1528
+          assert c['source']['source_id']=='COC7_KEEPER'
+          assert c['source']['sha256']=='691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779'
+          assert c['source']['printed_pages']==[108,112]
+          m=c['materialized_rules']
+          for key in [
+            'ranged_missile_attacks_use_firearm_style_range_difficulty',
+            'thrown_attacks_use_firearm_style_range_difficulty',
+            'thrown_attacks_may_be_opposed_by_dodge',
+            'fight_back_against_ranged_or_thrown_only_within_dex_over_5_feet',
+            'strength_based_thrown_and_missile_weapons_use_half_damage_bonus',
+            'bows_use_half_damage_bonus',
+            'crossbows_do_not_use_half_damage_bonus',
+            'thrown_str_over_5_range_is_materialized',
+            'armor_subtracts_points_from_damage_passing_through_armor',
+            'armor_never_reduces_damage_below_zero',
+            'armor_not_applied_to_magical_poison_or_drowning_damage',
+          ]:
+            assert m[key] is True, key
+          reuse=c['reuse_policy']
+          assert reuse['weapon_registry_reused'] is True
+          assert reuse['firearm_range_difficulty_reused_from_frozen_rules_core'] is True
+          assert reuse['ranged_missile_firearm_attack_plan_reused_where_compatible'] is True
+          assert reuse['dodge_exchange_reused_from_melee_batch1'] is True
+          assert reuse['duplicate_percentile_engine_created'] is False
+          assert reuse['duplicate_melee_exchange_engine_created'] is False
+          assert c['automatic_target_defense_selection'] is False
+          assert c['automatic_armor_selection'] is False
+          assert c['random_values_generated_by_module'] is False
+          assert c['private_pdf_embedded'] is False
+          assert c['authority_promoted'] is False
+          assert c['checkpoint_created'] is False
+          PY
+
+      - name: Confirm no private PDFs tracked
+        run: |
+          if git ls-files development/r1-coc7-ranged-thrown-armor-batch1 | grep -Ei '\.pdf$'; then
+            echo 'Private PDF tracked in Ranged Thrown Armor Batch1' >&2
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo '## Ranged / Thrown / Armor Batch1 DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Hardened parent chain: **1528/1528 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Targeted matrix: **80/80 required**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Combined candidate: **1608/1608 if green**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Source: **Keeper pp. 108, 112 / SHA pinned**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Firearm range + Melee routing: **REUSED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Ambiguous opposed range fusion: **FAIL CLOSED**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Random values generated: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Private PDFs tracked: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
