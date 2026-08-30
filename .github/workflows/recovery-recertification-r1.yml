@@ -1,4 +1,4 @@
-name: Recovery Recertification R1-A
+name: Recovery Recertification R1
 
 on:
   push:
@@ -44,22 +44,84 @@ jobs:
       - name: Compile tracked Python sources
         run: python -m compileall -q patches recovery/recertification-r1
 
-      - name: Write gate summary
-        shell: bash
-        run: |
-          echo '## Recovery Recertification R1-A' >> "$GITHUB_STEP_SUMMARY"
-          echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Public provenance gate: **PASS**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Playable runtime certified: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Private source-backed recertification: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Checkpoint 334 created: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Android APK promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Next gate: `R1-B_NEW_RUNTIME_MATERIALIZATION`' >> "$GITHUB_STEP_SUMMARY"
-
       - name: Upload R1-A evidence
         uses: actions/upload-artifact@v4
         with:
           name: recovery-recertification-r1-a-evidence
           path: recovery/recertification-r1/R1_A_GATE_REPORT.json
+          if-no-files-found: error
+          retention-days: 30
+
+  runtime-materialization-gate:
+    needs: public-provenance-gate
+    runs-on: ubuntu-latest
+    env:
+      RECOVERY_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run source-tree R1-B self-test
+        working-directory: recovery/recertification-r1
+        run: python -m runtime_r1.self_test
+
+      - name: First deterministic build
+        env:
+          R1_B_OUTDIR: ${{ runner.temp }}/r1b_first
+        run: |
+          python recovery/recertification-r1/build_runtime_package_r1.py
+          sha256sum "${R1_B_OUTDIR}/SolidState_Recovery_Runtime_R1_B.zip" | tee "${RUNNER_TEMP}/r1b_first.sha256"
+
+      - name: Second deterministic build
+        env:
+          R1_B_OUTDIR: ${{ github.workspace }}/recovery/recertification-r1/dist
+        run: |
+          python recovery/recertification-r1/build_runtime_package_r1.py
+          FIRST_SHA="$(awk '{print $1}' "${RUNNER_TEMP}/r1b_first.sha256")"
+          SECOND_SHA="$(sha256sum "${R1_B_OUTDIR}/SolidState_Recovery_Runtime_R1_B.zip" | awk '{print $1}')"
+          test "$FIRST_SHA" = "$SECOND_SHA"
+          echo "DETERMINISTIC_PACKAGE_SHA256=$SECOND_SHA"
+          test "$SECOND_SHA" != "75cd524d80b376f35d7db04e2c3d7833524cbf3fa4f1cc3f19beaad58e569add"
+          jq -e '.byte_identical_to_historical_329 == false' "${R1_B_OUTDIR}/R1_B_BUILD_REPORT.json"
+
+      - name: Verify extracted package and rerun self-test
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "${RUNNER_TEMP}/r1b_extract"
+          mkdir -p "${RUNNER_TEMP}/r1b_extract"
+          unzip -q recovery/recertification-r1/dist/SolidState_Recovery_Runtime_R1_B.zip -d "${RUNNER_TEMP}/r1b_extract"
+          cd "${RUNNER_TEMP}/r1b_extract/SolidState_Recovery_Runtime_R1_B"
+          python verify_package.py
+          PYTHONPATH=. python -m runtime_r1.self_test
+
+      - name: Write R1-B summary
+        shell: bash
+        run: |
+          SHA="$(jq -r '.zip_sha256' recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json)"
+          echo '## Recovery Recertification R1' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-A public provenance: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- R1-B runtime materialization: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo "- Recovery ZIP SHA-256: \`$SHA\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Deterministic rebuild: **PASS**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Historical Checkpoint329 byte identity claimed: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Playable/source-backed authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Next gate: `R1-C_PRIVATE_SOURCE_BACKED_FULL_RECERTIFICATION`' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload R1-B candidate and evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-recertification-r1-b-runtime
+          path: |
+            recovery/recertification-r1/dist/SolidState_Recovery_Runtime_R1_B.zip
+            recovery/recertification-r1/dist/R1_B_BUILD_REPORT.json
           if-no-files-found: error
           retention-days: 30
