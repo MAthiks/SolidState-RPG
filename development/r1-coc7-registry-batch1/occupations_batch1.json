@@ -2,6 +2,7 @@
   "schema": "COC7_RECOVERY_OCCUPATION_BATCH_DEV_V1",
   "batch_id": "COC7_OCCUPATIONS_BATCH1_R1_DEV",
   "status": "DEV_SOURCE_GROUNDED_NOT_FROZEN",
+  "parent_registry_id": "COC7_RECOVERY_REGISTRY_R1_C4_V1",
   "source": {
     "source_id": "COC7_INVESTIGATOR",
     "document": "Call of Cthulhu 7e Investigator Handbook",
