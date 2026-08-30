@@ -144,7 +144,7 @@ class CombatFirearmsBatch1Tests(unittest.TestCase):
 
     def test_038_regular_hit(self):
         p=self.plan(distance=10)
-        r=combat.resolve_attack(skill_value=60,units=0,tens=[3],plan=p)
+        r=combat.resolve_attack(skill_value=60,units=0,tens=[4],plan=p)
         self.assertTrue(r['hit'])
         self.assertEqual(r['success_level'],'REGULAR')
 
