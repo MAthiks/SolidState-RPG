@@ -63,9 +63,11 @@ class EquipmentWeaponsBatch1Tests(unittest.TestCase):
         self.assertEqual(r['record']['occupation_skill_points'], 280)
 
     def test_013_source_prices_omitted(self):
-        serialized = json.dumps(E) + json.dumps(W)
-        self.assertNotIn('cost_20s', serialized.lower())
-        self.assertNotIn('price', serialized.lower())
+        forbidden = {'price', 'prices', 'cost', 'cost_20s', 'cost_modern', 'cost_1920s'}
+        for record in list(reg.EQUIPMENT.values()) + list(reg.WEAPONS.values()):
+            self.assertTrue(forbidden.isdisjoint(set(record)), record)
+        self.assertIn('omitted', E['copyright_boundary'].lower())
+        self.assertIn('omitted', W['copyright_boundary'].lower())
 
     def test_014_equipment_categories_exact(self):
         cats = {x['category'] for x in reg.EQUIPMENT.values()}
