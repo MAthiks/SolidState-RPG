@@ -1,0 +1,66 @@
+name: DEV R1-C4B2 LSNT v1.7
+
+on:
+  push:
+    branches: [recovery/recertification-r1]
+    paths:
+      - development/r1-c4b2-lsnt-v1.7/**
+      - .github/workflows/dev-r1-c4b2-lsnt-v1.7.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - development/r1-c4b2-lsnt-v1.7/**
+      - .github/workflows/dev-r1-c4b2-lsnt-v1.7.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-dev-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Compile only C4B2 DEV sources
+        run: python -m compileall -q development/r1-c4b2-lsnt-v1.7
+
+      - name: Run targeted LSNT v1.7 DEV tests
+        working-directory: development/r1-c4b2-lsnt-v1.7
+        run: python test_lsnt_v1_7_dev.py
+
+      - name: Confirm no v1.7 private PDF is tracked
+        run: |
+          set -euo pipefail
+          if git ls-files | grep -Ei 'Le_Soleil_Noir_de_Tobrouk_v1\.7_.*\.pdf|LSNT.*v1\.7.*\.pdf'; then
+            echo 'Private v1.7 PDF tracked in repository' >&2
+            exit 1
+          fi
+
+      - name: Confirm DEV remains non-authoritative
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('development/r1-c4b2-lsnt-v1.7/LSNT_V1_7_SCENARIO_MANIFEST_DEV.json')
+          d = json.loads(p.read_text())
+          assert d['status'] == 'STRUCTURE_COMPILED_SOURCE_HASH_PENDING_NOT_ROUTE_READY'
+          assert d['authority_promoted'] is False
+          assert d['promotion']['frozen_candidate'] is False
+          assert d['promotion']['checkpoint334_created'] is False
+          assert d['promotion']['android_promoted'] is False
+          assert d['source_gate']['startup_until_hashes_materialized'] == 'BLOCKED'
+          PY
+
+      - name: Summary
+        run: |
+          echo '## R1-C4B2 LSNT v1.7 - DEV gate' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Targeted tests only: **YES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Full R1 recertification triggered by DEV directory: **NO**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- v1.7 structure compiled: **YES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Exact source hashes: **PENDING BYTES MOUNT**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Runtime startup: **FAIL-CLOSED / BLOCKED UNTIL HASHES**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Authority promoted: **NO**' >> "$GITHUB_STEP_SUMMARY"

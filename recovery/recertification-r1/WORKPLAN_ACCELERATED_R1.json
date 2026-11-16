@@ -1,0 +1,73 @@
+{
+  "schema": "SOLIDSTATE_ACCELERATED_WORKPLAN_R1_V1",
+  "status": "WORKPLAN_ACTIVE_NOT_AUTHORITY",
+  "date": "2026-08-30",
+  "authority_floor": {
+    "checkpoint": 333,
+    "id": "MULTIPLAYER_FULL_STACK_RELEASE_AUDIT_V2"
+  },
+  "current_frozen_candidate": "R1-C4B_MAISON",
+  "validation_modes": {
+    "DEV": "targeted component tests only",
+    "MODULE_READY": "full matrix for the completed module",
+    "RELEASE_CANDIDATE": "full-chain rebuild and complete non-regression certification"
+  },
+  "scenario_pipeline": [
+    "SCENARIO_MANIFEST",
+    "SOURCE_GATE",
+    "CANONICAL_GRAPH",
+    "PLAYER_PROJECTION",
+    "STATE_BINDING",
+    "MODULE_TEST_MATRIX"
+  ],
+  "next_scenario_gate": {
+    "id": "R1-C4B2",
+    "scenario": "Le Soleil Noir de Tobrouk",
+    "target_runtime_edition": "v1.7",
+    "older_editions_runtime_status": "PROVENANCE_ONLY",
+    "requires_v1_7_source_hash_materialization_before_compile": true
+  },
+  "parallel_lanes": {
+    "A_SCENARIOS": [
+      "Soleil Noir v1.7",
+      "normalize ROUTE_READY scenarios to generic contract",
+      "extend official scenario registry",
+      "scenario module matrices"
+    ],
+    "B_COC7_RULES": [
+      "occupations batch expansion",
+      "skills completion/normalization",
+      "equipment expansion",
+      "weapons expansion",
+      "remaining core mechanics",
+      "rules package module matrices"
+    ]
+  },
+  "registry_targets": [
+    "skills.json",
+    "occupations.json",
+    "equipment.json",
+    "weapons.json"
+  ],
+  "freeze_policy": "freeze deterministic ZIP/SHA only at FROZEN_CANDIDATE",
+  "release_path": [
+    "Checkpoint333 authority",
+    "R1-C4B Maison frozen",
+    "R1-C4B2 Soleil Noir v1.7",
+    "CoC7 registry expansion in parallel",
+    "scenario pipeline normalization",
+    "full non-regression matrix",
+    "Recovery R1 Release Candidate",
+    "promotion decision / possible new checkpoint",
+    "Android integration"
+  ],
+  "invariants": {
+    "anti_rollback": true,
+    "private_commercial_pdfs_publicly_embedded": false,
+    "unverified_mechanics_fail_closed": true,
+    "unverified_scenario_sources_fail_closed": true,
+    "frozen_ancestors_immutable": true,
+    "checkpoint334_created_by_workplan": false,
+    "android_promoted_by_workplan": false
+  }
+}

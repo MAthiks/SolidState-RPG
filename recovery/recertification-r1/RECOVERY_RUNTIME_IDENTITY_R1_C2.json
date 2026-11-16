@@ -1,0 +1,44 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C2_IDENTITY_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C2_RUNTIME_RULES_INTEGRATION",
+  "integration_id": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C2_V1",
+  "package_name": "SolidState_Recovery_Runtime_R1_C2.zip",
+  "status": "CANDIDATE_NOT_AUTHORITY",
+  "documentary_authority_floor": 333,
+  "checkpoint334_created": false,
+  "android_apk_promoted": false,
+  "runtime_parent": {
+    "package": "SolidState_Recovery_Runtime_R1_B.zip",
+    "certified_candidate_sha256": "84fa2f46b6fae095aa0df83c79b2e7467605180edd9aaec7a8cd2b5ed5eef148"
+  },
+  "rules_dependency": {
+    "package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+    "zip_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "manifest_sha256": "db5e1a6daff660fdbb5df61b71ce569dc8e6c87841c17f485f76745c83a92a22",
+    "embedded_in_c2_package": true,
+    "historical_4_7_identity_claimed": false
+  },
+  "private_source_contract": {
+    "embedded": false,
+    "verification": "external path + exact SHA-256 before adjudication",
+    "known_source_records": 8
+  },
+  "materialized_integration": [
+    "actor-bound source-backed skill check",
+    "source-backed HP damage commit",
+    "source-backed derived investigator stats",
+    "source-backed opposed roll",
+    "source-backed firearm range difficulty",
+    "source-backed SAN resolution read-only",
+    "rules ZIP and manifest cryptographic identity gate",
+    "private source exact-hash gate",
+    "save/resume and Strict Replay continuity for materialized HP journal mutations"
+  ],
+  "fail_closed_limits": [
+    "SAN state mutation is not materialized in R1-C2.",
+    "Unmigrated CoC7 mechanics return MECHANIC_UNMATERIALIZED or remain outside the interface.",
+    "A missing or mismatched private source blocks before dice and state mutation.",
+    "A missing or mismatched Rules Package blocks before dice and state mutation."
+  ]
+}

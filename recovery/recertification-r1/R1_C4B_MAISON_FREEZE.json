@@ -1,0 +1,18 @@
+{
+  "schema": "SOLIDSTATE_R1_C4B_MAISON_FREEZE_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "result": "PASS",
+  "status": "FROZEN_CANDIDATE_NOT_AUTHORITY",
+  "source_commit": "8b05b0f532b2f0d977865227fa268aaae74b9b85",
+  "freeze_commit": "ec81afd95b536471cb46f63c0f4cde6f8e133e44",
+  "package": "SolidState_Recovery_Runtime_R1_C4B_MAISON.zip",
+  "zip_sha256": "b6ebc6acde07a3063c6eef4025d4fa4c35a35d2c5839a66123c64c6821fb39cd",
+  "parent_r1_c4_sha256": "e719a9295e088e48c23eec0d698d046045dd8f6dfa0e5713aa05cd53b114cb1b",
+  "embedded_rules_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+  "maison_source_sha256": "03867cec90056dfb2777bdc6ff38013dd44acad9d8b08ecd571e795518ba1ee0",
+  "private_matrix": "93/93 PASS",
+  "identity_reproduced_after_freeze_commit": true,
+  "private_pdf_committed": false,
+  "authority_promoted": false,
+  "next_gate": "R1-C4B2_SOLEIL_NOIR_CANONICAL_ROUTE_AND_REGISTRY_EXPANSION"
+}

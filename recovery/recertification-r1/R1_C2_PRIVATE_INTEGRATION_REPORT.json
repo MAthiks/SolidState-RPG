@@ -1,0 +1,57 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RUNTIME_R1_C2_PRIVATE_INTEGRATION_REPORT_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C2_RUNTIME_RULES_INTEGRATION",
+  "qualification": "PRIVATE_LOCAL_SOURCE_BACKED_INTEGRATION_PRECHECK",
+  "result": "PASS",
+  "authority_promoted": false,
+  "private_source_content_embedded": false,
+  "rules_package": {
+    "package_id": "COC7_RECOVERY_RULE_PACKAGE_R1_CORE_V1",
+    "zip_sha256": "c18ad9763b44eb0d2864bc61ab01aa709eda604f4318af8498e6759df8f4b8c2",
+    "manifest_sha256": "db5e1a6daff660fdbb5df61b71ce569dc8e6c87841c17f485f76745c83a92a22",
+    "identity": "PASS"
+  },
+  "private_sources": {
+    "verified": "8/8",
+    "records": [
+      {"source_id": "COC7_KEEPER", "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779", "identity": "PASS"},
+      {"source_id": "COC7_INVESTIGATOR", "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17", "identity": "PASS"},
+      {"source_id": "AE_COLLECTION", "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143", "identity": "PASS"},
+      {"source_id": "BRUME_KEEPER", "sha256": "76dc387ef0d24e2f03d5c2e906c89ac5709552a698a9c8d93a3df5fa8282a0fa", "identity": "PASS"},
+      {"source_id": "BRUME_PLAYER", "sha256": "86c414eb4d28d7bb907799b5b0e9fea2de4c600fd4d2792e304381e0688fb20b", "identity": "PASS"},
+      {"source_id": "ANTRE_SOURCE", "sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb", "identity": "PASS"},
+      {"source_id": "SOLEIL_NOIR_KEEPER", "sha256": "9c1e609d50250599a30fdb3ec899cf8b62cc9638944891900d0a982d958760f6", "identity": "PASS"},
+      {"source_id": "SOLEIL_NOIR_PLAYER", "sha256": "9838b2f3e816e1ce08c29fa148eef765d2d1934a334ce8a78f8313fe6dc1b889", "identity": "PASS"}
+    ]
+  },
+  "integration_tests": {
+    "passed": 31,
+    "total": 31,
+    "positive": [
+      "exact rules package identity",
+      "exact private source preflight",
+      "actor-bound source-backed skill adjudication",
+      "recorded strict-replay roll without reroll",
+      "source-backed HP damage commit",
+      "Strict Replay after HP damage",
+      "authenticated save/resume continuity",
+      "source-backed investigator derived stats",
+      "source-backed firearm range difficulty",
+      "source-backed opposed roll"
+    ],
+    "negative": [
+      "wrong source hash blocked with zero mutation",
+      "cross-character actor mismatch blocked with zero mutation",
+      "tampered rules package blocked with zero mutation",
+      "SAN commit blocked because replayable SAN mutation is not yet materialized"
+    ]
+  },
+  "scope_limits": [
+    "The migrated Rules Package is a partial source-grounded core, not the complete CoC7 corpus.",
+    "SAN mutation is intentionally fail-closed in R1-C2; read-only SAN resolution is available but authoritative state mutation waits for a replayable generic stat-delta journal.",
+    "Full occupations, skill registry, equipment/weapon registry, combat maneuvers, full healing, chase, magic and remaining mechanics are not yet recertified.",
+    "The historical 2300/2300 full-stack and 558/558 replay-equivalent successor matrix has not yet been rerun on this recovery lineage."
+  ],
+  "next_gate": "R1-C3_COMPLETE_RULES_STATE_DELTA_AND_SCENARIO_RECERTIFICATION"
+}

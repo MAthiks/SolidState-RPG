@@ -1,0 +1,43 @@
+{
+  "schema": "SOLIDSTATE_RECOVERY_RECERTIFICATION_R1_C_PRECHECK_V1",
+  "generation": "RECOVERY_RECERTIFICATION_R1",
+  "stage": "R1-C_PRIVATE_SOURCE_BACKED_FULL_RECERTIFICATION_PRECHECK",
+  "r1_b_package": {
+    "path": "SolidState_Recovery_Runtime_R1_B.zip",
+    "expected_sha256": "84fa2f46b6fae095aa0df83c79b2e7467605180edd9aaec7a8cd2b5ed5eef148",
+    "actual_sha256": "84fa2f46b6fae095aa0df83c79b2e7467605180edd9aaec7a8cd2b5ed5eef148"
+  },
+  "scenario_source_identity": {
+    "result": "PASS",
+    "sources": [
+      {"source_id": "AE_COLLECTION", "filename": "L'Appel de Cthulhu 7 - Aventures Effroyables.pdf", "sha256": "31e864a4603cba6fdacfebb6fc1e9239509507b369a3c54441f55b977ddf8143", "identity": "PASS"},
+      {"source_id": "BRUME_KEEPER", "filename": "Les_Registres_de_Brume_v1.1_Gardien_SPOILERS_Natif.pdf", "sha256": "76dc387ef0d24e2f03d5c2e906c89ac5709552a698a9c8d93a3df5fa8282a0fa", "identity": "PASS"},
+      {"source_id": "BRUME_PLAYER", "filename": "Les_Registres_de_Brume_v1.1_Joueur_Protege_Natif.pdf", "sha256": "86c414eb4d28d7bb907799b5b0e9fea2de4c600fd4d2792e304381e0688fb20b", "identity": "PASS"},
+      {"source_id": "ANTRE_SOURCE", "filename": "antre.pdf", "sha256": "4df3dfa3f1bfb8ecaabaf135cd3f0ac481326d72f334fb2155614553bac20ffb", "identity": "PASS"},
+      {"source_id": "SOLEIL_NOIR_KEEPER", "filename": "SoleilNoir_Gardien.pdf", "sha256": "9c1e609d50250599a30fdb3ec899cf8b62cc9638944891900d0a982d958760f6", "identity": "PASS"},
+      {"source_id": "SOLEIL_NOIR_PLAYER", "filename": "SoleilNoir_Joueur.pdf", "sha256": "9838b2f3e816e1ce08c29fa148eef765d2d1934a334ce8a78f8313fe6dc1b889", "identity": "PASS"}
+    ]
+  },
+  "rules_core": {
+    "required_id": "COC7_COMPILED_RULE_PACKAGE_4_7",
+    "required_sha256": "6c179ffeb3f7d78e19fddc7c1246e2357e0411d6491334761ca0a069d6a35dd7",
+    "present": false,
+    "raw_rulebooks_available_non_substitute": [
+      {"filename": "CocKeeper.pdf", "sha256": "691cd2fe986a235a42b30646811210d442954801e068fc11cece869d928bd779"},
+      {"filename": "CocInvesti.pdf", "sha256": "de81a35ab5a466340c2c0d39d036d3f69b1d38dbcc0f546aa0db7526998bed17"}
+    ],
+    "raw_rulebooks_may_substitute": false
+  },
+  "runtime_source_backed_adapter": {
+    "present_in_r1_b": false
+  },
+  "result": "BLOCKED_PRECONDITIONS",
+  "promotion_allowed": false,
+  "checkpoint334_created": false,
+  "android_apk_promoted": false,
+  "blockers": [
+    "COC7_COMPILED_RULE_PACKAGE_4_7 bytes are unavailable.",
+    "R1-B has no source-backed scenario/CoC7 adjudication adapter yet."
+  ],
+  "next_safe_action": "R1-C1_BUILD_NEW_RULES_AND_SOURCE_ADAPTER_UNDER_NEW_IDENTITY"
+}
