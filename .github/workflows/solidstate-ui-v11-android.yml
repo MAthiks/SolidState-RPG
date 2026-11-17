@@ -1,0 +1,59 @@
+name: SolidState UI 1.0 Android DEBUG — public bootstrap
+on:
+  push:
+    branches: [android-public-ui-v1.1]
+    paths:
+      - android_public_loader/SS_Public_Bootstrap_UI_v11.b64
+      - .github/workflows/solidstate-ui-v11-android.yml
+permissions:
+  contents: read
+jobs:
+  build-public-ui:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${ANDROID_HOME:?ANDROID_HOME not set}"
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -n 1)"
+          test -x "$SDKMANAGER"
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "platforms;android-36" "build-tools;35.0.0"
+      - name: Verify and extract PUBLIC sources
+        run: |
+          mkdir -p public_build
+          base64 -d android_public_loader/SS_Public_Bootstrap_UI_v11.b64 > /tmp/solidstate-ui-public.tar.gz
+          echo "35599cebbb50c1fdc30c358d64ab97cc1e15df40be80a4b6e823b6224bbecdea  /tmp/solidstate-ui-public.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/solidstate-ui-public.tar.gz -C public_build
+          python public_build/scripts/audit_public_shell.py
+          python -m unittest discover -s public_build/tests -p 'test_*.py' -v
+      - name: Compile public UI APK
+        working-directory: public_build/android
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+      - name: Audit compiled APK without Keeper sources
+        run: |
+          python - <<'PY'
+          import sys, json
+          from pathlib import Path
+          sys.path.insert(0,'public_build/scripts')
+          from audit_public_shell import audit_apk
+          print(json.dumps(audit_apk(Path('public_build/android/app/build/outputs/apk/debug/app-debug.apk')),indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SolidState_UI_1_0_Android_Debug_APK
+          path: public_build/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
