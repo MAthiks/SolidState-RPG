@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -p public_build
           base64 -d android_public_loader/SS_Public_Bootstrap_UI_v11.b64 > /tmp/solidstate-ui-public.tar.gz
-          echo "7091e32b7a329db5c1541e89ff8f5e09d30637a6345fe4a93ff7376747b9fe80  /tmp/solidstate-ui-public.tar.gz" | sha256sum -c -
+          echo "6f6bb6567e912ecce4469959d06c85d08891d480e3e1fa7df59e4fa9ed7ebdfb  /tmp/solidstate-ui-public.tar.gz" | sha256sum -c -
           tar -xzf /tmp/solidstate-ui-public.tar.gz -C public_build
           python public_build/scripts/audit_public_shell.py
           python -m unittest discover -s public_build/tests -p 'test_*.py' -v
