@@ -44,7 +44,14 @@ jobs:
         working-directory: public_build/android
         run: gradle --no-daemon --stacktrace :app:assembleDebug
       - name: Auditor le fichier APK final
-        run: python public_build/scripts/audit_public_shell.py public_build/android/app/build/outputs/apk/debug/app-debug.apk
+        run: |
+          python - <<'PY'
+          import sys, json
+          from pathlib import Path
+          sys.path.insert(0, 'public_build/scripts')
+          from audit_public_shell import audit_apk
+          print(json.dumps(audit_apk(Path('public_build/android/app/build/outputs/apk/debug/app-debug.apk')), indent=2))
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: SolidState_Android_Public_Bootstrap_Debug_v1
