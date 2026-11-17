@@ -24,9 +24,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
-      - uses: android-actions/setup-android@v3
-      - name: Android SDK
-        run: sdkmanager --install "platforms;android-36" "build-tools;35.0.0"
+      - name: Android SDK (command-line tools pre-installed on runner)
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${ANDROID_HOME:?ANDROID_HOME not set on runner}"
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -n 1)"
+          test -x "$SDKMANAGER"
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "platforms;android-36" "build-tools;35.0.0"
       - name: Extraire les sources publiques et valider la provenance
         run: |
           mkdir -p public_build
